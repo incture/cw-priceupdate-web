@@ -1,0 +1,187 @@
+{
+	"_version": "1.5.0",
+	"sap.app": {
+		"id": "idSplitApp",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDesc}}",
+		"dataSources": {}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": "com.incture.view.App",
+		"dependencies": {
+			"minUI5Version": "1.30",
+			"libs": {
+				"sap.m": {},
+				"sap.tnt": {},
+				"sap.ui.unified": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"resources": {
+			"css": [{
+				"uri": "./css/Style.css"
+			}, {
+				"uri": "./css/font-awesome.css"
+			}, {
+				"uri": "./css/fonts.css"
+			}, {
+				"uri": "./css/approval.css"
+			}]
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"oMatSearchModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oSearchModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oPayloadModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oVariableKeyModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oAdvanceSearchModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oDisplaySearchModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oBusinessContextModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oMaterialModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oMatSectionModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oScalePathModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oSubmitModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oPaginationModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oUndoModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oApprovalPayloadModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oApprovalBusinessContextModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oApprovalMatSectionModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oApprovalScaleModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oApprovalVariableKeyModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oMasterPanelModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oMatLookupModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oVendLookUpModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oPlantLookupModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oPurchaseOrgModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oUPCLookupModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oElementVisibleModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oSplitRecordsModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oNetPriceModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oTempModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "com.incture.view",
+				"controlId": "idSplitApp",
+				"clearControlAggregation": "false"
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "master",
+				"target": [
+					"dashboard",
+					"master"
+				]
+			}, {
+				"pattern": "dashboard",
+				"name": "dashboard",
+				"target": [
+					"master",
+					"dashboard"
+				]
+			}, {
+				"pattern": "materialDetails",
+				"name": "materialDetails",
+				"target": [
+					"master",
+					"materialDetails"
+				]
+			}],
+			"targets": {
+				"master": {
+					"viewName": "Master",
+					"controlAggregation": "masterPages"
+				},
+				"dashboard": {
+					"viewName": "dashboard",
+					"controlAggregation": "detailPages"
+				},
+				"materialDetails": {
+					"viewName": "materialDetails",
+					"controlAggregation": "detailPages"
+				}
+			}
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
+	}
+}

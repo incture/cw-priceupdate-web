@@ -1,0 +1,54 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:viz="sap.viz.ui5.controls" xmlns="sap.m" xmlns:u='sap.uxap'
+	xmlns:layout="sap.ui.layout" controllerName="com.incture.controller.dashboard" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page showHeader="false" class="pageBackground">
+		<content>
+			<Panel headerText='{i18n>SEARCH_PARAMETERS}' expandable='true' expanded='true' class="panelClass">
+				<VBox class="priceUpdateHdrBoxClass sapUiSizeCompact">
+					<Bar class="searchBarClass">
+						<contentRight>
+							<Button text="{i18n>SEARCH}" class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin " press="onSearch"/>
+							<Button text="{i18n>CLEAR}" press="onCancel" class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin "/>
+						</contentRight>
+					</Bar>
+					<layout:Grid defaultSpan="L4 M4 S6" id="MAT_ADVANCE_GRID_LAY" class="detailGridClass"></layout:Grid>
+				</VBox>
+			</Panel>
+			<HBox class="priceUpdateHdrBoxClass sapUiSizeCompact priceUpdateHdrBoxClass1" id="MATERIAL_SEARCH_BOX">
+				<FlexBox items="{path:'oDisplaySearchModel>/displayData'}">
+					<items>
+						<VBox class="matSearchBoxClass">
+							<Label text="{oDisplaySearchModel>label}" class="matSearchLblClass searchlabelClass"/>
+							<Text text="{oDisplaySearchModel>fieldValue}" class="matSearchLblClass searchlabelClass"/>
+						</VBox>
+					</items>
+				</FlexBox>
+			</HBox>
+			<VBox class="priceUpdateHdrBoxClass sapUiSizeCompact">
+				<Bar class="toolbarClass">
+					<contentLeft>
+						<HBox class="tblSrchFldClass">
+							<Label text="{i18n>SEARCH_RESULT}" class="matTblLblClass searchlabelClass " design="Bold"/>
+						</HBox>
+					</contentLeft>
+					<!-- <contentRight> <HBox class="tblSrchFldClass"> <SearchField width="250px" 
+						class="" id="CREATE_PROMO_SEARCH" liveChange="getTableBindingPaths" selectOnFocus="false"></SearchField> 
+						</HBox> </contentRight> -->
+				</Bar>
+				<Table id="MATERIAL_RESULTS_TBL" class="materialTblClass" mode="SingleSelectMaster" selectionChange="onRowSelect"></Table>
+				<VBox justifyContent="Center" alignItems="Center">
+					<Label text="{path: 'oPaginationModel>/selectedPage', formatter: 'com.incture.formatter.formatter.formatPageNumber'}"
+						class="pageNumberStyleClass"/>
+					<HBox>
+						<Button icon="sap-icon://close-command-field" enabled="{oPaginationModel>/prevBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
+							press="onScrollLeft" type="Transparent"/>
+						<HBox items="{oPaginationModel>/counters}">
+							<Link text="{oPaginationModel>text}" press="onPageClick" class="paginationNumbers"/>
+						</HBox>
+						<Button icon="sap-icon://open-command-field" enabled="{oPaginationModel>/nextBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
+							press="onScrollRight" type="Transparent"/>
+					</HBox>
+				</VBox>
+			</VBox>
+		</content>
+	</Page>
+</core:View>

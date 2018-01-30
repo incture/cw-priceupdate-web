@@ -1,0 +1,144 @@
+{
+    "resources": [
+        {
+            "name": "i18n/i18n_en_US.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n_en_IN.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n_en.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "images/grad_180-1.png"
+        },
+        {
+            "name": "images/complitsplit.png"
+        },
+        {
+            "name": "images/partialSplit.png"
+        },
+        {
+            "name": "images/split2.png"
+        },
+        {
+            "name": "images/cherrywork_logo.png"
+        },
+        {
+            "name": "images/split1.png"
+        },
+        {
+            "name": "images/grad_120-1.png"
+        },
+        {
+            "name": "images/fd_logo_white.png"
+        },
+        {
+            "name": "images/placeholder.png"
+        },
+        {
+            "name": "images/logo.png"
+        },
+        {
+            "name": "images/legend1.png"
+        },
+        {
+            "name": "images/DetailColorLegend.png"
+        },
+        {
+            "name": "images/DetailColorLegend1.png"
+        },
+        {
+            "name": "formatter/formatter.js"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "view/mainView.view.xml"
+        },
+        {
+            "name": "view/ApprovalDetail.view.xml"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "view/ApprovalMaster.view.xml"
+        },
+        {
+            "name": "controller/ApprovalDetail.controller.js"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "controller/mainView.controller.js"
+        },
+        {
+            "name": "controller/ApprovalMaster.controller.js"
+        },
+        {
+            "name": "fragment/approvalScales.fragment.xml"
+        },
+        {
+            "name": "fragment/netPriceAnalysis.fragment.xml"
+        },
+        {
+            "name": "fragment/comments.fragment.xml"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "css/fonts.css"
+        },
+        {
+            "name": "css/font-awesome.css"
+        },
+        {
+            "name": "css/styleClass.css"
+        },
+        {
+            "name": "css/approvalStyle.css"
+        },
+        {
+            "name": "css/fonts/fontawesome-webfont.eot"
+        },
+        {
+            "name": "css/fonts/fontawesome-webfont.svg"
+        },
+        {
+            "name": "css/fonts/FontAwesome.otf"
+        },
+        {
+            "name": "css/fonts/fontawesome-webfont.woff"
+        },
+        {
+            "name": "css/fonts/fontawesome-webfont.woff2"
+        },
+        {
+            "name": "css/fonts/fontawesome-webfont.ttf"
+        },
+        {
+            "name": "index.html"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "neo-app.json"
+        }
+    ]
+}

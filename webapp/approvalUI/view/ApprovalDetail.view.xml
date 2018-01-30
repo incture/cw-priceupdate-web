@@ -1,0 +1,88 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" 
+ xmlns:u='sap.uxap' xmlns:layout="sap.ui.layout" controllerName="approvalui.controller.ApprovalDetail" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page showHeader="false" class="pageBackground">
+		<Toolbar class="sapUiSmallMarginBottom">
+			<Button  text="{i18n>SAVE}" enabled="false" press="onSave"  class="inctureCheckoutSaveBtn sapUiSizeCompact sapUiSmallMarginBegin saveBtnMargin" />
+			<!-- <Button  text="{i18n>NET_PRICE_ANALYSIS}" press="getNetPrice"
+				class="inctureCheckoutNetPriceBtn sapUiSizeCompact sapUiSmallMarginBegin " /> -->
+			<ToolbarSpacer />
+			<Button text="{i18n>APPROVE}" press="onApproveTask"
+				                  class="inctureCheckoutBtn sapUiSizeCompact sapUiSmallMarginBegin" />
+			<Button text="{i18n>REJECT}" press="onRejectTask"
+				class="inctureCheckoutRejectBtn sapUiSizeCompact sapUiSmallMarginBegin rejectBtnMargin" />
+			
+		</Toolbar>
+		<content>
+			<VBox>
+				<items>
+					<VBox class="priceUpdateBoxClass sapUiSizeCompact">
+						<Toolbar class="toolbarClass">
+							<Label text="{i18n>PURCHASE_INFO_RECORD}" class="matTblLblClass" design="Bold" />
+						</Toolbar>
+						<layout:Grid id="INFO_REC_GRID" defaultSpan="L4 M4 S6" class="detailGridClass">
+						</layout:Grid>
+					</VBox>
+					
+					<VBox class="priceUpdateHdrBoxStyleClass sapUiSizeCompact">
+						<Toolbar class="toolbarClass">
+							<Label text="{i18n>HEADER_DETIALS}" class="matTblLblClass" design="Bold" />
+						</Toolbar>
+						<Table id="VARIABLE_KEY_TBL" inset="false" class="materialTblClass sapUiSizeCompact">
+						</Table>
+					</VBox>
+					<VBox id="TABLEOFMATERIAL">
+					<Toolbar class="middletoolbar">
+						<SegmentedButton selectedKey="ALL" class="inctureSegBtns inctureConditonSegBtns sapUiSizeCompact sapUiSmallMarginBegin " >
+							<items>
+								<SegmentedButtonItem text="{i18n>CHANGED}" enabled="false" key="Change" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns"/>
+							 	<SegmentedButtonItem text="{i18n>ALL}" enabled="false" key="ALL" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns" />
+							</items>
+						</SegmentedButton>
+						<ToolbarSpacer></ToolbarSpacer>
+						<Button  text="{i18n>NET_PRICE_ANALYSIS}" press="getNetPrice" enabled="false"
+							class="inctureCheckoutNetPriceBtn sapUiSizeCompact sapUiSmallMarginBegin " />
+				     </Toolbar>
+				     
+					<VBox class="priceUpdateHdrBoxClass sapUiSizeCompact">
+						<IconTabBar items="{oApprovalMatSectionModel>/conditionTypes}"
+							select="onIconBarSelect" class="iconTabHeader sapUiResponsiveContentPadding iconTabItemClass">
+							<items>
+								<IconTabFilter key="{oApprovalMatSectionModel>conditionId}"
+									text="{oApprovalMatSectionModel>conditionName}" tooltip="{oApprovalMatSectionModel>conditionName}"/>
+							</items>
+							<content>
+								<Table id="PRICE_UPDATE_MAT_TABLE" class="materialTblClass"
+									mode="None">
+									<headerToolbar>
+										<Toolbar class="conditionRecordClass">
+											<Label text="{i18n>CONDITION_RECORDS}" design="Bold"
+												class="inctureTextClass" />
+											<ToolbarSpacer></ToolbarSpacer>
+											<!-- <ToolbarSpacer></ToolbarSpacer> -->
+											<Image src="images/DetailColorLegend1.png" class="legendImageClass"></Image>
+											<ToolbarSpacer></ToolbarSpacer>
+										    <SegmentedButton selectedKey="Active" class="inctureSegBtns toolbarSegBtn sapUiSizeCompact sapUiSmallMarginBegin " >
+								             	 <items> 
+									             	<SegmentedButtonItem text="{i18n>ACTIVE}" enabled="false" key="Active" press="onStatusUpdate" />
+									             	<SegmentedButtonItem text="{i18n>INACTIVE}" enabled="false" key="Inactive" press="onStatusUpdate" />
+								              	</items>
+											</SegmentedButton>
+										</Toolbar>
+									</headerToolbar>
+								</Table>
+							</content>
+						</IconTabBar>
+					</VBox>
+					<VBox class="priceUpdateBoxClass sapUiSizeCompact" height="10rem">
+						<HBox id="HEADER_CMNT_BOX">	
+						</HBox>
+					</VBox>
+				</VBox>
+				<VBox id="NETPRICEDATA"></VBox>
+				</items>
+			</VBox>
+			
+		</content>
+	</Page>
+		
+</core:View>

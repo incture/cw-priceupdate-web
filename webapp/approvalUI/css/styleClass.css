@@ -1,0 +1,1070 @@
+@CHARSET "ISO-8859-1";
+
+/* CSS Rules for Master Detail Page
+	1. Primary Color: rgb(11, 109, 63);
+	2. Secondary Color: #252525
+	3. All the predefined CSS Class for this project start with: inctureMD<ControlName>Class
+	4. To change the primary/secondary color, find and replace all. 
+	5. Modify the predefined CSS carefully.
+	6. Utility class for Margin and padding can be added to be used all over project.
+	   Format: InctureMD<Margin/Padding><L/R/T/B(Nothing for all sides)><Number>
+	   example: InctureMDMargin1rem -> Margin of 1 rem along all side
+	   example: InctureMDPaddingL0_5rem -> Left margin of 0.5rem
+
+*/
+ 
+ /******************** CSS for Incture Master Detail Template *********************************/
+ 
+.inctureMDSplitAppClass .sapMSplitContainerMaster {
+	width:16.69rem;
+}
+/* CSS Class for UI Shell header */
+
+
+/** CSS Class to increase the default Height of UI Shell header */
+.inctureMDShellClass .sapUiUfdShellHead{
+	height:3rem;
+	background-color: rgb(11, 109, 63); !important;
+}
+/* .inctureMDShellClass .sapUiUfdShellHead{
+	background-color: rgb(11, 109, 63); !important;
+} */
+
+.inctureMDShellClass .sapUiUfdShellCanvas {
+	top:3.2rem;
+}
+
+/** Makes the element Round */
+.incMRoundBorderRadiusClass {
+	border-radius:50%;
+	vertical-align:middle;
+}
+
+.incMHeaderBox .sapMFlexItem{
+	margin-right:1.4rem;
+}
+
+/** Master page background color */
+.incMasterPage {
+	/* background-color: #252525; */ 
+	/* background-color: rgb(66, 133, 250); */
+	 background-color: rgb(59, 62, 115) !important; 
+}
+
+/** text inside the VBOX of Master page */
+.inctureMDMasterVBoxClass .sapMText {
+	color: white;
+	text-shadow:none;
+	cursor:pointer;
+	vertical-align: middle;
+}
+
+/* Changing title inside VBox of Master Page */
+.inctureMDMasterVBoxClass .sapMTitle {
+	color: white;
+	text-shadow:none;
+	cursor:pointer;
+	vertical-align: middle;
+}
+
+/** CSS class for ICOns inside the VBox of Master page */
+.inctureMDMasterVBoxClass .sapUiIcon {
+	color: white;
+	text-shadow:none;
+	cursor:pointer;
+}
+
+/** This class hides the Arrow Icon shown with Panel. Chnage here to make it visible again */
+.inctureMDMasterPanelClass .sapMPanelExpandableIcon {
+	visibility: hidden;
+	width: 0;
+}
+
+/** Master Panel classes */
+.inctureMDMasterPanelClass .sapMTB {
+	margin-left: 0rem !important;
+	border-left: .5rem solid #252525;
+	border-bottom: 0;
+	height: 2.5rem;
+	
+}
+
+.inctureMDMasterPanelClass .sapMPanel>.sapMPanelHdr,
+.inctureMDMasterPanelClass.sapMPanelWrappingDiv,
+.inctureMDMasterPanelClass .sapMPanelWrappingDivTb {
+	border-bottom: 0;  	
+	height: 2.5rem;
+}
+
+/* This class Creates the Round circle on the Number of list item present on Each Panel ( on right side). */
+.inctureMDMasterPanelClass .inctureMDBadge {
+	background: #f2f2f2;
+	color: #252525;
+	width:1rem;
+	height:1rem;
+	text-align:center;
+	line-height:1rem;
+	border-radius:50%;
+	box-shadow:0 0 1px #333;
+}
+
+.inctureMDMasterPanelClass .sapMHBox {
+	cursor: pointer;
+}
+
+.inctureMDMasterPanelClass .sapMPanelContent {
+	padding: 0;
+}
+
+.inctureMDITBClass .sapMITBHead {
+	margin:0;
+	padding:0;
+}
+
+/** Class for background color of Icon tab bar Header */
+.inctureMDITBClass .sapMITH {
+	background-color: white;
+	border:0;
+	box-shadow: none;
+}
+
+/** Change the header color of background once the Tab is selected */
+.inctureMDITBClass .sapMITBSelected {
+	background-color: #f2f2f2;
+}
+
+.inctureMDITBClass .sapMITBScrollContainer {
+	margin:0 1.5rem;
+	font-size: 1.5rem;
+}
+
+.inctureMDITBClass .sapMITBArrowScrollRightTextOnly {
+	padding: 0 .4px;
+	font-size: 1.5rem;
+	top: .6rem;
+}
+
+.inctureMDITBClass .sapMITBArrowScrollLeftTextOnly {
+	padding: 0 .4px;
+	font-size: 1.5rem;
+	top: .6rem;
+}
+
+.inctureMDITBClass .sapMITBInLine.sapMITBTextOnly>.sapMITBVertical {
+	height: 2.875rem;
+}
+
+.inctureMDITBClass .sapMITBInLine .sapMITBFilter>.sapMITBText{
+	margin:0;
+	margin-top:  0.8125rem;
+}
+
+.inctureMDITBClass .sapMITBTextOnly .sapMITBFilter{
+	margin: 0;
+}
+.inctureMDITBClass .sapMITBTextOnly .sapMITBFilter .sapMITBText{
+	/* width:7.625rem; */
+	padding: 0 1rem 0 1rem;
+	text-align:center;
+}
+.inctureMDITBClass .sapMITBFilter:last-child,.inctureMDITBClass .sapMITBNoText .sapMITBFilter:last-child {
+	padding-right: 0 !important;
+}
+.inctureMDITBClass .sapMITB .sapMITBItemNoCount.sapMITBFilter:last-child {
+	padding-right:0 !important;
+}
+
+/** Removing dotted outline once the Tab is selected */
+html.sap-desktop .inctureMDITBClass .sapMITBItem:focus .sapMITBFilterIcon, html.sap-desktop .inctureMDITBClass .sapMITBTextOnly .sapMITBItem:focus .sapMITBText, html.sap-desktop .inctureMDITBClass .sapMITBItem:focus.sapMITBAll {
+	outline: none;
+}
+
+/* Height available for icon tab bar content is 100 - 3rem ( height of top bar)
+	Also, background of content area is secondary color.
+ */
+.inctureMDITBClass .sapMITBContainerContent {
+	height: calc(100% - 3rem);
+	background-color: #f2f2f2;
+	
+}
+
+.inctureMDITBClass .sapMITBContent {
+	border-bottom: 0;
+	padding:0;
+	background-color: #f2f2f2;
+	height: 100%;
+}
+
+/** Utility class for provide margin of 1rem along all sides. */
+.inctureMDMargin1remClass {
+	margin: 1rem;
+}
+/** Utility class for providing 0.5rem along all side */
+.inctureMDMargin0_5remClass {
+	margin: 0.5rem;
+}
+.inctureMDPadding1remClass {
+	padding: 1rem;
+}
+.InctureMDLMargin4remClass {
+	margin-left: 4rem;
+}
+.InctureMDLMargin1remClass {
+	margin-left: 1rem !important;
+}
+.inctureMDRightBoxClass .sapMFlexItem{
+	padding: 0 0.5rem;
+}
+.inctureMDNotificationClass .sapMNLB-AuthorPicture .sapUiIcon {
+	color: black;
+	font-size:2rem;
+	border-radius:50%
+}
+.inctureMDUserDetailsClass.sapMLIB {
+	background-color: transparent;
+	
+}
+.inctureMDUserDetailsClass.sapMLIB .sapMSLITitle {
+		color: white;
+}
+.inctureMDUserDetailsClass.sapMLIB .sapMSLIDescription {
+		color: white;
+}
+
+/* Hiding the Person image on Top bar when screen size is small.
+NOTE: If you change the GRID size, change the below Span classes as well */
+.sapUiRespGridMedia-Std-Phone.sapUiRespGridHSpace1>.sapUiRespGridSpanS9 .inctureMDPersonImageClass {
+	display: none;
+}
+.inctureMDActionGrid {
+	padding-top: 0.8rem !important;	
+}
+
+/******************** CSS for Incture MAster Detail Template - Over *********************************/
+.sapMTB-Transparent-CTX .sapMLabel {
+    color: green;
+}
+
+.sapMTitle{
+	 color: #333333;
+}
+
+/******************** CSS for Incture Master Detail Template *********************************/
+.sapUiGlobalBackgroundColor {
+	background-color: #eee;
+}
+
+/* CSS Class for UI Shell header */
+.inctureMDBarClass {
+	/* background-color: rgb(11, 109, 63) !important; */
+	/* background-color: rgb(66, 133, 250) !important;*/ 
+	background-color: rgb(59, 62, 115) !important; 
+}
+
+/** CSS Class to increase the default Height of UI Shell header */
+.inctureMDShellClass .sapUiUfdShellHeadItm>span {
+	color: #fff;
+}
+
+.inctureMDShellClass .sapUiUfdShellHead {
+	height: 3rem;
+	top: 0px;
+	background: transparent;
+}
+
+.inctureMDShellClass .sapUiUfdShellCanvas {
+	top: 2.75rem;
+}
+
+.inctureMDShellClass .sapUiUfdShellBrand {
+	background-color: transparent;
+}
+
+.inctureMDShellClass .sapUiUfdShell {
+	background-color: #0080b9;
+}
+
+.inctureMDShellClass .sapUiUfdShellHead>div {
+	background-color: #0080b9;
+}
+
+.inctureMDShellClass .sapUiUfdShellSearch {
+	width: 70%;
+	max-width: none;
+}
+
+.inctureMDShellClass .sapUiUfdShellHeadCenter {
+	text-align: left;
+	left: 15.5rem !important;
+}
+
+/** Header Logo Class **/
+.inctureMDShellClass .sapUiUfdShellHeadBegin>.sapUiUfdShellIco {
+	padding-left: 50px;
+	margin-top: -5px;
+}
+
+.inctureMDShellClass .sapUiUfdShellHeadBegin>.sapUiUfdShellIco>img {
+	max-height: 50px
+}
+
+
+/** Makes the element Round */
+.incMRoundBorderRadiusClass {
+	border-radius: 50%;
+	vertical-align: middle;
+}
+
+.incMHeaderBox .sapMFlexItem {
+	margin-right: 1.4rem;
+}
+
+/** Master page background color */
+/* .incMasterPage {
+	background-color: #252525;
+} */
+
+/** text inside the VBOX of Master page */
+.inctureMDMasterVBoxClass .sapMText {
+	color: white;
+	text-shadow: none;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+/* Changing title inside VBox of Master Page */
+.inctureMDMasterVBoxClass .sapMTitle {
+	color: white;
+	text-shadow: none;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+/** CSS class for ICOns inside the VBox of Master page */
+.inctureMDMasterVBoxClass .sapUiIcon {
+	color: white;
+	text-shadow: none;
+	cursor: pointer;
+}
+
+
+/** Change the color of text once the Panel is selected */
+.inctureMDMasterVBoxClass .inctureMDMasterPanelSolidClass .sapMText {
+	color: #252525;
+	text-shadow: none;
+	cursor: pointer;
+}
+
+/** Change the color of title once the Panel is selected */
+.inctureMDMasterVBoxClass .inctureMDMasterPanelSolidClass .sapMTitle {
+	color: #252525;
+	text-shadow: none;
+	cursor: pointer;
+}
+/** Change the color of Icon once the Panel is selected */
+.inctureMDMasterVBoxClass .inctureMDMasterPanelSolidClass .sapUiIcon {
+	color: #252525;
+	text-shadow: none;
+	cursor: pointer;
+}
+
+/** Change the color of badge (list item no) once the Panel is selected */
+.inctureMDMasterPanelSolidClass .inctureMDBadge {
+	background: #252525;
+	color: #f2f2f2 !important;
+	width: 1rem;
+	height: 1rem;
+	text-align: center;
+	line-height: 1rem;
+	border-radius: 50%;
+	box-shadow: 0 0 1px #333;
+}
+
+/** CSS Class applied to each list item inside Panel of Master Page */
+.inctureMDMasterListClass .inctureMDMasterListItemClass {
+	background: #424040;
+	border-bottom: 0;
+	border-left: .5rem solid #424040;
+	height: 2.5rem;
+}
+
+/** Remove the hightlight class after click. Dotted border */
+.inctureMDMasterListClass .sapMLIBFocusable:focus {
+	outline: 0;
+}
+
+/** Once the list item is selected, change the background color */
+.inctureMDMasterListClass .inctureMDMasterListItemClass.sapMLIBSelected
+	{
+	background: #f2f2f2 !important;
+	border-bottom: 0;
+	border-left: .5rem solid #4285f4;
+}
+
+/** Color of text when list item IS NOT selected */
+.inctureMDMasterListClass .inctureMDMasterListItemClass:not(.sapMLIBSelected) .sapMText {
+	color: #f2f2f2;
+}
+
+/** Color of text when list item IS selected */
+.inctureMDMasterListClass .inctureMDMasterListItemClass.sapMLIBSelected .sapMText
+	{
+	color: #252525;
+}
+
+/** CSS class applied to ICon TAB BAR */
+.inctureMDITBClass {
+	height: 100%;
+}
+
+.inctureMDITBClass .sapMITBHead {
+	margin: 0;
+	padding: 0;
+}
+
+/** Class for background color of Icon tab bar Header */
+.inctureMDITBClass .sapMITH {
+	background-color: white;
+	border: 0;
+	box-shadow: none;
+}
+
+/** Change the header color of background once the Tab is selected */
+.inctureMDITBClass .sapMITBSelected {
+	background-color: #f2f2f2;
+}
+
+.inctureMDITBClass .sapMITBScrollContainer {
+	margin: 0 1.5rem;
+	font-size: 1.5rem;
+}
+
+.inctureMDITBClass .sapMITBArrowScrollRightTextOnly {
+	padding: 0 .4px;
+	font-size: 1.5rem;
+	top: .6rem;
+}
+
+.inctureMDITBClass .sapMITBArrowScrollLeftTextOnly {
+	padding: 0 .4px;
+	font-size: 1.5rem;
+	top: .6rem;
+}
+
+.inctureMDITBClass .sapMITBInLine.sapMITBTextOnly>.sapMITBVertical {
+	height: 2.875rem;
+}
+
+.inctureMDITBClass .sapMITBInLine .sapMITBFilter>.sapMITBText {
+	margin: 0;
+	margin-top: 0.8125rem;
+}
+
+.inctureMDITBClass .sapMITBTextOnly .sapMITBFilter {
+	margin: 0;
+}
+
+.inctureMDITBClass .sapMITBTextOnly .sapMITBFilter .sapMITBText {
+	/* width:7.625rem; */
+	padding: 0 1rem 0 1rem;
+	text-align: center;
+}
+
+.inctureMDITBClass .sapMITBFilter:last-child, .inctureMDITBClass .sapMITBNoText .sapMITBFilter:last-child
+	{
+	padding-right: 0 !important;
+}
+
+.inctureMDITBClass .sapMITB .sapMITBItemNoCount.sapMITBFilter:last-child
+	{
+	padding-right: 0 !important;
+}
+
+/** Removing dotted outline once the Tab is selected */
+html.sap-desktop .inctureMDITBClass .sapMITBItem:focus .sapMITBFilterIcon,
+	html.sap-desktop .inctureMDITBClass .sapMITBTextOnly .sapMITBItem:focus .sapMITBText,
+	html.sap-desktop .inctureMDITBClass .sapMITBItem:focus.sapMITBAll {
+	outline: none;
+}
+
+/* Height available for icon tab bar content is 100 - 3rem ( height of top bar)
+	Also, background of content area is secondary color.
+ */
+.inctureMDITBClass .sapMITBContainerContent {
+	height: calc(100% - 3rem);
+	background-color: #f2f2f2;
+}
+
+.inctureMDITBClass .sapMITBContent {
+	border-bottom: 0;
+	padding: 0;
+	background-color: #f2f2f2;
+	height: 100%;
+}
+
+.inctureMDNotificationClass .sapMNLB-AuthorPicture .sapUiIcon {
+	color: black;
+	font-size: 2rem;
+	border-radius: 50%
+}
+
+.inctureMDUserDetailsClass.sapMLIB {
+	background-color: transparent;
+}
+
+.inctureMDUserDetailsClass.sapMLIB .sapMSLITitle {
+	color: white;
+}
+
+.inctureMDUserDetailsClass.sapMLIB .sapMSLIDescription {
+	color: white;
+}
+
+.inctureSlctBrandHDRContClass{
+	/* margin-bottom: 1rem; */
+	margin-left: 6px;
+}
+
+.inctureSplitDetailsClass {
+	background: #fafafa !important;
+}
+
+.inctureSplitPaneClass .sapUiLoSplitterBar {
+	display: none !important;
+}
+
+.inctureMDNotificationClass .sapMListBGSolid .sapMLIB:not(.sapMLIBActive):not(.sapMLIBSelected):not(:hover) {
+    background: #dc7676;
+}
+
+.sapMTitle {
+    color: #2b7d2b;
+    font-weight: bold;
+}
+
+.sapUiBody {
+	background-color: transparent !important;
+	background-image: none !important;
+	font-family: Open Sans !important;
+	font-size: 0.8rem !important;
+}
+
+.sapMLabel {
+	font-family: Open Sans !important;
+	font-size: 0.84rem !important;
+}
+
+.sapMInputBaseInner {
+	font-family: Open Sans !important;
+	font-size: 0.8rem !important;
+}
+
+.sapMBtnContent {
+	font-family: Open Sans !important;
+	font-size: 0.8rem !important;
+}
+
+.priceUpdateHdrBoxClass {
+	font-family: Open Sans !important;
+	font-weight: bold !important;
+}
+
+.priceUpdateHdrBoxClass {
+	border: 1px solid gainsboro;
+	background: #fff;
+	margin: 2%;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .5);
+	border-radius: 6px;
+	margin-top: 15px;
+	width: auto !important;
+}
+.priceUpdateHdrBoxStyleClass{
+	border: 1px solid gainsboro;
+	background: #fff;
+	margin: 2%;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .5);
+	border-radius: 6px;
+	width: auto !important;
+	margin-top: -2px !important;	
+}
+.priceUpdateFlexBoxClass{
+	width: auto !important;
+	justify-content: flex-end;	
+}
+.priceUpdateHdrBoxClass1{
+	height:4rem !important;
+}
+.priceUpdateBoxClass {
+	border: 1px solid gainsboro;
+	background: #fff;
+	margin: 2%;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .5);
+	border-radius: 6px;
+	margin-top: -6px !important;
+	width: auto !important;
+}
+
+.searchFieldClass{
+	margin-left: 40rem !important;
+}
+
+.matTblLblClass {
+	font-size: 1.2rem !important;
+    padding-left: 1rem;
+    font-weight: bolder !important;
+}
+.matTblHdrLblClass{
+    font-size: 0.8rem !important;
+    padding-left: 1rem;
+    /* font-weight: bolder !important; */	
+}
+.matSearchLblClass{
+    font-size: 0.9rem !important;
+    padding-left: 1.5rem;
+    /* font-weight: bolder !important; */	
+}
+.matSearchBoxClass{
+	padding-top:0.5rem;
+}
+.toolbarClass.sapMBar {
+    display: block;
+    width: 100%;
+    position: relative;
+    height: 3rem;
+    line-height: 3rem;
+    color: #666666;
+    background-color: #fff;
+    text-shadow: 0 0 0.125rem #ffffff;
+    box-shadow: inset 0 -0.0625rem #d1e0ee;
+}
+.materialTblClass{
+	font-family: Open Sans !important;
+    font-weight: bold !important;
+}
+
+.materialTblClass .sapMListTblCell {
+	/* border: 1px solid #e5e5e5 !important; */
+}
+
+.materialTblClass .sapMListTblSelCol+.sapMListTblCell {
+	padding-left: 8px;
+}
+
+.materialTblClass .sapMListTblSelCol {
+	border: 1px solid #e5e5e5 !important;
+}
+
+/* .materialTblClass tbody tr:nth-child(even) {
+	background: #f5f5f5!important;
+}
+
+.materialTblClass tbody tr:nth-child(odd) {
+	background: white !important;
+} */
+
+.materialTblClass .sapMListTbl th {
+	background: #fafafa;
+	background: white;
+	border-bottom: 3px solid #ada2a2;
+}
+
+.pageBackground{
+	background:#f2f2f2;
+	
+}
+
+.matTblHdrClass {
+	font-family: Open Sans !important;
+    font-weight: bold !important;
+    font-size: 0.85rem !important;
+    color: black !important;
+}
+
+.sapMListTblHeader th {
+    /* background: white !important; */
+}
+
+.searchlabelClass{
+	margin-left: -0.2%
+}
+
+.inctureDialogBtn .sapMBtnInner {
+	background : rgb(11, 109, 63) !important;
+	border-color: rgb(11, 109, 63) !important;
+	color: #fff !important;
+	padding: 0px 20px !important;
+   	margin-bottom: 11px;
+}
+
+.inctureDialogBtn .sapMBtn {
+    height: 3rem;
+    margin: 11px;
+    padding: -0.75rem 4.25rem;
+    vertical-align: top;
+    border: none;
+    background-color: transparent;
+}
+
+.inctureMDTreeItem .sapMLIB{
+	display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    background: #252525;
+    border-bottom: 0px solid #e5e5e5;
+    padding: 0 1rem 0 1rem;
+}
+
+.inctureMDTreeItem .sapMTreeItemBase {
+    min-height: 3rem;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    padding-left: 0;
+    color: #f7f7f7;
+}
+
+.inctureMDTreeItem .sapUiIcon:before {
+    content: attr(data-sap-ui-icon-content);
+    speak: none;
+    font-weight: normal;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sapMIBar.sapMHeader-CTX {
+    color: #666666;
+    background-color: #f2f2f2;
+    filter: none;
+    background-image: none;
+}
+
+.gridLblClass{
+	width: auto;
+	padding-top: 0.3rem;
+	text-align: left !important;
+	margin-right:7px !important;
+	font-weight:normal;
+}
+.detailGridClass{
+	background: #fff;
+	padding-top: 10px !important;
+	border-bottom: 1px solid #f3f3f3;
+}
+.tblSrchFldClass{
+	margin-top: 0.2rem !important;
+}
+.submitButtonClass{
+	margin-right: 2.2rem!important;
+}
+
+.dialogTitleClass .sapMIBar-CTX .sapMTitle {
+	margin-left:33rem !important;
+}
+
+.inctureNodeClass{
+	margin-top: 0.5rem;
+    margin-left: 4em;
+    font-size: 1.2rem;
+}
+
+.inctureNodeTextClass.sapMText {
+    display: inline-block;
+    box-sizing: border-box;
+    white-space: pre-line;
+    word-wrap: break-word;
+    cursor: text;
+    font-size: 1.2rem;
+    font-family: Arial,Helvetica,sans-serif;
+    line-height: normal;
+    color: white !important;
+}
+
+.panelClass .sapMPanelHdr {
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: none;
+    height: 3rem;
+    line-height: 3rem;
+    padding: 0 1rem;
+    margin: 0;
+    -webkit-text-size-adjust: none;
+    font-weight: normal;
+    font-size: 1.125rem;
+   	font-family: Open Sans !important;
+    color: #333333;
+    background-color: #f2f2f2;
+}
+.panelClass .sapMPanelExpandableIcon {
+    position: absolute;
+    width: 3rem;
+    line-height: 3rem;
+    font-size: 1rem;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #346187;
+    background: #f2f2f2;
+}
+ .panelClass .sapMPanelContent{
+     padding: 0rem;
+    box-sizing: border-box;
+    overflow: auto;
+    white-space: normal;
+ }
+ .dialogBarClass .sapMBarRight .sapMBarPH {
+    padding-right: 11.25%;
+}
+.searchBarClass.sapMBar {
+    display: block;
+    width: 100%;
+    position: relative;
+    height: 2.5rem;
+    line-height: 3rem;
+    color: #666666;
+    background-color: #fff;
+    text-shadow: 0 0 0.125rem #ffffff;
+    box-shadow: inset 0 -0.0625rem #d1e0ee;
+    margin-top: 0.6rem !important;
+}
+.inctureDialogMargin{
+	margin-right: 1rem !important;
+}
+.businessContextTextClass{
+ 	margin-top: 0.4rem;
+ 	margin-right: 5px;
+}
+
+.businessContextInputClass.sapUiSizeCompact .sapMInputBase {
+    margin-left: 0.4rem !important;
+}
+html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapContrast.sapMIBar.sapMFooter-CTX {
+    background-color: #fff ! important;
+}
+
+.paginationNumbers{
+	width: 1.5rem;
+    padding-top: 0.5rem;
+    padding-left: 1rem; 
+}
+
+.pageNumberStyleClass{
+	padding-top: 8px;
+}
+.comboboxStyle{
+	width:11rem !important;
+}
+.scaleLableStyle{
+	font-size: 1.2rem !important;
+	margin-left:16rem;
+}
+
+.fontSizeReduce>input{
+�font-size:�10px;
+} 
+
+.displayTableProp>table{
+	display : block;
+} 
+.sap-desktop .sapMGT:hover, .sap-phone .sapMGTHvrOutln:hover, .sap-tablet .sapMGTHvrOutln:hover {
+    box-shadow: 1px 1px 1px 0.5px #A5A5A5;
+    border-color: rgb(148, 145, 145);
+} 
+ 
+ 
+.sapUiMedia-Std-Desktop .sapMNCIconImage.Auto, .sapUiMedia-Std-Tablet .sapMNCIconImage.Auto, .sapMNCIconImage.M {
+    margin-top: -1.375rem;
+} 
+.tableBtnAlignMent>div{
+    height: 26px;
+    border-color: transparent !important;
+    /* color: #ffffff !important; */
+    background-color: transparent !important;
+       
+} 
+.tableBtnAlignMent>div>span{
+    font-size: 0.985rem;
+    line-height: 1.5375rem;
+    width: 2.375rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: to;
+    max-height: 2.375rem;
+    color: #66667a !important;
+} 
+
+.sapUiMedia-Std-Desktop .sapMNCIconImage.Auto, .sapUiMedia-Std-Tablet .sapMNCIconImage.Auto, .sapMNCIconImage.M {
+    margin-top: -1.375rem;
+} 
+.tableBtnAlignMent>div{
+    height: 26px;
+    border-color: transparent !important;
+    /* color: #ffffff !important; */
+    background-color: transparent !important;
+       
+} 
+.tableBtnAlignMent>div>span{
+    font-size: 0.985rem;
+    line-height: 1.5375rem;
+    width: 2.375rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: to;
+    max-height: 2.375rem;
+    color: #66667a !important;
+} 
+/*Check Box Css Start*/
+.tableSelectionChkBox>.sapMCbBg {
+    background-color: #2f847a;
+    position: absolute;
+    left: 0.8125rem;
+    top: 0.8125rem;
+    height: 1rem;
+    width: 1rem;
+    line-height: 1.0025rem;
+    padding: 0;
+    text-align: center;
+    border: 0rem; 
+    border-top-left-radius: 0.125rem;
+    border-top-right-radius: 0.125rem;
+    border-bottom-right-radius: 0.125rem;
+    border-bottom-left-radius: 0.125rem;
+    -webkit-focus-ring-color: none;
+}
+.tableSelectionChkBox>.sapMCbBg.sapMCbMarkChecked:before {
+    content: "\e05b";
+    font-family: "SAP-icons";
+    color: #ffffff;
+    background: transparent;
+}
+/*Check box CssEnd*/ 
+.tableDropDownCss{
+    height: 1.75rem;
+    margin: 1rem 0 -0.125rem 0px;
+}
+.tableDropDownCss>SPAN{
+	width: 1.5rem;
+    line-height: 1.95rem;
+} 
+.tableDialogBox td{
+	padding : .31rem 0rem;
+} 
+
+#__xmlview0--idInvoiceTable-tblBody .sapMListTblCell:first-child, .sapMListTblNone:first-child + .sapMListTblCell {
+     padding-left: 0rem; 
+} 
+ 
+.tableItemRightAlign>input{
+	    text-align: end;
+}
+.displayTableProp>table{
+	display : block;
+} 
+ 
+.forTextCSS{
+ 	text-align: left;
+    color: black;
+    background: transparent;
+    font-size: 0.75rem !important;
+    font-family: arial,helvetica,sans-serif;
+    line-height: normal;
+    height: 2.4rem;
+    padding: 0 .75rem;
+    border: none !important;
+    border-bottom: 2px solid #655252 !important;
+}
+.forDateCSS{
+ 	text-align: left;
+    color: black;
+    background: transparent;
+    font-size: 0.75rem !important;
+    font-family: arial,helvetica,sans-serif;
+    line-height: normal;
+    height: 2.4rem;
+    padding: 0 .75rem;
+    border: none !important;
+  }
+
+.sapMListTbl th�{
+ 	background: #ffffff;
+ 	border-bottom : 3px solid�#ada2a2;
+} 
+
+.TableHdrTxtClass{
+	font-weight:bold !important;
+}
+
+.inputBaseClass1>.sapMInputBaseInner {
+    color: #000000;
+    background: rgba(255, 255, 255, 0);
+    font-size: 0.75rem !important;
+    font-family: Arial,Helvetica,sans-serif;
+    line-height: normal;
+    height: 1.8rem;
+    padding: 0 0.75rem;
+    border:none;
+    border-bottom:2px solid #655252 !important;
+}
+.oldValueColor> .sapMInputBaseInner {
+	color:red !important;
+}
+.apprvInputBaseClass> .sapMInputBaseInner {
+	height:1rem !important;
+}
+/*.sapUiSizeCompact .sapMInputBase {
+    height: 1rem !important;
+}*/
+.inputBaseClass>.sapMInputBase�{
+	height:2rem !important;
+}
+.noBorder>.sapMInputBaseInner{
+ 	border : none !important;
+ 	text-align:center !important;
+}
+.legendImageClass{
+ 	margin-top:0.5rem !important;
+}
+.logoImageClass{
+ 	width: 9.5rem;
+	margin-left: 1.5rem;
+}
+.rowCreateBackgroundColorClass{
+ 	background-color: #2ECC71 !important;
+}
+.rowImpactedBackgroundColorClass{
+ 	background-color:#3498DB !important;
+}
+.masterLabelText .sapMLabel{
+    color: #ffffff !important;    
+}
+.middletoolbarClass{
+	border-bottom: 0px solid #f2f2f2 !important;
+    background: #f2f2f2;
+    margin-bottom: 0rem;
+    margin-top: -1rem;
+}
+.inctureCheckoutSaveBtn .sapMBtnInner{
+	background : #00aeef !important;
+	border-color: #00aeef !important;
+	color: #fff !important;
+	padding: 0px 20px !important;	
+}
+.colorBoxClass{
+	width:1rem !important;
+	height:1rem !important;
+	border:1px solid black;
+}
+.columnWidthClass{
+	width:2rem !important;
+}
+.priceUpdateMaintanance
+{
+	color: white !important;
+    font-size: 1.5rem !important;
+    margin-top:0.5rem;
+    font-weight: bold;
+    margin-left:21rem;
+}
