@@ -270,6 +270,7 @@ com.incture.formatter.formatter = {
 						scaleDataList = oTempArry;
 					}
 					scaleDataList.forEach(function(obj) {
+						if(obj){
 						var parameterList = obj.parameterList;
 						parameterList.forEach(function(obj) {
 							if (obj.hasOwnProperty("isEditable")) {
@@ -280,7 +281,8 @@ com.incture.formatter.formatter = {
 									}
 								}
 							}
-						});
+						});	
+						}
 					});
 				}
 			}
@@ -345,20 +347,24 @@ com.incture.formatter.formatter = {
 			}
 		}
 
-		var rate, currency, pricingUnit, unitMeasure;
+		var rate, currency, pricingUnit, unitMeasure, rateValState, currencyValState, unitValState, uomValstate;
 		currentObj.filter(function(obj, i, arr) {
 			var fieldId = obj.fieldId;
 			if (fieldId === "KBETR") {
 				rate = obj.fieldValueNew;
+				rateValState = obj.valueState;
 			}
 			if (fieldId === "KONWA") {
 				currency = obj.fieldValueNew;
+				currencyValState = obj.valueState;
 			}
 			if (fieldId === "KPEIN") {
 				pricingUnit = obj.fieldValueNew;
+				unitValState = obj.valueState;
 			}
 			if (fieldId === "KMEIN") {
 				unitMeasure = obj.fieldValueNew;
+				uomValstate = obj.valueState;
 			}
 			if (fieldId === "COLOR") {
 				if (bVal) {
@@ -368,7 +374,8 @@ com.incture.formatter.formatter = {
 		});
 
 		var getDateObjects = com.incture.formatter.dateFunctions.getStartEndDateObjects(currentObj);
-		if (rate === "" || currency === "" || pricingUnit === "" || unitMeasure === "") {
+		if (rate === "" || currency === "" || pricingUnit === "" || unitMeasure === "" || rateValState === "Error" ||
+			currencyValState === "Error" || unitValState === "Error" || uomValstate === "Error") {
 			getDateObjects[0].isEditable = "false";
 			getDateObjects[1].isEditable = "false";
 		} else {

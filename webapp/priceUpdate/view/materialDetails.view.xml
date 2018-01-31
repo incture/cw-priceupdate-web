@@ -54,8 +54,8 @@
 
 					</Toolbar>
 					<VBox class="priceUpdateHdrBoxStyleClass sapUiSizeCompact">
-						<IconTabBar items="{oMatSectionModel>/conditionTypes}"
-							select="onIconBarSelect" class="iconTabHeader sapUiResponsiveContentPadding iconTabItemClass">
+						<IconTabBar items="{oMatSectionModel>/conditionTypes}" select="onIconBarSelect" 
+							class="iconTabHeader sapUiResponsiveContentPadding iconTabItemClass">
 							<items>
 								<IconTabFilter key="{oMatSectionModel>conditionId}"
 									text="{oMatSectionModel>conditionName}" tooltip="{oMatSectionModel>conditionName}" />

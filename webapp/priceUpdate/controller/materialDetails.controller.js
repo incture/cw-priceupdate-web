@@ -108,7 +108,7 @@ sap.ui.define([
 			oElementVisibleModel.getData().setStatus = this.isActive;
 			oElementVisibleModel.getData().setRecord = this.isChanged;
 			oElementVisibleModel.refresh(true);
-			
+
 			var oResourceModel = this.getOwnerComponent().getModel('i18n');
 			this.oResourceModel = oResourceModel.getResourceBundle();
 			this.oUndoModel = this.getOwnerComponent().getModel('oUndoModel');
@@ -118,9 +118,9 @@ sap.ui.define([
 		//Service to get Materials list, getting the view data.
 		getMaterialData: function() {
 
+			var oPayload;
 			var that = this;
 			this.busy.open();
-			var oPayload;
 			var oMatSectionModel = this.oMatSectionModel;
 			var oBusinessContextModel = this.oBusinessContextModel;
 			var oVariableKeyModel = this.getOwnerComponent().getModel("oVariableKeyModel");
@@ -170,7 +170,7 @@ sap.ui.define([
 					var pricelistTblCol = jQuery.extend(true, [], resultData.tableColumn);
 					pricelistTblCol = formatter.setUserDialogColVisible(pricelistTblCol, "false");
 					resultData.pricelistTblCol = pricelistTblCol;
-					
+
 					if (businessObjectList) {
 						if (!Array.isArray(businessObjectList)) {
 							var tempArry = [];
@@ -186,7 +186,7 @@ sap.ui.define([
 								businessObjectList.splice(i, 1);
 							}
 						}
-					}else{
+					} else {
 						that.oElementVisibleModel.getData().addButton = false;
 						that.oElementVisibleModel.getData().undoButton = false;
 						that.oElementVisibleModel.refresh();
@@ -587,8 +587,7 @@ sap.ui.define([
 		//Enable undo button based on the selected icon tab bar
 		setUndoBtnEnabled: function(selectedIconTab) {
 
-			var oArray;
-			var oCurrentObj;
+			var oArray, oCurrentObj;
 			var oUndoModel = this.oUndoModel;
 			var oConditionTypes = oUndoModel.getData().oConditionTypes;
 			oConditionTypes.forEach(function(obj) {
@@ -609,11 +608,12 @@ sap.ui.define([
 		onIconBarSelect: function(oEvent, status) {
 
 			var that = this;
+			var selectedIconTab;
 			if (typeof(oEvent) === "string") {
-				var selectedIconTab = oEvent;
+				selectedIconTab = oEvent;
 				this.selectedIconTab = selectedIconTab;
 			} else {
-				var selectedIconTab = oEvent.getSource().getSelectedKey();
+				selectedIconTab = oEvent.getSource().getSelectedKey();
 				this.selectedIconTab = selectedIconTab;
 			}
 			this.conditionRecord = this.selectedIconTab;
@@ -714,9 +714,6 @@ sap.ui.define([
 											path: bindingPath + "/isEditable",
 											formatter: formatter.formatBooleanValues
 										}
-										/*press: function(oEvent){
-											that.openScaleDetails(oEvent);
-										}*/
 									}).addStyleClass("");
 									OVBox.addItem(oLink);
 									OVBox.onclick = function(oEvent) {
@@ -975,9 +972,6 @@ sap.ui.define([
 												path: bindingPath + "/isEditable",
 												formatter: formatter.formatBooleanValues
 											}
-											/*press: function(oEvent){
-												that.openScaleDetails(oEvent);
-											}*/
 										}).addStyleClass("cellBground");
 										oVBox.addItem(oNewValLink);
 										oVBox.onclick = function(oEvent) {
@@ -996,9 +990,6 @@ sap.ui.define([
 												path: bindingPath + "/isEditable",
 												formatter: formatter.formatBooleanValues
 											}
-											/*press: function(oEvent){
-												that.openScaleDetails(oEvent);
-											}*/
 										}).addStyleClass("cellBground");
 										oVBox.addItem(oNewValLink);
 
@@ -1016,9 +1007,6 @@ sap.ui.define([
 												path: bindingPath + "/isEditable",
 												formatter: formatter.formatBooleanValues
 											}
-											/*press: function(oEvent){
-												that.openScaleDetails(oEvent);
-											}*/
 										}).addStyleClass("cellBground oldValueColor");
 										oVBox.addItem(oLink);
 										oVBox.onclick = function(oEvent) {
@@ -1103,7 +1091,6 @@ sap.ui.define([
 												path: bindingPath + "/isVisible",
 												formatter: formatter.formatBooleanValues
 											},
-											/*enabled: {  parts : [ bindingPath + "/isEditable", bindingPath + "/status", bindingPath + "/modelName"], formatter: formatter.formatDateEnable},*/
 											enabled: {
 												path: bindingPath + "/isEditable",
 												formatter: formatter.formatBooleanValues
@@ -1212,16 +1199,6 @@ sap.ui.define([
 			var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
 			var getSecondObj = oMatModel.getProperty(secondObjSpath);
 			var prevChangeMode = getSecondObj.colorCode;
-
-			/*if(oValue1 != oValue2){
-				if(getFirstObj.hasOwnProperty("changeMode")){
-					//if(getFirstObj.changeMode === "NO_CHANGE"){
-					if(getFirstObj.changeMode !== "CREATE"){
-						getFirstObj.changeMode = "UPDATE";
-						getSecondObj.colorCode = "CHANGE";
-					}
-				}				
-			}*/
 
 			if (fieldType === "FLOAT") {
 				var regex = "[+-]?([0-9]*[.])?[0-9]+";
@@ -1358,8 +1335,6 @@ sap.ui.define([
 			}
 			oMatModel.getData().conditionTypesRecords.entry[this.selectedTabSPath].value.listMatrialInfoRecord = oNewConditionRec;
 			oMatModel.refresh();
-		/*	var oColumnRecord = oMatModel.getData().tableColumn;
-			formatter.setScaleColumnsVisible(oColumnRecord, "true);*/
 			oMatModel.refresh();
 			this.priceList.close();
 			this.priceList.destroyContent();
@@ -1698,7 +1673,7 @@ sap.ui.define([
 				var oPayload = oMatSectionModel.getData();
 				oPayload.businessObjectId = "PIR";
 				oPayload.decisionTableId = decisionTableId,
-				oPayload.requestType = "UI";
+					oPayload.requestType = "UI";
 				oPayload.usageId = "A";
 				oPayload.applicationId = "M";
 				oPayload.headerList = data;
@@ -1710,7 +1685,7 @@ sap.ui.define([
 				var oPayload = oMatSectionModel.getData();
 				oPayload.businessObjectId = "PIR";
 				oPayload.decisionTableId = decisionTableId,
-				oPayload.requestType = "UI";
+					oPayload.requestType = "UI";
 				oPayload.usageId = "A";
 				oPayload.applicationId = "M";
 				oPayload.headerList = data;
@@ -1719,9 +1694,9 @@ sap.ui.define([
 				oPayload.headerListDto = oSearchPanel;
 				oPayload.mode = "Save";
 			}
-			
-			if(oPayload.pricelistTblCol){
-				delete oPayload.pricelistTblCol;	
+
+			if (oPayload.pricelistTblCol) {
+				delete oPayload.pricelistTblCol;
 			}
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, JSON.stringify(oPayload), true, "POST", false, false, that.oHeader);
@@ -1819,7 +1794,6 @@ sap.ui.define([
 				}
 				this._oDialog.close();
 			}
-
 		},
 
 		////// Scale Details //////
@@ -2417,12 +2391,12 @@ sap.ui.define([
 			var oMatSectionModel = this.oMatSectionModel;
 			var requestId = oMatSectionModel.getData().requestId;
 			var variableKey = oMatSectionModel.getData().vkey;
-		
+
 			var payload = {
 				"requestId": requestId,
 				"variableKey": variableKey
 			};
-			
+
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, that.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -2719,12 +2693,12 @@ sap.ui.define([
 				"definitionId": "price_update_wf", // work flow name
 				"context": {
 					"requestId": {
-						"requestId" : requestId
+						"requestId": requestId
 					},
 					"decisionTable": decisionTableId,
 					"usage": "A",
 					"application": "M",
-					"requestedBy": userModel.getData().name,//firstName,
+					"requestedBy": userModel.getData().name, //firstName,
 					"approvars": ["S0016270146"],
 					"isApprove": ""
 				}
@@ -2754,49 +2728,49 @@ sap.ui.define([
 				});
 			}
 		},
-		
+
 		getRequestStatus: function(requestId) {
-			
-			var sUrl = "/pricemaintainencerest/record/requestStatus/" + requestId;
-			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
-			oModel.attachRequestCompleted(function(oEvent) {
-				if (oEvent.getParameter("success")) {
-					sap.m.MessageBox.show("Successfully Created with Request ID : " + requestId, {
-						icon: sap.m.MessageBox.Icon.ERROR,
-						title: "Success",
-						onClose: function(oAction) {}
-					});
-				}
-			});
+
+				var sUrl = "/pricemaintainencerest/record/requestStatus/" + requestId;
+				var oModel = new sap.ui.model.json.JSONModel();
+				oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
+				oModel.attachRequestCompleted(function(oEvent) {
+					if (oEvent.getParameter("success")) {
+						sap.m.MessageBox.show("Successfully Created with Request ID : " + requestId, {
+							icon: sap.m.MessageBox.Icon.ERROR,
+							title: "Success",
+							onClose: function(oAction) {}
+						});
+					}
+				});
 				// });
-			oModel.attachRequestFailed(function(oEvent) {
-				// var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-				// formatter.toastMessage(errorText);
-			});
-		}
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf view.Material11
-		 */
-		// onBeforeRendering: function() {
-		//
-		// },
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf view.Material11
-		 */
-		//onAfterRendering: function() {
-		//	 
-		// }
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf view.Material11
-		 */
-		// onExit: function() {
-		//
-		// }
+				oModel.attachRequestFailed(function(oEvent) {
+					// var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
+					// formatter.toastMessage(errorText);
+				});
+			}
+			/**
+			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
+			 * (NOT before the first rendering! onInit() is used for that one!).
+			 * @memberOf view.Material11
+			 */
+			// onBeforeRendering: function() {
+			//
+			// },
+			/**
+			 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
+			 * This hook is the same one that SAPUI5 controls get after being rendered.
+			 * @memberOf view.Material11
+			 */
+			//onAfterRendering: function() {
+			//	 
+			// }
+			/**
+			 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+			 * @memberOf view.Material11
+			 */
+			// onExit: function() {
+			//
+			// }
 	});
 });
