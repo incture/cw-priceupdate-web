@@ -1594,12 +1594,34 @@ sap.ui.define([
 
 		//Called when the user navigates to previous screen
 		onNavBack: function() {
-			this._router.navTo("dashboard");
-			this.getOwnerComponent().getModel("oSearchModel").setData([]);
-			this.getOwnerComponent().getModel("oDisplaySearchModel").setData([]);
-			this.oMatSectionModel.setProperty("/businessObjectList", []);
-			this.oMatSectionModel.setProperty("/conditionTypes", []);
-			this.oMatSectionModel.setProperty("/conditionTypesRecords", []);
+			var that = this, count = 0;
+			var oUndoModel = this.oUndoModel;
+		
+			var oConditionTypes = oUndoModel.getProperty("/oConditionTypes");
+			oConditionTypes.forEach(function(obj) {
+				if (obj.prevStateArray.length) {
+					count = count + 1;
+				}
+			});
+
+			if (count) {
+				var oConfirmMsg = this.oResourceModel.getText("CONFIRM_MSG_ON_NAVIGATION");
+				sap.m.MessageBox.confirm(oConfirmMsg, {
+					icon: sap.m.MessageBox.Icon.WARNING,
+					onClose: function(oAction) {
+						if (oAction === "OK") {
+							that._router.navTo("dashboard");
+							that.getOwnerComponent().getModel("oSearchModel").setData([]);
+							that.getOwnerComponent().getModel("oDisplaySearchModel").setData([]);
+							that.oMatSectionModel.setProperty("/businessObjectList", []);
+							that.oMatSectionModel.setProperty("/conditionTypes", []);
+							that.oMatSectionModel.setProperty("/conditionTypesRecords", []);
+						}
+					}
+				});
+			} else {
+				this._router.navTo("dashboard");
+			}
 		},
 
 		//Function to validate for empty cells in table, on click of submit button
@@ -2692,7 +2714,7 @@ sap.ui.define([
 			var oPayload = {
 				"definitionId": "price_update_wf", // work flow name
 				"context": {
-					"requestId": {
+					"request": {
 						"requestId": requestId
 					},
 					"decisionTable": decisionTableId,
