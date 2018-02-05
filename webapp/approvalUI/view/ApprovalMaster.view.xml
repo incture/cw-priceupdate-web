@@ -1,5 +1,5 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
- xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout" controllerName="approvalui.controller.ApprovalMaster"  xmlns:html="http://www.w3.org/1999/xhtml">
+ xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout" controllerName="controller.ApprovalMaster"  xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="Master" class="incMasterPage" showHeader="false">
 		<content>
 			 <l:Grid span='S12' vSpacing='0'>

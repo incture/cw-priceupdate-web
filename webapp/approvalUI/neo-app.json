@@ -17,11 +17,11 @@
 		},
 		"description": "SAPUI5 Test Resources"
 	}, {
-		"path": "/pricemaintainencerest",
+		"path": "/CWPRICE_WEB",
 		"target": {
 			"type": "destination",
 			"name": "CWPRICE",
-			"entryPath": "/pricemaintainencerest"
+			"entryPath": "/CWPRICE_WEB"
 		},
 		"description": "Price update Services"
 	}, {

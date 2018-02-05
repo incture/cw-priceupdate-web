@@ -2,11 +2,11 @@ jQuery.sap.require("sap.m.MessageBox");
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/BusyDialog",
-   "sap/ui/core/format/DateFormat",
-   "approvalui/formatter/formatter"
-], function(Controller, BusyDialog, oDateFormat,formatter) {
+   "sap/ui/core/format/DateFormat"
+   //"approvalui/formatter/formatter"
+], function(Controller, BusyDialog, oDateFormat) {
 	"use strict";
-	return Controller.extend("approvalui.controller.ApprovalDetail", {
+	return Controller.extend("controller.ApprovalDetail", {
 
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -93,7 +93,7 @@ sap.ui.define([
 			
 			var hasLabel = currentObj.hasOwnProperty("label");
 			var hasFieldInput = currentObj.hasOwnProperty("boList");
-			var fieldVisible = formatter.formatBooleanValues(currentObj.isVisible);
+			var fieldVisible = formatter.formatter.formatBooleanValues(currentObj.isVisible);
 
 			if(hasFieldInput){
 				if(!Array.isArray(currentObj.boList)){
@@ -109,7 +109,7 @@ sap.ui.define([
 			if(fieldVisible){
 				var oHBox = new sap.m.HBox();
 				var oLabel = new sap.m.Label({
-					required: { path: bindingPath + "/isMandatory", formatter: formatter.formatBooleanValues},
+					required: { path: bindingPath + "/isMandatory", formatter: formatter.formatter.formatBooleanValues},
 					tooltip: "{" + bindingPath + "/label}",
 					text: "{" + bindingPath + "/label}" + ":"
 				}).addStyleClass('gridLblClass');
@@ -130,7 +130,7 @@ sap.ui.define([
 								var oVBox=new sap.m.VBox();
 								var oNewText = new sap.m.Label({
 									text: "{" + sPath + "/fieldValueNew}",
-									visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}
+									visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 								}).addStyleClass("businessContextTextClass");
 								oVBox.addItem(oNewText);
 								return oVBox;
@@ -138,7 +138,7 @@ sap.ui.define([
 								var oVBox=new sap.m.VBox();
 								var oNewText = new sap.m.Label({
 									text: "{" + sPath + "/fieldValueNew}",
-									visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}
+									visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 								}).addStyleClass("businessContextTextClass");
 								oVBox.addItem(oNewText);
 							
@@ -148,7 +148,7 @@ sap.ui.define([
 							
 								var oText = new sap.m.Label({
 									text: "{" + sPath + "/fieldValue}",
-									visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}
+									visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 								}).addStyleClass("businessContextTextClass oldValueColor");
 								oVBox.addItem(oText);
 								return oVBox;
@@ -181,12 +181,12 @@ sap.ui.define([
 			var sPath = "oAppDetModel>" + contextPath;
 			var currentObj = oModel.getProperty(contextPath);
 			var fieldType = currentObj.uiFieldType;
-			var fieldVisible = formatter.formatBooleanValues(currentObj.isVisible);
+			var fieldVisible = formatter.formatter.formatBooleanValues(currentObj.isVisible);
 			var oColumn = new sap.m.Column({
 				header: new sap.m.Text({
 					text: "{" + sPath + "/label}"
 				}).addStyleClass("matTblHdrClass"),
-				visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}
+				visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 			});
 			return oColumn;
 		});
@@ -218,10 +218,10 @@ sap.ui.define([
 			var sPath = "oAppDetModel>" + contextPath;
 			var oColumn = new sap.m.Column({
 				hAlign: "Center",
-				visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues},
+				visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
 				header: new sap.m.Text({
 					wrapping: true,
-					text: { path: sPath + "/label", formatter: formatter.formatColumnWidth}
+					text: { path: sPath + "/label", formatter: formatter.formatter.formatColumnWidth}
 				}).addStyleClass("TableHdrTxtClass")
 			});
 			return oColumn;
@@ -265,17 +265,17 @@ sap.ui.define([
 					var sPath = context.getPath();
 					var bindingPath = "oAppDetModel>" + sPath;
 					var cuurentObj = model.getProperty(sPath);
-					var fieldVisible = formatter.formatBooleanValues(cuurentObj.isVisible);
+					var fieldVisible = formatter.formatter.formatBooleanValues(cuurentObj.isVisible);
 					if(fieldVisible){
 						if(cuurentObj.uiFieldType === "Input"){
 							if(cuurentObj.fieldValueNew === cuurentObj.fieldValue){
 								var oNewInput = new sap.m.Input({
 									value: "{" + bindingPath + "/fieldValueNew}",
-									maxLength: { path: bindingPath + "/fieldLength", formatter: formatter.formatMaxLength},
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues},
-									showSuggestion: { path: bindingPath + "/isLookup", formatter: formatter.formatBooleanValues},
-									valueState: { path: bindingPath + "/valueState", formatter: formatter.formaValueState},
+									maxLength: { path: bindingPath + "/fieldLength", formatter: formatter.formatter.formatMaxLength},
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
+									showSuggestion: { path: bindingPath + "/isLookup", formatter: formatter.formatter.formatBooleanValues},
+									valueState: { path: bindingPath + "/valueState", formatter: formatter.formatter.formaValueState},
 									width: "100%"
 								}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact");
 								var oCustomData = new sap.ui.core.CustomData({
@@ -288,11 +288,11 @@ sap.ui.define([
 								var oVBox = new sap.m.VBox();
 								var oNewInput = new sap.m.Input({
 									value: "{" + bindingPath + "/fieldValueNew}",
-									maxLength: { path: bindingPath + "/fieldLength", formatter: formatter.formatMaxLength},
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues},
-									showSuggestion: { path: bindingPath + "/isLookup", formatter: formatter.formatBooleanValues},
-									valueState: { path: bindingPath + "/valueState", formatter:formatter.formaValueState},
+									maxLength: { path: bindingPath + "/fieldLength", formatter: formatter.formatter.formatMaxLength},
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
+									showSuggestion: { path: bindingPath + "/isLookup", formatter: formatter.formatter.formatBooleanValues},
+									valueState: { path: bindingPath + "/valueState", formatter:formatter.formatter.formaValueState},
 									width: "100%"
 								}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact");
 							
@@ -309,11 +309,11 @@ sap.ui.define([
 							
 								var oInput = new sap.m.Input({
 									value: "{" + bindingPath + "/fieldValue}",
-									maxLength: { path: bindingPath + "/fieldLength", formatter: formatter.formatMaxLength},
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues},
-									showSuggestion: { path: bindingPath + "/isLookup", formatter: formatter.formatBooleanValues},
-									valueState: { path: bindingPath + "/valueState", formatter: formatter.formaValueState},
+									maxLength: { path: bindingPath + "/fieldLength", formatter: formatter.formatter.formatMaxLength},
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
+									showSuggestion: { path: bindingPath + "/isLookup", formatter: formatter.formatter.formatBooleanValues},
+									valueState: { path: bindingPath + "/valueState", formatter: formatter.formatter.formaValueState},
 									width: "100%"
 								}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact oldValueColor");
 							
@@ -329,8 +329,8 @@ sap.ui.define([
 							var oVBox = new sap.m.VBox();
 							var oNewLink = new sap.m.Link({
 								text: "{" + bindingPath + "/fieldValueNew}",
-								visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-								enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues}
+								visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+								enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues}
 							}).addStyleClass("cellBground");
 							oVBox.addItem(oNewLink);
 							
@@ -340,8 +340,8 @@ sap.ui.define([
 							
 							var oLink = new sap.m.Link({
 								text: "{" + bindingPath + "/fieldValue}",
-								visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-								enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues}
+								visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+								enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues}
 							}).addStyleClass("cellBground oldValueColor");
 							oVBox.addItem(oLink);
 							oVBox.onclick= function(oEvent){
@@ -350,7 +350,7 @@ sap.ui.define([
 							return oVBox;
 						}else if(cuurentObj.uiFieldType ==="Vbox"){
 							var oVBox = new sap.m.VBox({
-								visible: { path: bindingPath + "/colorCode", formatter: formatter.setColorMode}
+								visible: { path: bindingPath + "/colorCode", formatter: formatter.formatter.setColorMode}
 							});
 							oVBox.addStyleClass("colorBoxClass");
 							return oVBox;
@@ -358,8 +358,8 @@ sap.ui.define([
 							if(cuurentObj.fieldId==="Comment"){
 								var oCmntBtn = new sap.m.Button({
 									type: "Transparent", 
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									icon: { path: bindingPath + "/isVisible", formatter: formatter.commentIconChang},
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									icon: { path: bindingPath + "/isVisible", formatter: formatter.formatter.commentIconChang},
 									press: function(oEvent){
 										that.openCommentBox(oEvent);
 									}
@@ -368,7 +368,7 @@ sap.ui.define([
 							}else{
 								var oButton = new sap.m.Button({
 									type: "Transparent", 
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues}
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 										
 								}).addStyleClass("cellBground");
 								return oButton;
@@ -377,14 +377,14 @@ sap.ui.define([
 							if(cuurentObj.fieldValueNew === cuurentObj.fieldValue){
 								var oNewText = new sap.m.Text({
 									text:"{" + bindingPath + "/fieldValueNew}",
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues}
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 								}).addStyleClass("cellBground");
 								return oNewText;
 							}else{
 								var oVBox = new sap.m.VBox();
 								var oNewText = new sap.m.Text({
 									text:"{" + bindingPath + "/fieldValueNew}",
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues}
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 								}).addStyleClass("cellBground");
 								oVBox.addItem(oNewText);
 									
@@ -394,7 +394,7 @@ sap.ui.define([
 									
 								var oText = new sap.m.Text({
 									text:"{" + bindingPath + "/fieldValue}",
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues}
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 								}).addStyleClass("cellBground oldValueColor");
 								oVBox.addItem(oText);
 								return oVBox;
@@ -403,10 +403,10 @@ sap.ui.define([
 							if(cuurentObj.fieldValueNew === cuurentObj.fieldValue){
 								var oNewDate = new sap.m.DatePicker({
 									displayFormat:"MM/dd/yyyy",
-									value: { path: bindingPath + "/fieldValueNew", formatter: formatter.formatApprovalDateValues },
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues},
-									valueState: { path: bindingPath + "/valueState", formatter: formatter.formaValueState}
+									value: { path: bindingPath + "/fieldValueNew", formatter: formatter.formatter.formatApprovalDateValues },
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
+									valueState: { path: bindingPath + "/valueState", formatter: formatter.formatter.formaValueState}
 								}).addStyleClass("forDateCSS noBorder sapUiSizeCompact apprvInputBaseClass");
 								var oNewCustomData = new sap.ui.core.CustomData({
 									key: "{" + bindingPath + "/dateOrder}"
@@ -417,10 +417,10 @@ sap.ui.define([
 								var oVBox = new sap.m.VBox();
 								var oNewDate = new sap.m.DatePicker({
 									displayFormat:"MM/dd/yyyy",
-									value: { path: bindingPath + "/fieldValueNew", formatter: formatter.formatApprovalDateValues },
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues},
-									valueState: { path: bindingPath + "/valueState", formatter: formatter.formaValueState}
+									value: { path: bindingPath + "/fieldValueNew", formatter: formatter.formatter.formatApprovalDateValues },
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
+									valueState: { path: bindingPath + "/valueState", formatter: formatter.formatter.formaValueState}
 								}).addStyleClass("forDateCSS noBorder sapUiSizeCompact apprvInputBaseClass");
 								var oNewCustomData = new sap.ui.core.CustomData({
 									key: "{" + bindingPath + "/dateOrder}"
@@ -434,10 +434,10 @@ sap.ui.define([
 									
 								var oDate = new sap.m.DatePicker({
 									displayFormat:"MM/dd/yyyy",
-									value: { path: bindingPath + "/fieldValue", formatter: formatter.formatApprovalDateValues },
-									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatBooleanValues},
-									valueState: { path: bindingPath + "/valueState", formatter: formatter.formaValueState}
+									value: { path: bindingPath + "/fieldValue", formatter: formatter.formatter.formatApprovalDateValues },
+									visible: { path: bindingPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: bindingPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
+									valueState: { path: bindingPath + "/valueState", formatter: formatter.formatter.formaValueState}
 								}).addStyleClass("forDateCSS noBorder sapUiSizeCompact oldValueColor apprvInputBaseClass");
 								var oCustomData = new sap.ui.core.CustomData({
 									key: "{" + bindingPath + "/dateOrder}"
@@ -512,7 +512,7 @@ sap.ui.define([
 			var contextPath = context.getPath();
 			var sPath = "oAppDetModel>" + contextPath;
 			var oColumn = new sap.m.Column({
-				visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues},
+				visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
 				header: new sap.m.Text({
 					wrapping: true,
 					text: "{" + sPath + "/scaleColName}"
@@ -536,15 +536,15 @@ sap.ui.define([
 				var contextPath = context.getPath();
 				var sPath = "oAppDetModel>" + contextPath;
 				var cuurentObj = model.getProperty(contextPath);
-				var fieldVisible = formatter.formatBooleanValues(cuurentObj.isVisible);
+				var fieldVisible = formatter.formatter.formatBooleanValues(cuurentObj.isVisible);
 				if(fieldVisible){
 					if(cuurentObj.uiFieldType === "Input"){
 					
 							if(cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === "" ){
 								var oNewInput = new sap.m.Input({
 									value: "{" + sPath + "/fieldValueNew}",
-									visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: sPath + "/isEditable", formatter: formatter.formatBooleanValues},
+									visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: sPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
 									width: "100%"
 								}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact");
 								var oNewCustomData = new sap.ui.core.CustomData({
@@ -557,8 +557,8 @@ sap.ui.define([
 								var oVBox = new sap.m.VBox();
 								var oNewInput = new sap.m.Input({
 									value: "{" + sPath + "/fieldValueNew}",
-									visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: sPath + "/isEditable", formatter: formatter.formatBooleanValues},
+									visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: sPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
 									width: "100%"
 								}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact");
 						
@@ -574,8 +574,8 @@ sap.ui.define([
 						
 								var oInput = new sap.m.Input({
 									value: "{" + sPath + "/fieldValue}",
-									visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues},
-									enabled: { path: sPath + "/isEditable", formatter: formatter.formatBooleanValues},
+									visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues},
+									enabled: { path: sPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues},
 									width: "100%"
 								}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact oldValueColor");
 						
@@ -695,20 +695,20 @@ sap.ui.define([
 			var oVBox = new sap.m.VBox();
 			var oToolbar = new sap.m.Toolbar();
 			var oLabel = new sap.m.Label({
-				required: { path: sPath + "/isMandatory", formatter: formatter.formatBooleanValues},
+				required: { path: sPath + "/isMandatory", formatter: formatter.formatter.formatBooleanValues},
 				tooltip: "{" + sPath + "/label}",
 				text: "{" + sPath + "/label}" ,
-				visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}
+				visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 			}).addStyleClass("cmntLblClass");
 			oToolbar.addContent(oLabel);
 			oToolbar.addStyleClass("toolbarClass");
 			oVBox.addItem(oToolbar);
 			var oTextArea = new sap.m.TextArea({
-			    required: { path: sPath + "/isMandatory", formatter: formatter.formatBooleanValues},
+			    required: { path: sPath + "/isMandatory", formatter: formatter.formatter.formatBooleanValues},
 				tooltip: "{" + sPath + "/fieldValue}",
 				value: "{" + sPath + "/fieldValue}" ,
-				visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}, 
-				enabled: { path: sPath + "/isEditable", formatter: formatter.formatBooleanValues}
+				visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}, 
+				enabled: { path: sPath + "/isEditable", formatter: formatter.formatter.formatBooleanValues}
 			}).addStyleClass("lineCommentBoxStyle");
 			oVBox.addItem(oTextArea);
 			oVBox.addStyleClass("approverCmntStle");
@@ -729,21 +729,21 @@ sap.ui.define([
 			});
 			var oToolbar = new sap.m.Toolbar();
 			var oLabel = new sap.m.Label({
-				required: { path: sPath + "/isMandatory", formatter: formatter.formatBooleanValues},
+				required: { path: sPath + "/isMandatory", formatter: formatter.formatter.formatBooleanValues},
 				tooltip: "{" + sPath + "/label}",
 				text: "{" + sPath + "/label}" ,
-				visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}
+				visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}
 			}).addStyleClass("cmntLblClass");
 		   oToolbar.addContent(oLabel);
 		   oToolbar.addStyleClass("toolbarClass");
 		   oVBox.addItem(oToolbar);
 		   var oTextArea = new sap.m.TextArea({
 		   	width:"75%",
-			    required: { path: sPath + "/isMandatory", formatter: formatter.formatBooleanValues},
+			    required: { path: sPath + "/isMandatory", formatter: formatter.formatter.formatBooleanValues},
 				tooltip: "{" + sPath + "/fieldValue}",
 				value: "{" + sPath + "/fieldValue}" ,
-				visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues}, 
-				enabled: { path: sPath + "/isEditable", formatter:formatter.formatBooleanValues}
+				visible: { path: sPath + "/isVisible", formatter: formatter.formatter.formatBooleanValues}, 
+				enabled: { path: sPath + "/isEditable", formatter:formatter.formatter.formatBooleanValues}
 		   }).addStyleClass("commentBoxStyle sapUiSizeCompact");
 		   oVBox.addItem(oTextArea);
 		   oVBox.addStyleClass("approverCmntStle");
@@ -791,13 +791,13 @@ sap.ui.define([
 				that.createNetPriceTable();
 			}else{
 				var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	             formatter.toastMessage(errorText);
+	             formatter.formatter.toastMessage(errorText);
 				//that.busy.close();
 			}
 		});
 		oModel.attachRequestFailed(function(oEvent) {
 			var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	        formatter.toastMessage(errorText);
+	        formatter.formatter.toastMessage(errorText);
 			that.busy.close();
 		});
    		
@@ -855,7 +855,7 @@ sap.ui.define([
    	},
    	
    	onApproverApprove : function(){
-   		var that = this;
+   	/*	var that = this;
    		var payload = that.getPayloadData();
    		var oApprovalMatSectionModel = this.oApprovalMatSectionModel;
 		var sUrl = "/oneapp/cwpu/record/approve";
@@ -866,24 +866,25 @@ sap.ui.define([
 			if (oEvent.getParameter("success")) {
 				var resultData = oEvent.getSource().getData();
 				var successMessage = resultData.message;
-				formatter.toastMessage(successMessage);
+				formatter.formatter.toastMessage(successMessage);
 				
 			}else{
 				//var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
 				var errorText = resultData.message;
-	            formatter.toastMessage(errorText);
+	            formatter.formatter.toastMessage(errorText);
 				//that.busy.close();
 			}
 		});
 		oModel.attachRequestFailed(function(oEvent) {
 			var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	        formatter.toastMessage(errorText);
+	        formatter.formatter.toastMessage(errorText);
 			//that.busy.close();
-		});
+		});*/
+		formatter.formatter.toastMessage("Successfully Approved");
    	},
    	
    	onApproverReject : function(){
-   		var that = this;
+   		/*var that = this;
    		var payload = that.getPayloadData();
    		var oApprovalMatSectionModel = this.oApprovalMatSectionModel;
 		var sUrl = "/oneapp/cwpu/record/reject";
@@ -894,20 +895,21 @@ sap.ui.define([
 			if (oEvent.getParameter("success")) {
 				var resultData = oEvent.getSource().getData();
 				var successMessage = resultData.message;
-				formatter.toastMessage(successMessage);
+				formatter.formatter.toastMessage(successMessage);
 				
 			}else{
 				//var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
 				var errorText = resultData.message;
-	             formatter.toastMessage(errorText);
+	             formatter.formatter.toastMessage(errorText);
 				//that.busy.close();
 			}
 		});
 		oModel.attachRequestFailed(function(oEvent) {
 			var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	        formatter.toastMessage(errorText);
+	        formatter.formatter.toastMessage(errorText);
 			//that.busy.close();
-		});
+		});*/
+		formatter.formatter.toastMessage("Successfully Rejected");
    	},
    	
    	getPayloadData : function(){
@@ -952,26 +954,28 @@ sap.ui.define([
 					that.busy.close();
 				}else{
 					var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	             	formatter.toastMessage(errorText);
+	             	formatter.formatter.toastMessage(errorText);
 					that.busy.close();
 				}
 			});
 			
 			oModel.attachRequestFailed(function(oEvent) {
 				var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	         	formatter.toastMessage(errorText);
+	         	formatter.formatter.toastMessage(errorText);
 				that.busy.close();
 			});	
 		},
 	
    	onApproveTask:function()
    	{
-   		this.onValidateECC("approve");
+   		formatter.formatter.toastMessage("Successfully Approved");
+   		//this.onValidateECC("approve");
    	
    	},
    	onRejectTask:function()
    	{
-   		this.onValidateECC("reject");
+   		formatter.formatter.toastMessage("Successfully Rejected");
+   		//this.onValidateECC("reject");
    		// this._completeTask("reject");
    	},
    	_completeTask: function(approvalStatus) {
@@ -1066,14 +1070,14 @@ sap.ui.define([
 				
 				}else{
 					var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	             	formatter.toastMessage(errorText);
+	             	formatter.formatter.toastMessage(errorText);
 					that.busy.close();
 				}
 			});
 			
 			oModel.attachRequestFailed(function(oEvent) {
 				var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-	         	formatter.toastMessage(errorText);
+	         	formatter.formatter.toastMessage(errorText);
 				that.busy.close();
 			});	
    },

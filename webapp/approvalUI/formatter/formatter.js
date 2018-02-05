@@ -1,5 +1,5 @@
-jQuery.sap.declare("approvalui.formatter.formatter");
-approvalui.formatter.formatter = {
+jQuery.sap.declare("formatter.formatter");
+formatter.formatter = {
 	
 	onSAPEnter: function(inputField, controller){
 		var that = this;
@@ -66,7 +66,7 @@ approvalui.formatter.formatter = {
 			if(evt){
 				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "MM/dd/yyyy"});
 				var oDate = oDateFormat.format(new Date(evt));
-				var dateToService = approvalui.formatter.formatter.formatDateToService(oDate);
+				var dateToService = formatter.formatter.formatDateToService(oDate);
 				currentObj.fieldValueNew = evt;
 				return oDate;
 			}else{

@@ -1,6 +1,6 @@
 sap.ui.define([ "sap/ui/core/mvc/Controller" ]
 , function(Controller) {
-	return Controller.extend("approvalui.controller.App", {
+	return Controller.extend("controller.App", {
 	/**
 	* Called when a controller is instantiated and its View controls (if available) are already created.
 	* Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -11,8 +11,8 @@ sap.ui.define([ "sap/ui/core/mvc/Controller" ]
 		
 		this.setViewModels();
 		var oSplitApp = this.getView().byId("APPRV_SPLIT_APP");
-		var oMasterPage = sap.ui.view({ id:"APPRV_MASTER", viewName:"approvalui.view.ApprovalMaster", type:sap.ui.core.mvc.ViewType.XML});
-		var oDetailPage = sap.ui.view({ id:"APPRV_DETAIL", viewName:"approvalui.view.ApprovalDetail", type:sap.ui.core.mvc.ViewType.XML});
+		var oMasterPage = sap.ui.view({ id:"APPRV_MASTER", viewName:"view.ApprovalMaster", type:sap.ui.core.mvc.ViewType.XML});
+		var oDetailPage = sap.ui.view({ id:"APPRV_DETAIL", viewName:"view.ApprovalDetail", type:sap.ui.core.mvc.ViewType.XML});
 		oSplitApp.addMasterPage(oMasterPage);
 		oSplitApp.addDetailPage(oDetailPage);
 	},
