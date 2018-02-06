@@ -1,3 +1,4 @@
+jQuery.sap.require("sap.m.MessageBox");
 jQuery.sap.declare("formatter.formatter");
 formatter.formatter = {
 	
@@ -56,7 +57,6 @@ formatter.formatter = {
 		}
 	},
 	
-		
 	formatApprovalDateValues: function(evt){
 		
 		if(this.hasOwnProperty("mAggregations")){
@@ -87,20 +87,27 @@ formatter.formatter = {
 	},
 	
 	toastMessage: function(message){
+		var that = this;
 		sap.m.MessageToast.show(message, {
-	        duration: 1000, 
-	        width: "20em",
-	        my: "center center", 
-	        at: "center center",
-	        of: window, 
-	        offset: "0 0", 
-	        onClose: null,
-	        collision: "fit fit", 
-	        autoClose: true,
-	        animationTimingFunction: "ease", 
-	        animationDuration: 1000,
-	        closeOnBrowserNavigation: true 
-	    });
+			duration: 4000,
+			width: "20em",
+			my: "center center",
+			at: "center center",
+			of: window,
+			offset: "0 0",
+			onClose: that.onCloseToastMessage(),
+			collision: "fit fit",
+			autoClose: true,
+			animationTimingFunction: "ease",
+			animationDuration: 1000,
+			closeOnBrowserNavigation: true
+		});
+	},
+	
+	onCloseToastMessage: function() {
+		jQuery.sap.delayedCall(2000, null, function() {
+			window.close();
+		});
 	},
 	
 	setSearchParams: function(fieldValue, fieldId, oAdvanceSearchModel){
@@ -119,34 +126,6 @@ formatter.formatter = {
 			if(oContextArray[k].boList.fieldId === fieldId){
 			oContextArray[k].boList.fieldValueNew =fieldValueNew;	
 		}
-		}
-	},
-	
-	onTableFilter: function(oEvent, oTable, oBindingPaths){
-    	
-    	var aFilters = [];
-    	var sQuery = "";
-    	if (oEvent) {
-    		sQuery = oEvent.getSource().getValue();
-    	}
-        var filterArry = [];
-        if (sQuery && sQuery.length > 0) {
-        		for ( var i = 0; i < oBindingPaths.length; i++) {
-        			var bindingName = oBindingPaths[i];
-        			filterArry.push(new sap.ui.model.Filter(bindingName, sap.ui.model.FilterOperator.Contains, sQuery));
-        		}
-    			
-          var filter = new sap.ui.model.Filter(filterArry, false);
-          aFilters.push(filter);
-        }
-      
-        var binding = oTable.getBinding("items");
-        binding.filter(aFilters, "Application");
-    },
-    
-    formatPageNumber: function(evt){
-		if(evt){
-			return "Page : " + evt;
 		}
 	},
 	
@@ -206,5 +185,5 @@ formatter.formatter = {
 			this.addStyleClass("colorforOthers");
 			return true;
 		}
-	},
+	}
 };

@@ -6,9 +6,9 @@
 			<!-- <Button  text="{i18n>NET_PRICE_ANALYSIS}" press="getNetPrice"
 				class="inctureCheckoutNetPriceBtn sapUiSizeCompact sapUiSmallMarginBegin " /> -->
 			<ToolbarSpacer />
-			<Button text="{i18n>APPROVE}" press="onApproveTask"
-				                  class="inctureCheckoutBtn sapUiSizeCompact sapUiSmallMarginBegin" />
-			<Button text="{i18n>REJECT}" press="onRejectTask"
+			<Button text="{i18n>APPROVE}" press="onApproveRejectTask"
+				class="inctureCheckoutBtn sapUiSizeCompact sapUiSmallMarginBegin" />
+			<Button text="{i18n>REJECT}" press="onApproveRejectTask"
 				class="inctureCheckoutRejectBtn sapUiSizeCompact sapUiSmallMarginBegin rejectBtnMargin" />
 			
 		</Toolbar>

@@ -12,8 +12,6 @@ sap.ui.define([
 		 * @memberOf price_update.Price_Update
 		 */
 		onInit: function() {
-
-			var that = this;
 			this.busy = new BusyDialog();
 			this.oHeader = {
 				"Accept": "application/json",
@@ -24,7 +22,11 @@ sap.ui.define([
 
 		setViewModel: function(oEvent) {
 
-			var that = this;
+			this.pIndex = 0;
+			this.requestId = "";
+			this.isChanged = "ALL";
+			this.isActive = "Active";
+
 			var oMasterPanelModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oMasterPanelModel, "oMasterPanelModel");
 			this.oMasterPanelModel = oMasterPanelModel;
@@ -35,32 +37,27 @@ sap.ui.define([
 			var oApprovalBusinessContextModel = sap.ui.getCore().getModel("oApprovalBusinessContextModel");
 			this.oApprovalBusinessContextModel = oApprovalBusinessContextModel;
 
-			this.isActive = "Active";
-			this.isChanged = "ALL";
-			this.pIndex = 0;
-			this.requestId = "";
+			var requestId = jQuery.sap.getUriParameters().mParams.requestId[0];
+			this.getMasterPanelData(requestId);
+			
 			// var contextModel = this.getOwnerComponent().getModel("contextData");
 			// this.requestId = contextModel.getData().requestId;
 			// if(this.requestId)
 			// {
 			// 		this.getMasterPanelData(this.requestId);	
 			// }
-
 			//this.getRequestId();
-			
-			var requestId = jQuery.sap.getUriParameters().mParams.requestId[0];
-			this.getMasterPanelData(requestId);
 		},
 
-		getRequestId: function() {
+		//getRequestId: function() {
 
-			var that = this;
-		//	var requestId = jQuery.sap.getUriParameters().mParams.requestId[0];
-			var taskId = jQuery.sap.getUriParameters().mParams.taskId[0];
-			var oContextModel = new sap.ui.model.json.JSONModel();
-			oContextModel.loadData("/destination/bpmworkflowruntime/rest/v1/task-instances/" + taskId + "/context", null, false, "GET", true);
-			oContextModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
-			this.getView().setModel(oContextModel, "contextData");
+			//var that = this;
+			//	var requestId = jQuery.sap.getUriParameters().mParams.requestId[0];
+			//var taskId = jQuery.sap.getUriParameters().mParams.taskId[0];
+			//var oContextModel = new sap.ui.model.json.JSONModel();
+			//oContextModel.loadData("/destination/bpmworkflowruntime/rest/v1/task-instances/" + taskId + "/context", null, false, "GET", true);
+			//oContextModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
+			//this.getView().setModel(oContextModel, "contextData");
 
 			/*	this.requestId = "37";
 					this.getMasterPanelData(this.requestId);*/
@@ -84,7 +81,7 @@ sap.ui.define([
 						var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
 						formatter.toastMessage(errorText);
 					});*/
-		},
+		//},
 
 		getMasterPanelData: function(requestId) {
 
@@ -305,7 +302,6 @@ sap.ui.define([
 				var index = vboxEvent[i].oBindingContexts.oMasterPanelModel.sPath.split("/")[2];
 				vboxEvent[index].onclick = function(oEvent) {
 					that.onItemPress(oEvent);
-
 				}
 			}
 		}
