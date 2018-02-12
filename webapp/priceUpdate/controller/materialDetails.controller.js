@@ -1594,9 +1594,10 @@ sap.ui.define([
 
 		//Called when the user navigates to previous screen
 		onNavBack: function() {
-			var that = this, count = 0;
+			var that = this,
+				count = 0;
 			var oUndoModel = this.oUndoModel;
-		
+
 			var oConditionTypes = oUndoModel.getProperty("/oConditionTypes");
 			oConditionTypes.forEach(function(obj) {
 				if (obj.prevStateArray.length) {
@@ -1767,17 +1768,22 @@ sap.ui.define([
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, JSON.stringify(oPayload), true, "POST", false, false, that.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
+				var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
 				if (oEvent.getParameter("success")) {
 					var resultData = oEvent.getSource().getData();
-					that.busy.close();
-					that.fntriggerBPM(data.requestId);
-					//that.busy.close();
+					var status = resultData.status;
+					if (status !== "ERROR") {
+						that.fntriggerBPM(data.requestId);
+					} else {
+						if(resultData.message){
+							errorText = resultData.message;	
+						}
+						formatter.toastMessage(errorText);
+					}
 				} else {
-					var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-					//var errorText = resultData.message;
 					formatter.toastMessage(errorText);
-					that.busy.close();
 				}
+				that.busy.close();
 			});
 
 			oModel.attachRequestFailed(function(oEvent) {
