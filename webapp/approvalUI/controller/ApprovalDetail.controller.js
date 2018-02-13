@@ -42,7 +42,7 @@ sap.ui.define([
 			var oApprovalLineCmntModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oApprovalLineCmntModel, "oApprovalLineCmntModel");
 			this.oApprovalLineCmntModel = oApprovalLineCmntModel;
-			
+
 			var i18nModel = new sap.ui.model.resource.ResourceModel({
 				bundleUrl: "./i18n/i18n.properties"
 			});
@@ -67,7 +67,7 @@ sap.ui.define([
 			oAppDetModel.refresh();
 
 			//Set first tab as default in condition record tab view on load.
-		//	this.conditionRecord = oAppDetModel.getData().conditionTypes[0].conditionId;
+			//	this.conditionRecord = oAppDetModel.getData().conditionTypes[0].conditionId;
 			this.conditionRecord = oAppDetModel.getProperty("/conditionTypes/0/conditionId");
 			that.setUIBusinessContext();
 			that.getVariableKeyData();
@@ -1050,7 +1050,7 @@ sap.ui.define([
 			};
 			return oPayload;
 		},
-		
+
 		onValidateECC: function() {
 
 			var that = this;
@@ -1093,50 +1093,6 @@ sap.ui.define([
 			}
 		},
 
-		onCompleteTask: function(bValApprvReject) {
-
-			var that = this;
-			var token = this._fetchToken();
-			var taskId = jQuery.sap.getUriParameters().mParams.taskId[0];
-
-			var data = {
-				"context": {
-					"requestId": "21",
-					"decisionTable": "table",
-					"usage": "A",
-					"application": "M",
-					"requestedBy": "approved",
-					"approvars": ["S0016270146"],
-					"isApprove": true
-				}
-			};
-
-			$.ajax({
-				url: "/destination/bpmworkflowruntime/workflow-service/rest/v1/task-instances/" + taskId,
-				method: "PATCH",
-				contentType: "application/json",
-				async: true,
-				data: "{\"status\": \"COMPLETED\", \"context\": {\"isApproved\":" + bValApprvReject + "}}",
-				headers: {
-					"X-CSRF-Token": token
-				},
-				success: function() {
-					// that.updateStatus(approvalStatus);
-					if (bValApprvReject === true) {
-						var statusText = that.oResourceModel.getText("TASK_APPROVED");
-						formatter.formatter.toastMessage(statusText);
-					} else {
-						var statusText = that.oResourceModel.getText("TASK_REJECTED");
-						formatter.formatter.toastMessage(statusText);
-					}
-				},
-				error: function(errMsg) {
-					var msg = errMsg.statusText;
-					formatter.formatter.toastMessage("XSRF token request didn't work: " + msg);
-				}
-			});
-		},
-
 		_fetchToken: function() {
 			var token;
 			$.ajax({
@@ -1153,41 +1109,81 @@ sap.ui.define([
 			return token;
 		},
 
-		/*	updateStatus: function(status) {
-				var that = this;
-				var payload = this.oPayload;
-				var sUrl = "/pricemaintainencerest/record/approver";
-				var data = {};
-				this.busy.open();
-				data.requestId = payload.requestId;
-				data.variableKey = payload.vkey;
-				if (status === true)
-					data.status = "Approved";
-				else
-					data.status = "Rejected";
-				data.requestStatus = "Completed";
-				data.approverComments = "";
-				data.approvedBy = "P1942741546";
-				var oModel = new sap.ui.model.json.JSONModel();
-				oModel.loadData(sUrl, JSON.stringify(data), true, "POST", false, false, this.oHeader);
-				oModel.attachRequestCompleted(function(oEvent) {
-					if (oEvent.getParameter("success")) {
-						that.busy.close();
+		onCompleteTask: function(bValApprvReject) {
 
+			var that = this;
+			var token = this._fetchToken();
+			var taskId = jQuery.sap.getUriParameters().mParams.taskId[0];
+			var requestId = jQuery.sap.getUriParameters().mParams.requestId[0];
+
+			/*var data = {
+				"context": {
+					"requestId": "21",
+					"decisionTable": "table",
+					"usage": "A",
+					"application": "M",
+					"requestedBy": "approved",
+					"approvars": ["S0016270146"],
+					"isApprove": true
+				}
+			};*/
+
+			$.ajax({
+				url: "/destination/bpmworkflowruntime/workflow-service/rest/v1/task-instances/" + taskId,
+				method: "PATCH",
+				contentType: "application/json",
+				async: true,
+				data: "{\"status\": \"COMPLETED\", \"context\": {\"isApproved\":" + bValApprvReject + "}}",
+				headers: {
+					"X-CSRF-Token": token
+				},
+				success: function() {
+					// that.updateStatus(approvalStatus);
+					if (bValApprvReject === true) {
+						var statusText = that.oResourceModel.getText("TASK_APPROVED");
+						formatter.formatter.toastMessage(statusText);
+						that.updateJavaLayer("approve", requestId);
 					} else {
-						var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-						formatter.formatter.toastMessage(errorText);
-						that.busy.close();
+						var statusText = that.oResourceModel.getText("TASK_REJECTED");
+						formatter.formatter.toastMessage(statusText);
+						that.updateJavaLayer("reject", requestId);
 					}
-				});
+				},
+				error: function(errMsg) {
+					var msg = errMsg.statusText;
+					formatter.formatter.toastMessage("XSRF token request didn't work: " + msg);
+				}
+			});
+		},
 
-				oModel.attachRequestFailed(function(oEvent) {
-					var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-					formatter.formatter.toastMessage(errorText);
-					that.busy.close();
-				});
-			},*/
+		//Called on approve/reject of the task to update the java layer
+		updateJavaLayer: function(serviceType, requestId) {
 
+			var that = this;
+			this.busy.open();
+			var sUrl = "/CWPRICE_WEB/record/" + serviceType;
+			var oApprovalMatSectionModel = this.oApprovalMatSectionModel;
+			var variableKey = oApprovalMatSectionModel.getData().vkey;
+			var oPayload = {
+				"requestId": requestId,
+				"variableKey": variableKey
+			};
+			
+			var oModel = new sap.ui.model.json.JSONModel();
+			oModel.loadData(sUrl, JSON.stringify(oPayload), true, "POST", false, false, that.oHeader);
+			oModel.attachRequestCompleted(function(oEvent) {
+				if (oEvent.getParameter("success")) {
+
+				}
+				that.busy.close();
+			});
+
+			oModel.attachRequestFailed(function(oEvent) {
+				var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
+				formatter.formatter.toastMessage(errorText);
+				that.busy.close();
+			});
+		}
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 		 * (NOT before the first rendering! onInit() is used for that one!).

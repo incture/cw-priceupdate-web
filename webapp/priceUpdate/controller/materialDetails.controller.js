@@ -2718,7 +2718,7 @@ sap.ui.define([
 			var token = this.fetchToken(oUrl);
 			this.token = token;
 			var oPayload = {
-				"definitionId": "price_update_wf", // work flow name
+				"definitionId": "priceupdate", // work flow name
 				"context": {
 					"request": {
 						"requestId": requestId

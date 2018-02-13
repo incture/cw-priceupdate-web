@@ -104,7 +104,11 @@ sap.ui.define([
 						}
 						oMasterPanelModel.setData(resultData);
 						oMasterPanelModel.refresh();
-						that.setPayloadData(that.isActive, that.isChanged, requestId);
+						
+						var selectedReqId = resultData.approverSidePanel[0].requestID;
+						var selectedVkey = resultData.approverSidePanel[0].vkey;
+						
+						that.setPayloadData(that.isActive, that.isChanged, requestId, selectedReqId, selectedVkey);
 						that.setMasterPanelData();
 						that.attachEventMethod();
 					}
@@ -196,26 +200,32 @@ sap.ui.define([
 			}
 			vboxEvent[index].addStyleClass("afterClickBgColor");
 			var oDetailController = this.getView().getParent().getParent().getDetailPage("APPRV_DETAIL").getController();
+			
+			var oMasterPanelModel = this.oMasterPanelModel;
+			var selectedObj = oMasterPanelModel.getProperty("/approverSidePanel")[parseInt(index)];
+			var selectedReqId = selectedObj.requestID;
+			var selectedVkey = selectedObj.vkey;
+			
 			this.isActive = oDetailController.isActive;
 			this.isChanged = oDetailController.isChanged;
-			this.setPayloadData(that.isActive, that.isChanged, that.requestId);
+			this.setPayloadData(that.isActive, that.isChanged, that.requestId, selectedReqId, selectedVkey);
 		},
 
-		setPayloadData: function(active, change, requestId) {
+		setPayloadData: function(active, change, requestId, selectedReqId, selectedVkey) {
 			var oMasterPanelModel = this.oMasterPanelModel;
 			var mModel = oMasterPanelModel.getData();
 			var index = this.pIndex;
 			var data = mModel.approverSidePanel[index];
 			var table = data.dtTable;
 			var values = data.metadata;
-			for (var i = 0; i < values.length; i++) {
+			/*for (var i = 0; i < values.length; i++) {
 				if (values[i].fieldId === "Vkey") {
 					var vkey = data.vkValues[i].fieldValue;
 				}
-			}
+			}*/
 			var payload = {
-				"requestId": requestId,
-				"vkey": vkey,
+				"requestId": selectedReqId, //requestId,
+				"vkey": selectedVkey, //vkey,
 				"decisionTable": table,
 				"usage": "A",
 				"mode": "Task",
