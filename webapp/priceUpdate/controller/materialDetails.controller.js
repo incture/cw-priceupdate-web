@@ -721,14 +721,21 @@ sap.ui.define([
 									};
 									return OVBox;
 								} else if (cuurentObj.uiFieldType === "Vbox") {
-									var oVBox = new sap.m.VBox({
+									var oImage = new sap.m.Image({
+										src:{
+											path: bindingPath + "/colorCode",
+											formatter: formatter.setImageColorMode
+										}
+									});
+									return oImage;
+									/*var oVBox = new sap.m.VBox({
 										visible: {
 											path: bindingPath + "/colorCode",
 											formatter: formatter.setColorMode
 										}
 									});
 									oVBox.addStyleClass("colorBoxClass");
-									return oVBox;
+									return oVBox;*/
 								} else if (cuurentObj.uiFieldType === "Text") {
 									var oText = new sap.m.Text({
 										text: "{" + bindingPath + "/fieldValueNew}",
@@ -1015,14 +1022,21 @@ sap.ui.define([
 										return oVBox;
 									}
 								} else if (cuurentObj.uiFieldType === "Vbox") {
-									var oVBox = new sap.m.VBox({
+									var oImage = new sap.m.Image({
+										src:{
+											path: bindingPath + "/colorCode",
+											formatter: formatter.setImageColorMode
+										}
+									});
+									return oImage;
+									/*var oVBox = new sap.m.VBox({
 										visible: {
 											path: bindingPath + "/colorCode",
 											formatter: formatter.setColorMode
 										}
 									});
 									oVBox.addStyleClass("colorBoxClass");
-									return oVBox;
+									return oVBox;*/
 								} else if (cuurentObj.uiFieldType === "Text") {
 									if (cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === "") {
 										var oNewText = new sap.m.Text({
@@ -2025,14 +2039,21 @@ sap.ui.define([
 							}).addStyleClass("cellBground");
 							return oDeleteBtn;
 						} else if (cuurentObj.uiFieldType === "Vbox") {
-							var oVBox = new sap.m.VBox({
+								var oImage = new sap.m.Image({
+										src:{
+											path: bindingPath + "/colorCode",
+											formatter: formatter.setImageColorMode
+										}
+								});
+								return oImage;
+							/*var oVBox = new sap.m.VBox({
 								visible: {
 									path: sPath + "/colorCode",
 									formatter: formatter.setColorMode
 								}
 							});
 							oVBox.addStyleClass("colorBoxClass");
-							return oVBox;
+							return oVBox;*/
 						} else {
 							var oText = new sap.m.Text({
 								text: ""

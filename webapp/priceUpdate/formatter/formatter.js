@@ -179,7 +179,7 @@ com.incture.formatter.formatter = {
 		}
 	},
 
-	setColorMode: function(val) {
+	/*setColorMode: function(val) {
 		if (val === "CREATED") {
 			this.addStyleClass("colorforCreted");
 			return true;
@@ -195,6 +195,20 @@ com.incture.formatter.formatter = {
 		} else {
 			this.addStyleClass("colorforOthers");
 			return true;
+		}
+	},*/
+
+	setImageColorMode: function(val) {
+		if (val === "CREATED") {
+			return "images/CREATED.png";
+		} else if (val === "CHANGE") {
+			return "images/CHANGED.png";
+		} else if (val === "IMPACTED") {
+			return "images/IMPACTED.png";
+		} else if (val === "DELETED") {
+			return "images/DELETED.png";
+		} else {
+			return "images/NOCHANGE.png";
 		}
 	},
 
@@ -270,18 +284,18 @@ com.incture.formatter.formatter = {
 						scaleDataList = oTempArry;
 					}
 					scaleDataList.forEach(function(obj) {
-						if(obj){
-						var parameterList = obj.parameterList;
-						parameterList.forEach(function(obj) {
-							if (obj.hasOwnProperty("isEditable")) {
-								if (obj.hasOwnProperty("isDefaultEditable")) {
-									var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
-									if (bValEditable) {
-										obj.isEditable = bVal;
+						if (obj) {
+							var parameterList = obj.parameterList;
+							parameterList.forEach(function(obj) {
+								if (obj.hasOwnProperty("isEditable")) {
+									if (obj.hasOwnProperty("isDefaultEditable")) {
+										var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
+										if (bValEditable) {
+											obj.isEditable = bVal;
+										}
 									}
 								}
-							}
-						});	
+							});
 						}
 					});
 				}
@@ -482,12 +496,12 @@ com.incture.formatter.formatter = {
 		}
 	},
 
-	setUserDialogColVisible: function( oTblCol, bVal) {
+	setUserDialogColVisible: function(oTblCol, bVal) {
 		oTblCol.filter(function(obj, i, arr) {
 			var field = obj.fieldId;
-			if(obj.label === ""){
-				obj.isVisible = bVal;	
-			}else if(field === "Scales" || field === "ACTIONS" || field === "Comment"){
+			if (obj.label === "") {
+				obj.isVisible = bVal;
+			} else if (field === "Scales" || field === "ACTIONS" || field === "Comment") {
 				obj.isVisible = bVal;
 			}
 		});
