@@ -168,7 +168,21 @@ formatter.formatter = {
 		return label;
 	},
 	
-	setColorMode:function(val){
+	setImageColorMode: function(val) {
+		if (val === "CREATED") {
+			return "images/CREATED.png";
+		} else if (val === "CHANGE") {
+			return "images/CHANGED.png";
+		} else if (val === "IMPACTED") {
+			return "images/IMPACTED.png";
+		} else if (val === "DELETED") {
+			return "images/DELETED.png";
+		} else {
+			return "images/NOCHANGE.png";
+		}
+	}
+	
+	/*setColorMode:function(val){
 		if(val === "CREATED"){
 			this.addStyleClass("colorforCreted");
 			return true;
@@ -185,5 +199,5 @@ formatter.formatter = {
 			this.addStyleClass("colorforOthers");
 			return true;
 		}
-	}
+	}*/
 };

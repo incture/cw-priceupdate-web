@@ -429,14 +429,21 @@ sap.ui.define([
 									};
 									return oVBox;
 								} else if (cuurentObj.uiFieldType === "Vbox") {
-									var oVBox = new sap.m.VBox({
+									var oImage = new sap.m.Image({
+										src:{
+											path: bindingPath + "/colorCode",
+											formatter: formatter.formatter.setImageColorMode
+										}
+									});
+									return oImage;
+									/*var oVBox = new sap.m.VBox({
 										visible: {
 											path: bindingPath + "/colorCode",
 											formatter: formatter.formatter.setColorMode
 										}
 									});
 									oVBox.addStyleClass("colorBoxClass");
-									return oVBox;
+									return oVBox;*/
 								} else if (cuurentObj.uiFieldType === "Button") {
 									if (cuurentObj.fieldId === "Comment") {
 										var oCmntBtn = new sap.m.Button({
