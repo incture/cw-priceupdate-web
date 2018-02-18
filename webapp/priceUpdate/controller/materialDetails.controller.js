@@ -88,7 +88,7 @@ sap.ui.define([
 					oElementVisibleModel.getData().deletecaleButton = true;
 					oElementVisibleModel.getData().scaleImage = true;
 					oElementVisibleModel.getData().cancelScaleButton = true;
-					oElementVisibleModel.getData().scaleTableMode = "MultiSelect";
+					oElementVisibleModel.getData().scaleTableMode = "None";
 				} else {
 					oElementVisibleModel.getData().submitButton = true;
 					oElementVisibleModel.getData().revokeButton = false;
@@ -101,7 +101,7 @@ sap.ui.define([
 					oElementVisibleModel.getData().deletecaleButton = true;
 					oElementVisibleModel.getData().scaleImage = true;
 					oElementVisibleModel.getData().cancelScaleButton = true;
-					oElementVisibleModel.getData().scaleTableMode = "MultiSelect";
+					oElementVisibleModel.getData().scaleTableMode = "None";
 				}
 			}
 
@@ -722,7 +722,7 @@ sap.ui.define([
 									return OVBox;
 								} else if (cuurentObj.uiFieldType === "Vbox") {
 									var oImage = new sap.m.Image({
-										src:{
+										src: {
 											path: bindingPath + "/colorCode",
 											formatter: formatter.setImageColorMode
 										}
@@ -1023,7 +1023,7 @@ sap.ui.define([
 									}
 								} else if (cuurentObj.uiFieldType === "Vbox") {
 									var oImage = new sap.m.Image({
-										src:{
+										src: {
 											path: bindingPath + "/colorCode",
 											formatter: formatter.setImageColorMode
 										}
@@ -1789,8 +1789,8 @@ sap.ui.define([
 					if (status !== "ERROR") {
 						that.fntriggerBPM(data.requestId);
 					} else {
-						if(resultData.message){
-							errorText = resultData.message;	
+						if (resultData.message) {
+							errorText = resultData.message;
 						}
 						formatter.toastMessage(errorText);
 					}
@@ -1870,20 +1870,18 @@ sap.ui.define([
 			var bindingPath = "oMatSectionModel>" + sPath;
 
 			var oScaleLabel = new sap.m.Label({
-				text: "{i18n>SCALE_DATA}",
-				class: "scaleLableStyle",
-			});
+				text: "{i18n>SCALE_DATA}"
+			}).addStyleClass("scaleLableStyle");
 
 			var oToolbarSpacer = new sap.m.ToolbarSpacer();
 
 			var oImage = new sap.m.Image({
 				src: "images/DetailColorLegend1.png",
-				class: "scalesLegendClass",
 				visible: {
 					parts: [bindingPath + "/status", bindingPath + "/isEditable"],
 					formatter: formatter.formatStatusBooleanValues
-				},
-			});
+				}
+			}).addStyleClass("scalesLegendClass");
 
 			var oAddButton = new sap.m.Button({
 				icon: "sap-icon://add",
@@ -1896,7 +1894,7 @@ sap.ui.define([
 				}
 			});
 
-			var oDeleteButton = new sap.m.Button({
+			/*var oDeleteButton = new sap.m.Button({
 				icon: "sap-icon://delete",
 				visible: {
 					parts: [bindingPath + "/status", bindingPath + "/isEditable"],
@@ -1905,12 +1903,11 @@ sap.ui.define([
 				press: function(oEvent) {
 					that.onDeleteScale(oEvent);
 				}
-			});
+			});*/
 
 			var oToolbar = new sap.m.Toolbar({
-				content: [oScaleLabel, oToolbarSpacer, oImage, oAddButton, oDeleteButton],
-				class: "scalesToolBarHeader"
-			});
+				content: [oScaleLabel, oToolbarSpacer, oImage, oAddButton]
+			}).addStyleClass("scalesToolBarHeader");
 			oScaleTable.setHeaderToolbar(oToolbar);
 
 			oScaleTable.bindAggregation("columns", "oMatSectionModel>" + sPath + "/scaleColumnList", function(index, context) {
@@ -1923,7 +1920,7 @@ sap.ui.define([
 					},
 					header: new sap.m.Text({
 						wrapping: true,
-						text: "{" + sPath + "/scaleColName}",
+						text: "{" + sPath + "/scaleColName}"
 					}).addStyleClass("scaleColHdrStyle")
 				});
 				return oColumn;
@@ -2013,7 +2010,7 @@ sap.ui.define([
 								}
 							} else {
 								var oNewInput = new sap.m.Input({
-									value: "{" + sPath + "/fieldValue}",
+									value: "{" + sPath + "/fieldValueNew}",
 									width: "100%",
 									visible: {
 										path: sPath + "/isVisible",
@@ -2034,18 +2031,18 @@ sap.ui.define([
 								type: "Transparent",
 								icon: "sap-icon://delete",
 								press: function(oEvent) {
-									that.onDeleteScales(oEvent);
+									that.onDeleteScale(oEvent);
 								}
 							}).addStyleClass("cellBground");
 							return oDeleteBtn;
-						} else if (cuurentObj.uiFieldType === "Vbox") {
-								var oImage = new sap.m.Image({
-										src:{
-											path: bindingPath + "/colorCode",
-											formatter: formatter.setImageColorMode
-										}
-								});
-								return oImage;
+						} else if (cuurentObj.uiFieldType === "vbox") {
+							var oImage = new sap.m.Image({
+								src: {
+									path: sPath + "/colorCode",
+									formatter: formatter.setImageColorMode
+								}
+							});
+							return oImage;
 							/*var oVBox = new sap.m.VBox({
 								visible: {
 									path: sPath + "/colorCode",
@@ -2069,6 +2066,74 @@ sap.ui.define([
 				});
 				return oRow;
 			});
+		},
+
+		onDeleteScale: function(oEvent) {
+
+			var mPath = this.selectedTabSPath;
+			var oMatSectionModel = this.oMatSectionModel;
+			var oMatTable = this.getView().byId("PRICE_UPDATE_MAT_TABLE");
+			var bindingContext = oEvent.getSource().getParent().getBindingContext("oMatSectionModel");
+			var listPath = bindingContext.sPath.split("/")[6];
+			var scalePath = bindingContext.sPath.split("/")[8];
+			var length = bindingContext.sPath.split("/").length - 1;
+			var sPath = bindingContext.sPath.split("/")[length];
+			var oCondtionTypeRec = oMatSectionModel.getData().conditionTypesRecords.entry[mPath];
+			var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
+
+			if (isNaN(sPath)) {
+				var obj = {};
+				obj.parameterList = oArray[sPath];
+				var oTempArry = [];
+				oTempArry.push(obj);
+				sPath = 0;
+			} else {
+				var oTempArry = oArray;
+			}
+
+			var oSelectedArry = oTempArry[sPath].parameterList;
+			var bValHardDelete = formatter.validateRecordOnUIDelete(oSelectedArry);
+			var bVal = oSelectedArry[0].hasOwnProperty("deletionFlag");
+			if (bVal) {
+				var obj = oSelectedArry[0];
+				if (oSelectedArry[0].changeMode !== "DELETE") {
+
+					if (bValHardDelete) {
+						oTempArry.splice(sPath, 1);
+						return;
+					}
+					//Set 'Change Mode' to 'Deleted', when a obj from service is deleted.
+					var prevValue = obj.changeMode;
+					var undoModel = this.oUndoModel;
+					var obj2 = oSelectedArry[1];
+					var prevChangeMode = obj2.colorCode;
+					var deleteBtnPath = oEvent.getSource().getBindingContext("oMatSectionModel").getPath();
+					formatter.setPreviousStateObjects(deleteBtnPath, "oMatSectionModel", prevValue, undoModel, "OBJECT", "DELETE", "", "", "",
+						prevChangeMode, this.selectedIconTab);
+					undoModel.setProperty("/undoBtnEnabled", true);
+
+					obj.deletionFlag = "true";
+					obj.fieldValue = "True";
+					var prevChangeMode = "";
+					if (obj.changeMode === "CREATE") {
+						prevChangeMode = "CREATE";
+					} else {
+						prevChangeMode = obj.changeMode;
+					}
+					obj.uiPrevValue = prevChangeMode;
+					obj.changeMode = "DELETE";
+					oSelectedArry[1].colorCode = "DELETED";
+
+					//Disabling the row
+					formatter.setConditionRecEditable(oSelectedArry, "false");
+				} else {
+					return;
+				}
+			} else {
+				oTempArry.splice(sPath, 1);
+			}
+			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList = oTempArry;
+			oMatSectionModel.refresh(true);
 		},
 
 		//Validate if row cells is not empty, before adding a new row
@@ -2135,7 +2200,7 @@ sap.ui.define([
 		},
 
 		//Function to delete selected rows in scales table
-		onDeleteScale: function() {
+		/*onDeleteScale: function() {
 
 			var conditionTypePath = this.selectedTabSPath;
 			var oScalePathModel = this.oScalePathModel;
@@ -2173,7 +2238,7 @@ sap.ui.define([
 			formatter.setPreviousStateObjects(oLinkSpath, "oMatSectionModel", spliceObj, undoModel, "OBJECT", "DELETE", "", true, false, "",
 				this.selectedIconTab);
 			undoModel.setProperty("/undoBtnEnabled", true);
-		},
+		},*/
 
 		//getting a status of active and inactive records
 		onStatusUpdate: function(oEvent) {
@@ -2386,7 +2451,7 @@ sap.ui.define([
 					visible: {
 						path: sPath + "/isVisible",
 						formatter: formatter.formatBooleanValues
-					},
+					}
 				}).addStyleClass("cmntLblClass");
 				oToolbar.addContent(oLabel);
 				oToolbar.addStyleClass("toolbarClass");
@@ -2421,6 +2486,9 @@ sap.ui.define([
 			var that = this;
 			// a callback that will be called when the message box is closed again
 			function fnCallbackMessageBox(sResult) {
+				/*if (sResult === "YES") {
+					that.fetchBpmworkflowmonitor();
+				}*/
 				if (sResult === "YES") {
 					that.revokeProcess();
 				}
@@ -2452,7 +2520,6 @@ sap.ui.define([
 				if (oEvent.getParameter("success")) {
 					formatter.toastMessage("successfully revoked", that, true);
 				} else {
-					/*var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");*/
 					var errorText = oEvent.getSource().getData().message;
 					formatter.toastMessage(errorText, that, true);
 				}
@@ -2461,6 +2528,47 @@ sap.ui.define([
 				var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
 				formatter.toastMessage(errorText, that, true);
 			});
+		},
+
+		fetchBpmworkflowmonitor: function() {
+
+			var that = this;
+			this.busy.open();
+			var oMatSectionModel = this.oMatSectionModel;
+			var instanceId = oMatSectionModel.getData().processId;
+			var requestId = oMatSectionModel.getData().requestId;
+
+			var oUrl = "/DEST_BPM_MONITOR/sap/fiori/bpmworkflowmonitor/wfs/v1/xsrf-token";
+			var token = formatter.fetchToken(oUrl);
+			this.token = token;
+			var oPayload = {
+				"status": "canceled"
+			};
+			//var oContextData = oPayload;
+			if (this.token) {
+				var sUrl = "/DEST_BPM_MONITOR/sap/fiori/bpmworkflowmonitor/wfs/v1/workflow-instances/" + instanceId;
+				var oHeader = {
+					"Content-Type": "application/json; charset=utf-8",
+					"X-CSRF-Token": this.token
+				};
+				var oModel = new sap.ui.model.json.JSONModel();
+				oModel.loadData(sUrl, JSON.stringify(oPayload), true, "POST", false, false, oHeader);
+				oModel.attachRequestCompleted(function(oEvent) {
+					that.busy.close();
+					sap.m.MessageBox.show("Successfully Created with Request ID : " + requestId, {
+						icon: sap.m.MessageBox.Icon.SUCCESS,
+						title: "Success",
+						onClose: function(oAction) {
+							that.revokeProcess();
+						}
+					});
+				});
+				oModel.attachRequestFailed(function(oEvent) {
+					that.busy.close();
+					sap.m.MessageToast.show("Internal Server Error");
+				});
+			}
+
 		},
 
 		getNetPrice: function(oEvent) {
@@ -2482,7 +2590,7 @@ sap.ui.define([
 			var that = this;
 			//this.busy.open();
 			var oNetPriceModel = this.oNetPriceModel;
-			var sUrl = "/oneapp/cwpu/record/analytics";
+			var sUrl = "/CWPRICE_WEB/record/analytics";
 			var payload = {};
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, that.oHeader);
@@ -2522,11 +2630,11 @@ sap.ui.define([
 			oVBox.setVisible(false);
 		},
 
-		createNetPriceTable: function() {
-			var oNetPriceModel = this.oNetPriceModel;
-			var oSearchLayGrid = sap.ui.getCore().byId("NET_PRICE_BOX");
-			oSearchLayGrid.bindAggregation("content", "oNetPriceModel>/listOfNetPrice", function(index, context) {
-				var contextPath = context.getPath();
+		createNetPriceTable : function(){
+	    	var oNetPriceModel = this.oNetPriceModel;
+	   		var oSearchLayGrid = sap.ui.getCore().byId("NET_PRICE_BOX");
+	    	oSearchLayGrid.bindAggregation("content", "oNetPriceModel>/listOfData", function(index, context){
+	    		var contextPath = context.getPath();
 				var oNetPriceModel = context.getModel();
 				var sPath = "oNetPriceModel>" + contextPath;
 				var currentObj = oNetPriceModel.getProperty(contextPath);
@@ -2534,37 +2642,56 @@ sap.ui.define([
 				oVBox.addStyleClass("netPriceVboxClass");
 				var oTable = new sap.m.Table();
 				var oLabel = new sap.m.Label({
-					text: "{" + sPath + "/label}"
+					text :"{" + sPath + "/label}"
 				}).addStyleClass("inctureNetPrcTxtCls");
 				oVBox.addItem(oLabel);
-				oTable.bindAggregation("columns", "oNetPriceModel>/listOfColumns", function(index, context) {
-					var contextPath = context.getPath();
-					var model = context.getModel();
-					var sPath = "oNetPriceModel>" + contextPath;
-					var oColumn = new sap.m.Column({
-						header: new sap.m.Text({
-							wrapping: true,
-							text: "{" + sPath + "/label}"
-						}).addStyleClass("TableHdrTxtClass matTblHdrClass")
-					});
-					return oColumn;
-				});
-				oTable.bindItems("oNetPriceModel>" + contextPath + "/listOfCondtionNetPrice", function(index, context) {
-					var records = context.getObject();
-					var row = new sap.m.ColumnListItem();
-					for (var k in records) {
-						row.addCell(new sap.m.Text({
-							text: records[k]
-						}));
-					}
-					return row;
-				});
+				oTable.bindAggregation("columns", "oNetPriceModel>/listOfParameterColumn", function(index, context){
+		        	var contextPath = context.getPath();
+		        	var model = context.getModel();
+		        	var sPath = "oNetPriceModel>" + contextPath;
+		        	var oColumn = new sap.m.Column({
+		        		visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues},
+		        		header: new sap.m.Text({
+		        			wrapping: true,
+		        			text: "{" + sPath + "/label}"
+		        		}).addStyleClass("TableHdrTxtClass matTblHdrClass")
+		        	});
+		        	return oColumn;
+		  	   	});
+				oTable.bindAggregation("items", "oNetPriceModel>"+contextPath+"/listOfValues", function(index, context) {
+							var contextsPath = context.getPath();
+							var model=context.getModel();
+							var row = new sap.m.ColumnListItem();
+							var sPath = "oNetPriceModel>" + contextsPath+ "/parameterList";
+							row.bindAggregation("cells", sPath, function(index, context){
+								var model=context.getModel();
+								var sPath = context.getPath();
+								var bindingPath = "oNetPriceModel>" + sPath;
+								var cuurentObj = model.getProperty(sPath);
+								/*var fieldVisible = formatter.formatBooleanValues(cuurentObj.isVisible);
+								if(fieldVisible){
+									var oText = new sap.m.Text({
+										text:"{" + bindingPath + "/fieldValue}"
+									}).addStyleClass("");
+									return oText;
+									
+								}else{
+									var oLabel = new sap.m.Label({visible:false});
+									return oLabel;
+								}*/
+								var oText = new sap.m.Text({
+									text:"{" + bindingPath + "/fieldValue}"
+								}).addStyleClass("");
+								return oText;
+							});
+							return row;
+						});  
+					
 				oTable.addStyleClass("materialTblClass sapUiSizeCompact");
 				oVBox.addItem(oTable);
 				return oVBox;
-			});
-
-		},
+	    	});
+	   	},
 
 		onActionUndo: function() {
 
@@ -2708,25 +2835,6 @@ sap.ui.define([
 			}
 		},
 
-		fetchToken: function(oUrl) {
-			var token;
-			$.ajax({
-				url: oUrl,
-				method: "GET",
-				async: false,
-				headers: {
-					"X-CSRF-Token": "Fetch"
-				},
-				success: function(result, xhr, data) {
-					token = data.getResponseHeader("X-CSRF-Token");
-				},
-				error: function(result, xhr, data) {
-					token = result.getResponseHeader("x-csrf-token");
-				}
-			});
-			return token;
-		},
-
 		fntriggerBPM: function(requestId) {
 			var that = this;
 			this.busy.open();
@@ -2736,7 +2844,7 @@ sap.ui.define([
 			var decisionTableId = data[0];
 
 			var oUrl = "/destination/bpmworkflowruntime/workflow-service/rest/v1/xsrf-token";
-			var token = this.fetchToken(oUrl);
+			var token = formatter.fetchToken(oUrl);
 			this.token = token;
 			var oPayload = {
 				"definitionId": "priceupdate", // work flow name

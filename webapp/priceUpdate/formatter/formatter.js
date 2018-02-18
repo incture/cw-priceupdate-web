@@ -172,7 +172,7 @@ com.incture.formatter.formatter = {
 				}
 			}
 		});
-		if (count == 0) {
+		if (count === 0) {
 			return "sap-icon://post";
 		} else {
 			return "sap-icon://comment";
@@ -506,5 +506,24 @@ com.incture.formatter.formatter = {
 			}
 		});
 		return oTblCol;
-	}
+	},
+	
+	fetchToken: function(oUrl) {
+			var token;
+			$.ajax({
+				url: oUrl,
+				method: "GET",
+				async: false,
+				headers: {
+					"X-CSRF-Token": "Fetch"
+				},
+				success: function(result, xhr, data) {
+					token = data.getResponseHeader("X-CSRF-Token");
+				},
+				error: function(result, xhr, data) {
+					token = result.getResponseHeader("x-csrf-token");
+				}
+			});
+			return token;
+		}
 };
