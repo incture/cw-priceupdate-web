@@ -62,8 +62,6 @@ com.incture.formatter.conditionRecDialog = {
 				}else{
 					oTempObj2.tableVisible = false;
 					oTempObj2.radioBtnText = "Ignore the  new entry";
-				//	oTempObj2.rows = oParamObject.exisitngRecords;
-				//	oTempObj2.columns = oColumnHeader;
 					items.push(oTempObj2);
 				}
 				break;

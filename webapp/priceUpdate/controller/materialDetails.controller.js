@@ -1258,6 +1258,7 @@ sap.ui.define([
 			var sPath = evt.getBindingContext("oMatSectionModel").getPath();
 			var sPathIndex = sPath.charAt(sPath.length - 1);
 			var selectedObj = oMatModel.getProperty(sPath);
+			var oRecordMode = selectedObj.changeMode;
 
 			//selectedObj.uiFieldValue = formatter.formatDateValues(evt.getValue());
 			var dateTimeInst = oDateFormat.getDateTimeInstance({
@@ -1298,7 +1299,7 @@ sap.ui.define([
 							selectedObj.valueState = "Error";
 						}
 					} else {
-						var oParamObject = dateFunctions.checkCondtionRecCase(this.selectedTabSPath, mPath, oMatModel, oDateFormat);
+						var oParamObject = dateFunctions.checkCondtionRecCase(this.selectedTabSPath, mPath, oMatModel, oDateFormat, oRecordMode);
 						if (oParamObject) {
 							conditionRecDialog.showChangedConditionRec(oParamObject, this.oSplitRecordsModel, oMatModel, this, sPath);
 						}
@@ -1332,7 +1333,7 @@ sap.ui.define([
 						selectedObj.valueState = "Error";
 					}
 				} else {
-					var oParamObject = dateFunctions.checkCondtionRecCase(this.selectedTabSPath, mPath, oMatModel, oDateFormat);
+					var oParamObject = dateFunctions.checkCondtionRecCase(this.selectedTabSPath, mPath, oMatModel, oDateFormat, oRecordMode);
 					if (oParamObject) {
 						conditionRecDialog.showChangedConditionRec(oParamObject, this.oSplitRecordsModel, oMatModel, this, sPath);
 					}
@@ -1506,9 +1507,10 @@ sap.ui.define([
 		//Function to delete selected condition record from "Condition Records" table
 		onDeleteConditionRec: function(oEvent) {
 
+			var oTempArry = [];
 			var mPath = this.selectedTabSPath;
 			var oMatSectionModel = this.oMatSectionModel;
-			var oMatTable = this.getView().byId("PRICE_UPDATE_MAT_TABLE");
+			//var oMatTable = this.getView().byId("PRICE_UPDATE_MAT_TABLE");
 			var bindingContext = oEvent.getSource().getParent().getBindingContext("oMatSectionModel");
 			var length = bindingContext.sPath.split("/").length - 1;
 			var sPath = bindingContext.sPath.split("/")[length];
@@ -1518,15 +1520,23 @@ sap.ui.define([
 			if (isNaN(sPath)) {
 				var obj = {};
 				obj.tableColumnRecords = oArray[sPath];
-				var oTempArry = [];
 				oTempArry.push(obj);
 				sPath = 0;
 			} else {
-				var oTempArry = oArray;
+				oTempArry = oArray;
 			}
 
 			var oSelectedArry = oTempArry[sPath].tableColumnRecords;
-			var bValHardDelete = formatter.validateRecordOnUIDelete(oSelectedArry);
+			//var bValHardDelete = formatter.validateRecordOnUIDelete(oSelectedArry);
+			
+			var bValHardDelete;
+			var oChangeMode = oSelectedArry[0].changeMode;
+			if(oChangeMode === "CREATE"){
+				bValHardDelete = true;
+			}else{
+				bValHardDelete = false;
+			}
+			
 			var bVal = oSelectedArry[0].hasOwnProperty("deletionFlag");
 			if (bVal) {
 				var obj = oSelectedArry[0];
@@ -1534,6 +1544,7 @@ sap.ui.define([
 
 					if (bValHardDelete) {
 						oTempArry.splice(sPath, 1);
+						oMatSectionModel.refresh();
 						return;
 					}
 					//Set 'Change Mode' to 'Deleted', when a obj from service is deleted.
@@ -2817,7 +2828,7 @@ sap.ui.define([
 						if (changedObj.fieldValue === changedObj.fieldValueNew) {
 							if (firstobj.hasOwnProperty("changeMode")) {
 								if (firstobj.changeMode === "UPDATE") {
-									firstobj.changeMode === "CREATE";
+									firstobj.changeMode = "CREATE";
 								}
 							}
 						}
