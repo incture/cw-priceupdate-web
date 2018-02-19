@@ -557,7 +557,7 @@
 	width:31.5rem !important;
 	height:6rem !important;
 }
-.sapUiSizeCompact .sapMTextArea>.sapMTextAreaInner {
+.sapUiSizeCompact .sapMTextArea .sapMTextAreaInner {
     padding: 0.3125rem 0.5rem;
     height:7.2rem !important;
 }

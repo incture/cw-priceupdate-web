@@ -26,7 +26,10 @@ sap.ui.define([
 			this.requestId = "";
 			this.isChanged = "ALL";
 			this.isActive = "Active";
-
+			
+			var oModel = new sap.ui.model.json.JSONModel("/userapi/currentUser");
+			oModel.setDefaultBindingMode("OneWay");
+			
 			var oMasterPanelModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oMasterPanelModel, "oMasterPanelModel");
 			this.oMasterPanelModel = oMasterPanelModel;

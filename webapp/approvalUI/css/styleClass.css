@@ -997,7 +997,7 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 	font-weight:bold !important;
 }
 
-.inputBaseClass1>.sapMInputBaseInner {
+.inputBaseClass1 .sapMInputBaseInner {
     color: #000000;
     background: rgba(255, 255, 255, 0);
     font-size: 0.75rem !important;
@@ -1008,19 +1008,19 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
     border:none;
     border-bottom:2px solid #655252 !important;
 }
-.oldValueColor> .sapMInputBaseInner {
+.oldValueColor .sapMInputBaseInner {
 	color:red !important;
 }
-.apprvInputBaseClass> .sapMInputBaseInner {
+.apprvInputBaseClass .sapMInputBaseInner {
 	height:1rem !important;
 }
 /*.sapUiSizeCompact .sapMInputBase {
     height: 1rem !important;
 }*/
-.inputBaseClass>.sapMInputBase�{
+.inputBaseClass .sapMInputBase�{
 	height:2rem !important;
 }
-.noBorder>.sapMInputBaseInner{
+.noBorder .sapMInputBaseInner{
  	border : none !important;
  	text-align:center !important;
 }

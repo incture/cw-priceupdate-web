@@ -154,10 +154,10 @@
     color: #f5eeee;
 }
 /*-------------------------------------------App------------------------------*/
-.inctureMDShellClass .sapUiUfdShellHead{
+/*.inctureMDShellClass .sapUiUfdShellHead{
 	height:3rem;
-	background-color: rgb(11, 109, 63); !important;
-}
+	background-color: rgb(11, 109, 63) !important;
+}*/
 
 .inctureMDShellClass .sapUiUfdShellCanvas {
 	top:3.2rem;

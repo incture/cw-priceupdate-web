@@ -61,7 +61,7 @@
 									text="{oMatSectionModel>conditionName}" tooltip="{oMatSectionModel>conditionName}" />
 							</items>
 							<content>
-								<Table id="PRICE_UPDATE_MAT_TABLE" class="" mode="None">
+								<Table id="PRICE_UPDATE_MAT_TABLE" mode="None">
 									<headerToolbar>
 										<Toolbar class="conditionRecordClass">
 											<Label text="{i18n>CONDITION_RECORDS}" design="Bold"

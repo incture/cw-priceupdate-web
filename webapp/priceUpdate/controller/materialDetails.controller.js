@@ -108,10 +108,15 @@ sap.ui.define([
 			oElementVisibleModel.getData().setStatus = this.isActive;
 			oElementVisibleModel.getData().setRecord = this.isChanged;
 			oElementVisibleModel.refresh(true);
+			
+			var oTable = this.getView().byId("TABLEOFMATERIAL");
+			oTable.setVisible(true);
+			var oVBox = this.getView().byId("NETPRICEDATA");
+			oVBox.setVisible(false);
 
-			var oResourceModel = this.getOwnerComponent().getModel('i18n');
+			var oResourceModel = this.getOwnerComponent().getModel("i18n");
 			this.oResourceModel = oResourceModel.getResourceBundle();
-			this.oUndoModel = this.getOwnerComponent().getModel('oUndoModel');
+			this.oUndoModel = this.getOwnerComponent().getModel("oUndoModel");
 			this.oSplitRecordsModel = this.getOwnerComponent().getModel("oSplitRecordsModel");
 		},
 
@@ -609,7 +614,7 @@ sap.ui.define([
 
 			var that = this;
 			var selectedIconTab;
-			if (typeof(oEvent) === "string") {
+			if (typeof (oEvent) === "string") {
 				selectedIconTab = oEvent;
 				this.selectedIconTab = selectedIconTab;
 			} else {
@@ -695,11 +700,12 @@ sap.ui.define([
 										change: function(evt) {
 											that.onChangeSAPInput(evt);
 										}
-									}).addStyleClass("inputBaseClass inputBaseClass1");
+									});
 									var oCustomData = new sap.ui.core.CustomData({
 										key: "{" + bindingPath + "/fieldType}",
 										value: "{" + bindingPath + "/fieldId}"
 									});
+									oInput.addStyleClass("inputBaseClass1 inputBaseClass");
 									oInput.addCustomData(oCustomData);
 									return oInput;
 								} else if (cuurentObj.uiFieldType === "Link") {
@@ -822,7 +828,7 @@ sap.ui.define([
 		onPendingIconBarSelect: function(oEvent, status) {
 
 			var that = this;
-			if (typeof(oEvent) === "string") {
+			if ( typeof (oEvent) === "string") {
 				var selectedIconTab = oEvent;
 				this.selectedIconTab = selectedIconTab;
 			} else {
@@ -1480,7 +1486,7 @@ sap.ui.define([
 					oTempObj.fieldValue = oTempObj.fieldValue;
 					oTempObj.scaleColumnList = oScaleColumnList;
 					oTempObj.fieldValueNew = "0";
-					oTempObj.scalesList = [];
+					oTempObj.scaleDataList = [];
 					oTempObj.isEditable = "true";
 				} else {
 					oTempObj.fieldValue = "";
@@ -2668,7 +2674,7 @@ sap.ui.define([
 								var sPath = context.getPath();
 								var bindingPath = "oNetPriceModel>" + sPath;
 								var cuurentObj = model.getProperty(sPath);
-								/*var fieldVisible = formatter.formatBooleanValues(cuurentObj.isVisible);
+								var fieldVisible = formatter.formatBooleanValues(cuurentObj.isVisible);
 								if(fieldVisible){
 									var oText = new sap.m.Text({
 										text:"{" + bindingPath + "/fieldValue}"
@@ -2678,11 +2684,11 @@ sap.ui.define([
 								}else{
 									var oLabel = new sap.m.Label({visible:false});
 									return oLabel;
-								}*/
-								var oText = new sap.m.Text({
+								}
+								/*var oText = new sap.m.Text({
 									text:"{" + bindingPath + "/fieldValue}"
 								}).addStyleClass("");
-								return oText;
+								return oText;*/
 							});
 							return row;
 						});  
@@ -2743,7 +2749,7 @@ sap.ui.define([
 					if (changeType === "NEW") {
 						if (toastMsgBval) {
 							var oSelectedObj = oModel.getProperty(sPath);
-							if (oSelectedObj.hasOwnProperty('scaleDataList')) {
+							if (oSelectedObj.hasOwnProperty("scaleDataList")) {
 								var scaleDataList = oSelectedObj.scaleDataList;
 								var sIndex = scaleDataList.length - 1;
 								scaleDataList.splice(sIndex, 1);
@@ -2769,7 +2775,7 @@ sap.ui.define([
 							oSelectedArry = oModel.getProperty(o)[0];
 						}
 						if (toastMsgBval) {
-							if (oSelectedArry.hasOwnProperty('scaleDataList')) {
+							if (oSelectedArry.hasOwnProperty("scaleDataList")) {
 								var scaleDataList = oSelectedArry.scaleDataList;
 								scaleDataList.push(oPrevObj[0]);
 								oModel.getProperty(sPath).fieldValueNew = scaleDataList.length;
