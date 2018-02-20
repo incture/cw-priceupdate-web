@@ -40,25 +40,28 @@ com.incture.formatter.dateFunctions = {
 		var dates = this.getStartEndDateObjects(oContionRecord[0]);
 		var validityStart = new Date(dates[0].uiFieldValue);
 		var validityEnd = new Date(dates[1].uiFieldValue);
-		var oLength = oArray.length;
 		var getDelectedRec = this.removeDeletedRecords(oArray);
+		var oDeletecRecrds = getDelectedRec.oDeletecRec;
 		oArray = getDelectedRec.oArray;
 
-		if (oLength) {
-			if (oLength > 1) {
+		if (oArray.length) {
+			if (oArray.length > 1) {
 				oArray = this.sortConditionRecords(oArray);
 				var oNewCondtionRec = this.compareMultipleCondRec(validityStart, validityEnd, oContionRecord, oArray, initArray);
-
 				var newConditionRecords = oNewCondtionRec.newConditionRecords;
-				newConditionRecords = this.pushCondtionRecObjects(getDelectedRec.oDeletecRec, newConditionRecords);
+				newConditionRecords = this.pushCondtionRecObjects(oDeletecRecrds, newConditionRecords);
 				newConditionRecords = this.sortConditionRecords(newConditionRecords);
 				oNewCondtionRec.newConditionRecords = newConditionRecords;
 
 				var unchangedRecords = oNewCondtionRec.unchangedRecords;
-				unchangedRecords = this.pushCondtionRecObjects(getDelectedRec.oDeletecRec, unchangedRecords);
+				for(var i=0; i<oDeletecRecrds.length; i++){
+					var bValPushRecord = this.checkDuplicateConditionRec(oDeletecRecrds[i], unchangedRecords);
+					if(!bValPushRecord){
+						unchangedRecords = this.pushCondtionRecObjects(oDeletecRecrds[i], unchangedRecords);
+					}	
+				}
 				unchangedRecords = this.sortConditionRecords(unchangedRecords);
 				oNewCondtionRec.unchangedRecords = unchangedRecords;
-
 				return oNewCondtionRec;
 			} else {
 				var oValidateRec = oArray[0];
@@ -73,7 +76,17 @@ com.incture.formatter.dateFunctions = {
 			var getDates = this.getStartEndDateObjects(oContionRecord[0]);
 			var oStartDate = new Date(getDates[0].uiFieldValue);
 			var oEndDate = new Date(getDates[1].uiFieldValue);
-			var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", oContionRecord, [], oContionRecord);
+			var oAffectedRec = jQuery.extend(true, [], oContionRecord);
+			var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", oAffectedRec, [], oContionRecord);
+			
+			if(oDeletecRecrds.length){
+				var newConditionRecords = oParamObject.newConditionRecords;
+				newConditionRecords = this.pushCondtionRecObjects(oDeletecRecrds, newConditionRecords);
+				newConditionRecords = this.sortConditionRecords(newConditionRecords);
+				oParamObject.newConditionRecords = newConditionRecords;
+				oParamObject.unchangedRecords = initArray;
+				oParamObject.bVal = true;
+			}
 			return oParamObject;
 		}
 	},
@@ -1190,13 +1203,30 @@ com.incture.formatter.dateFunctions = {
 			}
 		}
 	},
+	
+	checkDuplicateConditionRec: function(oDeletedRec, oArray){
+		
+		var getDelRecDates = this.getStartEndDateObjects(oDeletedRec);	
+		var delStartDate = getDelRecDates[0].uiFieldValue;
+		var delEndDate = getDelRecDates[1].uiFieldValue;
+		
+		for(var i=0; i<oArray.length; i++){
+			var getCurObjDates = this.getStartEndDateObjects(oArray[i].tableColumnRecords);	
+			var curStartDate = getCurObjDates[0].uiFieldValue;
+			var curEndDate = getCurObjDates[1].uiFieldValue;
+			if(curStartDate === delStartDate && curEndDate === delEndDate){
+				return true;
+			}
+		}
+		return false;
+	}
 
-	getValidityDateInRange: function(oArray, startDate, endDate) {
+	/*getValidityDateInRange: function(oArray, startDate, endDate) {
 
 		for (var i = 0; i < oArray.length; i++) {
 			var oConditionRec = oArray[i];
 			var oDates = this.getStartEndDateObjects(oConditionRec);
 		}
 
-	}
+	}*/
 };
