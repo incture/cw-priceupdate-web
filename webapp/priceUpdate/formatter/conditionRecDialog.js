@@ -1,7 +1,7 @@
 jQuery.sap.declare("com.incture.formatter.conditionRecDialog");
 com.incture.formatter.conditionRecDialog = {
 		
-	showChangedConditionRec: function(oParamObject, oSplitRecordsModel, oMatSectionModel, detailsController, sPath){
+	showChangedConditionRec: function(oParamObject, oSplitRecordsModel, oMatSectionModel, detailsController, sPath, currentObject){
 		
 		this.formatter = com.incture.formatter.formatter;
 		if(oParamObject.indices.length){
@@ -19,6 +19,8 @@ com.incture.formatter.conditionRecDialog = {
 				oTempObj1.rows = oParamObject.affectedRecords;
 				oTempObj1.columns = oColumnHeader;
 				oTempObj1.newConditionRecords = oParamObject.newConditionRecords;
+				oTempObj1.currentObject = currentObject;
+				oTempObj1.type = "OVERLAP";
 				items.push(oTempObj1);
 					
 				var oTempObj2 = {};
@@ -43,6 +45,8 @@ com.incture.formatter.conditionRecDialog = {
 				oTempObj1.rows = oParamObject.affectedRecords;
 				oTempObj1.columns = oColumnHeader;
 				oTempObj1.newConditionRecords = oParamObject.newConditionRecords;
+				oTempObj1.currentObject = currentObject;
+				oTempObj1.type = "NEW_RECORD";
 				items.push(oTempObj1);
 					
 				var oTempObj2 = {};
@@ -74,6 +78,8 @@ com.incture.formatter.conditionRecDialog = {
 				oTempObj1.rows = oParamObject.affectedRecords;
 				oTempObj1.columns = oColumnHeader;
 				oTempObj1.newConditionRecords = oParamObject.newConditionRecords;
+				oTempObj1.currentObject = currentObject;
+				oTempObj1.type = "PARTIAL_OVERLAP";
 				items.push(oTempObj1);
 				
 				var oTempObj2 = {};
@@ -98,6 +104,8 @@ com.incture.formatter.conditionRecDialog = {
 				oTempObj1.rows = oParamObject.affectedRecords;
 				oTempObj1.columns = oColumnHeader;
 				oTempObj1.newConditionRecords = oParamObject.newConditionRecords;
+				oTempObj1.currentObject = currentObject;
+				oTempObj1.type = "SPLIT_RECORD";
 				items.push(oTempObj1);
 					
 				var oTempObj2 = {};
@@ -119,7 +127,8 @@ com.incture.formatter.conditionRecDialog = {
 			var selectedIconTab = detailsController.selectedIconTab;
 			var undoModel = detailsController.oUndoModel;
 			var oPrevStateObj = jQuery.extend(true,[],oTempObj2.newConditionRecords);
-			that.formatter.setPreviousStateObjects(sPath, "oMatSectionModel", oPrevStateObj, undoModel, "ARRAY", "NEW", "", "", "", "", selectedIconTab);
+			var oRecordNumber = com.incture.formatter.formatter.getConditionConditionRecNo(currentObject.tableColumnRecords);
+			that.formatter.setPreviousStateObjects(sPath, "oMatSectionModel", oPrevStateObj, undoModel, "ARRAY", "NEW", "", "", "", "", selectedIconTab, oRecordNumber);
 			undoModel.setProperty("/undoBtnEnabled", true);
 			
 			//oSplitRecordsModel.setProperty("/items", items);

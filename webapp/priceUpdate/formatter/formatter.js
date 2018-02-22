@@ -222,7 +222,7 @@ com.incture.formatter.formatter = {
 	},
 
 	setPreviousStateObjects: function(sPath, oModel, selectedObj, oUndoModel, objectType, changeType, fieldId, toastMsgBval, isScales,
-		prevChangeMode, selectedTab) {
+		prevChangeMode, selectedTab, recordNumber) {
 
 		var oArray;
 		var oConditionTypes = oUndoModel.getData().oConditionTypes;
@@ -242,8 +242,8 @@ com.incture.formatter.formatter = {
 		oTempObj.toastMsgBval = toastMsgBval;
 		oTempObj.isScales = isScales;
 		oTempObj.prevChangeMode = prevChangeMode;
+		oTempObj.recordNumber = recordNumber;
 		oArray.push(oTempObj);
-		// oUndoModel.getData().prevStateArray = oArray;
 		oUndoModel.refresh();
 	},
 
@@ -418,8 +418,9 @@ com.incture.formatter.formatter = {
 					var oUndoTempObj = {
 						prevStateArray: [],
 						key: key
-					}
+					};
 					oUndoConditionTypes.push(oUndoTempObj);
+
 					if (conditionRec[i] === undefined) {
 						var value = {};
 						value.listMatrialInfoRecord = [];
@@ -507,23 +508,72 @@ com.incture.formatter.formatter = {
 		});
 		return oTblCol;
 	},
-	
+
 	fetchToken: function(oUrl) {
-			var token;
-			$.ajax({
-				url: oUrl,
-				method: "GET",
-				async: false,
-				headers: {
-					"X-CSRF-Token": "Fetch"
-				},
-				success: function(result, xhr, data) {
-					token = data.getResponseHeader("X-CSRF-Token");
-				},
-				error: function(result, xhr, data) {
-					token = result.getResponseHeader("x-csrf-token");
-				}
-			});
-			return token;
+		var token;
+		$.ajax({
+			url: oUrl,
+			method: "GET",
+			async: false,
+			headers: {
+				"X-CSRF-Token": "Fetch"
+			},
+			success: function(result, xhr, data) {
+				token = data.getResponseHeader("X-CSRF-Token");
+			},
+			error: function(result, xhr, data) {
+				token = result.getResponseHeader("x-csrf-token");
+			}
+		});
+		return token;
+	},
+
+	//Below function generates random number, which is used as a temporary condition record number. 
+	generateConditionRecNo: function() {
+		var oConditionRecNum = "C";
+		var oRandomNum = Math.floor(Math.random() * (900000 - 100000)) + 100000;
+		oRandomNum = oRandomNum.toString();
+		oConditionRecNum = oConditionRecNum + oRandomNum;
+		return oConditionRecNum;
+	},
+	
+	//Get selected condtion reord's, condition record number.
+	getConditionConditionRecNo: function(oConditionRecord) {
+		var oConditionRecNo = "";
+		oConditionRecord.filter(function(obj){
+			if(obj.fieldId === "KNUMH"){
+			   oConditionRecNo = obj.fieldValueNew;
+			}
+		});
+		return oConditionRecNo;
+	},
+	
+	//Below functions checks for if a duplicate record is added
+	checkDuplicateConditionRec: function(oConditionRecord, oRecords){
+		
+		//var getStartEndDates = com.incture.formatter.dateFunctions.getStartEndDateObjects(oConditionRecord);	
+		//var oStartDate = getStartEndDates[0].uiFieldValue;
+		//var oEndDate = getStartEndDates[1].uiFieldValue;
+		var oConditionRecNum;
+		if(typeof oConditionRecord === "string"){
+			oConditionRecNum = oConditionRecord;
+		}else{
+			oConditionRecNum = this.getConditionConditionRecNo(oConditionRecord.tableColumnRecords);
 		}
+	
+		for(var i=0; i<oRecords.length; i++){
+			var oCurrentObj = oRecords[i].tableColumnRecords;
+			//var getCurObjDates = com.incture.formatter.dateFunctions.getStartEndDateObjects(oCurrentObj);	
+			//var curStartDate = getCurObjDates[0].uiFieldValue;
+			//var curEndDate = getCurObjDates[1].uiFieldValue;
+			var currConditionRecNum = this.getConditionConditionRecNo(oCurrentObj);
+			/*if(curStartDate === oStartDate && curEndDate === oEndDate && currConditionRecNum === oConditionRecNum){
+				return [true, i];
+			}*/
+			if(currConditionRecNum === oConditionRecNum){
+				return [true, i];
+			}
+		}
+		return [false];
+	}
 };

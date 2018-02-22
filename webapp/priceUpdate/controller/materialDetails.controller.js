@@ -206,7 +206,19 @@ sap.ui.define([
 						}
 					}
 					formatter.addConditionRecArray(oMatSectionModel, that.oUndoModel);
-
+					
+					//Deltet below line
+					var oConditionTypeRec = oMatSectionModel.getProperty("/conditionTypesRecords");
+					dateFunctions.sortConditionRecords(oConditionTypeRec.entry[0].value.listMatrialInfoRecord);
+					//
+					
+					//Adding version2 data structure in oMatSectionModel, for the latest change made in UI for ECC validation
+					//This array 'Version2' is not used in UI, but changes made in UI are sent to sevice.
+					var oConditionTypeRec = oMatSectionModel.getProperty("/conditionTypesRecords");
+					var oVersion2Log = jQuery.extend(true, {}, oConditionTypeRec);
+					oMatSectionModel.setProperty("/oVersion2Log", oVersion2Log);
+					////////////////////////////
+					
 					var conditionRecords = that.conditionRecord;
 					that.setBussinessContext(status);
 					that.setDataOnCondition(status, conditionRecords);
@@ -1205,11 +1217,16 @@ sap.ui.define([
 		onChangeSAPInput: function(oEvent) {
 			var evt = oEvent.getSource();
 			var oValue = evt.getValue();
-			var oMaxLength = evt.getMaxLength();
+			//var oMaxLength = evt.getMaxLength();
 			var fieldType = evt.getCustomData()[0].getKey();
 			var oMatModel = this.oMatSectionModel;
 			var sPath = evt.getBindingContext("oMatSectionModel").getPath();
 			var selectedObj = oMatModel.getProperty(sPath);
+
+			//Get current object; [Focused row]
+			var oCurrentRowPath = oEvent.getSource().getParent().getBindingContext("oMatSectionModel").getPath();	
+			var oCurrentObj = oMatModel.getProperty(oCurrentRowPath);
+			var oRecordNumber = formatter.getConditionConditionRecNo(oCurrentObj.tableColumnRecords);
 
 			var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
 			var getFirstObj = oMatModel.getProperty(firstObjSpath);
@@ -1244,9 +1261,18 @@ sap.ui.define([
 			var undoModel = this.oUndoModel;
 			var prevValue = selectedObj.uiPrevValue;
 			formatter.setPreviousStateObjects(sPath, "oMatSectionModel", prevValue, undoModel, "PROPERTY", "CHANGE", "fieldValueNew", "",
-				"", prevChangeMode, this.selectedIconTab);
+				"", prevChangeMode, this.selectedIconTab, oRecordNumber);
 			selectedObj.uiPrevValue = oValue1;
 			undoModel.setProperty("/undoBtnEnabled", true);
+			
+			//Version2 update data 
+			var oVersion2Log = oMatModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
+			var checkDuplicateRec = formatter.checkDuplicateConditionRec(oCurrentObj, oVersion2Log); 
+			if(checkDuplicateRec[0] === true){
+				var index = checkDuplicateRec[1];
+				var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+				oMatModel.setProperty(oPath, oCurrentObj);
+			}
 			oMatModel.refresh();
 		},
 
@@ -1265,6 +1291,8 @@ sap.ui.define([
 				pattern: "MM/dd/yyyy"
 			});
 			var selectedRow = evt.getParent().getBindingContext("oMatSectionModel").getPath();
+			var getObject = oMatModel.getProperty(selectedRow);
+			
 			var splitIndex = selectedRow.split("/");
 			var mPath = splitIndex[splitIndex.length - 1];
 
@@ -1301,7 +1329,7 @@ sap.ui.define([
 					} else {
 						var oParamObject = dateFunctions.checkCondtionRecCase(this.selectedTabSPath, mPath, oMatModel, oDateFormat, oRecordMode);
 						if (oParamObject) {
-							conditionRecDialog.showChangedConditionRec(oParamObject, this.oSplitRecordsModel, oMatModel, this, sPath);
+							conditionRecDialog.showChangedConditionRec(oParamObject, this.oSplitRecordsModel, oMatModel, this, sPath, getObject);
 						}
 						evt.setTooltip("");
 						if (this.errorStateBVal > 0 && selectedObj.valueState === "Error") {
@@ -1335,7 +1363,7 @@ sap.ui.define([
 				} else {
 					var oParamObject = dateFunctions.checkCondtionRecCase(this.selectedTabSPath, mPath, oMatModel, oDateFormat, oRecordMode);
 					if (oParamObject) {
-						conditionRecDialog.showChangedConditionRec(oParamObject, this.oSplitRecordsModel, oMatModel, this, sPath);
+						conditionRecDialog.showChangedConditionRec(oParamObject, this.oSplitRecordsModel, oMatModel, this, sPath, getObject);
 					}
 				}
 			}
@@ -1344,7 +1372,7 @@ sap.ui.define([
 
 		onConfirmDialog: function() {
 
-			var oNewConditionRec;
+			var oNewConditionRec, currentObj, affectedRecords, type;//, selectedRow;
 			var oMatModel = this.oMatSectionModel;
 			var oSplitRecordsModel = this.oSplitRecordsModel;
 			var oSplitRecordData = oSplitRecordsModel.getData().items;
@@ -1352,10 +1380,29 @@ sap.ui.define([
 			for (var i = 0; i < length; i++) {
 				if (oSplitRecordData[i].radioBtnSelected) {
 					oNewConditionRec = oSplitRecordData[i].newConditionRecords;
+					if(oSplitRecordData[i].currentObject){
+						currentObj = oSplitRecordData[i].currentObject;
+						affectedRecords = oSplitRecordData[i].rows;
+						type = oSplitRecordData[i].type;
+					}/*else{
+						selectedRow = oSplitRecordData[i].selectedRow;
+					}*/
 				}
 			}
 			oMatModel.getData().conditionTypesRecords.entry[this.selectedTabSPath].value.listMatrialInfoRecord = oNewConditionRec;
-			oMatModel.refresh();
+			
+			//Version2 update data 
+			var oVersion2Log = oMatModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
+			var oTempArry = jQuery.extend(true, [], oVersion2Log);
+			var checkDuplicateRec = formatter.checkDuplicateConditionRec(currentObj, oTempArry); 
+			if(checkDuplicateRec[0] === true){
+				var index = checkDuplicateRec[1];
+				var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+				oMatModel.setProperty(oPath, currentObj);
+			}else{
+				oVersion2Log.push(currentObj);
+			}
+			
 			oMatModel.refresh();
 			this.priceList.close();
 			this.priceList.destroyContent();
@@ -1380,7 +1427,7 @@ sap.ui.define([
 
 			var oTempArry;
 			var sPath = this.selectedTabSPath;
-			var oMatTable = this.getView().byId("PRICE_UPDATE_MAT_TABLE");
+			//var oMatTable = this.getView().byId("PRICE_UPDATE_MAT_TABLE");
 			var oMatSectionModel = this.oMatSectionModel;
 			var columnArry = oMatSectionModel.getData().tableColumn;
 			var conditionRecords = oMatSectionModel.getData().conditionTypesRecords;
@@ -1495,6 +1542,11 @@ sap.ui.define([
 				if (oTempObj.fieldId === "COLOR") {
 					oTempObj.colorCode = "CREATED";
 				}
+				if(oTempObj.fieldId === "KNUMH"){
+					var oRecordNum = formatter.generateConditionRecNo();
+					oTempObj.fieldValueNew = oRecordNum;
+					oTempObj.fieldValue = oRecordNum;
+				}
 				oTempObj.changeMode = "CREATE";
 				tableColumnRecords.push(oTempObj);
 			}
@@ -1543,6 +1595,14 @@ sap.ui.define([
 				if (oSelectedArry[0].changeMode !== "DELETE") {
 
 					if (bValHardDelete) {
+						//Version2log
+						var oVersion2Log = oMatSectionModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/");
+						var checkDuplicateRec = formatter.checkDuplicateConditionRec(oTempArry[sPath], oVersion2Log); 
+						if(checkDuplicateRec[0] === true){
+							var index = checkDuplicateRec[1];
+						//	var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+							oVersion2Log.splice(index, 1);
+						}
 						oTempArry.splice(sPath, 1);
 						oMatSectionModel.refresh();
 						return;
@@ -1571,6 +1631,16 @@ sap.ui.define([
 
 					//Disabling the row
 					formatter.setConditionRecEditable(oSelectedArry, "false");
+					
+					//Version2 update data 
+					var oCurrentObj = oMatSectionModel.getProperty(bindingContext.getPath());
+					var oVersion2Log = oMatSectionModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
+					var checkDuplicateRec = formatter.checkDuplicateConditionRec(oCurrentObj, oVersion2Log); 
+					if(checkDuplicateRec[0] === true){
+						var index = checkDuplicateRec[1];
+						var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+						oMatSectionModel.setProperty(oPath, oCurrentObj);
+					}
 				} else {
 					return;
 				}
@@ -1658,6 +1728,7 @@ sap.ui.define([
 
 		//Function to validate for empty cells in table, on click of submit button
 		onSubmitMaterialList: function(oEvent) {
+			
 			var oButtonType = oEvent.getSource().getCustomData()[0].getValue();
 			var oMatSectionModel = this.oMatSectionModel;
 			var oConditionTypesRecords = oMatSectionModel.getData().conditionTypesRecords;
@@ -1727,7 +1798,7 @@ sap.ui.define([
 				var oPayload = oMatSectionModel.getData();
 				oPayload.businessObjectId = "PIR";
 				oPayload.decisionTableId = decisionTableId,
-					oPayload.requestType = "UI";
+				oPayload.requestType = "UI";
 				oPayload.usageId = "A";
 				oPayload.applicationId = "M";
 				oPayload.headerList = data;
@@ -1739,7 +1810,7 @@ sap.ui.define([
 				var oPayload = oMatSectionModel.getData();
 				oPayload.businessObjectId = "PIR";
 				oPayload.decisionTableId = decisionTableId,
-					oPayload.requestType = "UI";
+				oPayload.requestType = "UI";
 				oPayload.usageId = "A";
 				oPayload.applicationId = "M";
 				oPayload.headerList = data;
@@ -2710,10 +2781,38 @@ sap.ui.define([
 	    	});
 	   	},
 
+		undoVersion2Log: function(recordNumber){
+			var oMatSectionModel = this.oMatSectionModel;
+			var oVersion2Log = oMatSectionModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
+			var checkDuplicateRec = formatter.checkDuplicateConditionRec(recordNumber, oVersion2Log); 
+			if(checkDuplicateRec[0] === true){
+				var index = checkDuplicateRec[1];
+				var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+				var oCurrentObj = oMatSectionModel.getProperty(oPath);
+				var oFirstObj = oCurrentObj.tableColumnRecords[0];
+				var oSecondObj = oCurrentObj.tableColumnRecords[1];
+				if(oFirstObj.changeMode === "CHANGED" || oFirstObj.changeMode === "UPDATE"){
+					var oDates = dateFunctions.getStartEndDateObjects(oCurrentObj);
+					var startDtObj = oDates[0];
+					startDtObj.fieldValue = startDtObj.uiPrevValue;
+					startDtObj.fieldValueNew = startDtObj.uiPrevValue;
+					
+					var endDtObj = oDates[1];
+					endDtObj.fieldValue = endDtObj.uiPrevValue;
+					endDtObj.fieldValueNew = endDtObj.uiPrevValue;
+					
+					oFirstObj.changeMode = "NO_CHANGE";
+					oSecondObj.colorCode = "";
+				}else if(oFirstObj.changeMode === "CREATE"){
+					oVersion2Log.splice(index, 1);
+				}
+			}
+		},
+		
 		onActionUndo: function() {
 
 			var oArray;
-			var oCurrentObj;
+			//var oCurrentObj;
 			var mPath = this.selectedTabSPath;
 			var oUndoModel = this.oUndoModel;
 			var selectedIconTab = this.selectedIconTab;
@@ -2721,7 +2820,6 @@ sap.ui.define([
 			var oConditionTypes = oUndoModel.getData().oConditionTypes;
 			oConditionTypes.forEach(function(obj) {
 				if (selectedIconTab === obj.key) {
-					oCurrentObj = obj;
 					oArray = obj.prevStateArray;
 				}
 			});
@@ -2737,12 +2835,14 @@ sap.ui.define([
 				var toastMsgBval = lastObj.toastMsgBval;
 				var isScales = lastObj.isScales;
 				var prevChangeMode = lastObj.prevChangeMode;
+				var recordNumber = lastObj.recordNumber;
 
 				var oRowNumber = sPath.split("listMatrialInfoRecord/")[1].split("/")[0];
-				oRowNumber = parseInt(oRowNumber) + 1;
+				oRowNumber = parseInt(oRowNumber, 10) + 1;
 				oRowNumber = oRowNumber.toString();
 
 				if (objectType === "ARRAY") {
+					this.undoVersion2Log(recordNumber);
 					var sPathIndex = sPath.split("listMatrialInfoRecord/")[1].split("/")[0];
 					sPath = "/conditionTypesRecords/entry/" + mPath + "/value/listMatrialInfoRecord";
 					oModel.setProperty(sPath, oPrevObj);
@@ -2812,6 +2912,39 @@ sap.ui.define([
 						}
 					}
 				} else if (objectType === "PROPERTY") {
+					
+					var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/";
+					var oVersion2Log = oModel.getProperty(oPath);
+					var checkDuplicateRec = formatter.checkDuplicateConditionRec(recordNumber, oVersion2Log); 
+					if(checkDuplicateRec[0] === true){
+						var index = checkDuplicateRec[1];
+						oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+						var oV2Obj = oModel.getProperty(oPath);
+					}
+					if(oV2Obj){
+						oPath = oPath + "/tableColumnRecords/" + sPath.split("/")[8];
+						var v2changedObj = oModel.getProperty(oPath);
+						v2changedObj[changedField] = oPrevObj;
+						
+						var v2firstObjSpath = oPath.split("/").slice(0, -1).join("/") + "/0";
+						var v2firstobj = oModel.getProperty(v2firstObjSpath);
+
+						var v2secondObjSpath = oPath.split("/").slice(0, -1).join("/") + "/1";
+						var v2getSecondObj = oModel.getProperty(v2secondObjSpath);
+						if (v2getSecondObj) {
+							v2getSecondObj.colorCode = prevChangeMode;
+						}
+						if (v2firstobj) {
+							if (v2changedObj.fieldValue === v2changedObj.fieldValueNew) {
+								if (v2firstobj.hasOwnProperty("changeMode")) {
+									if (v2firstobj.changeMode === "UPDATE") {
+										v2firstobj.changeMode = "NO_CHANGE";
+									}
+								}
+							}
+						}
+					}
+					
 					var changedObj = oModel.getProperty(sPath);
 					changedObj[changedField] = oPrevObj;
 
@@ -2823,7 +2956,7 @@ sap.ui.define([
 					if (getSecondObj) {
 						getSecondObj.colorCode = prevChangeMode;
 					}
-
+				
 					if (firstobj) {
 						if (changedObj.fieldValue === changedObj.fieldValueNew) {
 							if (firstobj.hasOwnProperty("changeMode")) {

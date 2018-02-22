@@ -1175,11 +1175,26 @@ com.incture.formatter.dateFunctions = {
 	setConditionRecMode: function(nValidateRec, oValidateRec, oNextConditionRec) {
 		if (nValidateRec) {
 			if (Array.isArray(nValidateRec)) {
-				nValidateRec[0].tableColumnRecords[0].changeMode = "CREATE";
-				nValidateRec[0].tableColumnRecords[1].colorCode = "CREATED";
+				/*nValidateRec[0].tableColumnRecords[0].changeMode = "CREATE";
+				nValidateRec[0].tableColumnRecords[1].colorCode = "CREATED";*/
+				var changeMode = nValidateRec[0].tableColumnRecords[0];
+				if(changeMode === "NO_CHANGE"){
+					nValidateRec[0].tableColumnRecords[0].changeMode = "CHANGED";
+					nValidateRec[0].tableColumnRecords[1].colorCode = "CHANGE";
+				}else{
+					nValidateRec[0].tableColumnRecords[0].changeMode = "CREATE";
+					nValidateRec[0].tableColumnRecords[1].colorCode = "CREATED";
+				}
 			} else {
-				nValidateRec.tableColumnRecords[0].changeMode = "CREATE";
-				nValidateRec.tableColumnRecords[1].colorCode = "CREATED";
+				/*nValidateRec.tableColumnRecords[0].changeMode = "CREATE";
+				nValidateRec.tableColumnRecords[1].colorCode = "CREATED";*/
+				if(nValidateRec.tableColumnRecords[0].changeMode === "NO_CHANGE"){
+					nValidateRec.tableColumnRecords[0].changeMode = "CHANGED";
+					nValidateRec.tableColumnRecords[1].colorCode = "CHANGE";
+				}else{
+					nValidateRec.tableColumnRecords[0].changeMode = "CREATE";
+					nValidateRec.tableColumnRecords[1].colorCode = "CREATED";
+				}
 			}
 		}
 
