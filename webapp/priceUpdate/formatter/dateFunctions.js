@@ -716,7 +716,8 @@ com.incture.formatter.dateFunctions = {
 			} else if (nValidityStart > oStartDate && nValidityEnd > oEndDate) {
 				//If the date range is greater than the existing record. [A new record is created]
 				if (nValidityStart > oEndDate) {
-					this.setConditionRecMode(nValidateRec, oValidateRec);
+				//	this.setConditionRecMode(nValidateRec, oValidateRec); //Changed from Kundan's bug
+					this.setConditionRecMode(nValidateRec);
 					var oTempArry = [];
 					oTempArry.push(oValidateRec);
 					oTempArry.push(nValidateRec[0]);

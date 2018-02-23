@@ -706,6 +706,16 @@ html.sap-desktop .inctureMDITBClass .sapMITBItem:focus .sapMITBFilterIcon,
     background-color: transparent;
 }
 
+.scaleFooterBtn{
+    height: 3rem;
+    margin: 11px;
+    padding: -0.75rem 4.25rem;
+    vertical-align: top;
+    border: none;
+    background-color: transparent;
+    width:82px !important;
+}
+
 .inctureTextClass{
 	margin-left: -0.5rem !important;
 }
@@ -839,6 +849,7 @@ html.sap-desktop .inctureMDITBClass .sapMITBItem:focus .sapMITBFilterIcon,
 .inctureDialogMargin{
 	margin-right: 1rem !important;
 }
+
 .businessContextTextClass{
  	margin-top: 0.4rem;
  	margin-right: 5px;
@@ -864,8 +875,9 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 	width:11rem !important;
 }
 .scaleLableStyle{
-	font-size: 1.2rem !important;
-	margin-left:16rem;
+	font-size: 16px !important;
+	font-weight: bolder !important;
+	margin-left:12rem;
 }
 
 .fontSizeReduce>input{
@@ -1015,8 +1027,9 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 }
 
 .legendImageClass{
- 	margin-top:0.5rem !important;
+ 	margin-top:0.2rem !important;
 }
+
 .logoImageClass{
  	width: 9.5rem;
 	margin-left: 1.5rem;
@@ -1039,12 +1052,21 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 .scalesToolBarHeader{
 	margin-top: -1rem;
 }
-.scalesLegendClass{
-	margin-top:0.5rem;
-}
+
 .scalesPopUpStyle{
 	background:white;
 }
+
+.scaleTable .sapMListTbl {
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.scaleTable .sapMImg{
+	margin-top:0.6rem !important;
+}
+
 .inctureCheckoutNetPriceBtn .sapMBtnInner {
 	background : rgb(59, 62, 115) !important; 
 	border-color: rgb(59, 62, 115) !important;;
@@ -1191,4 +1213,8 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 
 .netPriceBackBtn.sapMBarRight, .sapMBarRight>.sapMBarChild:last-child {
     margin-right: 4px;
+}
+
+.legendImageClass{
+	margin-top:0.6rem !important;
 }

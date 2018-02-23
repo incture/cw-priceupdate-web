@@ -108,7 +108,7 @@ sap.ui.define([
 			oElementVisibleModel.getData().setStatus = this.isActive;
 			oElementVisibleModel.getData().setRecord = this.isChanged;
 			oElementVisibleModel.refresh(true);
-			
+
 			var oTable = this.getView().byId("TABLEOFMATERIAL");
 			oTable.setVisible(true);
 			var oVBox = this.getView().byId("NETPRICEDATA");
@@ -206,19 +206,19 @@ sap.ui.define([
 						}
 					}
 					formatter.addConditionRecArray(oMatSectionModel, that.oUndoModel);
-					
+
 					//Deltet below line
 					var oConditionTypeRec = oMatSectionModel.getProperty("/conditionTypesRecords");
 					dateFunctions.sortConditionRecords(oConditionTypeRec.entry[0].value.listMatrialInfoRecord);
 					//
-					
+
 					//Adding version2 data structure in oMatSectionModel, for the latest change made in UI for ECC validation
 					//This array 'Version2' is not used in UI, but changes made in UI are sent to sevice.
 					var oConditionTypeRec = oMatSectionModel.getProperty("/conditionTypesRecords");
 					var oVersion2Log = jQuery.extend(true, {}, oConditionTypeRec);
 					oMatSectionModel.setProperty("/oVersion2Log", oVersion2Log);
 					////////////////////////////
-					
+
 					var conditionRecords = that.conditionRecord;
 					that.setBussinessContext(status);
 					that.setDataOnCondition(status, conditionRecords);
@@ -626,7 +626,7 @@ sap.ui.define([
 
 			var that = this;
 			var selectedIconTab;
-			if (typeof (oEvent) === "string") {
+			if (typeof(oEvent) === "string") {
 				selectedIconTab = oEvent;
 				this.selectedIconTab = selectedIconTab;
 			} else {
@@ -840,7 +840,7 @@ sap.ui.define([
 		onPendingIconBarSelect: function(oEvent, status) {
 
 			var that = this;
-			if ( typeof (oEvent) === "string") {
+			if (typeof(oEvent) === "string") {
 				var selectedIconTab = oEvent;
 				this.selectedIconTab = selectedIconTab;
 			} else {
@@ -1224,7 +1224,7 @@ sap.ui.define([
 			var selectedObj = oMatModel.getProperty(sPath);
 
 			//Get current object; [Focused row]
-			var oCurrentRowPath = oEvent.getSource().getParent().getBindingContext("oMatSectionModel").getPath();	
+			var oCurrentRowPath = oEvent.getSource().getParent().getBindingContext("oMatSectionModel").getPath();
 			var oCurrentObj = oMatModel.getProperty(oCurrentRowPath);
 			var oRecordNumber = formatter.getConditionConditionRecNo(oCurrentObj.tableColumnRecords);
 
@@ -1264,11 +1264,11 @@ sap.ui.define([
 				"", prevChangeMode, this.selectedIconTab, oRecordNumber);
 			selectedObj.uiPrevValue = oValue1;
 			undoModel.setProperty("/undoBtnEnabled", true);
-			
+
 			//Version2 update data 
 			var oVersion2Log = oMatModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
-			var checkDuplicateRec = formatter.checkDuplicateConditionRec(oCurrentObj, oVersion2Log); 
-			if(checkDuplicateRec[0] === true){
+			var checkDuplicateRec = formatter.checkDuplicateConditionRec(oCurrentObj, oVersion2Log);
+			if (checkDuplicateRec[0] === true) {
 				var index = checkDuplicateRec[1];
 				var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
 				oMatModel.setProperty(oPath, oCurrentObj);
@@ -1292,7 +1292,7 @@ sap.ui.define([
 			});
 			var selectedRow = evt.getParent().getBindingContext("oMatSectionModel").getPath();
 			var getObject = oMatModel.getProperty(selectedRow);
-			
+
 			var splitIndex = selectedRow.split("/");
 			var mPath = splitIndex[splitIndex.length - 1];
 
@@ -1372,7 +1372,7 @@ sap.ui.define([
 
 		onConfirmDialog: function() {
 
-			var oNewConditionRec, currentObj, affectedRecords, type;//, selectedRow;
+			var oNewConditionRec, currentObj, affectedRecords, type; //, selectedRow;
 			var oMatModel = this.oMatSectionModel;
 			var oSplitRecordsModel = this.oSplitRecordsModel;
 			var oSplitRecordData = oSplitRecordsModel.getData().items;
@@ -1380,29 +1380,30 @@ sap.ui.define([
 			for (var i = 0; i < length; i++) {
 				if (oSplitRecordData[i].radioBtnSelected) {
 					oNewConditionRec = oSplitRecordData[i].newConditionRecords;
-					if(oSplitRecordData[i].currentObject){
+					if (oSplitRecordData[i].currentObject) {
 						currentObj = oSplitRecordData[i].currentObject;
 						affectedRecords = oSplitRecordData[i].rows;
 						type = oSplitRecordData[i].type;
-					}/*else{
-						selectedRow = oSplitRecordData[i].selectedRow;
-					}*/
+					}
+					/*else{
+											selectedRow = oSplitRecordData[i].selectedRow;
+										}*/
 				}
 			}
 			oMatModel.getData().conditionTypesRecords.entry[this.selectedTabSPath].value.listMatrialInfoRecord = oNewConditionRec;
-			
+
 			//Version2 update data 
 			var oVersion2Log = oMatModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
 			var oTempArry = jQuery.extend(true, [], oVersion2Log);
-			var checkDuplicateRec = formatter.checkDuplicateConditionRec(currentObj, oTempArry); 
-			if(checkDuplicateRec[0] === true){
+			var checkDuplicateRec = formatter.checkDuplicateConditionRec(currentObj, oTempArry);
+			if (checkDuplicateRec[0] === true) {
 				var index = checkDuplicateRec[1];
 				var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
 				oMatModel.setProperty(oPath, currentObj);
-			}else{
+			} else {
 				oVersion2Log.push(currentObj);
 			}
-			
+
 			oMatModel.refresh();
 			this.priceList.close();
 			this.priceList.destroyContent();
@@ -1542,7 +1543,7 @@ sap.ui.define([
 				if (oTempObj.fieldId === "COLOR") {
 					oTempObj.colorCode = "CREATED";
 				}
-				if(oTempObj.fieldId === "KNUMH"){
+				if (oTempObj.fieldId === "KNUMH") {
 					var oRecordNum = formatter.generateConditionRecNo();
 					oTempObj.fieldValueNew = oRecordNum;
 					oTempObj.fieldValue = oRecordNum;
@@ -1580,15 +1581,15 @@ sap.ui.define([
 
 			var oSelectedArry = oTempArry[sPath].tableColumnRecords;
 			//var bValHardDelete = formatter.validateRecordOnUIDelete(oSelectedArry);
-			
+
 			var bValHardDelete;
 			var oChangeMode = oSelectedArry[0].changeMode;
-			if(oChangeMode === "CREATE"){
+			if (oChangeMode === "CREATE") {
 				bValHardDelete = true;
-			}else{
+			} else {
 				bValHardDelete = false;
 			}
-			
+
 			var bVal = oSelectedArry[0].hasOwnProperty("deletionFlag");
 			if (bVal) {
 				var obj = oSelectedArry[0];
@@ -1597,10 +1598,10 @@ sap.ui.define([
 					if (bValHardDelete) {
 						//Version2log
 						var oVersion2Log = oMatSectionModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/");
-						var checkDuplicateRec = formatter.checkDuplicateConditionRec(oTempArry[sPath], oVersion2Log); 
-						if(checkDuplicateRec[0] === true){
+						var checkDuplicateRec = formatter.checkDuplicateConditionRec(oTempArry[sPath], oVersion2Log);
+						if (checkDuplicateRec[0] === true) {
 							var index = checkDuplicateRec[1];
-						//	var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+							//	var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
 							oVersion2Log.splice(index, 1);
 						}
 						oTempArry.splice(sPath, 1);
@@ -1631,12 +1632,12 @@ sap.ui.define([
 
 					//Disabling the row
 					formatter.setConditionRecEditable(oSelectedArry, "false");
-					
+
 					//Version2 update data 
 					var oCurrentObj = oMatSectionModel.getProperty(bindingContext.getPath());
 					var oVersion2Log = oMatSectionModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
-					var checkDuplicateRec = formatter.checkDuplicateConditionRec(oCurrentObj, oVersion2Log); 
-					if(checkDuplicateRec[0] === true){
+					var checkDuplicateRec = formatter.checkDuplicateConditionRec(oCurrentObj, oVersion2Log);
+					if (checkDuplicateRec[0] === true) {
 						var index = checkDuplicateRec[1];
 						var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
 						oMatSectionModel.setProperty(oPath, oCurrentObj);
@@ -1728,7 +1729,7 @@ sap.ui.define([
 
 		//Function to validate for empty cells in table, on click of submit button
 		onSubmitMaterialList: function(oEvent) {
-			
+
 			var oButtonType = oEvent.getSource().getCustomData()[0].getValue();
 			var oMatSectionModel = this.oMatSectionModel;
 			var oConditionTypesRecords = oMatSectionModel.getData().conditionTypesRecords;
@@ -1798,7 +1799,7 @@ sap.ui.define([
 				var oPayload = oMatSectionModel.getData();
 				oPayload.businessObjectId = "PIR";
 				oPayload.decisionTableId = decisionTableId,
-				oPayload.requestType = "UI";
+					oPayload.requestType = "UI";
 				oPayload.usageId = "A";
 				oPayload.applicationId = "M";
 				oPayload.headerList = data;
@@ -1810,7 +1811,7 @@ sap.ui.define([
 				var oPayload = oMatSectionModel.getData();
 				oPayload.businessObjectId = "PIR";
 				oPayload.decisionTableId = decisionTableId,
-				oPayload.requestType = "UI";
+					oPayload.requestType = "UI";
 				oPayload.usageId = "A";
 				oPayload.applicationId = "M";
 				oPayload.headerList = data;
@@ -1964,7 +1965,7 @@ sap.ui.define([
 			var oToolbarSpacer = new sap.m.ToolbarSpacer();
 
 			var oImage = new sap.m.Image({
-				src: "images/DetailColorLegend1.png",
+				src: "images/ScalesLegend.png",
 				visible: {
 					parts: [bindingPath + "/status", bindingPath + "/isEditable"],
 					formatter: formatter.formatStatusBooleanValues
@@ -1982,17 +1983,6 @@ sap.ui.define([
 				}
 			});
 
-			/*var oDeleteButton = new sap.m.Button({
-				icon: "sap-icon://delete",
-				visible: {
-					parts: [bindingPath + "/status", bindingPath + "/isEditable"],
-					formatter: formatter.formatStatusBooleanValues
-				},
-				press: function(oEvent) {
-					that.onDeleteScale(oEvent);
-				}
-			});*/
-
 			var oToolbar = new sap.m.Toolbar({
 				content: [oScaleLabel, oToolbarSpacer, oImage, oAddButton]
 			}).addStyleClass("scalesToolBarHeader");
@@ -2008,7 +1998,11 @@ sap.ui.define([
 					},
 					header: new sap.m.Text({
 						wrapping: true,
-						text: "{" + sPath + "/scaleColName}"
+						//	text: "{" + sPath + "/scaleColName}"
+						text: {
+							path: sPath + "/scaleColName",
+							formatter: formatter.formatColumnWidth
+						}
 					}).addStyleClass("scaleColHdrStyle")
 				});
 				return oColumn;
@@ -2034,7 +2028,10 @@ sap.ui.define([
 							if (status === "Update Pending") {
 								if (cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === "") {
 									var oNewInput = new sap.m.Input({
-										value: "{" + sPath + "/fieldValueNew}",
+										value: {
+											parts: [sPath + "/fieldValueNew", sPath + "/fieldId"],
+											formatter: formatter.comaSeparator
+										},
 										width: "100%",
 										visible: {
 											path: sPath + "/isVisible",
@@ -2044,7 +2041,7 @@ sap.ui.define([
 											path: sPath + "/isEditable",
 											formatter: formatter.formatBooleanValues
 										}
-									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact");
+									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact inputBaseClass1");
 									var oNewCustomData = new sap.ui.core.CustomData({
 										key: "{" + sPath + "/fieldType}",
 										value: "{" + sPath + "/fieldId}"
@@ -2054,7 +2051,10 @@ sap.ui.define([
 								} else {
 									var oVBox = new sap.m.VBox();
 									var oNewInput = new sap.m.Input({
-										value: "{" + sPath + "/fieldValueNew}",
+										value: {
+											parts: [sPath + "/fieldValueNew", sPath + "/fieldId"],
+											formatter: formatter.scalesComaSep
+										},
 										width: "100%",
 										visible: {
 											path: sPath + "/isVisible",
@@ -2064,7 +2064,7 @@ sap.ui.define([
 											path: sPath + "/isEditable",
 											formatter: formatter.formatBooleanValues
 										}
-									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact");
+									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact inputBaseClass1");
 									var oNewCustomData = new sap.ui.core.CustomData({
 										key: "{" + sPath + "/fieldType}",
 										value: "{" + sPath + "/fieldId}"
@@ -2077,7 +2077,10 @@ sap.ui.define([
 									oVBox.addItem(oHBox);
 
 									var oOldInput = new sap.m.Input({
-										value: "{" + sPath + "/fieldValue}",
+										value: {
+											parts: [sPath + "/fieldValueNew", sPath + "/fieldId"],
+											formatter: formatter.scalesComaSep
+										},
 										width: "100%",
 										visible: {
 											path: sPath + "/isVisible",
@@ -2087,7 +2090,7 @@ sap.ui.define([
 											path: sPath + "/isEditable",
 											formatter: formatter.formatBooleanValues
 										}
-									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact oldValueColor");
+									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact oldValueColor inputBaseClass1");
 									var oCustomData = new sap.ui.core.CustomData({
 										key: "{" + sPath + "/fieldType}",
 										value: "{" + sPath + "/fieldId}"
@@ -2098,7 +2101,10 @@ sap.ui.define([
 								}
 							} else {
 								var oNewInput = new sap.m.Input({
-									value: "{" + sPath + "/fieldValueNew}",
+									value: {
+										parts: [sPath + "/fieldValueNew", sPath + "/fieldId"],
+										formatter: formatter.scalesComaSep
+									},
 									width: "100%",
 									visible: {
 										path: sPath + "/isVisible",
@@ -2111,7 +2117,7 @@ sap.ui.define([
 									change: function(oEvent) {
 										that.setScaleUndoSpath(oEvent);
 									}
-								}).addStyleClass("");
+								}).addStyleClass("inputBaseClass1");
 								return oNewInput;
 							}
 						} else if (cuurentObj.uiFieldType === "Button") {
@@ -2718,11 +2724,11 @@ sap.ui.define([
 			oVBox.setVisible(false);
 		},
 
-		createNetPriceTable : function(){
-	    	var oNetPriceModel = this.oNetPriceModel;
-	   		var oSearchLayGrid = sap.ui.getCore().byId("NET_PRICE_BOX");
-	    	oSearchLayGrid.bindAggregation("content", "oNetPriceModel>/listOfData", function(index, context){
-	    		var contextPath = context.getPath();
+		createNetPriceTable: function() {
+			var oNetPriceModel = this.oNetPriceModel;
+			var oSearchLayGrid = sap.ui.getCore().byId("NET_PRICE_BOX");
+			oSearchLayGrid.bindAggregation("content", "oNetPriceModel>/listOfData", function(index, context) {
+				var contextPath = context.getPath();
 				var oNetPriceModel = context.getModel();
 				var sPath = "oNetPriceModel>" + contextPath;
 				var currentObj = oNetPriceModel.getProperty(contextPath);
@@ -2730,85 +2736,90 @@ sap.ui.define([
 				oVBox.addStyleClass("netPriceVboxClass");
 				var oTable = new sap.m.Table();
 				var oLabel = new sap.m.Label({
-					text :"{" + sPath + "/label}"
+					text: "{" + sPath + "/label}"
 				}).addStyleClass("inctureNetPrcTxtCls");
 				oVBox.addItem(oLabel);
-				oTable.bindAggregation("columns", "oNetPriceModel>/listOfParameterColumn", function(index, context){
-		        	var contextPath = context.getPath();
-		        	var model = context.getModel();
-		        	var sPath = "oNetPriceModel>" + contextPath;
-		        	var oColumn = new sap.m.Column({
-		        		visible: { path: sPath + "/isVisible", formatter: formatter.formatBooleanValues},
-		        		header: new sap.m.Text({
-		        			wrapping: true,
-		        			text: "{" + sPath + "/label}"
-		        		}).addStyleClass("TableHdrTxtClass matTblHdrClass")
-		        	});
-		        	return oColumn;
-		  	   	});
-				oTable.bindAggregation("items", "oNetPriceModel>"+contextPath+"/listOfValues", function(index, context) {
-							var contextsPath = context.getPath();
-							var model=context.getModel();
-							var row = new sap.m.ColumnListItem();
-							var sPath = "oNetPriceModel>" + contextsPath+ "/parameterList";
-							row.bindAggregation("cells", sPath, function(index, context){
-								var model=context.getModel();
-								var sPath = context.getPath();
-								var bindingPath = "oNetPriceModel>" + sPath;
-								var cuurentObj = model.getProperty(sPath);
-								var fieldVisible = formatter.formatBooleanValues(cuurentObj.isVisible);
-								if(fieldVisible){
-									var oText = new sap.m.Text({
-										text:"{" + bindingPath + "/fieldValue}"
-									}).addStyleClass("");
-									return oText;
-									
-								}else{
-									var oLabel = new sap.m.Label({visible:false});
-									return oLabel;
-								}
-								/*var oText = new sap.m.Text({
-									text:"{" + bindingPath + "/fieldValue}"
-								}).addStyleClass("");
-								return oText;*/
+				oTable.bindAggregation("columns", "oNetPriceModel>/listOfParameterColumn", function(index, context) {
+					var contextPath = context.getPath();
+					var model = context.getModel();
+					var sPath = "oNetPriceModel>" + contextPath;
+					var oColumn = new sap.m.Column({
+						visible: {
+							path: sPath + "/isVisible",
+							formatter: formatter.formatBooleanValues
+						},
+						header: new sap.m.Text({
+							wrapping: true,
+							text: "{" + sPath + "/label}"
+						}).addStyleClass("TableHdrTxtClass matTblHdrClass")
+					});
+					return oColumn;
+				});
+				oTable.bindAggregation("items", "oNetPriceModel>" + contextPath + "/listOfValues", function(index, context) {
+					var contextsPath = context.getPath();
+					var model = context.getModel();
+					var row = new sap.m.ColumnListItem();
+					var sPath = "oNetPriceModel>" + contextsPath + "/parameterList";
+					row.bindAggregation("cells", sPath, function(index, context) {
+						var model = context.getModel();
+						var sPath = context.getPath();
+						var bindingPath = "oNetPriceModel>" + sPath;
+						var cuurentObj = model.getProperty(sPath);
+						var fieldVisible = formatter.formatBooleanValues(cuurentObj.isVisible);
+						if (fieldVisible) {
+							var oText = new sap.m.Text({
+								text: "{" + bindingPath + "/fieldValue}"
+							}).addStyleClass("");
+							return oText;
+
+						} else {
+							var oLabel = new sap.m.Label({
+								visible: false
 							});
-							return row;
-						});  
-					
+							return oLabel;
+						}
+						/*var oText = new sap.m.Text({
+							text:"{" + bindingPath + "/fieldValue}"
+						}).addStyleClass("");
+						return oText;*/
+					});
+					return row;
+				});
+
 				oTable.addStyleClass("materialTblClass sapUiSizeCompact");
 				oVBox.addItem(oTable);
 				return oVBox;
-	    	});
-	   	},
+			});
+		},
 
-		undoVersion2Log: function(recordNumber){
+		undoVersion2Log: function(recordNumber) {
 			var oMatSectionModel = this.oMatSectionModel;
 			var oVersion2Log = oMatSectionModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
-			var checkDuplicateRec = formatter.checkDuplicateConditionRec(recordNumber, oVersion2Log); 
-			if(checkDuplicateRec[0] === true){
+			var checkDuplicateRec = formatter.checkDuplicateConditionRec(recordNumber, oVersion2Log);
+			if (checkDuplicateRec[0] === true) {
 				var index = checkDuplicateRec[1];
 				var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
 				var oCurrentObj = oMatSectionModel.getProperty(oPath);
 				var oFirstObj = oCurrentObj.tableColumnRecords[0];
 				var oSecondObj = oCurrentObj.tableColumnRecords[1];
-				if(oFirstObj.changeMode === "CHANGED" || oFirstObj.changeMode === "UPDATE"){
+				if (oFirstObj.changeMode === "CHANGED" || oFirstObj.changeMode === "UPDATE") {
 					var oDates = dateFunctions.getStartEndDateObjects(oCurrentObj);
 					var startDtObj = oDates[0];
 					startDtObj.fieldValue = startDtObj.uiPrevValue;
 					startDtObj.fieldValueNew = startDtObj.uiPrevValue;
-					
+
 					var endDtObj = oDates[1];
 					endDtObj.fieldValue = endDtObj.uiPrevValue;
 					endDtObj.fieldValueNew = endDtObj.uiPrevValue;
-					
+
 					oFirstObj.changeMode = "NO_CHANGE";
 					oSecondObj.colorCode = "";
-				}else if(oFirstObj.changeMode === "CREATE"){
+				} else if (oFirstObj.changeMode === "CREATE") {
 					oVersion2Log.splice(index, 1);
 				}
 			}
 		},
-		
+
 		onActionUndo: function() {
 
 			var oArray;
@@ -2912,20 +2923,20 @@ sap.ui.define([
 						}
 					}
 				} else if (objectType === "PROPERTY") {
-					
+
 					var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/";
 					var oVersion2Log = oModel.getProperty(oPath);
-					var checkDuplicateRec = formatter.checkDuplicateConditionRec(recordNumber, oVersion2Log); 
-					if(checkDuplicateRec[0] === true){
+					var checkDuplicateRec = formatter.checkDuplicateConditionRec(recordNumber, oVersion2Log);
+					if (checkDuplicateRec[0] === true) {
 						var index = checkDuplicateRec[1];
 						oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
 						var oV2Obj = oModel.getProperty(oPath);
 					}
-					if(oV2Obj){
+					if (oV2Obj) {
 						oPath = oPath + "/tableColumnRecords/" + sPath.split("/")[8];
 						var v2changedObj = oModel.getProperty(oPath);
 						v2changedObj[changedField] = oPrevObj;
-						
+
 						var v2firstObjSpath = oPath.split("/").slice(0, -1).join("/") + "/0";
 						var v2firstobj = oModel.getProperty(v2firstObjSpath);
 
@@ -2944,7 +2955,7 @@ sap.ui.define([
 							}
 						}
 					}
-					
+
 					var changedObj = oModel.getProperty(sPath);
 					changedObj[changedField] = oPrevObj;
 
@@ -2956,7 +2967,7 @@ sap.ui.define([
 					if (getSecondObj) {
 						getSecondObj.colorCode = prevChangeMode;
 					}
-				
+
 					if (firstobj) {
 						if (changedObj.fieldValue === changedObj.fieldValueNew) {
 							if (firstobj.hasOwnProperty("changeMode")) {
