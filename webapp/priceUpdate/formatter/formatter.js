@@ -1,601 +1,704 @@
 jQuery.sap.declare("com.incture.formatter.formatter");
 com.incture.formatter.formatter = {
 
-		onSAPEnter: function(inputField, controller) {
-			var that = this;
-			inputField.onsapenter = (function(oEvent) {
-				if (navigator.onLine) {
-					sap.m.InputBase.prototype.onsapenter.apply(inputField, arguments);
-					controller.onSearch();
-				} else {
-					setTimeout(function() {
-						inputField.focus();
-					}, 1200);
-				}
-			}).bind(that);
-		},
-
-		formaValueState: function(evt) {
-			if (evt === "Error") {
-				this.removeStyleClass("inputBaseClass1");
-				this.addStyleClass("formatErrorClass");
-				return evt;
+	onSAPEnter: function(inputField, controller) {
+		var that = this;
+		inputField.onsapenter = (function(oEvent) {
+			if (navigator.onLine) {
+				sap.m.InputBase.prototype.onsapenter.apply(inputField, arguments);
+				controller.onSearch();
 			} else {
-				this.removeStyleClass("formatErrorClass");
-				this.addStyleClass("inputBaseClass1");
-				return "None";
+				setTimeout(function() {
+					inputField.focus();
+				}, 1200);
 			}
-		},
+		}).bind(that);
+	},
 
-		formatBooleanValues: function(evt) {
-			var oBoolean = typeof(evt);
-			if (oBoolean === "boolean") {
-				return evt;
-			} else if (oBoolean === "string") {
-				if (evt === "true") {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		},
+	formaValueState: function(evt) {
+		if (evt === "Error") {
+			this.removeStyleClass("inputBaseClass1");
+			this.addStyleClass("formatErrorClass");
+			return evt;
+		} else {
+			this.removeStyleClass("formatErrorClass");
+			this.addStyleClass("inputBaseClass1");
+			return "None";
+		}
+	},
 
-		formatMaxLength: function(evt) {
-			if (evt) {
-				return parseInt(evt);
-			}
-		},
-
-		toastMessage: function(message, cntrl, bVal) {
-			var that = this;
-			sap.m.MessageToast.show(message, {
-				duration: 4000,
-				width: "20em",
-				my: "center center",
-				at: "center center",
-				of: window,
-				offset: "0 0",
-				onClose: that.onCloseToastMessage(cntrl, bVal),
-				collision: "fit fit",
-				autoClose: true,
-				animationTimingFunction: "ease",
-				animationDuration: 1000,
-				closeOnBrowserNavigation: true
-			});
-		},
-		onCloseToastMessage: function(cntrl, bVal) {
-			if (bVal === true) {
-				jQuery.sap.delayedCall(2000, null, function() {
-					cntrl.onNavBack();
-				});
+	formatBooleanValues: function(evt) {
+		var oBoolean = typeof(evt);
+		if (oBoolean === "boolean") {
+			return evt;
+		} else if (oBoolean === "string") {
+			if (evt === "true") {
+				return true;
 			} else {
-				return null;
+				return false;
 			}
-		},
+		}
+	},
 
-		setSearchParams: function(fieldValue, fieldId, oAdvanceSearchModel) {
+	formatMaxLength: function(evt) {
+		if (evt) {
+			return parseInt(evt);
+		}
+	},
 
-			var oSearchArray = oAdvanceSearchModel.getData().searchpanel;
-			oSearchArray.filter(function(obj, i, arr) {
-				if (obj.fieldId === fieldId) {
-					obj.fieldValue = fieldValue;
-				}
+	toastMessage: function(message, cntrl, bVal) {
+		var that = this;
+		sap.m.MessageToast.show(message, {
+			duration: 4000,
+			width: "20em",
+			my: "center center",
+			at: "center center",
+			of: window,
+			offset: "0 0",
+			onClose: that.onCloseToastMessage(cntrl, bVal),
+			collision: "fit fit",
+			autoClose: true,
+			animationTimingFunction: "ease",
+			animationDuration: 1000,
+			closeOnBrowserNavigation: true
+		});
+	},
+	onCloseToastMessage: function(cntrl, bVal) {
+		if (bVal === true) {
+			jQuery.sap.delayedCall(2000, null, function() {
+				cntrl.onNavBack();
 			});
-		},
+		} else {
+			return null;
+		}
+	},
 
-		setBusinessContextParams: function(oEvent, oMatSectionModel, oBusinessContextModel) {
+	setSearchParams: function(fieldValue, fieldId, oAdvanceSearchModel) {
 
-			var oContextData = oEvent.getSource().getBindingContext("oMatSectionModel");
-			var sPath = oContextData.getPath();
-			var oCurrentObj = oMatSectionModel.getProperty(sPath);
-			var oValue = oCurrentObj.fieldValueNew;
+		var oSearchArray = oAdvanceSearchModel.getData().searchpanel;
+		oSearchArray.filter(function(obj, i, arr) {
+			if (obj.fieldId === fieldId) {
+				obj.fieldValue = fieldValue;
+			}
+		});
+	},
 
-			var fieldId = oEvent.getSource().getCustomData()[0].getKey();
-			var oContextArray = oBusinessContextModel.getData().businessObjectList;
-			oContextArray.filter(function(obj, i, arr) {
-				if (obj.hasOwnProperty("boList")) {
-					var boList = obj.boList;
-					if (Array.isArray(boList)) {
-						boList.filter(function(object) {
-							if (object.fieldId === fieldId) {
-								object.fieldValueNew = oValue;
-							}
-						});
-					} else {
-						if (obj.boList.fieldId === fieldId) {
-							obj.boList.fieldValueNew = oValue;
+	setBusinessContextParams: function(oEvent, oMatSectionModel, oBusinessContextModel) {
+
+		var oContextData = oEvent.getSource().getBindingContext("oMatSectionModel");
+		var sPath = oContextData.getPath();
+		var oCurrentObj = oMatSectionModel.getProperty(sPath);
+		var oValue = oCurrentObj.fieldValueNew;
+
+		var fieldId = oEvent.getSource().getCustomData()[0].getKey();
+		var oContextArray = oBusinessContextModel.getData().businessObjectList;
+		oContextArray.filter(function(obj, i, arr) {
+			if (obj.hasOwnProperty("boList")) {
+				var boList = obj.boList;
+				if (Array.isArray(boList)) {
+					boList.filter(function(object) {
+						if (object.fieldId === fieldId) {
+							object.fieldValueNew = oValue;
 						}
+					});
+				} else {
+					if (obj.boList.fieldId === fieldId) {
+						obj.boList.fieldValueNew = oValue;
 					}
 				}
-			});
-		},
-
-		onTableFilter: function(oEvent, oTable, oBindingPaths) {
-
-			var aFilters = [];
-			var sQuery = "";
-			if (oEvent) {
-				sQuery = oEvent.getSource().getValue();
 			}
-			var filterArry = [];
-			if (sQuery && sQuery.length > 0) {
-				for (var i = 0; i < oBindingPaths.length; i++) {
-					var bindingName = oBindingPaths[i];
-					filterArry.push(new sap.ui.model.Filter(bindingName, sap.ui.model.FilterOperator.Contains, sQuery));
+		});
+	},
+
+	onTableFilter: function(oEvent, oTable, oBindingPaths) {
+
+		var aFilters = [];
+		var sQuery = "";
+		if (oEvent) {
+			sQuery = oEvent.getSource().getValue();
+		}
+		var filterArry = [];
+		if (sQuery && sQuery.length > 0) {
+			for (var i = 0; i < oBindingPaths.length; i++) {
+				var bindingName = oBindingPaths[i];
+				filterArry.push(new sap.ui.model.Filter(bindingName, sap.ui.model.FilterOperator.Contains, sQuery));
+			}
+
+			var filter = new sap.ui.model.Filter(filterArry, false);
+			aFilters.push(filter);
+		}
+
+		var binding = oTable.getBinding("items");
+		binding.filter(aFilters, "Application");
+	},
+
+	formatPageNumber: function(evt) {
+		if (evt) {
+			return "Page : " + evt;
+		}
+	},
+
+	formatWidth: function(bval) {
+		var oMatSectionModel = this.getModel("oVariableKeyModel");
+		var data = oMatSectionModel.getData().rows[0];
+		var length = data.length;
+		var status = data[length - 1];
+		if (status === "Update Pending") {
+			/*this.addStyleClass("lineCommentBoxStyle");*/
+			this.addStyleClass("lineCommentBoxStyleAvail");
+		} else {
+			this.addStyleClass("lineCommentBoxStyleAvail");
+		}
+	},
+
+	commentIconChang: function(val) {
+		var oMatSectionModel = this.getModel("oMatSectionModel");
+		var sPath = this.getBindingContext("oMatSectionModel").sPath;
+		var data = oMatSectionModel.getProperty(sPath);
+		var value = data.commentList;
+		var count = 0;
+
+		if (!Array.isArray(value)) {
+			var oTempArry = [];
+			oTempArry.push(value);
+			value = oTempArry;
+		}
+		value.filter(function(obj, i, arr) {
+			if (obj.fieldId === "REQUESTER_COMMENTS" || obj.fieldId === "APPROVER_COMMENTS") {
+				if (obj.fieldValue === "") {
+					return;
+				} else {
+					count++;
 				}
-
-				var filter = new sap.ui.model.Filter(filterArry, false);
-				aFilters.push(filter);
 			}
+		});
+		if (count === 0) {
+			return "sap-icon://post";
+		} else {
+			return "sap-icon://comment";
+		}
+	},
 
-			var binding = oTable.getBinding("items");
-			binding.filter(aFilters, "Application");
-		},
+	/*setColorMode: function(val) {
+		if (val === "CREATED") {
+			this.addStyleClass("colorforCreted");
+			return true;
+		} else if (val === "CHANGE") {
+			this.addStyleClass("colorforChanged");
+			return true;
+		} else if (val === "IMPACTED") {
+			this.addStyleClass("colorforImpacted");
+			return true;
+		} else if (val === "DELETED") {
+			this.addStyleClass("colorforDeleted");
+			return true;
+		} else {
+			this.addStyleClass("colorforOthers");
+			return true;
+		}
+	},*/
 
-		formatPageNumber: function(evt) {
-			if (evt) {
-				return "Page : " + evt;
+	setImageColorMode: function(val) {
+		if (val === "CREATED") {
+			return "images/CREATED.png";
+		} else if (val === "CHANGE") {
+			return "images/CHANGED.png";
+		} else if (val === "IMPACTED") {
+			return "images/IMPACTED.png";
+		} else if (val === "DELETED") {
+			return "images/DELETED.png";
+		} else {
+			return "";
+		}
+	},
+
+	setDatePickerDisabled: function(evt, datePicker) {
+		if (evt.target.id.search("icon") === -1) {
+			var id = "#" + evt.target.id;
+			$(id).attr('readonly', true);
+			var iconId = "#" + evt.target.id.split("-inner")[0] + "-icon";
+			$(iconId).trigger("click");
+		}
+	},
+
+	setPreviousStateObjects: function(sPath, oModel, selectedObj, oUndoModel, objectType, changeType, fieldId, toastMsgBval, isScales,
+		prevChangeMode, selectedTab, recordNumber) {
+
+		var oArray;
+		var oConditionTypes = oUndoModel.getData().oConditionTypes;
+		oConditionTypes.forEach(function(obj) {
+			if (selectedTab === obj.key) {
+				oArray = obj.prevStateArray;
 			}
-		},
+		});
 
-		formatWidth: function(bval) {
-			var oMatSectionModel = this.getModel("oVariableKeyModel");
-			var data = oMatSectionModel.getData().rows[0];
-			var length = data.length;
-			var status = data[length - 1];
-			if (status === "Update Pending") {
-				/*this.addStyleClass("lineCommentBoxStyle");*/
-				this.addStyleClass("lineCommentBoxStyleAvail");
-			} else {
-				this.addStyleClass("lineCommentBoxStyleAvail");
-			}
-		},
+		var oTempObj = {};
+		oTempObj.sPath = sPath;
+		oTempObj.oModel = oModel;
+		oTempObj.prevData = selectedObj;
+		oTempObj.objectType = objectType;
+		oTempObj.changedField = fieldId;
+		oTempObj.changeType = changeType;
+		oTempObj.toastMsgBval = toastMsgBval;
+		oTempObj.isScales = isScales;
+		oTempObj.prevChangeMode = prevChangeMode;
+		oTempObj.recordNumber = recordNumber;
+		oArray.push(oTempObj);
+		oUndoModel.refresh();
+	},
 
-		commentIconChang: function(val) {
-			var oMatSectionModel = this.getModel("oMatSectionModel");
-			var sPath = this.getBindingContext("oMatSectionModel").sPath;
-			var data = oMatSectionModel.getProperty(sPath);
-			var value = data.commentList;
-			var count = 0;
+	setConditionRecEditable: function(oArray, bVal) {
 
-			if (!Array.isArray(value)) {
-				var oTempArry = [];
-				oTempArry.push(value);
-				value = oTempArry;
-			}
-			value.filter(function(obj, i, arr) {
-				if (obj.fieldId === "REQUESTER_COMMENTS" || obj.fieldId === "APPROVER_COMMENTS") {
-					if (obj.fieldValue === "") {
-						return;
-					} else {
-						count++;
+		var that = this;
+		oArray.forEach(function(obj) {
+			if (obj.hasOwnProperty("isEditable")) {
+				if (obj.hasOwnProperty("isDefaultEditable")) {
+					var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
+					if (bValEditable) {
+						obj.isEditable = bVal;
 					}
 				}
-			});
-			if (count === 0) {
-				return "sap-icon://post";
-			} else {
-				return "sap-icon://comment";
-			}
-		},
-
-		/*setColorMode: function(val) {
-			if (val === "CREATED") {
-				this.addStyleClass("colorforCreted");
-				return true;
-			} else if (val === "CHANGE") {
-				this.addStyleClass("colorforChanged");
-				return true;
-			} else if (val === "IMPACTED") {
-				this.addStyleClass("colorforImpacted");
-				return true;
-			} else if (val === "DELETED") {
-				this.addStyleClass("colorforDeleted");
-				return true;
-			} else {
-				this.addStyleClass("colorforOthers");
-				return true;
-			}
-		},*/
-
-		setImageColorMode: function(val) {
-			if (val === "CREATED") {
-				return "images/CREATED.png";
-			} else if (val === "CHANGE") {
-				return "images/CHANGED.png";
-			} else if (val === "IMPACTED") {
-				return "images/IMPACTED.png";
-			} else if (val === "DELETED") {
-				return "images/DELETED.png";
-			} else {
-				return "images/NOCHANGE.png";
-			}
-		},
-
-		setDatePickerDisabled: function(evt, datePicker) {
-			if (evt.target.id.search("icon") === -1) {
-				var id = "#" + evt.target.id;
-				$(id).attr('readonly', true);
-				var iconId = "#" + evt.target.id.split("-inner")[0] + "-icon";
-				$(iconId).trigger("click");
-			}
-		},
-
-		setPreviousStateObjects: function(sPath, oModel, selectedObj, oUndoModel, objectType, changeType, fieldId, toastMsgBval, isScales,
-			prevChangeMode, selectedTab, recordNumber) {
-
-			var oArray;
-			var oConditionTypes = oUndoModel.getData().oConditionTypes;
-			oConditionTypes.forEach(function(obj) {
-				if (selectedTab === obj.key) {
-					oArray = obj.prevStateArray;
-				}
-			});
-
-			var oTempObj = {};
-			oTempObj.sPath = sPath;
-			oTempObj.oModel = oModel;
-			oTempObj.prevData = selectedObj;
-			oTempObj.objectType = objectType;
-			oTempObj.changedField = fieldId;
-			oTempObj.changeType = changeType;
-			oTempObj.toastMsgBval = toastMsgBval;
-			oTempObj.isScales = isScales;
-			oTempObj.prevChangeMode = prevChangeMode;
-			oTempObj.recordNumber = recordNumber;
-			oArray.push(oTempObj);
-			oUndoModel.refresh();
-		},
-
-		setConditionRecEditable: function(oArray, bVal) {
-
-			var that = this;
-			oArray.forEach(function(obj) {
-				if (obj.hasOwnProperty("isEditable")) {
-					if (obj.hasOwnProperty("isDefaultEditable")) {
-						var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
-						if (bValEditable) {
-							obj.isEditable = bVal;
-						}
-					}
-					/*if(obj.hasOwnProperty("commentList")){
-						var commentList = obj.commentList;//Array
-						if(!Array.isArray(commentList)){
-							var oTempArry = [];
-							oTempArry.push(commentList);
-							commentList = oTempArry;
-						} 
-						commentList.forEach(function(obj){
-							if(obj.hasOwnProperty("isEditable")){
-								if(obj.hasOwnProperty("isDefaultEditable")){
-									var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
-									if(bValEditable){
-										obj.isEditable = bVal;
-									}
+				/*if(obj.hasOwnProperty("commentList")){
+					var commentList = obj.commentList;//Array
+					if(!Array.isArray(commentList)){
+						var oTempArry = [];
+						oTempArry.push(commentList);
+						commentList = oTempArry;
+					} 
+					commentList.forEach(function(obj){
+						if(obj.hasOwnProperty("isEditable")){
+							if(obj.hasOwnProperty("isDefaultEditable")){
+								var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
+								if(bValEditable){
+									obj.isEditable = bVal;
 								}
 							}
-						});
-					}*/
-					if (obj.hasOwnProperty("scaleDataList")) {
-						obj.isEditable = bVal;
-						var scaleDataList = obj.scaleDataList; //Array
-						if (!Array.isArray(scaleDataList)) {
-							var oTempArry = [scaleDataList];
-							scaleDataList = oTempArry;
 						}
-						scaleDataList.forEach(function(obj) {
-							if (obj) {
-								var parameterList = obj.parameterList;
-								parameterList.forEach(function(obj) {
-									if (obj.hasOwnProperty("isEditable")) {
-										if (obj.hasOwnProperty("isDefaultEditable")) {
-											var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
-											if (bValEditable) {
-												obj.isEditable = bVal;
-											}
+					});
+				}*/
+				if (obj.hasOwnProperty("scaleDataList")) {
+					obj.isEditable = bVal;
+					var scaleDataList = obj.scaleDataList; //Array
+					if (!Array.isArray(scaleDataList)) {
+						var oTempArry = [scaleDataList];
+						scaleDataList = oTempArry;
+					}
+					scaleDataList.forEach(function(obj) {
+						if (obj) {
+							var parameterList = obj.parameterList;
+							parameterList.forEach(function(obj) {
+								if (obj.hasOwnProperty("isEditable")) {
+									if (obj.hasOwnProperty("isDefaultEditable")) {
+										var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
+										if (bValEditable) {
+											obj.isEditable = bVal;
 										}
 									}
-								});
-							}
-						});
-					}
-				}
-			});
-		},
-
-		formatColumnWidth: function(label) {
-			if (label === "") {
-				this.getParent().setWidth("2rem");
-			}
-			if (label === "Action") {
-				this.getParent().setWidth("3rem");
-			}
-			if (label === "Scales") {
-				this.getParent().setWidth("3rem");
-			}
-			return label;
-		},
-
-		formatStatusBooleanValues: function(oVal, bVal) {
-			bVal = com.incture.formatter.formatter.formatBooleanValues(bVal);
-			if (oVal === "Available" && bVal) {
-				return true;
-			} else {
-				return false;
-			}
-		},
-
-		formatDateEnable: function(sPath, model) {
-			var count = 0;
-			var sPath = sPath;
-			var oModel = model;
-			var entryIndex = parseInt(sPath.split("/")[3]);
-			var recordIndex = parseInt(sPath.split("/")[6]);
-			var oValue = oModel.getData().conditionTypesRecords.entry[entryIndex].value;
-			if (recordIndex >= 0) {
-				var currentObj = oValue.listMatrialInfoRecord[recordIndex].tableColumnRecords;
-			} else {
-				var currentObj = oValue.listMatrialInfoRecord.tableColumnRecords;
-			}
-			if (currentObj[0].changeMode === "DELETE") {
-				return false;
-			}
-
-			var selectedObj = oModel.getProperty(sPath);
-			var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
-			var getFirstObj = oModel.getProperty(firstObjSpath);
-			var oValue1 = selectedObj.fieldValueNew;
-			var oValue2 = selectedObj.fieldValue;
-
-			var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
-			var getSecondObj = oModel.getProperty(secondObjSpath);
-			var prevChangeMode = getSecondObj.colorCode;
-
-			var bVal = false;
-			if (oValue1 != oValue2) {
-				if (getFirstObj.hasOwnProperty("changeMode")) {
-					if (getFirstObj.changeMode !== "CREATE") {
-						getFirstObj.changeMode = "UPDATE";
-						bVal = true;
-					}
-				}
-			}
-
-			var rate, currency, pricingUnit, unitMeasure, rateValState, currencyValState, unitValState, uomValstate;
-			currentObj.filter(function(obj, i, arr) {
-				var fieldId = obj.fieldId;
-				if (fieldId === "KBETR") {
-					rate = obj.fieldValueNew;
-					rateValState = obj.valueState;
-				}
-				if (fieldId === "KONWA") {
-					currency = obj.fieldValueNew;
-					currencyValState = obj.valueState;
-				}
-				if (fieldId === "KPEIN") {
-					pricingUnit = obj.fieldValueNew;
-					unitValState = obj.valueState;
-				}
-				if (fieldId === "KMEIN") {
-					unitMeasure = obj.fieldValueNew;
-					uomValstate = obj.valueState;
-				}
-				if (fieldId === "COLOR") {
-					if (bVal) {
-						obj.colorCode = "CHANGE";
-					}
-				}
-			});
-
-			var getDateObjects = com.incture.formatter.dateFunctions.getStartEndDateObjects(currentObj);
-			if (rate === "" || currency === "" || pricingUnit === "" || unitMeasure === "" || rateValState === "Error" ||
-				currencyValState === "Error" || unitValState === "Error" || uomValstate === "Error") {
-				getDateObjects[0].isEditable = "false";
-				getDateObjects[1].isEditable = "false";
-			} else {
-				getDateObjects[0].isEditable = "true";
-				getDateObjects[1].isEditable = "true";
-			}
-			oModel.refresh();
-		},
-
-		addConditionRecArray: function(oMatSectionModel, oUndoModel) {
-
-			var oUndoConditionTypes = []; //Set empty array for undo model	
-			var conditionTypesRecords = {};
-			conditionTypesRecords.entry = [];
-			var oConditionTypes = oMatSectionModel.getProperty("/conditionTypes");
-			var oConditionRecords = oMatSectionModel.getProperty("/conditionTypesRecords");
-
-			if (oConditionRecords) {
-				var conditionRec = oConditionRecords.entry;
-				var conditionRecordsLength = conditionRec.length;
-				var conditionTypesLength = oConditionTypes.length;
-				if (conditionTypesLength !== conditionRecordsLength) {
-					for (var i = 0; i < conditionTypesLength; i++) {
-						var key = oConditionTypes[i].conditionId;
-						var oConditionId = oConditionTypes[i].conditionId;
-						var oUndoTempObj = {
-							prevStateArray: [],
-							key: key
-						};
-						oUndoConditionTypes.push(oUndoTempObj);
-
-						if (conditionRec[i] === undefined) {
-							var value = {};
-							value.listMatrialInfoRecord = [];
-							var oTempObj = {};
-							oTempObj.value = value;
-							oTempObj.key = key;
-							conditionRec[i] = oTempObj;
+								}
+							});
 						}
-					}
+					});
 				}
-			} else if (oConditionRecords === null) {
-				if (Array.isArray(oConditionTypes)) {
-					for (var i = 0; i < oConditionTypes.length; i++) {
+			}
+		});
+	},
+
+	formatColumnWidth: function(label) {
+		if (label === "") {
+			this.getParent().setWidth("2rem");
+		}
+		if (label === "Action") {
+			this.getParent().setWidth("3rem");
+		}
+		if (label === "Scales") {
+			this.getParent().setWidth("3rem");
+		}
+		return label;
+	},
+
+	formatStatusBooleanValues: function(oVal, bVal) {
+		bVal = com.incture.formatter.formatter.formatBooleanValues(bVal);
+		if (oVal === "Available" && bVal) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+
+	formatDateEnable: function(sPath, model) {
+		var count = 0;
+		var sPath = sPath;
+		var oModel = model;
+		var entryIndex = parseInt(sPath.split("/")[3]);
+		var recordIndex = parseInt(sPath.split("/")[6]);
+		var oValue = oModel.getData().conditionTypesRecords.entry[entryIndex].value;
+		if (recordIndex >= 0) {
+			var currentObj = oValue.listMatrialInfoRecord[recordIndex].tableColumnRecords;
+		} else {
+			var currentObj = oValue.listMatrialInfoRecord.tableColumnRecords;
+		}
+		if (currentObj[0].changeMode === "DELETE") {
+			return false;
+		}
+
+		var selectedObj = oModel.getProperty(sPath);
+		var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
+		var getFirstObj = oModel.getProperty(firstObjSpath);
+		var oValue1 = selectedObj.fieldValueNew;
+		var oValue2 = selectedObj.fieldValue;
+
+		var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
+		var getSecondObj = oModel.getProperty(secondObjSpath);
+		var prevChangeMode = getSecondObj.colorCode;
+
+		var bVal = false;
+		if (oValue1 != oValue2) {
+			if (getFirstObj.hasOwnProperty("changeMode")) {
+				if (getFirstObj.changeMode !== "CREATE") {
+					getFirstObj.changeMode = "UPDATE";
+					bVal = true;
+				}
+			}
+		}
+
+		var rate, currency, pricingUnit, unitMeasure, rateValState, currencyValState, unitValState, uomValstate;
+		currentObj.filter(function(obj, i, arr) {
+			var fieldId = obj.fieldId;
+			if (fieldId === "KBETR") {
+				rate = obj.fieldValueNew;
+				rateValState = obj.valueState;
+			}
+			if (fieldId === "KONWA") {
+				currency = obj.fieldValueNew;
+				currencyValState = obj.valueState;
+			}
+			if (fieldId === "KPEIN") {
+				pricingUnit = obj.fieldValueNew;
+				unitValState = obj.valueState;
+			}
+			if (fieldId === "KMEIN") {
+				unitMeasure = obj.fieldValueNew;
+				uomValstate = obj.valueState;
+			}
+			if (fieldId === "COLOR") {
+				if (bVal) {
+					obj.colorCode = "CHANGE";
+				}
+			}
+		});
+
+		var getDateObjects = com.incture.formatter.dateFunctions.getStartEndDateObjects(currentObj);
+		if (rate === "" || currency === "" || pricingUnit === "" || unitMeasure === "" || rateValState === "Error" ||
+			currencyValState === "Error" || unitValState === "Error" || uomValstate === "Error") {
+			getDateObjects[0].isEditable = "false";
+			getDateObjects[1].isEditable = "false";
+		} else {
+			getDateObjects[0].isEditable = "true";
+			getDateObjects[1].isEditable = "true";
+		}
+		oModel.refresh();
+	},
+
+	addConditionRecArray: function(oMatSectionModel, oUndoModel) {
+
+		var oUndoConditionTypes = []; //Set empty array for undo model	
+		var conditionTypesRecords = {};
+		conditionTypesRecords.entry = [];
+		var oConditionTypes = oMatSectionModel.getProperty("/conditionTypes");
+		var oConditionRecords = oMatSectionModel.getProperty("/conditionTypesRecords");
+
+		if (oConditionRecords) {
+			var conditionRec = oConditionRecords.entry;
+			var conditionRecordsLength = conditionRec.length;
+			var conditionTypesLength = oConditionTypes.length;
+			if (conditionTypesLength !== conditionRecordsLength) {
+				for (var i = 0; i < conditionTypesLength; i++) {
+					var key = oConditionTypes[i].conditionId;
+					var oConditionId = oConditionTypes[i].conditionId;
+					var oUndoTempObj = {
+						prevStateArray: [],
+						key: key
+					};
+					oUndoConditionTypes.push(oUndoTempObj);
+
+					if (conditionRec[i] === undefined) {
 						var value = {};
-						var key = oConditionTypes[i].conditionId;
 						value.listMatrialInfoRecord = [];
 						var oTempObj = {};
 						oTempObj.value = value;
 						oTempObj.key = key;
-						conditionTypesRecords.entry.push(oTempObj);
-
-						var oUndoTempObj = {
-							prevStateArray: [],
-							key: key
-						};
-						oUndoConditionTypes.push(oUndoTempObj);
-					}
-					oMatSectionModel.setProperty("/conditionTypesRecords", conditionTypesRecords);
-				}
-			}
-			oUndoModel.setProperty("/undoBtnEnabled", false);
-			oUndoModel.setProperty("/oConditionTypes", oUndoConditionTypes);
-		},
-
-		//Below function checks if the newly created row has values entered in each cell, else hard delete from UI
-		validateRecordOnUIDelete: function(createdRow) {
-
-			var count = 0;
-			var that = this;
-			var visibleCount = 0;
-			var oLength = createdRow.length;
-			for (var i = 0; i < oLength; i++) {
-				var oCurrentObj = createdRow[i];
-				var fieldVisible = that.formatBooleanValues(oCurrentObj.isVisible);
-				var fieldValue = oCurrentObj.fieldValueNew;
-				var fieldId = oCurrentObj.fieldId;
-				if (fieldId !== "DATAB" || fieldId !== "Scales" || fieldId !== "Comment" || fieldId !== "COLOR") {
-					if (fieldVisible) {
-						visibleCount = visibleCount + 1;
-						if (!fieldValue) {
-							count = count + 1;
-						}
+						conditionRec[i] = oTempObj;
 					}
 				}
 			}
+		} else if (oConditionRecords === null) {
+			if (Array.isArray(oConditionTypes)) {
+				for (var i = 0; i < oConditionTypes.length; i++) {
+					var value = {};
+					var key = oConditionTypes[i].conditionId;
+					value.listMatrialInfoRecord = [];
+					var oTempObj = {};
+					oTempObj.value = value;
+					oTempObj.key = key;
+					conditionTypesRecords.entry.push(oTempObj);
 
-			if (visibleCount === count) {
+					var oUndoTempObj = {
+						prevStateArray: [],
+						key: key
+					};
+					oUndoConditionTypes.push(oUndoTempObj);
+				}
+				oMatSectionModel.setProperty("/conditionTypesRecords", conditionTypesRecords);
+			}
+		}
+		oUndoModel.setProperty("/undoBtnEnabled", false);
+		oUndoModel.setProperty("/oConditionTypes", oUndoConditionTypes);
+	},
+
+	//Below function checks if the newly created row has values entered in each cell, else hard delete from UI
+	validateRecordOnUIDelete: function(createdRow) {
+
+		var count = 0;
+		var that = this;
+		var visibleCount = 0;
+		var oLength = createdRow.length;
+		for (var i = 0; i < oLength; i++) {
+			var oCurrentObj = createdRow[i];
+			var fieldVisible = that.formatBooleanValues(oCurrentObj.isVisible);
+			var fieldValue = oCurrentObj.fieldValueNew;
+			var fieldId = oCurrentObj.fieldId;
+			if (fieldId !== "DATAB" || fieldId !== "Scales" || fieldId !== "Comment" || fieldId !== "COLOR") {
+				if (fieldVisible) {
+					visibleCount = visibleCount + 1;
+					if (!fieldValue) {
+						count = count + 1;
+					}
+				}
+			}
+		}
+
+		if (visibleCount === count) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+
+	setScaleColumnVisible: function(bVal, fieldId, selectedTab) {
+		var value = JSON.parse(bVal);
+		if (fieldId === "Scales") {
+			if (selectedTab === "PB00") {
 				return true;
 			} else {
 				return false;
 			}
-		},
+		} else {
+			return value;
+		}
+	},
 
-		setScaleColumnVisible: function(bVal, fieldId, selectedTab) {
-			var value = JSON.parse(bVal);
-			if (fieldId === "Scales") {
-				if (selectedTab === "PB00") {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return value;
+	setUserDialogColVisible: function(oTblCol, bVal) {
+		oTblCol.filter(function(obj, i, arr) {
+			var field = obj.fieldId;
+			if (obj.label === "") {
+				obj.isVisible = bVal;
+			} else if (field === "Scales" || field === "ACTIONS" || field === "Comment") {
+				obj.isVisible = bVal;
 			}
-		},
+		});
+		return oTblCol;
+	},
 
-		setUserDialogColVisible: function(oTblCol, bVal) {
-			oTblCol.filter(function(obj, i, arr) {
-				var field = obj.fieldId;
-				if (obj.label === "") {
-					obj.isVisible = bVal;
-				} else if (field === "Scales" || field === "ACTIONS" || field === "Comment") {
-					obj.isVisible = bVal;
-				}
-			});
-			return oTblCol;
-		},
-
-		fetchToken: function(oUrl) {
-			var token;
-			$.ajax({
-				url: oUrl,
-				method: "GET",
-				async: false,
-				headers: {
-					"X-CSRF-Token": "Fetch"
-				},
-				success: function(result, xhr, data) {
-					token = data.getResponseHeader("X-CSRF-Token");
-				},
-				error: function(result, xhr, data) {
-					token = result.getResponseHeader("x-csrf-token");
-				}
-			});
-			return token;
-		},
-
-		//Below function generates random number, which is used as a temporary condition record number. 
-		generateConditionRecNo: function() {
-			var oConditionRecNum = "C";
-			var oRandomNum = Math.floor(Math.random() * (900000 - 100000)) + 100000;
-			oRandomNum = oRandomNum.toString();
-			oConditionRecNum = oConditionRecNum + oRandomNum;
-			return oConditionRecNum;
-		},
-
-		//Get selected condtion reord's, condition record number.
-		getConditionConditionRecNo: function(oConditionRecord) {
-			var oConditionRecNo = "";
-			oConditionRecord.filter(function(obj) {
-				if (obj.fieldId === "KNUMH") {
-					oConditionRecNo = obj.fieldValueNew;
-				}
-			});
-			return oConditionRecNo;
-		},
-
-		//Below functions checks for if a duplicate record is added
-		checkDuplicateConditionRec: function(oConditionRecord, oRecords) {
-
-			//var getStartEndDates = com.incture.formatter.dateFunctions.getStartEndDateObjects(oConditionRecord);	
-			//var oStartDate = getStartEndDates[0].uiFieldValue;
-			//var oEndDate = getStartEndDates[1].uiFieldValue;
-			var oConditionRecNum;
-			if (typeof oConditionRecord === "string") {
-				oConditionRecNum = oConditionRecord;
-			} else {
-				oConditionRecNum = this.getConditionConditionRecNo(oConditionRecord.tableColumnRecords);
+	fetchToken: function(oUrl) {
+		var token;
+		$.ajax({
+			url: oUrl,
+			method: "GET",
+			async: false,
+			headers: {
+				"X-CSRF-Token": "Fetch"
+			},
+			success: function(result, xhr, data) {
+				token = data.getResponseHeader("X-CSRF-Token");
+			},
+			error: function(result, xhr, data) {
+				token = result.getResponseHeader("x-csrf-token");
 			}
+		});
+		return token;
+	},
 
-			for (var i = 0; i < oRecords.length; i++) {
-				var oCurrentObj = oRecords[i].tableColumnRecords;
-				//var getCurObjDates = com.incture.formatter.dateFunctions.getStartEndDateObjects(oCurrentObj);	
-				//var curStartDate = getCurObjDates[0].uiFieldValue;
-				//var curEndDate = getCurObjDates[1].uiFieldValue;
-				var currConditionRecNum = this.getConditionConditionRecNo(oCurrentObj);
-				/*if(curStartDate === oStartDate && curEndDate === oEndDate && currConditionRecNum === oConditionRecNum){
-					return [true, i];
-				}*/
-				if (currConditionRecNum === oConditionRecNum) {
-					return [true, i];
-				}
+	//Below function generates random number, which is used as a temporary condition record number. 
+	generateConditionRecNo: function() {
+		var oConditionRecNum = "C";
+		var oRandomNum = Math.floor(Math.random() * (900000 - 100000)) + 100000;
+		oRandomNum = oRandomNum.toString();
+		oConditionRecNum = oConditionRecNum + oRandomNum;
+		return oConditionRecNum;
+	},
+
+	//Get selected condtion reord's, condition record number.
+	getConditionConditionRecNo: function(oConditionRecord) {
+		var oConditionRecNo = "";
+		oConditionRecord.filter(function(obj) {
+			if (obj.fieldId === "KNUMH") {
+				oConditionRecNo = obj.fieldValueNew;
 			}
-			return [false];
-		},
+		});
+		return oConditionRecNo;
+	},
 
-		comaSeparator: function(evt, fId) {
-			var parts = evt.split(".");
-			var arrLen = parts.length;
-			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			if (arrLen === 1) {
-				if (fId === "KBETR") {
-					var rateValue1 = parts[0] + ".00";
-					return rateValue1;
-				} else {
-					return parts[0];
-				}
-			} else {
-				if (fId === "KBETR") {
-					var rateValue2 = parts.join(".");
-					return rateValue2;
-				} else {
-					return parts[0];
-				}
+	//Below functions checks for if a duplicate record is added
+	checkDuplicateConditionRec: function(oConditionRecord, oRecords) {
+		var oConditionRecNum;
+		if (typeof oConditionRecord === "string") {
+			oConditionRecNum = oConditionRecord;
+		} else {
+			oConditionRecNum = this.getConditionConditionRecNo(oConditionRecord.tableColumnRecords);
+		}
 
+		for (var i = 0; i < oRecords.length; i++) {
+			var oCurrentObj = oRecords[i].tableColumnRecords;
+			var currConditionRecNum = this.getConditionConditionRecNo(oCurrentObj);
+			if (currConditionRecNum === oConditionRecNum) {
+				return [true, i];
 			}
 		}
+		return [false];
+	},
+
+	getSameConditionRecords: function(oRecordNum, oConditionRecords) {
+		var indices = [];
+		for (var i = 0; i < oConditionRecords.length; i++) {
+			var iConditionRec = oConditionRecords[i].tableColumnRecords;
+			var changeType = iConditionRec[0].changeMode;
+			var iRecordNumber = this.getConditionConditionRecNo(iConditionRec);
+			if (oRecordNum === iRecordNumber) {
+				if (changeType === "UPDATE") {
+					indices.push(i);
+				}
+			}
+		}
+		return indices;
+	},
+
+	updateSameCondtionRecord: function(oFieldPathIndex, oCurrentRowPath, bIndices, oMatModel, undoModel, selectedIconTab, newValue) {
+		var currIndex = oCurrentRowPath.split("/");
+		currIndex = currIndex[currIndex.length - 1];
+
+		if (bIndices.length) {
+			for (var i = 0; i < bIndices.length; i++) {
+				if (parseInt(currIndex, 10) !== bIndices[i]) {
+					var m = oCurrentRowPath.split("/");
+					m[m.length - 1] = bIndices[i];
+					var sPath = m.join("/");
+
+					var oObject = oMatModel.getProperty(sPath);
+					var selectedObj = oObject.tableColumnRecords[oFieldPathIndex];
+					var oRecordNumber = this.getConditionConditionRecNo(oObject.tableColumnRecords);
+
+					selectedObj.fieldValueNew = newValue;
+					var secondObjSpath = oObject.tableColumnRecords[1];
+					var prevChangeMode = secondObjSpath.colorCode;
+
+					sPath = sPath + "/tableColumnRecords/" + oFieldPathIndex;
+					this.formatDateEnable(sPath, oMatModel);
+					var prevValue = selectedObj.uiPrevValue;
+					this.setPreviousStateObjects(sPath, "oMatSectionModel", prevValue, undoModel, "PROPERTY", "CHANGE", "fieldValueNew", "",
+						"", prevChangeMode, selectedIconTab, oRecordNumber);
+					selectedObj.uiPrevValue = newValue;
+					undoModel.setProperty("/undoBtnEnabled", true);
+					oMatModel.refresh();
+				}
+			}
+		}
+	},
+
+	undoOnInputField: function(lastObj, oModel, selectedTabSPath, bVal) {
+
+		var sPath = lastObj.sPath;
+		var oPrevObj = lastObj.prevData;
+		var changedField = lastObj.changedField;
+		var prevChangeMode = lastObj.prevChangeMode;
+		var recordNumber = lastObj.recordNumber;
+	
+		//Undo on Version2 array
+		if (bVal) {
+			var oPath = "/oVersion2Log/entry/" + selectedTabSPath + "/value/listMatrialInfoRecord/";
+			var oVersion2Log = oModel.getProperty(oPath);
+			var checkDuplicateRec = this.checkDuplicateConditionRec(recordNumber, oVersion2Log);
+			if (checkDuplicateRec[0] === true) {
+				var index = checkDuplicateRec[1];
+				oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+				var oV2Obj = oModel.getProperty(oPath);
+			}
+			if (oV2Obj) {
+				oPath = oPath + "/tableColumnRecords/" + sPath.split("/")[8];
+				var v2changedObj = oModel.getProperty(oPath);
+				v2changedObj[changedField] = oPrevObj;
+
+				var v2firstObjSpath = oPath.split("/").slice(0, -1).join("/") + "/0";
+				var v2firstobj = oModel.getProperty(v2firstObjSpath);
+
+				var v2secondObjSpath = oPath.split("/").slice(0, -1).join("/") + "/1";
+				var v2getSecondObj = oModel.getProperty(v2secondObjSpath);
+				if (v2getSecondObj) {
+					v2getSecondObj.colorCode = prevChangeMode;
+				}
+				if (v2firstobj) {
+					if (v2changedObj.fieldValue === v2changedObj.fieldValueNew) {
+						if (v2firstobj.hasOwnProperty("changeMode")) {
+							if (v2firstobj.changeMode === "UPDATE") {
+								v2firstobj.changeMode = "NO_CHANGE";
+							}
+						}
+					}
+				}
+			}
+		}
+
+		var changedObj = oModel.getProperty(sPath);
+		changedObj[changedField] = oPrevObj;
+
+		var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
+		var firstobj = oModel.getProperty(firstObjSpath);
+
+		var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
+		var getSecondObj = oModel.getProperty(secondObjSpath);
+		if (getSecondObj) {
+			getSecondObj.colorCode = prevChangeMode;
+		}
+
+		if (firstobj) {
+			if (changedObj.fieldValue === changedObj.fieldValueNew) {
+				if (firstobj.hasOwnProperty("changeMode")) {
+					if (firstobj.changeMode === "UPDATE") {
+						firstobj.changeMode = "CREATE";
+					}
+				}
+			}
+		}
+	},
+
+	comaSeparator: function(evt, fId) {
+		var parts = evt.split(".");
+		var arrLen = parts.length;
+		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		if (arrLen === 1) {
+			if (fId === "KBETR") {
+				var rateValue1 = parts[0] + ".00";
+				return rateValue1;
+			} else {
+				return parts[0];
+			}
+		} else {
+			if (fId === "KBETR") {
+				var rateValue2 = parts.join(".");
+				return rateValue2;
+			} else {
+				return parts[0];
+			}
+
+		}
+	}
 };

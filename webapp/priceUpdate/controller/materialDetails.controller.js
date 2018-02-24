@@ -1223,15 +1223,18 @@ sap.ui.define([
 			var sPath = evt.getBindingContext("oMatSectionModel").getPath();
 			var selectedObj = oMatModel.getProperty(sPath);
 
+			var oFieldPathIndex = sPath.split("/");
+			oFieldPathIndex = oFieldPathIndex[oFieldPathIndex.length - 1];
+		
 			//Get current object; [Focused row]
 			var oCurrentRowPath = oEvent.getSource().getParent().getBindingContext("oMatSectionModel").getPath();
 			var oCurrentObj = oMatModel.getProperty(oCurrentRowPath);
 			var oRecordNumber = formatter.getConditionConditionRecNo(oCurrentObj.tableColumnRecords);
-
-			var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
-			var getFirstObj = oMatModel.getProperty(firstObjSpath);
+			
+			/*var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
+			var getFirstObj = oMatModel.getProperty(firstObjSpath);*/
 			var oValue1 = selectedObj.fieldValueNew;
-			var oValue2 = selectedObj.fieldValue;
+			//var oValue2 = selectedObj.fieldValue;
 
 			var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
 			var getSecondObj = oMatModel.getProperty(secondObjSpath);
@@ -1264,6 +1267,10 @@ sap.ui.define([
 				"", prevChangeMode, this.selectedIconTab, oRecordNumber);
 			selectedObj.uiPrevValue = oValue1;
 			undoModel.setProperty("/undoBtnEnabled", true);
+
+			var oConditionTypeRec = oMatModel.getProperty("/conditionTypesRecords/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
+			var bIndices = formatter.getSameConditionRecords(oRecordNumber, oConditionTypeRec);
+			formatter.updateSameCondtionRecord(oFieldPathIndex, oCurrentRowPath, bIndices, oMatModel, undoModel, this.selectedIconTab, oValue1);
 
 			//Version2 update data 
 			var oVersion2Log = oMatModel.getProperty("/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord");
@@ -2923,7 +2930,14 @@ sap.ui.define([
 						}
 					}
 				} else if (objectType === "PROPERTY") {
-
+					formatter.undoOnInputField(lastObj, oModel, this.selectedTabSPath, true);
+					if(oArray[oArray.length -1 ].recordNumber === recordNumber){
+						var obj = oArray.pop();
+						formatter.undoOnInputField(obj, oModel, this.selectedTabSPath, false);
+					}
+				} 
+				/*else if (objectType === "PROPERTY") {
+						
 					var oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/";
 					var oVersion2Log = oModel.getProperty(oPath);
 					var checkDuplicateRec = formatter.checkDuplicateConditionRec(recordNumber, oVersion2Log);
@@ -2977,6 +2991,13 @@ sap.ui.define([
 							}
 						}
 					}
+					
+					//Version2 undo change
+					if(oArray[oArray.length -1 ].recordNumber === recordNumber){
+						oArray.splice(oArray.length-1, 1);
+					}
+					//Version2 undo change
+					
 					if (toastMsgBval) {
 						if (isScales) {
 							var oText = "Scale changes reverted for condition number " + oRowNumber;
@@ -2987,7 +3008,7 @@ sap.ui.define([
 						//oModel.refresh(true);
 						formatter.toastMessage(oText);
 					}
-				}
+				}*/
 
 				if (!oArray.length) {
 					oUndoModel.setProperty("/undoBtnEnabled", false);

@@ -65,8 +65,8 @@ sap.ui.define([
 
 			var oMatBox = this.getView().byId("MATERIAL_SEARCH_BOX");
 			oMatBox.setVisible(false);
-			this.getMaterialDetails();
-			//this.getBusinessObjectList();
+			//this.getMaterialDetails();
+			this.getBusinessObjectList();
 		},
 		
 		getBusinessObjectList: function(){
@@ -75,7 +75,7 @@ sap.ui.define([
 			this.busy.open();
 			var sUrl = "/CWPRICE_WEB/condition/records/getBusinessObject";
 			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData(sUrl, "", true, "POST", false, false, that.oHeader);
+			oModel.loadData(sUrl, "", true, "GET", false, false, that.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
 				if (oEvent.getParameter("success")) {
 					var resultData = oEvent.getSource().getData();
@@ -102,7 +102,7 @@ sap.ui.define([
 						"A017",
 						"A018"
 					],
-				//	"businessObjectId": "PIRPS",
+					"businessObjectId": "PIRPS",
 					"businessObject": "",
 					"application": "",
 					"usage": ""
