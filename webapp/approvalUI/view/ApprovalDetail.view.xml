@@ -32,11 +32,11 @@
 					</VBox>
 					<VBox id="TABLEOFMATERIAL">
 					<Toolbar class="middletoolbar">
-						<SegmentedButton selectedKey="ALL" class="inctureSegBtns inctureConditonSegBtns sapUiSizeCompact sapUiSmallMarginBegin " >
+						<SegmentedButton selectedKey="ECC_RECORDS" class="inctureSegBtns inctureConditonSegBtns sapUiSizeCompact sapUiSmallMarginBegin " >
 							<items>
+								<SegmentedButtonItem text="{i18n>ECC_RECORDS}" enabled="true" key="ECC_RECORDS" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns" />
 								<SegmentedButtonItem text="{i18n>CHANGED}" enabled="true" key="Change" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns"/>
 							 	<SegmentedButtonItem text="{i18n>ALL}" enabled="true" key="ALL" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns" />
-							 	<SegmentedButtonItem text="{i18n>ECC_RECORDS}" enabled="true" key="ECC_RECORDS" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns" />
 							</items>
 						</SegmentedButton>
 						<ToolbarSpacer></ToolbarSpacer>

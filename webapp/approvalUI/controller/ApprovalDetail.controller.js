@@ -52,7 +52,7 @@ sap.ui.define([
 			this.errorStateBVal = 0;
 			this.selectedIconTab = "";
 			this.isActive = "Active";
-			this.isChanged = "ALL";
+			this.isChanged = "eccView";
 			this.conditionRecord = "";
 		},
 
