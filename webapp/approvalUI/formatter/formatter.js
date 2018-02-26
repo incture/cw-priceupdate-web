@@ -178,7 +178,7 @@ formatter.formatter = {
 		} else if (val === "DELETED") {
 			return "images/DELETED.png";
 		} else {
-			return "images/NOCHANGE.png";
+			return "";
 		}
 	}
 	

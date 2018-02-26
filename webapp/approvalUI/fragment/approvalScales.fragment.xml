@@ -9,7 +9,7 @@
 						<Toolbar class="scalesToolBarHeader">
 								<Label text = "{i18n>SCALE_DATA}" class="scaleLableStyle"/>
 								<ToolbarSpacer></ToolbarSpacer>
-								<Image src="images/DetailColorLegend1.png" class="scalesLegendClass"></Image>
+								<Image src="images/ScalesLegend.png" class="scalesLegendClass"></Image>
 						</Toolbar>
 					</headerToolbar>
 				</Table>

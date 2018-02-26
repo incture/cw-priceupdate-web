@@ -2,7 +2,7 @@
  xmlns:u='sap.uxap' xmlns:layout="sap.ui.layout" controllerName="controller.ApprovalDetail" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page showHeader="false" class="pageBackground">
 		<Toolbar class="sapUiSmallMarginBottom">
-			<Button  text="{i18n>SAVE}" enabled="false" press="onSave"  class="inctureCheckoutSaveBtn sapUiSizeCompact sapUiSmallMarginBegin saveBtnMargin" />
+			<!--<Button  text="{i18n>SAVE}" enabled="false" press="onSave"  class="inctureCheckoutSaveBtn sapUiSizeCompact sapUiSmallMarginBegin saveBtnMargin" />-->
 			<!-- <Button  text="{i18n>NET_PRICE_ANALYSIS}" press="getNetPrice"
 				class="inctureCheckoutNetPriceBtn sapUiSizeCompact sapUiSmallMarginBegin " /> -->
 			<ToolbarSpacer />
@@ -34,12 +34,13 @@
 					<Toolbar class="middletoolbar">
 						<SegmentedButton selectedKey="ALL" class="inctureSegBtns inctureConditonSegBtns sapUiSizeCompact sapUiSmallMarginBegin " >
 							<items>
-								<SegmentedButtonItem text="{i18n>CHANGED}" enabled="false" key="Change" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns"/>
-							 	<SegmentedButtonItem text="{i18n>ALL}" enabled="false" key="ALL" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns" />
+								<SegmentedButtonItem text="{i18n>CHANGED}" enabled="true" key="Change" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns"/>
+							 	<SegmentedButtonItem text="{i18n>ALL}" enabled="true" key="ALL" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns" />
+							 	<SegmentedButtonItem text="{i18n>ECC_RECORDS}" enabled="true" key="ECC_RECORDS" press="setConditionRecordOnChangeMode" class="inctureConditonSegBtns" />
 							</items>
 						</SegmentedButton>
 						<ToolbarSpacer></ToolbarSpacer>
-						<Button  text="{i18n>NET_PRICE_ANALYSIS}" press="getNetPrice" enabled="false"
+						<Button  text="{i18n>NET_PRICE_ANALYSIS}" press="getNetPrice" enabled="true"
 							class="inctureCheckoutNetPriceBtn sapUiSizeCompact sapUiSmallMarginBegin " />
 				     </Toolbar>
 				     
@@ -63,8 +64,8 @@
 											<ToolbarSpacer></ToolbarSpacer>
 										    <SegmentedButton selectedKey="Active" class="inctureSegBtns toolbarSegBtn sapUiSizeCompact sapUiSmallMarginBegin " >
 								             	 <items> 
-									             	<SegmentedButtonItem text="{i18n>ACTIVE}" enabled="false" key="Active" press="onStatusUpdate" />
-									             	<SegmentedButtonItem text="{i18n>INACTIVE}" enabled="false" key="Inactive" press="onStatusUpdate" />
+									             	<SegmentedButtonItem text="{i18n>ACTIVE}" enabled="true" key="Active" press="onStatusUpdate" />
+									             	<SegmentedButtonItem text="{i18n>INACTIVE}" enabled="true" key="Inactive" press="onStatusUpdate" />
 								              	</items>
 											</SegmentedButton>
 										</Toolbar>

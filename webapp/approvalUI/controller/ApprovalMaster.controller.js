@@ -42,54 +42,11 @@ sap.ui.define([
 
 			var requestId = jQuery.sap.getUriParameters().mParams.requestId[0];
 			this.getMasterPanelData(requestId);
-			
-			// var contextModel = this.getOwnerComponent().getModel("contextData");
-			// this.requestId = contextModel.getData().requestId;
-			// if(this.requestId)
-			// {
-			// 		this.getMasterPanelData(this.requestId);	
-			// }
-			//this.getRequestId();
+			this.requestId = requestId;
 		},
-
-		//getRequestId: function() {
-
-			//var that = this;
-			//	var requestId = jQuery.sap.getUriParameters().mParams.requestId[0];
-			//var taskId = jQuery.sap.getUriParameters().mParams.taskId[0];
-			//var oContextModel = new sap.ui.model.json.JSONModel();
-			//oContextModel.loadData("/destination/bpmworkflowruntime/rest/v1/task-instances/" + taskId + "/context", null, false, "GET", true);
-			//oContextModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
-			//this.getView().setModel(oContextModel, "contextData");
-
-			/*	this.requestId = "37";
-					this.getMasterPanelData(this.requestId);*/
-
-			/*		var sUrl = "/CWPRICE_WEB/cwpu/record/requestId/" + requestId;
-					var oModel = new sap.ui.model.json.JSONModel();
-					oModel.loadData(sUrl, "", true, "GET", false, false, that.oHeader);
-					oModel.attachRequestCompleted(function(oEvent) {
-						if (oEvent.getParameter("success")) {
-							var resultData = oModel.getData();
-							if (resultData) {
-								that.requestId = resultData.requestId;
-								that.getMasterPanelData(that.requestId);
-							}
-						} else {
-							var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-							formatter.toastMessage(errorText);
-						}
-					});
-					oModel.attachRequestFailed(function(oEvent) {
-						var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-						formatter.toastMessage(errorText);
-					});*/
-		//},
 
 		getMasterPanelData: function(requestId) {
 
-			// var sRootPath = jQuery.sap.getModulePath("approvalui");
-			// var sResourcePath = sRootPath + "/css/style.css";
 			var that = this;
 			var oMasterPanelModel = this.oMasterPanelModel;
 			var sUrl = "/CWPRICE_WEB/approver/sidepanel/" + requestId;
@@ -110,7 +67,7 @@ sap.ui.define([
 						
 						var selectedReqId = resultData.approverSidePanel[0].requestID;
 						var selectedVkey = resultData.approverSidePanel[0].vkey;
-						
+						that.selectedVkey = selectedVkey;
 						that.setPayloadData(that.isActive, that.isChanged, requestId, selectedReqId, selectedVkey);
 						that.setMasterPanelData();
 						that.attachEventMethod();
@@ -220,23 +177,30 @@ sap.ui.define([
 			var index = this.pIndex;
 			var data = mModel.approverSidePanel[index];
 			var table = data.dtTable;
-			var values = data.metadata;
+			//var values = data.metadata;
 			/*for (var i = 0; i < values.length; i++) {
 				if (values[i].fieldId === "Vkey") {
 					var vkey = data.vkValues[i].fieldValue;
 				}
 			}*/
+			
+			var requestType = "User";
+			if(change === "eccView"){
+				change = "ALL";
+				requestType = "ECC";
+			}
 			var payload = {
-				"requestId": selectedReqId, //requestId,
-				"vkey": selectedVkey, //vkey,
+				"requestId": this.requestId, //selectedReqId, //requestId,
+				"vkey": this.selectedVkey, //vkey,
 				"decisionTable": table,
 				"usage": "A",
 				"mode": "Task",
 				"uiName": "4",
-				"recordType": this.isActive,
-				"changeMode": this.isChanged,
+				"recordType": active, //this.isActive,
+				"changeMode": change, //this.isChanged,
 				"status": "Update Pending",
-				"userType": "B"
+				"userType": "B",
+				"requestType": requestType
 			};
 			this.getDeatailMaterialData(payload);
 		},

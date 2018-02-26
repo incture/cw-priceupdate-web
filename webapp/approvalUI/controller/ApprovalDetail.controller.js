@@ -47,7 +47,7 @@ sap.ui.define([
 				bundleUrl: "./i18n/i18n.properties"
 			});
 			this.oResourceModel = i18nModel.getResourceBundle();
-
+			
 			this.selectedTabSPath = "";
 			this.errorStateBVal = 0;
 			this.selectedIconTab = "";
@@ -436,14 +436,6 @@ sap.ui.define([
 										}
 									});
 									return oImage;
-									/*var oVBox = new sap.m.VBox({
-										visible: {
-											path: bindingPath + "/colorCode",
-											formatter: formatter.formatter.setColorMode
-										}
-									});
-									oVBox.addStyleClass("colorBoxClass");
-									return oVBox;*/
 								} else if (cuurentObj.uiFieldType === "Button") {
 									if (cuurentObj.fieldId === "Comment") {
 										var oCmntBtn = new sap.m.Button({
@@ -781,13 +773,15 @@ sap.ui.define([
 		setConditionRecordOnChangeMode: function(oEvent) {
 
 			var that = this;
-			//this.busy.open();
 			var record = this.isActive;
 			var conditionText = oEvent.getSource().getKey();
 			if (conditionText === "ALL") {
 				this.isActive = record;
 				this.isChanged = "ALL";
-			} else {
+			} else if (conditionText === "ECC_RECORDS") {
+				this.isActive = record;
+				this.isChanged = "eccView";
+			} else if (conditionText === "Change") {
 				this.isActive = record;
 				this.isChanged = "CHANGE";
 			}
@@ -965,7 +959,7 @@ sap.ui.define([
 			var that = this;
 			//this.busy.open();
 			var oNetPriceModel = this.oNetPriceModel;
-			var sUrl = "/oneapp/cwpu/record/analytics";
+			var sUrl = "/CWPRICE_WEB/record/analytics";
 			var payload = {};
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, that.oHeader);
@@ -1008,7 +1002,7 @@ sap.ui.define([
 		createNetPriceTable: function() {
 			var oNetPriceModel = this.oNetPriceModel;
 			var oSearchLayGrid = sap.ui.getCore().byId("NET_PRICE_BOX");
-			oSearchLayGrid.bindAggregation("content", "oNetPriceModel>/listOfNetPrice", function(index, context) {
+			oSearchLayGrid.bindAggregation("content", "oNetPriceModel>/listOfData", function(index, context) {
 				var contextPath = context.getPath();
 				var oNetPriceModel = context.getModel();
 				var sPath = "oNetPriceModel>" + contextPath;
@@ -1020,7 +1014,7 @@ sap.ui.define([
 					text: "{" + sPath + "/label}"
 				}).addStyleClass("inctureNetPrcTxtCls");
 				oVBox.addItem(oLabel);
-				oTable.bindAggregation("columns", "oNetPriceModel>/listOfColumns", function(index, context) {
+				oTable.bindAggregation("columns", "oNetPriceModel>/listOfParameterColumn", function(index, context) {
 					var contextPath = context.getPath();
 					var model = context.getModel();
 					var sPath = "oNetPriceModel>" + contextPath;
@@ -1032,14 +1026,30 @@ sap.ui.define([
 					});
 					return oColumn;
 				});
-				oTable.bindItems("oNetPriceModel>" + contextPath + "/listOfCondtionNetPrice", function(index, context) {
-					var records = context.getObject();
+				oTable.bindItems("oNetPriceModel>" + contextPath + "/listOfValues", function(index, context) {
+					var contextsPath = context.getPath();
+					var model = context.getModel();
 					var row = new sap.m.ColumnListItem();
-					for (var k in records) {
-						row.addCell(new sap.m.Text({
-							text: records[k]
-						}));
-					}
+					var sPath = "oNetPriceModel>" + contextsPath + "/parameterList";
+					row.bindAggregation("cells", sPath, function(index, context) {
+						var model = context.getModel();
+						var sPath = context.getPath();
+						var bindingPath = "oNetPriceModel>" + sPath;
+						var cuurentObj = model.getProperty(sPath);
+						var fieldVisible = formatter.formatter.formatBooleanValues(cuurentObj.isVisible);
+						if (fieldVisible) {
+							var oText = new sap.m.Text({
+								text: "{" + bindingPath + "/fieldValue}"
+							}).addStyleClass("");
+							return oText;
+
+						} else {
+							var oLabel = new sap.m.Label({
+								visible: false
+							});
+							return oLabel;
+						}
+					});
 					return row;
 				});
 				oTable.addStyleClass("materialTblClass sapUiSizeCompact");
