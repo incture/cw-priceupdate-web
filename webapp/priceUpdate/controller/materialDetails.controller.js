@@ -2029,7 +2029,7 @@ sap.ui.define([
 					formatter: formatter.formatStatusBooleanValues
 				},
 				press: function(oEvent) {
-					that.onActionUndo(oEvent);
+					that.onScaleUndo(oEvent);
 				}
 			});
 
@@ -2379,7 +2379,7 @@ sap.ui.define([
 			formatter.setPreviousStateObjects(scalePath, "oMatSectionModel", "", undoModel, "OBJECT", "NEW", "", true, "", "", this.selectedIconTab);
 			undoModel.setProperty("/undoBtnEnabled", true);
 
-			//oMatSectionModel.getProperty(scalePath).fieldValueNew = ((oArray.length)-2).toString();
+			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length)-2).toString();
 			oMatSectionModel.refresh();
 		},
 
@@ -2458,7 +2458,7 @@ sap.ui.define([
 
 				});
 			}
-
+			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length)-2).toString();
 			oMatSectionModel.refresh();
 		},
 
