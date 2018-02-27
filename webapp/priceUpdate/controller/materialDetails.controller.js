@@ -2345,8 +2345,6 @@ sap.ui.define([
 			var evt = oEvent.getSource();
 			var count = 0;
 			var pPath = evt.getBindingContext("oMatSectionModel").getPath();
-			//var tableIndex = sPath.split("/")[2];
-			//var currentObj = oTableDataModel.getData().tableData[tableIndex].parameterList;
 			for (var i = 0; i < currentObj.length; i++) {
 				if (currentObj[i].valueState === "Error") {
 					count++;
@@ -2381,7 +2379,7 @@ sap.ui.define([
 			formatter.setPreviousStateObjects(scalePath, "oMatSectionModel", "", undoModel, "OBJECT", "NEW", "", true, "", "", this.selectedIconTab);
 			undoModel.setProperty("/undoBtnEnabled", true);
 
-			//oMatSectionModel.getProperty(scalePath).fieldValueNew = oArray.length.toString();
+			//oMatSectionModel.getProperty(scalePath).fieldValueNew = ((oArray.length)-2).toString();
 			oMatSectionModel.refresh();
 		},
 
@@ -2402,9 +2400,7 @@ sap.ui.define([
 			var oCondtionTypeRec = oMatSectionModel.getData().conditionTypesRecords.entry[mPath];
 			var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
 			var currentObj = oArray[scaleDataPath].parameterList;
-			//var entryIndex = parseInt(sPath.split("/")[2]);
-
-			//var currentObj = oTableDataModel.getData().tableData[entryIndex].parameterList;
+		
 			if (oButtonValue === "sap-icon://edit") {
 				currentObj.filter(function(obj, i, arr) {
 					if (obj.fieldId === "Min_Quantity" || obj.fieldId === "KMEIN" || obj.fieldId === "KONWA") {
@@ -2527,12 +2523,14 @@ sap.ui.define([
 				}
 
 				for (var j = 0; j < newrr.parameterList.length; j++) {
+					newrr.parameterList[j].isEditable = "false";
 					if (newrr.parameterList[j].fieldId !== "KSTBM" || newrr.parameterList[j].fieldId !== "Min_Quantity") {
 						newrr.parameterList[j].fieldValueNew = newrr.parameterList[j].uiPrevValue;
 						if (newrr.parameterList[j].fieldId === "ACTIONS") {
-							newrr.parameterList[j].fieldValueNew1 = newrr.parameterList[j].uiPrevValue1;
+							newrr.parameterList[j].fieldValue1 = newrr.parameterList[j].uiPrevValue1;
+							newrr.parameterList[j].isEditable = "true";
 						}
-						newrr.parameterList[j].isEditable = "false";
+						
 					}
 				}
 				oArray.splice(entryIndex + 1, 0, newrr);
