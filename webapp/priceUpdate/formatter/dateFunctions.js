@@ -45,7 +45,7 @@ com.incture.formatter.dateFunctions = {
 		oArray = getDelectedRec.oArray;
 
 		if (oArray.length) {
-			if (oArray.length > 1) {
+		//	if (oArray.length > 1) {
 				oArray = this.sortConditionRecords(oArray);
 				var oNewCondtionRec = this.compareMultipleCondRec(validityStart, validityEnd, oContionRecord, oArray, initArray);
 				var newConditionRecords = oNewCondtionRec.newConditionRecords;
@@ -63,7 +63,7 @@ com.incture.formatter.dateFunctions = {
 				unchangedRecords = this.sortConditionRecords(unchangedRecords);
 				oNewCondtionRec.unchangedRecords = unchangedRecords;
 				return oNewCondtionRec;
-			} else {
+			/*} else {
 				var oValidateRec = oArray[0];
 				var oValidateRecDates = this.getStartEndDateObjects(oValidateRec);
 				var oStartDate = new Date(oValidateRecDates[0].uiFieldValue);
@@ -71,7 +71,7 @@ com.incture.formatter.dateFunctions = {
 				var oNewCondtionRec = this.compareAndValDates(validityStart, validityEnd, oStartDate, oEndDate,
 					oContionRecord, oArray[0]);
 				return oNewCondtionRec;
-			}
+			}*/
 		} else {
 			var getDates = this.getStartEndDateObjects(oContionRecord[0]);
 			var oStartDate = new Date(getDates[0].uiFieldValue);
@@ -311,7 +311,7 @@ com.incture.formatter.dateFunctions = {
 					oTempArry = oTempArry.concat(oMergeRecords);
 					oTempArry = this.sortConditionRecords(oTempArry);
 					oLoopParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", oContionRecord, oMergeRecords, oTempArry, true,
-						unchangedConditionRec);
+						unchangedConditionRec, "SINGLE");
 					this.bValArraySplit = true;
 					break;
 
@@ -446,7 +446,7 @@ com.incture.formatter.dateFunctions = {
 	},
 
 	//Below function forms parameters for the confirmation dialog box
-	setDialogBoxParams: function(indices, type, affectedRecs, exisitingRecs, oNewCondRec, bVal, unchangedRecords) {
+	setDialogBoxParams: function(indices, type, affectedRecs, exisitingRecs, oNewCondRec, bVal, unchangedRecords, noOfTbl) {
 		var oParamObject = {};
 		oParamObject.bVal = bVal;
 		oParamObject.indices = indices;
@@ -454,6 +454,7 @@ com.incture.formatter.dateFunctions = {
 		oParamObject.affectedRecords = affectedRecs;
 		oParamObject.exisitngRecords = exisitingRecs;
 		oParamObject.newConditionRecords = oNewCondRec;
+		oParamObject.noOfTbl = noOfTbl;
 		if (bVal) {
 			oParamObject.unchangedRecords = unchangedRecords;
 		}
@@ -692,7 +693,9 @@ com.incture.formatter.dateFunctions = {
 				//Given date range lies before the existing condition record range. [A new record is created] 
 				else if (nValidityEnd < oStartDate) {
 					this.setConditionRecMode(nValidateRec, oValidateRec);
-					var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], [nValidateRec[0], oValidateRec], false);
+					//"SINGLE": Key to show secind table in popover
+					var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [], [nValidateRec[0], oValidateRec], false, "", "SINGLE");
+					//var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], [nValidateRec[0], oValidateRec], false);
 					return oParamObject;
 				}
 			}
@@ -720,8 +723,9 @@ com.incture.formatter.dateFunctions = {
 					this.setConditionRecMode(nValidateRec);
 					var oTempArry = [];
 					oTempArry.push(oValidateRec);
-					oTempArry.push(nValidateRec[0]);
-					var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], oTempArry, false);
+					oTempArry.push(nValidateRec[0]);  
+					var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [], oTempArry, false, "", "SINGLE");
+					//var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], oTempArry, false);
 					return oParamObject;
 				}
 				//Extend of Start date. [Function called 'case3ExtendStartDate'] 

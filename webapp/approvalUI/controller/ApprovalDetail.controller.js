@@ -47,7 +47,7 @@ sap.ui.define([
 				bundleUrl: "./i18n/i18n.properties"
 			});
 			this.oResourceModel = i18nModel.getResourceBundle();
-			
+
 			this.selectedTabSPath = "";
 			this.errorStateBVal = 0;
 			this.selectedIconTab = "";
@@ -430,7 +430,7 @@ sap.ui.define([
 									return oVBox;
 								} else if (cuurentObj.uiFieldType === "Vbox") {
 									var oImage = new sap.m.Image({
-										src:{
+										src: {
 											path: bindingPath + "/colorCode",
 											formatter: formatter.formatter.setImageColorMode
 										}
@@ -1145,12 +1145,21 @@ sap.ui.define([
 				}
 			};*/
 
+			var oUserModel = sap.ui.getCore().getModel("user");
+			var data = {
+				"context": {
+					"isApproved": bValApprvReject
+				},
+				"status": "COMPLETED",
+				"approverDetail": oUserModel.getData()
+			};
+
 			$.ajax({
 				url: "/destination/bpmworkflowruntime/workflow-service/rest/v1/task-instances/" + taskId,
 				method: "PATCH",
 				contentType: "application/json",
 				async: true,
-				data: "{\"status\": \"COMPLETED\", \"context\": {\"isApproved\":" + bValApprvReject + "}}",
+				data: data, //"{\"status\": \"COMPLETED\", \"context\": {\"isApproved\":" + bValApprvReject + "}}",
 				headers: {
 					"X-CSRF-Token": token
 				},
@@ -1176,39 +1185,42 @@ sap.ui.define([
 		//Called on approve/reject of the task to update the java layer
 		updateJavaLayer: function(serviceType, requestId) {
 
-			var that = this;
-			this.busy.open();
-			var sUrl = "/CWPRICE_WEB/record/" + serviceType;
-			var oApprovalMatSectionModel = this.oApprovalMatSectionModel;
-			var variableKey = oApprovalMatSectionModel.getData().vkey;
-			var oPayload = {
-				"requestId": requestId,
-				"variableKey": variableKey
-			};
-			
-			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.loadData(sUrl, JSON.stringify(oPayload), true, "POST", false, false, that.oHeader);
-			oModel.attachRequestCompleted(function(oEvent) {
-				if (oEvent.getParameter("success")) {
+				var that = this;
+				this.busy.open();
+				var sUrl = "/CWPRICE_WEB/record/" + serviceType;
+				var oApprovalMatSectionModel = this.oApprovalMatSectionModel;
+				var variableKey = oApprovalMatSectionModel.getData().vkey;
+				var oUserModel = sap.ui.getCore().getModel("user");
 
-				}
-				that.busy.close();
-			});
+				var oPayload = {
+					"requestId": requestId,
+					"variableKey": variableKey,
+					"approverDetail": oUserModel.getData()
+				};
 
-			oModel.attachRequestFailed(function(oEvent) {
-				var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
-				formatter.formatter.toastMessage(errorText);
-				that.busy.close();
-			});
-		}
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf price_update.detail
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
+				var oModel = new sap.ui.model.json.JSONModel();
+				oModel.loadData(sUrl, JSON.stringify(oPayload), true, "POST", false, false, that.oHeader);
+				oModel.attachRequestCompleted(function(oEvent) {
+					if (oEvent.getParameter("success")) {
+
+					}
+					that.busy.close();
+				});
+
+				oModel.attachRequestFailed(function(oEvent) {
+					var errorText = that.oResourceModel.getText("INTERNAL_SERVER_ERROR");
+					formatter.formatter.toastMessage(errorText);
+					that.busy.close();
+				});
+			}
+			/**
+			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
+			 * (NOT before the first rendering! onInit() is used for that one!).
+			 * @memberOf price_update.detail
+			 */
+			//	onBeforeRendering: function() {
+			//
+			//	},
 
 		/**
 		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.

@@ -29,6 +29,7 @@ sap.ui.define([
 			
 			var oModel = new sap.ui.model.json.JSONModel("/userapi/currentUser");
 			oModel.setDefaultBindingMode("OneWay");
+			sap.ui.getCore().setModel(oModel, "user");
 			
 			var oMasterPanelModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oMasterPanelModel, "oMasterPanelModel");

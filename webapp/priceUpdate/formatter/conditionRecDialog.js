@@ -68,6 +68,10 @@ com.incture.formatter.conditionRecDialog = {
 					oTempObj2.radioBtnText = "Ignore the  new entry";
 					items.push(oTempObj2);
 				}
+				if(oParamObject.noOfTbl === "SINGLE"){
+					oTempObj2.tableVisible = false;
+					oTempObj2.radioBtnText = "Ignore the  new entry";
+				}
 				break;
 				
 			case "PARTIAL_OVERLAP":

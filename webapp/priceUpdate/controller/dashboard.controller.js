@@ -65,8 +65,8 @@ sap.ui.define([
 
 			var oMatBox = this.getView().byId("MATERIAL_SEARCH_BOX");
 			oMatBox.setVisible(false);
-			//this.getMaterialDetails();
-			this.getBusinessObjectList();
+			this.getMaterialDetails();
+			//this.getBusinessObjectList();
 		},
 		
 		getBusinessObjectList: function(){
@@ -102,7 +102,7 @@ sap.ui.define([
 						"A017",
 						"A018"
 					],
-					"businessObjectId": "PIRPS",
+					//"businessObjectId": "PIRPS",
 					"businessObject": "",
 					"application": "",
 					"usage": ""

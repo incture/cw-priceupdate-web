@@ -3,10 +3,10 @@
 	<Dialog showHeader = "true" title = "{i18n>COMMENTS}">
 		<VBox id="LINE_CMNT_BOX">
 		</VBox>
-		<beginButton>
+		<!--<beginButton>
 			<Button class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop"
 				text="{i18n>CANCEL}" press="onCloseCommentBox" />
-		</beginButton>
+		</beginButton>-->
 		<endButton>
 			<Button	class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop inctureDialogMargin"
 				text="{i18n>BUTTON_TEXT_OK}" press="onOkCommentBox" />

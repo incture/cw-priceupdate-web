@@ -70,7 +70,7 @@ formatter.formatter = {
 				currentObj.fieldValueNew = evt;
 				return oDate;
 			}else{
-				currentObj.fieldValueNew = "";
+				//currentObj.fieldValueNew = "";
 				return "";
 			}
 		}else{
