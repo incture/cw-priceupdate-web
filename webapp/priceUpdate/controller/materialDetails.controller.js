@@ -2561,12 +2561,12 @@ sap.ui.define([
 
 					if ((sortValue > minVal && sortValue < maxVal) || sortValue === minVal) {
 						var newrr = jQuery.extend(true, [], oArray[i]);
-						for (var i = 0; i < newrr.parameterList.length; i++) {
-							if (newrr.parameterList[i].fieldId === "Min_Quantity") {
-								newrr.parameterList[i].fieldValueNew = parseInt(sortValue) + 1;
+						for (var l = 0; l < newrr.parameterList.length; l++) {
+							if (newrr.parameterList[l].fieldId === "Min_Quantity") {
+								newrr.parameterList[l].fieldValueNew = parseInt(sortValue) + 1;
 							}
-							if (newrr.parameterList[i].fieldId === "COLOR") {
-								newrr.parameterList[i].colorCode = "IMPACTED";
+							if (newrr.parameterList[l].fieldId === "COLOR") {
+								newrr.parameterList[l].colorCode = "IMPACTED";
 							}
 						}
 					
@@ -2579,10 +2579,10 @@ sap.ui.define([
 							}
 						}
 
-						for (var i = 0; i < Objects1.length; i++) {
-							if (Objects1[i].fieldId === "KSTBM") {
+						for (var m = 0; m < Objects1.length; m++) {
+							if (Objects1[m].fieldId === "KSTBM") {
 
-								Objects1[1].fieldValueNew = sortValue;
+								Objects1[m].fieldValueNew = sortValue;
 							}
 						}
 						oArray.splice(i + 1, 0, newrr);
