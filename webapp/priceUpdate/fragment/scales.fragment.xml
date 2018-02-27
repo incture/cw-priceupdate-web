@@ -3,7 +3,7 @@
 	<Dialog showHeader="false" class="scalesPopUpStyle" >
 		<l:VerticalLayout width="100%">
 			<l:content>
-				<Table noDataText="{i18n>NO_SCALE_DATA}" class="materialTblClass sapUiSizeCompact" 
+				<Table noDataText="{i18n>NO_SCALE_DATA}" class="sapUiSizeCompact" 
 					title="{i18n>SCALE_DETAILS_NUMBER}" mode="{oElementVisibleModel>/scaleTableMode}" id="MAT_SCALE_TABLE">
 				</Table>
 			</l:content>

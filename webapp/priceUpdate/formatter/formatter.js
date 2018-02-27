@@ -179,25 +179,6 @@ com.incture.formatter.formatter = {
 		}
 	},
 
-	/*setColorMode: function(val) {
-		if (val === "CREATED") {
-			this.addStyleClass("colorforCreted");
-			return true;
-		} else if (val === "CHANGE") {
-			this.addStyleClass("colorforChanged");
-			return true;
-		} else if (val === "IMPACTED") {
-			this.addStyleClass("colorforImpacted");
-			return true;
-		} else if (val === "DELETED") {
-			this.addStyleClass("colorforDeleted");
-			return true;
-		} else {
-			this.addStyleClass("colorforOthers");
-			return true;
-		}
-	},*/
-
 	setImageColorMode: function(val) {
 		if (val === "CREATED") {
 			return "images/CREATED.png";
@@ -259,22 +240,22 @@ com.incture.formatter.formatter = {
 					}
 				}
 				/*if(obj.hasOwnProperty("commentList")){
-					var commentList = obj.commentList;//Array
-					if(!Array.isArray(commentList)){
-						var oTempArry = [];
-						oTempArry.push(commentList);
-						commentList = oTempArry;
-					} 
-					commentList.forEach(function(obj){
-						if(obj.hasOwnProperty("isEditable")){
-							if(obj.hasOwnProperty("isDefaultEditable")){
-								var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
-								if(bValEditable){
-									obj.isEditable = bVal;
-								}
-							}
-						}
-					});
+				                var commentList = obj.commentList;//Array
+				                if(!Array.isArray(commentList)){
+				                                var oTempArry = [];
+				                                oTempArry.push(commentList);
+				                                commentList = oTempArry;
+				                } 
+				                commentList.forEach(function(obj){
+				                                if(obj.hasOwnProperty("isEditable")){
+				                                                if(obj.hasOwnProperty("isDefaultEditable")){
+				                                                                var bValEditable = that.formatBooleanValues(obj.isDefaultEditable);
+				                                                                if(bValEditable){
+				                                                                                obj.isEditable = bVal;
+				                                                                }
+				                                                }
+				                                }
+				                });
 				}*/
 				if (obj.hasOwnProperty("scaleDataList")) {
 					obj.isEditable = bVal;
@@ -401,7 +382,7 @@ com.incture.formatter.formatter = {
 
 	addConditionRecArray: function(oMatSectionModel, oUndoModel) {
 
-		var oUndoConditionTypes = []; //Set empty array for undo model	
+		var oUndoConditionTypes = []; //Set empty array for undo model              
 		var conditionTypesRecords = {};
 		conditionTypesRecords.entry = [];
 		var oConditionTypes = oMatSectionModel.getProperty("/conditionTypes");
@@ -551,20 +532,23 @@ com.incture.formatter.formatter = {
 	//Below functions checks for if a duplicate record is added
 	checkDuplicateConditionRec: function(oConditionRecord, oRecords) {
 		var oConditionRecNum;
-		if (typeof oConditionRecord === "string") {
-			oConditionRecNum = oConditionRecord;
-		} else {
-			oConditionRecNum = this.getConditionConditionRecNo(oConditionRecord.tableColumnRecords);
-		}
-
-		for (var i = 0; i < oRecords.length; i++) {
-			var oCurrentObj = oRecords[i].tableColumnRecords;
-			var currConditionRecNum = this.getConditionConditionRecNo(oCurrentObj);
-			if (currConditionRecNum === oConditionRecNum) {
-				return [true, i];
+		if (oConditionRecord) {
+			if (typeof oConditionRecord === "string") {
+				oConditionRecNum = oConditionRecord;
+			} else {
+				oConditionRecNum = this.getConditionConditionRecNo(oConditionRecord.tableColumnRecords);
 			}
+			for (var i = 0; i < oRecords.length; i++) {
+				var oCurrentObj = oRecords[i].tableColumnRecords;
+				var currConditionRecNum = this.getConditionConditionRecNo(oCurrentObj);
+				if (currConditionRecNum === oConditionRecNum) {
+					return [true, i];
+				}
+			}
+			return [false];
+		} else {
+			return [false];
 		}
-		return [false];
 	},
 
 	getSameConditionRecords: function(oRecordNum, oConditionRecords) {
@@ -614,14 +598,16 @@ com.incture.formatter.formatter = {
 		}
 	},
 
-	undoOnInputField: function(lastObj, oModel, selectedTabSPath, bVal) {
+	undoOnInputField: function(lastObj, oModel, selectedTabSPath, bVal, oRowNumber, oResourceModel) {
 
 		var sPath = lastObj.sPath;
 		var oPrevObj = lastObj.prevData;
 		var changedField = lastObj.changedField;
 		var prevChangeMode = lastObj.prevChangeMode;
 		var recordNumber = lastObj.recordNumber;
-	
+		var toastMsgBval = lastObj.toastMsgBval;
+		var isScales = lastObj.isScales;
+
 		//Undo on Version2 array
 		if (bVal) {
 			var oPath = "/oVersion2Log/entry/" + selectedTabSPath + "/value/listMatrialInfoRecord/";
@@ -678,27 +664,156 @@ com.incture.formatter.formatter = {
 				}
 			}
 		}
+
+		var oText;
+		if (toastMsgBval) {
+			if (isScales) {
+				oText = oResourceModel.getText("SCALES_UNDO") + oRowNumber;
+			} else {
+				oText = oResourceModel.getText("COMMENTS_UNDO") + oRowNumber;
+			}
+			this.toastMessage(oText);
+		}
 	},
 
 	comaSeparator: function(evt, fId) {
-		var parts = evt.split(".");
-		var arrLen = parts.length;
-		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		if (arrLen === 1) {
-			if (fId === "KBETR") {
-				var rateValue1 = parts[0] + ".00";
-				return rateValue1;
-			} else {
-				return parts[0];
-			}
+		if (evt === null) {
+			return evt;
 		} else {
-			if (fId === "KBETR") {
-				var rateValue2 = parts.join(".");
-				return rateValue2;
+			var parts = evt.split(".");
+			var arrLen = parts.length;
+			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			if (arrLen === 1) {
+				if (fId === "KBETR") {
+					var rateValue1 = parts[0] + ".00";
+					return rateValue1;
+				} else {
+					return parts[0];
+				}
 			} else {
-				return parts[0];
+				if (fId === "KBETR") {
+					var rateValue2 = parts.join(".");
+					return rateValue2;
+				} else {
+					return parts[0];
+				}
+
+			}
+		}
+
+	},
+
+	formateValueEnable: function(oArray, sPath, model) {
+
+		var oModel = model;
+		var entryIndex = sPath;
+		var currentObj = oArray[entryIndex].parameterList;
+		var rate, currency, pricingUnit, quantity;
+		currentObj.filter(function(obj, i, arr) {
+			var fieldId = obj.fieldId;
+			if (fieldId === "KSTBM") {
+				quantity = obj.fieldValueNew;
+			}
+			if (fieldId === "KMEIN") {
+				pricingUnit = obj.fieldValueNew;
+			}
+			if (fieldId === "KBETR") {
+				rate = obj.fieldValueNew;
+			}
+			if (fieldId === "KONWA") {
+				currency = obj.fieldValueNew;
+			}
+		});
+
+		if (quantity === null || rate === null || currency === null || pricingUnit === null) {
+			currentObj.filter(function(obj, i, arr) {
+				var fieldId = obj.fieldValueNew;
+				if (fieldId === "sap-icon://add") {
+					obj.isEditable = "false";
+				}
+
+			});
+		} else {
+			currentObj.filter(function(obj, i, arr) {
+				var fieldId = obj.fieldValueNew;
+				if (fieldId === "sap-icon://add") {
+					obj.isEditable = "true";
+				}
+
+			});
+		}
+		if (entryIndex === "0") {
+			if (quantity !== null || rate !== null) {
+				var allData = oArray;
+				allData.filter(function(obj, i, arr) {
+					var Paramdata = obj.parameterList;
+					Paramdata.filter(function(obj1, i1, arr1) {
+						if (obj1.fieldId === "ACTIONS" && obj1.fieldValue !== "sap-icon://add") {
+							obj1.isEditable = "false";
+						}
+
+					});
+
+				});
+			} else {
+				var allData = oArray;
+				allData.filter(function(obj, i, arr) {
+					var Paramdata = obj.parameterList;
+					Paramdata.filter(function(obj1, i1, arr1) {
+						if (obj1.fieldId === "ACTIONS" && obj1.fieldValue !== "sap-icon://add") {
+							obj1.isEditable = "true";
+						}
+
+					});
+
+				});
+			}
+		}
+		oModel.refresh();
+	},
+
+	formateValidValue: function(event, oArray, oTableDataModel, pPath, selectedObj) {
+		var m = event.getValue();
+		var data = oArray;
+		for (var i = 0; i < data.length; i++) {
+			var parmData = data[i].parameterList;
+			if (parseInt(pPath) !== i) {
+				for (var j = 0; j < parmData.length; j++) {
+					if (parmData[j].fieldId === "KSTBM" && parmData[j].fieldValueNew === m) {
+						selectedObj.valueState = "Error";
+						return;
+					} else {
+						selectedObj.valueState = "None";
+					}
+				}
 			}
 
 		}
+	},
+
+	formaValueState: function(evt) {
+		if (evt === "Error") {
+			this.removeStyleClass("inputBaseClass1");
+			this.addStyleClass("formatErrorClass");
+			return evt;
+		} else {
+			this.removeStyleClass("formatErrorClass");
+			this.addStyleClass("inputBaseClass1");
+			return "None";
+		}
+	},
+
+	getMinMaxQuantityObjects: function(conditionRec) {
+
+		var oDateArray = [];
+
+		conditionRec.filter(function(obj, i, arr) {
+
+			if (obj.fieldId === "Min_Quantity" || obj.fieldId === "KSTBM") {
+				oDateArray.push(obj);
+			}
+
+		});
+		return oDateArray;
 	}
 };
