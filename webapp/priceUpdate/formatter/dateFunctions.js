@@ -58,9 +58,9 @@ com.incture.formatter.dateFunctions = {
 					var bValPushRecord = this.checkDuplicateConditionRec(oDeletecRecrds[i], unchangedRecords);
 					if(!bValPushRecord){
 						unchangedRecords = this.pushCondtionRecObjects(oDeletecRecrds[i], unchangedRecords);
+						unchangedRecords = this.sortConditionRecords(unchangedRecords);
 					}	
 				}
-				unchangedRecords = this.sortConditionRecords(unchangedRecords);
 				oNewCondtionRec.unchangedRecords = unchangedRecords;
 				return oNewCondtionRec;
 			/*} else {
@@ -654,6 +654,8 @@ com.incture.formatter.dateFunctions = {
 		} else if ((nValidityStart < oStartDate && (oStartDate < nValidityEnd < oEndDate)) ||
 			((nValidityStart < oStartDate) && bValEqEndDates)) {
 			return "09";
+		} else {
+			return "08"; 
 		}
 	},
 	//****************************** End of validations applied on multiple condition records ******************************//
