@@ -1153,6 +1153,7 @@ sap.ui.define([
 				"status": "COMPLETED",
 				"approverDetail": oUserModel.getData()
 			};
+			data = JSON.stringify(data);
 
 			$.ajax({
 				url: "/destination/bpmworkflowruntime/workflow-service/rest/v1/task-instances/" + taskId,
@@ -1195,7 +1196,7 @@ sap.ui.define([
 				var oPayload = {
 					"requestId": requestId,
 					"variableKey": variableKey,
-					"approverDetail": oUserModel.getData()
+					"approverDetail": JSON.stringify(oUserModel.getData())
 				};
 
 				var oModel = new sap.ui.model.json.JSONModel();

@@ -45,24 +45,24 @@ com.incture.formatter.dateFunctions = {
 		oArray = getDelectedRec.oArray;
 
 		if (oArray.length) {
-		//	if (oArray.length > 1) {
-				oArray = this.sortConditionRecords(oArray);
-				var oNewCondtionRec = this.compareMultipleCondRec(validityStart, validityEnd, oContionRecord, oArray, initArray);
-				var newConditionRecords = oNewCondtionRec.newConditionRecords;
-				newConditionRecords = this.pushCondtionRecObjects(oDeletecRecrds, newConditionRecords);
-				newConditionRecords = this.sortConditionRecords(newConditionRecords);
-				oNewCondtionRec.newConditionRecords = newConditionRecords;
+			//	if (oArray.length > 1) {
+			oArray = this.sortConditionRecords(oArray);
+			var oNewCondtionRec = this.compareMultipleCondRec(validityStart, validityEnd, oContionRecord, oArray, initArray);
+			var newConditionRecords = oNewCondtionRec.newConditionRecords;
+			newConditionRecords = this.pushCondtionRecObjects(oDeletecRecrds, newConditionRecords);
+			newConditionRecords = this.sortConditionRecords(newConditionRecords);
+			oNewCondtionRec.newConditionRecords = newConditionRecords;
 
-				var unchangedRecords = oNewCondtionRec.unchangedRecords;
-				for(var i=0; i<oDeletecRecrds.length; i++){
-					var bValPushRecord = this.checkDuplicateConditionRec(oDeletecRecrds[i], unchangedRecords);
-					if(!bValPushRecord){
-						unchangedRecords = this.pushCondtionRecObjects(oDeletecRecrds[i], unchangedRecords);
-						unchangedRecords = this.sortConditionRecords(unchangedRecords);
-					}	
+			var unchangedRecords = oNewCondtionRec.unchangedRecords;
+			for (var i = 0; i < oDeletecRecrds.length; i++) {
+				var bValPushRecord = this.checkDuplicateConditionRec(oDeletecRecrds[i], unchangedRecords);
+				if (!bValPushRecord) {
+					unchangedRecords = this.pushCondtionRecObjects(oDeletecRecrds[i], unchangedRecords);
+					unchangedRecords = this.sortConditionRecords(unchangedRecords);
 				}
-				oNewCondtionRec.unchangedRecords = unchangedRecords;
-				return oNewCondtionRec;
+			}
+			oNewCondtionRec.unchangedRecords = unchangedRecords;
+			return oNewCondtionRec;
 			/*} else {
 				var oValidateRec = oArray[0];
 				var oValidateRecDates = this.getStartEndDateObjects(oValidateRec);
@@ -78,8 +78,8 @@ com.incture.formatter.dateFunctions = {
 			var oEndDate = new Date(getDates[1].uiFieldValue);
 			var oAffectedRec = jQuery.extend(true, [], oContionRecord);
 			var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", oAffectedRec, [], oContionRecord);
-			
-			if(oDeletecRecrds.length){
+
+			if (oDeletecRecrds.length) {
 				var newConditionRecords = oParamObject.newConditionRecords;
 				newConditionRecords = this.pushCondtionRecObjects(oDeletecRecrds, newConditionRecords);
 				newConditionRecords = this.sortConditionRecords(newConditionRecords);
@@ -204,9 +204,14 @@ com.incture.formatter.dateFunctions = {
 		var bValLEndDate = this.checkTwoDatesIsEqual(validityEnd, oLEndDate);
 		if ((validityStart > oLStartDate && validityEnd > oLEndDate) ||
 			(bValLStartDate && bValLEndDate)) {
+			var oChangeMode = oContionRecord[0].tableColumnRecords[0].changeMode;
 			var oParamObject = this.compareAndValDates(validityStart, validityEnd, oLStartDate, oLEndDate, oContionRecord, oLastObj);
 			var oTempConditionRec = oParamObject.newConditionRecords;
-			oRecords.splice(oRecords.length - 1, 1);
+			if(oChangeMode === "NO_CHANGE"){
+				
+			}else{
+				oRecords.splice(oRecords.length - 1, 1);
+			}
 			if (Array.isArray(oTempConditionRec)) {
 				oTempArry = oTempConditionRec.concat(oRecords);
 				oTempArry = this.sortConditionRecords(oTempArry);
@@ -307,11 +312,36 @@ com.incture.formatter.dateFunctions = {
 					//	break;
 
 				case "07":
-					var oMergeRecords = [oArray[i], oContionRecord[0]];
+					/*var oMergeRecords = [oArray[i], oContionRecord[0]];
 					oTempArry = oTempArry.concat(oMergeRecords);
 					oTempArry = this.sortConditionRecords(oTempArry);
 					oLoopParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", oContionRecord, oMergeRecords, oTempArry, true,
 						unchangedConditionRec, "SINGLE");
+					this.bValArraySplit = true;
+					break;*/
+					var oChangeMode = oContionRecord[0].tableColumnRecords[0].changeMode;
+					if (oChangeMode === "NO_CHANGE") {
+						if(oNextConditRec){
+							var nxtRecDates = this.getStartEndDateObjects(oNextConditRec);
+							var nxtStrtDate = new Date(nxtRecDates[0].uiFieldValue);
+							if (validityEnd < nxtStrtDate) {
+								var oNewCondRec = this.case2ExtendEndDate(validityStart, validityEnd, oStartDate, oEndDate, oContionRecord[0]);
+							} else {
+								var oNewCondRec = this.case2ExtendEndDate(validityStart, validityEnd, oStartDate, oEndDate, oContionRecord[0], oArray[i]);
+							}
+						}else{
+							var oNewCondRec = this.case2ExtendEndDate(validityStart, validityEnd, oStartDate, oEndDate, oContionRecord[0]);	
+						}
+						oTempArry.push(oArray[i]);
+						oTempArry = oTempArry.concat(oNewCondRec);
+						oLoopParamObject = this.setDialogBoxParams(["0"], "PARTIAL_OVERLAP", oContionRecord, oNewCondRec, oTempArry, true, unchangedConditionRec);
+					} else {
+						var oMergeRecords = [oArray[i], oContionRecord[0]];
+						oTempArry = oTempArry.concat(oMergeRecords);
+						oTempArry = this.sortConditionRecords(oTempArry);
+						oLoopParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", oContionRecord, oMergeRecords, oTempArry, true,
+							unchangedConditionRec, "SINGLE");
+					}
 					this.bValArraySplit = true;
 					break;
 
@@ -655,7 +685,7 @@ com.incture.formatter.dateFunctions = {
 			((nValidityStart < oStartDate) && bValEqEndDates)) {
 			return "09";
 		} else {
-			return "08"; 
+			return "08";
 		}
 	},
 	//****************************** End of validations applied on multiple condition records ******************************//
@@ -667,7 +697,7 @@ com.incture.formatter.dateFunctions = {
 	//****************************** ********************************************************************************************//
 
 	compareAndValDates: function(nValidityStart, nValidityEnd, oStartDate, oEndDate, nValidateRec, oValidateRec) {
-
+		var oChangeMode = nValidateRec[0].tableColumnRecords[0].changeMode;
 		var unChangedOValidateRec = jQuery.extend(true, [], oValidateRec);
 		var unChangedNValidateRec = jQuery.extend(true, [], nValidateRec);
 		var bValStartDate = this.checkTwoDatesIsEqual(nValidityStart, oStartDate);
@@ -694,11 +724,22 @@ com.incture.formatter.dateFunctions = {
 				}
 				//Given date range lies before the existing condition record range. [A new record is created] 
 				else if (nValidityEnd < oStartDate) {
-					this.setConditionRecMode(nValidateRec, oValidateRec);
-					//"SINGLE": Key to show secind table in popover
-					var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [], [nValidateRec[0], oValidateRec], false, "", "SINGLE");
-					//var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], [nValidateRec[0], oValidateRec], false);
-					return oParamObject;
+					if (oChangeMode === "NO_CHANGE") {
+						if (nValidityEnd < oStartDate) {
+							var oNewCondRec = this.case2ExtendEndDate(nValidityStart, nValidityEnd, oStartDate, oEndDate, nValidateRec[0]);
+						} else {
+							var oNewCondRec = this.case2ExtendEndDate(nValidityStart, nValidityEnd, oStartDate, oEndDate, nValidateRec[0], oValidateRec);
+						}
+						var oParamObject = this.setDialogBoxParams(["0"], "PARTIAL_OVERLAP", oNewCondRec, [unChangedOValidateRec], oNewCondRec, false);
+						return oParamObject;
+					} else {
+						this.setConditionRecMode(nValidateRec, oValidateRec);
+						//"SINGLE": Key to show second table in popover
+						var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [], [nValidateRec[0], oValidateRec], false, "",
+							"SINGLE");
+						//var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], [nValidateRec[0], oValidateRec], false);
+						return oParamObject;
+					}
 				}
 			}
 			//Merge of records. [Function called 'case4EqualDates'] 
@@ -721,14 +762,20 @@ com.incture.formatter.dateFunctions = {
 			} else if (nValidityStart > oStartDate && nValidityEnd > oEndDate) {
 				//If the date range is greater than the existing record. [A new record is created]
 				if (nValidityStart > oEndDate) {
-				//	this.setConditionRecMode(nValidateRec, oValidateRec); //Changed from Kundan's bug
-					this.setConditionRecMode(nValidateRec);
-					var oTempArry = [];
-					oTempArry.push(oValidateRec);
-					oTempArry.push(nValidateRec[0]);  
-					var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [], oTempArry, false, "", "SINGLE");
-					//var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], oTempArry, false);
-					return oParamObject;
+					if (oChangeMode === "NO_CHANGE") {
+						var oNewCondRec = this.case2ExtendEndDate(nValidityStart, nValidityEnd, oStartDate, oEndDate, nValidateRec[0]);
+						var oParamObject = this.setDialogBoxParams(["0"], "PARTIAL_OVERLAP", oNewCondRec, [unChangedOValidateRec], oNewCondRec, false);
+						return oParamObject;
+					} else {
+						//	this.setConditionRecMode(nValidateRec, oValidateRec); //Changed from Kundan's bug
+						this.setConditionRecMode(nValidateRec);
+						var oTempArry = [];
+						oTempArry.push(oValidateRec);
+						oTempArry.push(nValidateRec[0]);
+						var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [], oTempArry, false, "", "SINGLE");
+						//var oParamObject = this.setDialogBoxParams(["0"], "NEW_RECORD", nValidateRec, [oValidateRec], oTempArry, false);
+						return oParamObject;
+					}
 				}
 				//Extend of Start date. [Function called 'case3ExtendStartDate'] 
 				else if (nValidityStart < oEndDate) {
@@ -838,7 +885,8 @@ com.incture.formatter.dateFunctions = {
 
 	//Case2: If start date is before the existing record range, but the end date is in existing record range.
 	case2ExtendEndDate: function(nValidityStart, nValidityEnd, oStartDate, oEndDate, nValidateRec, oValidateRec) {
-
+		
+		var changeMode = nValidateRec.tableColumnRecords[0].changeMode;
 		var dateTimeInst = this.oDateFormat.getDateTimeInstance({
 			pattern: "MM/dd/yyyy"
 		});
@@ -848,24 +896,33 @@ com.incture.formatter.dateFunctions = {
 
 		var bValEqualDates = this.checkTwoDatesIsEqual(oStrtDate2, oEndDate);
 		if (oStrtDate2 < oEndDate || bValEqualDates) {
-			oValidateRec.tableColumnRecords.filter(function(obj, i, arr) {
-				if (obj.hasOwnProperty("dateOrder")) {
-					if (obj.dateOrder === "Start") {
-						var oDate = dateTimeInst.format(oStrtDate2);
-						obj.fieldValueNew = oDate;
-						obj.fieldValue = oDate;
-						obj.uiFieldValue = oDate;
+			if (oValidateRec) {
+				oValidateRec.tableColumnRecords.filter(function(obj, i, arr) {
+					if (obj.hasOwnProperty("dateOrder")) {
+						if (obj.dateOrder === "Start") {
+							var oDate = dateTimeInst.format(oStrtDate2);
+							obj.fieldValueNew = oDate;
+							obj.fieldValue = oDate;
+							obj.uiFieldValue = oDate;
+						}
+						if (obj.dateOrder === "End") {
+							var oDate = dateTimeInst.format(oEndDate);
+							obj.fieldValueNew = oDate;
+							obj.fieldValue = oDate;
+							obj.uiFieldValue = oDate;
+						}
 					}
-					if (obj.dateOrder === "End") {
-						var oDate = dateTimeInst.format(oEndDate);
-						obj.fieldValueNew = oDate;
-						obj.fieldValue = oDate;
-						obj.uiFieldValue = oDate;
-					}
-				}
-			});
-			this.setConditionRecMode(nValidateRec, oValidateRec);
-			return [nValidateRec, oValidateRec];
+				});
+				this.setConditionRecMode(nValidateRec, oValidateRec);
+				return [nValidateRec, oValidateRec];
+			} else {
+				this.setConditionRecMode(nValidateRec);
+				return [nValidateRec];
+			}
+		}
+		if(changeMode === "NO_CHANGE" && !oValidateRec){
+			this.setConditionRecMode(nValidateRec);
+			return [nValidateRec];
 		}
 		if (nValidateRec && !oValidateRec) {
 			this.setConditionRecMode("", oValidateRec);
@@ -1185,20 +1242,20 @@ com.incture.formatter.dateFunctions = {
 				/*nValidateRec[0].tableColumnRecords[0].changeMode = "CREATE";
 				nValidateRec[0].tableColumnRecords[1].colorCode = "CREATED";*/
 				var changeMode = nValidateRec[0].tableColumnRecords[0];
-				if(changeMode === "NO_CHANGE"){
+				if (changeMode === "NO_CHANGE") {
 					nValidateRec[0].tableColumnRecords[0].changeMode = "CHANGED";
 					nValidateRec[0].tableColumnRecords[1].colorCode = "CHANGE";
-				}else{
+				} else {
 					nValidateRec[0].tableColumnRecords[0].changeMode = "CREATE";
 					nValidateRec[0].tableColumnRecords[1].colorCode = "CREATED";
 				}
 			} else {
 				/*nValidateRec.tableColumnRecords[0].changeMode = "CREATE";
 				nValidateRec.tableColumnRecords[1].colorCode = "CREATED";*/
-				if(nValidateRec.tableColumnRecords[0].changeMode === "NO_CHANGE"){
+				if (nValidateRec.tableColumnRecords[0].changeMode === "NO_CHANGE") {
 					nValidateRec.tableColumnRecords[0].changeMode = "CHANGED";
 					nValidateRec.tableColumnRecords[1].colorCode = "CHANGE";
-				}else{
+				} else {
 					nValidateRec.tableColumnRecords[0].changeMode = "CREATE";
 					nValidateRec.tableColumnRecords[1].colorCode = "CREATED";
 				}
@@ -1217,26 +1274,26 @@ com.incture.formatter.dateFunctions = {
 
 		if (oNextConditionRec) {
 			if (Array.isArray(oNextConditionRec)) {
-				oNextConditionRec[0].tableColumnRecords[0].changeMode = "CREATE";
-				oNextConditionRec[0].tableColumnRecords[1].colorCode = "CREATED";
+				oNextConditionRec[0].tableColumnRecords[0].changeMode = "UPDATE";
+				oNextConditionRec[0].tableColumnRecords[1].colorCode = "IMPACTED";
 			} else {
-				oNextConditionRec.tableColumnRecords[0].changeMode = "CREATE";
-				oNextConditionRec.tableColumnRecords[1].colorCode = "CREATED";
+				oNextConditionRec.tableColumnRecords[0].changeMode = "UPDATE";
+				oNextConditionRec.tableColumnRecords[1].colorCode = "IMPACTED";
 			}
 		}
 	},
-	
-	checkDuplicateConditionRec: function(oDeletedRec, oArray){
-		
-		var getDelRecDates = this.getStartEndDateObjects(oDeletedRec);	
+
+	checkDuplicateConditionRec: function(oDeletedRec, oArray) {
+
+		var getDelRecDates = this.getStartEndDateObjects(oDeletedRec);
 		var delStartDate = getDelRecDates[0].uiFieldValue;
 		var delEndDate = getDelRecDates[1].uiFieldValue;
-		
-		for(var i=0; i<oArray.length; i++){
-			var getCurObjDates = this.getStartEndDateObjects(oArray[i].tableColumnRecords);	
+
+		for (var i = 0; i < oArray.length; i++) {
+			var getCurObjDates = this.getStartEndDateObjects(oArray[i].tableColumnRecords);
 			var curStartDate = getCurObjDates[0].uiFieldValue;
 			var curEndDate = getCurObjDates[1].uiFieldValue;
-			if(curStartDate === delStartDate && curEndDate === delEndDate){
+			if (curStartDate === delStartDate && curEndDate === delEndDate) {
 				return true;
 			}
 		}
