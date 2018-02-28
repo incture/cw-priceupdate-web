@@ -9,11 +9,11 @@
 			</l:content>
 		</l:VerticalLayout>
 		<beginButton>
-			<Button class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop"
+			<Button class=" scaleFooterBtn inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop"
 				text="{i18n>CANCEL}" press="onCloseFilterOptionsDialogConfirm" visible="{oElementVisibleModel>/cancelScaleButton}"/>
 		</beginButton> 
 		<endButton>
-			<Button	class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop inctureDialogMargin"
+			<Button	class="scaleFooterBtn inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop inctureDialogMargin"
 				text="{i18n>BUTTON_TEXT_OK}" press="onCloseFilterOptionsDialogConfirm" />
 		</endButton>
 	</Dialog>

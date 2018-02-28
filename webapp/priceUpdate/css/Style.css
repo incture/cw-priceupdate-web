@@ -697,6 +697,15 @@ html.sap-desktop .inctureMDITBClass .sapMITBItem:focus .sapMITBFilterIcon,
    	margin-bottom: 11px;
 }
 
+.scaleFooterBtn .sapMBtnInner {
+	background : rgb(11, 109, 63) !important;
+	border-color: rgb(11, 109, 63) !important;
+	color: #fff !important;
+	padding: 0px 20px !important;
+   	margin-bottom: 11px;
+   	width: 5.1rem;
+}
+
 .inctureDialogBtn .sapMBtn {
     height: 3rem;
     margin: 11px;
@@ -1217,4 +1226,7 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 
 .legendImageClass{
 	margin-top:0.6rem !important;
+}
+.changeAddRowBg{
+	background: #f4fff4 !important;
 }

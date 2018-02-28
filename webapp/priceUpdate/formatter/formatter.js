@@ -192,6 +192,19 @@ com.incture.formatter.formatter = {
 			return "";
 		}
 	},
+	setImageTooltip: function(val) {
+		if (val === "CREATED") {
+			return "Created";
+		} else if (val === "CHANGE") {
+			return "Modified";
+		} else if (val === "IMPACTED") {
+			return "Impacted";
+		} else if (val === "DELETED") {
+			return "Deleted";
+		} else {
+			return "No Change";
+		}
+	},
 
 	setDatePickerDisabled: function(evt, datePicker) {
 		if (evt.target.id.search("icon") === -1) {
@@ -809,7 +822,7 @@ com.incture.formatter.formatter = {
 
 		conditionRec.filter(function(obj, i, arr) {
 
-			if (obj.fieldId === "Min_Quantity" || obj.fieldId === "KSTBM") {
+			if (obj.fieldId === "Max_Quantity" || obj.fieldId === "KSTBM") {
 				oDateArray.push(obj);
 			}
 
