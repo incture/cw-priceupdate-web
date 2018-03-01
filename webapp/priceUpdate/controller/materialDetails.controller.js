@@ -1970,9 +1970,9 @@ sap.ui.define([
 		},
 
 		//Binding data for scales table 
-		setMaximumQuantity: function(sPath) {
+		setMaximumQuantity: function(oArray) {
 			var oMatSectionModel = this.oMatSectionModel;
-			var tableLen = oMatSectionModel.getProperty(sPath).scaleDataList;
+			var tableLen = oArray;
 
 			for (var i = 1; i < tableLen.length; i++) {
 				var paramData = tableLen[i].parameterList;
@@ -1986,7 +1986,7 @@ sap.ui.define([
 						}
 						if (paramData1[j].fieldId === "Max_Quantity") {
 							paramData[j].fieldValueNew = maxvalue - 1;
-							paramData[j].uiPrevValue = maxvalue - 1;
+							paramData[j].editValue = maxvalue - 1;
 						}
 
 					}
@@ -1995,7 +1995,7 @@ sap.ui.define([
 					for (var j = 0; j < paramData.length; j++) {
 						if (paramData[j].fieldId === "Max_Quantity") {
 							paramData[j].fieldValueNew = "N";
-							paramData[j].uiPrevValue = "N";
+							paramData[j].editValue = "N";
 						}
 
 					}
@@ -2011,38 +2011,9 @@ sap.ui.define([
 			var headerData = oMatSectionModel.getData().headerRecords[0].recordList;
 			var status = headerData[(headerData.length) - 1];
 			oMatSectionModel.getProperty(sPath).status = status;
-			/*var len = oMatSectionModel.getProperty(sPath).scaleDataList.length;
-			if (len > 2) {
-				var lastArray = oMatSectionModel.getProperty(sPath).scaleDataList[len - 1];
-				var lastArr = jQuery.extend(true, {}, lastArray);
-				var parameterList = lastArr.parameterList;
-				for (var i = 0; i < parameterList.length; i++) {
-					if (parameterList[i].fieldId === "KSTBM") {
-						var lastMinValue = parameterList[i].fieldValueNew;
-					}
-				}
-				parameterList.filter(function(obj, i, arr) {
 
-					if (obj.fieldId === "Min_Quantity") {
-						obj.fieldValueNew = parseInt(lastMinValue) + 1;
-						obj.fieldValue = parseInt(lastMinValue) + 1;
-						obj.uiPrevValue = parseInt(lastMinValue) + 1;
-					}
-					if (obj.fieldId === "KSTBM") {
-						obj.fieldValueNew = "N";
-						obj.fieldValue = "N";
-						obj.uiPrevValue = "N";
-					}
-					if (obj.fieldId === "ACTIONS") {
-						obj.isVisible = "false";
-					}
-
-					obj.isEditable = "false";
-
-				});
-			}
-			oMatSectionModel.getProperty(sPath).scaleDataList.push(lastArr);*/
-			this.setMaximumQuantity(sPath);
+			var oArray = oMatSectionModel.getProperty(sPath).scaleDataList;
+			this.setMaximumQuantity(oArray);
 			oMatSectionModel.refresh();
 			var oScaleTable = this._oDialog.getContent()[0].getContent()[0];
 			var bindingPath = "oMatSectionModel>" + sPath;
@@ -2081,18 +2052,18 @@ sap.ui.define([
 				var contextPath = context.getPath();
 				var sPath = "oMatSectionModel>" + contextPath;
 				var oColumn = new sap.m.Column({
+					hAlign: "Center",
 					visible: {
 						path: sPath + "/isVisible",
 						formatter: formatter.formatBooleanValues
 					},
 					header: new sap.m.Text({
 						wrapping: true,
-						//            text: "{" + sPath + "/scaleColName}"
 						text: {
 							path: sPath + "/scaleColName",
-							formatter: formatter.formatColumnWidth
+							formatter: formatter.formatScaleColumnWidth
 						}
-					}).addStyleClass("scaleColHdrStyle textClass ")
+					}).addStyleClass("textClass ")
 				});
 				return oColumn;
 			});
@@ -2379,9 +2350,7 @@ sap.ui.define([
 
 			var mPath = this.selectedTabSPath;
 			var oMatSectionModel = this.oMatSectionModel;
-			var oMatTable = this.getView().byId("PRICE_UPDATE_MAT_TABLE");
 			var bindingContext = oEvent.getSource().getParent().getBindingContext("oMatSectionModel");
-			//var pPath = bindingContext.sPath;
 			var listPath = bindingContext.sPath.split("/")[6];
 			var scalePath = bindingContext.sPath.split("/")[8];
 			var length = bindingContext.sPath.split("/").length - 1;
@@ -2418,17 +2387,18 @@ sap.ui.define([
 				formatter.formateValueEnable(oArray, scaleDataPath, oMatSectionModel);
 				oMatSectionModel.refresh();
 			} else {
-				formatter.toastMessage("quantity alrady exist plz select other quantity");
+				var errorText = this.oResourceModel.getText("MINIMUM_QUANTITY_EXIST");
+				formatter.toastMessage(errorText);
 			}
 
-			var undoModel = this.oUndoModel;
+			/*var undoModel = this.oUndoModel;
 			var length = oArray.length - 1;
 			length = length.toString();
 			var modelSPath = "/conditionTypesRecords/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + length;
 			formatter.setPreviousStateObjects(scalePath, "oMatSectionModel", "", undoModel, "OBJECT", "NEW", "", true, "", "", this.selectedIconTab);
-			undoModel.setProperty("/undoBtnEnabled", true);
+			undoModel.setProperty("/undoBtnEnabled", true);*/
 
-			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length) - 2).toString();
+			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length) - 1).toString();
 			oMatSectionModel.refresh();
 		},
 
@@ -2437,10 +2407,8 @@ sap.ui.define([
 			var mPath = this.selectedTabSPath;
 			var oButtonValue = evt.getIcon();
 			var oMatSectionModel = this.oMatSectionModel;
-			//var sPath = evt.getBindingContext("oMatSectionModel").getPath();
 
 			var bindingContext = OEvt.getSource().getParent().getBindingContext("oMatSectionModel");
-			//var pPath = bindingContext.sPath;
 			var listPath = bindingContext.sPath.split("/")[6];
 			var scalePath = bindingContext.sPath.split("/")[8];
 			var length = bindingContext.sPath.split("/").length - 1;
@@ -2499,10 +2467,10 @@ sap.ui.define([
 							obj.fieldValue1 = "sap-icon://edit";
 						}
 					});
+
 					var allData = oArray;
 					allData.filter(function(obj, i, arr) {
 						var Paramdata = obj.parameterList;
-
 						Paramdata.filter(function(obj1, i1, arr1) {
 							if (obj1.fieldValue1 === "sap-icon://accept" && obj1.fieldValue === "sap-icon://delete") {
 								obj1.isEditable = "false";
@@ -2513,29 +2481,28 @@ sap.ui.define([
 						});
 
 					});
-					oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length) - 2).toString();
+					oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length) - 1).toString();
 				} else {
-					formatter.toastMessage("quantity alrady exist plz select other quantity");
+					var errorText = this.oResourceModel.getText("MINIMUM_QUANTITY_EXIST");
+					formatter.toastMessage(errorText);
 				}
 			}
 
 			oMatSectionModel.refresh();
 		},
 
-		sortScaleTableData: function(sortValue, currentObj, entryIndex, oArray) {
+		sortScaleTableData: function(sortValue, currentObj, selectedIndex, oArray) {
 			var oMatSectionModel = this.oMatSectionModel;
-			var entryIndex = parseInt(entryIndex);
-			var oArray = oArray;
-			var sortValue = parseInt(sortValue);
+			selectedIndex = parseInt(selectedIndex);
+			sortValue = parseInt(sortValue);
 			for (var i = 0; i < currentObj.length; i++) {
 				if (currentObj[i].fieldId === "KSTBM") {
 					var currValue = parseInt(currentObj[i].fieldValueNew);
-					var currPrevValue = currentObj[i].uiPrevValue;
-					currentObj[i].uiPrevValue = currValue;
+					var currPrevValue = currentObj[i].editValue;
+					currentObj[i].editValue = currValue;
 				}
 				if (currentObj[i].fieldId === "Max_Quantity") {
 					var currMaxValue = currentObj[i].fieldValueNew;
-
 				}
 			}
 
@@ -2551,205 +2518,69 @@ sap.ui.define([
 				currMaxValue = parseInt(currMaxValue);
 			}
 
-			//condition for validation
+			var currObj = jQuery.extend(true, [], currentObj);
+			for (var i = 0; i < oArray.length; i++) {
+				var paramData = oArray[i].parameterList;
+				var Objects1 = formatter.getMinMaxQuantityObjects(paramData);
+				for (var j = 0; j < Objects1.length; j++) {
+					if (Objects1[j].fieldId === "KSTBM") {
+						var minVal = Objects1[j].fieldValueNew;
+						var maxVal = Objects1[j + 1].fieldValueNew;
+					}
+				}
+				if (maxVal === "N") {
+					maxVal = 99999999999999;
+				} else if (maxVal === null) {
+					maxVal = maxVal;
+				} else {
+					maxVal = parseInt(maxVal);
+				}
+				if (minVal === null) {
+					minVal = minVal;
+				} else {
+					minVal = parseInt(minVal);
+				}
 
-			if (currValue === currPrevValue) {
-				return;
-			} else if (currValue > currPrevValue && currPrevValue !== "" && currValue < currMaxValue) {
-				var paramData = oArray[entryIndex - 1].parameterList;
-				paramData[1].value = currValue - 1;
-				for (var i = 0; i < paramData.length; i++) {
-					if (paramData[i].fieldId === "Max_Quantity") {
-						paramData[i].fieldValueNew = currValue - 1;
-					}
-					if (paramData[i].fieldId === "COLOR") {
-						paramData[i].colorCode = "IMPACTED";
-					}
-				}
-				for (var i = 0; i < currentObj.length; i++) {
-					if (currentObj[i].fieldId === "COLOR") {
-						currentObj[i].colorCode = "CHANGE";
-					}
-				}
-				return;
-			} else if (currValue < currPrevValue && currPrevValue !== "") {
-				var paramData = oArray[entryIndex - 1].parameterList;
-				paramData[1].value = currValue - 1;
-				for (var i = 0; i < paramData.length; i++) {
-					if (paramData[i].fieldId === "Max_Quantity") {
-						paramData[i].fieldValueNew = currValue - 1;
-					}
-					if (paramData[i].fieldId === "COLOR") {
-						paramData[i].colorCode = "IMPACTED";
-					}
-				}
-				for (var i = 0; i < currentObj.length; i++) {
-					if (currentObj[i].fieldId === "COLOR") {
-						currentObj[i].colorCode = "CHANGE";
-					}
-				}
-				return;
-			}
-			/*	else if (currValue > currPrevValue && currPrevValue !== null) {
-					var paramData = oArray[entryIndex + 1].parameterList;
-					var paramData1 = oArray[entryIndex].parameterList;
-					for (var i = 0; i < paramData.length; i++) {
-						if (paramData[i].fieldId === "Min_Quantity") {
-							paramData[i].fieldValueNew = parseInt(currValue) + 1;
+				if (sortValue >= minVal && sortValue < maxVal) {
+					var newrr = jQuery.extend(true, [], oArray[i]);
+					for (var l = 0; l < newrr.parameterList.length; l++) {
+						if (newrr.parameterList[l].fieldId === "KSTBM") {
+							newrr.parameterList[l].fieldValueNew = sortValue;
+							newrr.parameterList[l].fieldValue = sortValue;
+							newrr.parameterList[l].editValue = sortValue;
 						}
-						if (paramData[i].fieldId === "COLOR") {
-							paramData[i].colorCode = "IMPACTED";
+						if (newrr.parameterList[l].fieldId === "COLOR") {
+							newrr.parameterList[l].colorCode = "IMPACTED";
 						}
 					}
-					for (var i = 0; i < currentObj.length; i++) {
-						if (currentObj[i].fieldId === "COLOR") {
-							currentObj[i].colorCode = "CHANGE";
+					var len = newrr.parameterList.length;
+					var actionButton = newrr.parameterList[len - 1];
+					actionButton.isVisible = "true";
+					for (var k = 0; k < paramData.length; k++) {
+						if (newrr.parameterList[k].fieldId !== "ACTIONS" && newrr.parameterList[k].fieldId !== "Max_Quantity" && newrr.parameterList[k]
+							.fieldId !== "KSTBM") {
+							newrr.parameterList[k].fieldValueNew = currObj[k].fieldValueNew;
 						}
 					}
 
-					return;
-				}*/
-			/*else if (currValue < currPrevValue) {
-				var newrr = jQuery.extend(true, [], oArray[entryIndex]);
-				for (var i = 0; i < newrr.parameterList.length; i++) {
-					if (newrr.parameterList[i].fieldId === "Min_Quantity") {
-						newrr.parameterList[i].fieldValueNew = currValue + 1;
-						newrr.parameterList[i].uiPrevValue = currValue + 1;
-					}
-					if (newrr.parameterList[i].fieldId === "COLOR") {
-						newrr.parameterList[i].colorCode = "IMPACTED";
-					}
-				}
-				for (var i = 0; i < currentObj.length; i++) {
-					if (currentObj[i].fieldId === "COLOR") {
-						currentObj[i].colorCode = "CHANGE";
-					}
-				}
-
-				var paramData = oArray[entryIndex + 1].parameterList;
-
-				for (var i = 0; i < newrr.parameterList.length; i++) {
-					if (newrr.parameterList[i].fieldId === "Min_Quantity") {
-						var newMaxValue = parseInt(paramData[i].fieldValueNew);
-						newrr.parameterList[i+1].fieldValueNew = newMaxValue - 1;
-						newrr.parameterList[i+1].uiPrevValue = newMaxValue - 1;
-						newrr.parameterList[i+1].isEditable = "false";
-					}
-				}
-
-				for (var j = 0; j < newrr.parameterList.length; j++) {
-					newrr.parameterList[j].isEditable = "false";
-					if (newrr.parameterList[j].fieldId !== "KSTBM" || newrr.parameterList[j].fieldId !== "Min_Quantity") {
-						newrr.parameterList[j].fieldValueNew = newrr.parameterList[j].uiPrevValue;
-						if (newrr.parameterList[j].fieldId === "ACTIONS") {
-							newrr.parameterList[j].fieldValue1 = newrr.parameterList[j].uiPrevValue1;
-							newrr.parameterList[j].isEditable = "true";
-						}
-						
-					}
-				}
-				oArray.splice(entryIndex + 1, 0, newrr);
-				return;
-			} */
-			else {
-				var currObj = jQuery.extend(true, [], currentObj);
-				for (var i = 0; i < oArray.length; i++) {
-					var paramData = oArray[i].parameterList;
-					var Objects1 = formatter.getMinMaxQuantityObjects(paramData);
-					for (var j = 0; j < Objects1.length; j++) {
-						if (Objects1[j].fieldId === "KSTBM") {
-							var minVal = Objects1[j].fieldValueNew;
-							var maxVal = Objects1[j + 1].fieldValueNew;
-						}
-					}
-					if (maxVal === "N") {
-						maxVal = 99999999999999999999999;
-					} else {
-						var maxVal = parseInt(maxVal);
-					}
-					if (minVal === null) {
-						var minVal = minVal;
-					} else {
-						var minVal = parseInt(minVal);
-					}
-
-					if (sortValue < minVal) {
-						var newrr = jQuery.extend(true, [], oArray[i]);
-						if (i === 1) {
-							var nextParmData = oArray[i + 1].parameterList;
-							for (var l = 0; l < newrr.parameterList.length; l++) {
-								if (newrr.parameterList[l].fieldId === "Max_Quantity") {
-									newrr.parameterList[l].fieldValueNew = parseInt(nextParmData[l - 1].fieldValueNew) - 1;
-
-								}
-								if (newrr.parameterList[l].fieldId === "KSTBM") {
-									newrr.parameterList[l].fieldValueNew = sortValue;
-
-								}
-								if (newrr.parameterList[l].fieldId === "COLOR") {
-									newrr.parameterList[l].colorCode = "IMPACTED";
-								}
+					oArray.splice(i + 1, 0, newrr);
+					if (selectedIndex > 0) {
+						if (currValue > currPrevValue) {
+							if (selectedIndex === i) {
+								oArray.splice(selectedIndex + 1, 1);
+							} else {
+								oArray.splice(selectedIndex, 1);
 							}
 						} else {
-							var prevParmData = oArray[i - 1].parameterList;
-							for (var l = 0; l < newrr.parameterList.length; l++) {
-								if (newrr.parameterList[l].fieldId === "Max_Quantity") {
-									newrr.parameterList[l].fieldValueNew = prevParmData[l].fieldValueNew;
-									prevParmData[l].fieldValueNew = sortValue - 1;
-								}
-								if (newrr.parameterList[l].fieldId === "KSTBM") {
-									newrr.parameterList[l].fieldValueNew = sortValue;
-
-								}
-								if (newrr.parameterList[l].fieldId === "COLOR") {
-									newrr.parameterList[l].colorCode = "IMPACTED";
-								}
-							}
+							oArray.splice(selectedIndex + 1, 1);
 						}
-						var len = newrr.parameterList.length;
-						var actionButton = newrr.parameterList[len - 1];
-						actionButton.isVisible = "true";
-						for (var k = 0; k < paramData.length; k++) {
-							if (newrr.parameterList[k].fieldId !== "ACTIONS" && newrr.parameterList[k].fieldId !== "Max_Quantity" && newrr.parameterList[k]
-								.fieldId !== "KSTBM") {
-								newrr.parameterList[k].fieldValueNew = currObj[k].fieldValueNew;
-							}
-						}
-						oArray.splice(i, 0, newrr);
-						return;
 
 					}
-					if (sortValue > minVal && sortValue < maxVal) {
-						var newrr = jQuery.extend(true, [], oArray[i]);
-						var prevParmData = oArray[i].parameterList;
-						for (var l = 0; l < newrr.parameterList.length; l++) {
-							if (newrr.parameterList[l].fieldId === "Max_Quantity") {
-								newrr.parameterList[l].fieldValueNew = prevParmData[l].fieldValueNew;
-								prevParmData[l].fieldValueNew = sortValue - 1;
-							}
-							if (newrr.parameterList[l].fieldId === "KSTBM") {
-								newrr.parameterList[l].fieldValueNew = sortValue;
-							}
-							if (newrr.parameterList[l].fieldId === "COLOR") {
-								newrr.parameterList[l].colorCode = "IMPACTED";
-							}
-						}
-						var len = newrr.parameterList.length;
-						var actionButton = newrr.parameterList[len - 1];
-						actionButton.isVisible = "true";
-						for (var k = 0; k < paramData.length; k++) {
-							if (newrr.parameterList[k].fieldId !== "ACTIONS" && newrr.parameterList[k].fieldId !== "Max_Quantity" && newrr.parameterList[k]
-								.fieldId !== "KSTBM") {
-								newrr.parameterList[k].fieldValueNew = currObj[k].fieldValueNew;
-							}
-						}
-
-						oArray.splice(i + 1, 0, newrr);
-						return;
-
-					}
+					this.setMaximumQuantity(oArray);
+					return;
 
 				}
+
 			}
 
 			oMatSectionModel.refresh();
@@ -2990,6 +2821,7 @@ sap.ui.define([
 
 		setScaleUndoSpath: function(oEvent) {
 			var evt = oEvent.getSource();
+			var oValue = evt.getValue();
 			var oMatSectionModel = this.oMatSectionModel;
 			var sPath = oEvent.getSource().getBindingContext("oMatSectionModel").getPath();
 			var selectedObj = oMatSectionModel.getProperty(sPath);
@@ -3005,13 +2837,25 @@ sap.ui.define([
 			var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
 			var currentObj = oArray[scaleDataPath].parameterList;
 
-			/*var a= selectedObj.uiPrevValue;
-			var b= selectedObj.fieldValueNew;
-			if(a !== b && a !==""){
-			                selectedObj.uiPrevValue = selectedObj.fieldValueNew;
-			}*/
 			if (selectedObj.fieldId === "KSTBM") {
 				formatter.formateValidValue(evt, oArray, oMatSectionModel, pPath, selectedObj);
+			}
+			if (selectedObj.fieldType === "FLOAT") {
+				var regex = "[+-]?([0-9]*[.])?[0-9]+";
+				var decimalPosition = "2"; //evt.getCustomData()[0].getValue();
+			} else if (selectedObj.fieldType === "INT") {
+				var regex = "^[1-9]([0-9]*)$";
+			} else if (selectedObj.fieldType === "CHAR") {
+				var regex = /^[a-zA-Z]+$/;
+			}
+			if (!oValue.match(regex)) {
+				selectedObj.valueState = "Error";
+				this.errorStateBVal = this.errorStateBVal + 1;
+			} else {
+				if (this.errorStateBVal > 0 && selectedObj.valueState === "Error") {
+					this.errorStateBVal = this.errorStateBVal - 1;
+					selectedObj.valueState = "None";
+				}
 			}
 			formatter.formateValueEnable(oArray, scaleDataPath, oMatSectionModel);
 			oMatSectionModel.refresh();

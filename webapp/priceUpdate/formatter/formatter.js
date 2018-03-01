@@ -309,6 +309,18 @@ com.incture.formatter.formatter = {
 		}
 		return label;
 	},
+	formatScaleColumnWidth: function(label) {
+		if (label === "") {
+			this.getParent().setWidth("1rem");
+		}
+		if (label === "Action") {
+			this.getParent().setWidth("3rem");
+		}
+		if (label === "Unit") {
+			this.getParent().setWidth("4rem");
+		}
+		return label;
+	},
 
 	formatStatusBooleanValues: function(oVal, bVal) {
 		bVal = com.incture.formatter.formatter.formatBooleanValues(bVal);

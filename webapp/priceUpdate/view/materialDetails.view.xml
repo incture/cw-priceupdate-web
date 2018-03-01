@@ -65,9 +65,14 @@
 									<headerToolbar>
 										<Toolbar class="conditionRecordClass">
 											<Label text="{i18n>CONDITION_RECORDS}" design="Bold"
-												class="inctureTextClass" />
+												class="inctureHdrTextClass" />
 											<ToolbarSpacer></ToolbarSpacer>
-											<!-- <ToolbarSpacer></ToolbarSpacer> -->
+											<ToolbarSpacer></ToolbarSpacer> 
+											<ToolbarSpacer></ToolbarSpacer>
+											<ToolbarSpacer></ToolbarSpacer> 
+											<ToolbarSpacer></ToolbarSpacer>
+											<ToolbarSpacer></ToolbarSpacer> 
+											
 											<Image src="images/DetailColorLegend1.png" class="legendImageClass"
 												visible="{oElementVisibleModel>/imageVisible}"></Image>
 											<ToolbarSpacer></ToolbarSpacer>

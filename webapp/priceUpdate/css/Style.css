@@ -728,7 +728,10 @@ html.sap-desktop .inctureMDITBClass .sapMITBItem:focus .sapMITBFilterIcon,
 .inctureTextClass{
 	margin-left: -0.5rem !important;
 }
-
+.inctureHdrTextClass{
+	font-size: 1rem !important;
+	margin-left: -0.5rem !important;
+}
 .inctureMDTreeItem .sapMLIB{
 	display: flex;
     -webkit-box-align: center;
@@ -1224,9 +1227,9 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
     margin-right: 4px;
 }
 
-.legendImageClass{
+/*.legendImageClass{
 	margin-top:0.6rem !important;
-}
+}*/
 .changeAddRowBg{
 	background: #f4fff4 !important;
 }
