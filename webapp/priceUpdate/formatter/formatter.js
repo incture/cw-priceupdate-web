@@ -218,13 +218,22 @@ com.incture.formatter.formatter = {
 	setPreviousStateObjects: function(sPath, oModel, selectedObj, oUndoModel, objectType, changeType, fieldId, toastMsgBval, isScales,
 		prevChangeMode, selectedTab, recordNumber) {
 
-		var oArray;
-		var oConditionTypes = oUndoModel.getData().oConditionTypes;
-		oConditionTypes.forEach(function(obj) {
-			if (selectedTab === obj.key) {
-				oArray = obj.prevStateArray;
-			}
-		});
+		var oArray, oConditionTypes;
+		if (isScales) {
+			oConditionTypes = oUndoModel.getProperty("/oScalePrevRecord");
+			oConditionTypes.forEach(function(obj) {
+				if (selectedTab === obj.key) {
+					oArray = obj.prevStateArray;
+				}
+			});
+		} else {
+			oConditionTypes = oUndoModel.getProperty("/oConditionTypes");
+			oConditionTypes.forEach(function(obj) {
+				if (selectedTab === obj.key) {
+					oArray = obj.prevStateArray;
+				}
+			});
+		}
 
 		var oTempObj = {};
 		oTempObj.sPath = sPath;
@@ -606,18 +615,93 @@ com.incture.formatter.formatter = {
 					var selectedObj = oObject.tableColumnRecords[oFieldPathIndex];
 					var oRecordNumber = this.getConditionConditionRecNo(oObject.tableColumnRecords);
 
-					selectedObj.fieldValueNew = newValue;
-					var secondObjSpath = oObject.tableColumnRecords[1];
-					var prevChangeMode = secondObjSpath.colorCode;
+					if (newValue === "DELETE") {
+						var firstObjSpath = oObject.tableColumnRecords[0];
+						firstObjSpath.deletionFlag = "true";
+						var oPrevVal = firstObjSpath.changeMode;
+						firstObjSpath.changeMode = "DELETE";
 
-					sPath = sPath + "/tableColumnRecords/" + oFieldPathIndex;
-					this.formatDateEnable(sPath, oMatModel);
-					var prevValue = selectedObj.uiPrevValue;
-					this.setPreviousStateObjects(sPath, "oMatSectionModel", prevValue, undoModel, "PROPERTY", "CHANGE", "fieldValueNew", "",
-						"", prevChangeMode, selectedIconTab, oRecordNumber);
-					selectedObj.uiPrevValue = newValue;
-					undoModel.setProperty("/undoBtnEnabled", true);
+						var secondObjSpath = oObject.tableColumnRecords[1];
+						var prevChangeMode = secondObjSpath.colorCode;
+						secondObjSpath.colorCode = "DELETED";
+
+						sPath = sPath + "/tableColumnRecords/12";
+						this.setConditionRecEditable(oObject.tableColumnRecords, "false");
+						this.setPreviousStateObjects(sPath, "oMatSectionModel", oPrevVal, undoModel, "OBJECT", "DELETE", "", "", "", prevChangeMode,
+							selectedIconTab, oRecordNumber);
+					} else {
+						selectedObj.fieldValueNew = newValue;
+						var secondObjSpath = oObject.tableColumnRecords[1];
+						var prevChangeMode = secondObjSpath.colorCode;
+						sPath = sPath + "/tableColumnRecords/" + oFieldPathIndex;
+						var prevValue = selectedObj.uiPrevValue;
+						this.setPreviousStateObjects(sPath, "oMatSectionModel", prevValue, undoModel, "PROPERTY", "CHANGE", "fieldValueNew", "",
+							"", prevChangeMode, selectedIconTab, oRecordNumber);
+						selectedObj.uiPrevValue = newValue;
+						undoModel.setProperty("/undoBtnEnabled", true);
+					}
 					oMatModel.refresh();
+				}
+			}
+		}
+	},
+
+	undoOnDelete: function(lastObj, oModel, selectedTabSPath, bVal, oRowNumber, oResourceModel) {
+		var sPath = lastObj.sPath;
+		var oPrevObj = lastObj.prevData;
+		var changedField = lastObj.changedField;
+		var prevChangeMode = lastObj.prevChangeMode;
+		var recordNumber = lastObj.recordNumber;
+		var toastMsgBval = lastObj.toastMsgBval;
+		var isScales = lastObj.isScales;
+
+		var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
+		var firstObj = oModel.getProperty(firstObjSpath);
+		var hasFlag = firstObj.hasOwnProperty("deletionFlag");
+		if (hasFlag) {
+			firstObj.deletionFlag = "false";
+			firstObj.changeMode = oPrevObj;
+
+			var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
+			var secondObj = oModel.getProperty(secondObjSpath);
+			//var prevState = secondObj.uiPrevValue;
+			secondObj.colorCode = prevChangeMode;
+
+			var oSelectedArry = oModel.getProperty(sPath.split("/").slice(0, -1).join("/"));
+			this.setConditionRecEditable(oSelectedArry, "true");
+		}
+
+		//Undo on Version2 array
+		if (bVal) {
+			var oPath = "/oVersion2Log/entry/" + selectedTabSPath + "/value/listMatrialInfoRecord/";
+			var oVersion2Log = oModel.getProperty(oPath);
+			var checkDuplicateRec = this.checkDuplicateConditionRec(recordNumber, oVersion2Log);
+			if (checkDuplicateRec[0] === true) {
+				var index = checkDuplicateRec[1];
+				oPath = "/oVersion2Log/entry/" + selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
+				var oV2Obj = oModel.getProperty(oPath);
+			}
+			if (oV2Obj) {
+				oPath = oPath + "/tableColumnRecords/" + sPath.split("/")[8];
+				var v2changedObj = oModel.getProperty(oPath);
+				v2changedObj[changedField] = oPrevObj;
+
+				var v2firstObjSpath = oPath.split("/").slice(0, -1).join("/") + "/0";
+				var v2firstobj = oModel.getProperty(v2firstObjSpath);
+
+				var v2secondObjSpath = oPath.split("/").slice(0, -1).join("/") + "/1";
+				var v2getSecondObj = oModel.getProperty(v2secondObjSpath);
+				if (v2getSecondObj) {
+					v2getSecondObj.colorCode = prevChangeMode;
+				}
+				if (v2firstobj) {
+					if (v2changedObj.fieldValue === v2changedObj.fieldValueNew) {
+						if (v2firstobj.hasOwnProperty("changeMode")) {
+							if (v2firstobj.changeMode === "UPDATE") {
+								v2firstobj.changeMode = "NO_CHANGE";
+							}
+						}
+					}
 				}
 			}
 		}
@@ -640,7 +724,6 @@ com.incture.formatter.formatter = {
 			var checkDuplicateRec = this.checkDuplicateConditionRec(recordNumber, oVersion2Log);
 			if (checkDuplicateRec[0] === true) {
 				var index = checkDuplicateRec[1];
-				oPath = "/oVersion2Log/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + index;
 				var oV2Obj = oModel.getProperty(oPath);
 			}
 			if (oV2Obj) {
@@ -790,7 +873,6 @@ com.incture.formatter.formatter = {
 						}
 
 					});
-
 				});
 			}
 		}
@@ -816,28 +898,12 @@ com.incture.formatter.formatter = {
 		}
 	},
 
-	formaValueState: function(evt) {
-		if (evt === "Error") {
-			this.removeStyleClass("inputBaseClass1");
-			this.addStyleClass("formatErrorClass");
-			return evt;
-		} else {
-			this.removeStyleClass("formatErrorClass");
-			this.addStyleClass("inputBaseClass1");
-			return "None";
-		}
-	},
-
 	getMinMaxQuantityObjects: function(conditionRec) {
-
 		var oDateArray = [];
-
 		conditionRec.filter(function(obj, i, arr) {
-
 			if (obj.fieldId === "Max_Quantity" || obj.fieldId === "KSTBM") {
 				oDateArray.push(obj);
 			}
-
 		});
 		return oDateArray;
 	}

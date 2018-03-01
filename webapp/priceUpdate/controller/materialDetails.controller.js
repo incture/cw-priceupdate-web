@@ -1586,6 +1586,8 @@ sap.ui.define([
 			var sPath = bindingContext.sPath.split("/")[length];
 			var oCondtionTypeRec = oMatSectionModel.getData().conditionTypesRecords.entry[mPath];
 			var oArray = oCondtionTypeRec.value.listMatrialInfoRecord;
+			var oFieldPathIndex = sPath.split("/");
+			oFieldPathIndex = oFieldPathIndex[oFieldPathIndex.length - 1];
 
 			if (isNaN(sPath)) {
 				var obj = {};
@@ -1630,9 +1632,13 @@ sap.ui.define([
 					var undoModel = this.oUndoModel;
 					var obj2 = oSelectedArry[1];
 					var prevChangeMode = obj2.colorCode;
+					//Get current object; [Focused row]
+					var oCurrentRowPath = oEvent.getSource().getParent().getBindingContext("oMatSectionModel").getPath();
+					var oCurrentObj = oMatSectionModel.getProperty(oCurrentRowPath);
+					var oRecordNumber = formatter.getConditionConditionRecNo(oCurrentObj.tableColumnRecords);
 					var deleteBtnPath = oEvent.getSource().getBindingContext("oMatSectionModel").getPath();
 					formatter.setPreviousStateObjects(deleteBtnPath, "oMatSectionModel", prevValue, undoModel, "OBJECT", "DELETE", "", "", "",
-						prevChangeMode, this.selectedIconTab);
+						prevChangeMode, this.selectedIconTab, oRecordNumber);
 					undoModel.setProperty("/undoBtnEnabled", true);
 
 					obj.deletionFlag = "true";
@@ -1649,6 +1655,12 @@ sap.ui.define([
 
 					//Disabling the row
 					formatter.setConditionRecEditable(oSelectedArry, "false");
+
+					var oConditionTypeRec = oMatSectionModel.getProperty("/conditionTypesRecords/entry/" + this.selectedTabSPath +
+						"/value/listMatrialInfoRecord");
+					var bIndices = formatter.getSameConditionRecords(oRecordNumber, oConditionTypeRec);
+					formatter.updateSameCondtionRecord(oFieldPathIndex, oCurrentRowPath, bIndices, oMatSectionModel, undoModel, this.selectedIconTab,
+						"DELETE");
 
 					//Version2 update data 
 					var oCurrentObj = oMatSectionModel.getProperty(bindingContext.getPath());
@@ -2391,12 +2403,12 @@ sap.ui.define([
 				formatter.toastMessage(errorText);
 			}
 
-			/*var undoModel = this.oUndoModel;
-			var length = oArray.length - 1;
-			length = length.toString();
-			var modelSPath = "/conditionTypesRecords/entry/" + this.selectedTabSPath + "/value/listMatrialInfoRecord/" + length;
-			formatter.setPreviousStateObjects(scalePath, "oMatSectionModel", "", undoModel, "OBJECT", "NEW", "", true, "", "", this.selectedIconTab);
-			undoModel.setProperty("/undoBtnEnabled", true);*/
+			var undoModel = this.oUndoModel;
+			var newIndex = bindingContext.getPath().split("/");
+			newIndex[newIndex.length - 1] = index;
+			newIndex = newIndex.join("/");
+			formatter.setPreviousStateObjects(newIndex, "oMatSectionModel", "", undoModel, "OBJECT", "NEW", "", "", true, "", this.selectedIconTab);
+			undoModel.setProperty("/undoBtnEnabled", true);
 
 			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length) - 1).toString();
 			oMatSectionModel.refresh();
@@ -3232,7 +3244,7 @@ sap.ui.define([
 						var oSelectedArry = oModel.getProperty(sPath);
 						if (!oSelectedArry) {
 							var m = sPath.split("/");
-							var s = m.splice(length - 1, 1);
+							var s = m.splice(m.length - 1, 1);
 							var o = m.join("/");
 							oSelectedArry = oModel.getProperty(o)[0];
 						}
@@ -3245,20 +3257,10 @@ sap.ui.define([
 								formatter.toastMessage(oText);
 							}
 						} else {
-							var firstObjSpath = sPath.split("/").slice(0, -1).join("/") + "/0";
-							var firstObj = oModel.getProperty(firstObjSpath);
-							var bVal = firstObj.hasOwnProperty("deletionFlag");
-							if (bVal) {
-								firstObj.deletionFlag = "false";
-								firstObj.changeMode = oPrevObj;
-
-								var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
-								var secondObj = oModel.getProperty(secondObjSpath);
-								//var prevState = secondObj.uiPrevValue;
-								secondObj.colorCode = prevChangeMode;
-
-								var oSelectedArry = oModel.getProperty(sPath.split("/").slice(0, -1).join("/"));
-								formatter.setConditionRecEditable(oSelectedArry, "true");
+							formatter.undoOnDelete(lastObj, oModel, this.selectedTabSPath, true, oRowNumber, this.oResourceModel);
+							if (oArray[oArray.length - 1].recordNumber === recordNumber) {
+								var obj = oArray.pop();
+								formatter.undoOnDelete(obj, oModel, this.selectedTabSPath, false, oRowNumber, this.oResourceModel);
 							}
 						}
 					}

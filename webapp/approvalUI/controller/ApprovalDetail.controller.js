@@ -1196,7 +1196,7 @@ sap.ui.define([
 				var oPayload = {
 					"requestId": requestId,
 					"variableKey": variableKey,
-					"approverDetail": JSON.stringify(oUserModel.getData())
+					"approverDetail": oUserModel.getData()
 				};
 
 				var oModel = new sap.ui.model.json.JSONModel();
