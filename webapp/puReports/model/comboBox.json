@@ -1,0 +1,69 @@
+{
+	
+		"Duration":[{
+			"key":"YEARLY",
+			"value":"Yearly"
+		},{
+			"key":"QUARTERLY",
+			"value":"Quarterly"
+		},{
+			"key":"MONTHLY",
+			"value":"Monthly"
+		}],
+	
+		
+		"Quartly":[{
+			"key":"JAN-MAR",
+			"value":"January - March"
+		},{
+			"key":"APR-JUN",
+			"value":"April - June"
+		},{
+			"key":"JUL-SEP",
+			"value":"July - September"
+		},{
+			"key":"OCT-DEC",
+			"value":"October - December"
+		}],
+
+	
+		"Monthly":[{
+			"key":"Jan",
+			"value":"January"
+		},{
+			"key":"Feb",
+			"value":"February"
+		},{
+			"key":"Mar",
+			"value":"March"
+		},{
+			"key":"Apr",
+			"value":"April"
+		},{
+			"key":"May",
+			"value":"May"
+		},{
+			"key":"Jun",
+			"value":"June"
+		},{
+			"key":"Jul",
+			"value":"July"
+		},{
+			"key":"Aug",
+			"value":"August"
+		},{
+			"key":"Sep",
+			"value":"September"
+		},{
+			"key":"Oct",
+			"value":"October"
+		},{
+			"key":"Nov",
+			"value":"November"
+		},{
+			"key":"Dec",
+			"value":"December"
+		}]
+	
+	
+}

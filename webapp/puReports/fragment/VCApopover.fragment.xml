@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Popover showHeader="true" contentWidth="15%" placement="Top">
+		<customHeader>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<HBox>
+					<Label text="Net Price Info" class="popOverDateLabel"></Label>
+				</HBox>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://decline" press="onClosePopOver"/>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<HBox>
+				<VBox class="popOverVboxClass">
+					<Label text="Vendor: " class="popOverLabel"></Label>
+					<Label text="Start Date: " class="popOverLabel"></Label>
+					<Label text="End Date: " class="popOverLabel"></Label>
+					<Label text="Net Price: " class="popOverLabel"></Label>
+				</VBox>
+				<VBox class="popOverVboxClass">
+					<Label text="{oGraphPopOverModel>/vendor}" class="popOverLabel" ></Label>
+					<Label text="{oGraphPopOverModel>/fromString}" class="popOverLabel" ></Label>
+					<Label text="{oGraphPopOverModel>/toString}" class="popOverLabel" ></Label>
+					<Label text="{oGraphPopOverModel>/netPrice}" class="popOverLabel"></Label>
+				</VBox>
+			</HBox>
+		</content>
+	</Popover>
+</core:FragmentDefinition>

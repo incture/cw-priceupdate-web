@@ -1,0 +1,72 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="PU_Reports.controller.priceTrend"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+	<Page showHeader="false" class="pageBackground">
+		<content>
+			<VBox class="priceUpdateHdrBoxClass sapUiSizeCompact">
+				<Panel expandable='true' expanded='true' class="panelClass">
+					<headerToolbar class="VendorPanelHTB">
+						<Toolbar height="2rem">
+							<Title text="{i18n>SEARCH_PARAMETERS}"/>
+							<ToolbarSpacer/>
+							<Button text="{i18n>SEARCH}" class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin" press="onSearchPriceTrend"/>
+							<Button text="{i18n>CLEAR}" press="clrSearchParameter" class="inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin "/>
+						</Toolbar>
+					</headerToolbar>
+					<content>
+						<layout:Grid defaultSpan="L4 M4 S6" id="INFO_REC_GRID" class="detailGridClass"></layout:Grid>
+					</content>
+				</Panel>
+			</VBox>
+			<layout:Grid defaultSpan="L6 M4 S6" id="GRAPH_GRID" class="graphGridClass" visible="{oElementPropertyModel>/graphGrid}">
+				<VBox class="priceUpdateHdrBoxClass sapUiSizeCompact">
+					<Label text="{i18n>PRICE_TREND_ANALYSIS}" class="barHeaderLblClass"></Label>
+					<Bar class="incSearchBarClass">
+						<contentRight>
+							<Select forceSelection="true" items="{oComboLapiDataModel>/duration}" change="onSelectDurationType" class="incPrcTrdDurationCombo"
+								visible="{oElementPropertyModel>/durationCombo}">
+								<core:Item key="{oComboLapiDataModel>key}" text="{oComboLapiDataModel>value}"/>
+							</Select>
+							<Select forceSelection="true" items="{oComboLapiDataModel>/yearly}" change="onSelectYear" class="incPrcTrdYearCombo"
+								visible="{oElementPropertyModel>/yearCombo}">
+								<core:Item key="{oComboLapiDataModel>key}" text="{oComboLapiDataModel>value}"/>
+							</Select>
+							<Select forceSelection="true" items="{oComboLapiDataModel>/quarterly}" change="onSelectQuarter" class="incPrcTrdQurtCombo"
+								visible="{oElementPropertyModel>/quarterCombo}">
+								<core:Item key="{oComboLapiDataModel>key}" text="{oComboLapiDataModel>value}"/>
+							</Select>
+							<Select forceSelection="true" items="{oComboLapiDataModel>/monthly}" change="onSelectMonth" class="incPrcTrdMonthCombo"
+								visible="{oElementPropertyModel>/monthCombo}">
+								<core:Item key="{oComboLapiDataModel>key}" text="{oComboLapiDataModel>value}"/>
+							</Select>
+						</contentRight>
+					</Bar>
+					<layout:FixFlex id='chartFixFlex' class="FlexLayout" minFlexSize="500">
+						<layout:flexContent>
+							<viz:VizFrame xmlns="sap.viz" id="PRICETRENDGRAPH" width="100%" selectData="onSelectGraphPoint" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+						</layout:flexContent>
+					</layout:FixFlex>
+				</VBox>
+				<VBox class="priceUpdateHdrBoxClass sapUiSizeCompact">
+					<Label text="{i18n>PRICE_TREND_COMPARISION}" class="barHeaderLblClass"></Label>
+					<Bar class="incSearchBarClass">
+						<contentRight>
+							<SegmentedButton selectedKey="YOY" class="reportTypeBtn sapUiSizeCompact sapUiSmallMarginBegin ">
+								<items>
+									<SegmentedButtonItem text="{i18n>YOY}" key="YOY" press="setCompareGraphDuration"/>
+									<SegmentedButtonItem text="{i18n>QOQ}" key="QOQ" press="setCompareGraphDuration"/>
+									<SegmentedButtonItem text="{i18n>MOM}" key="MOM" press="setCompareGraphDuration"/>
+								</items>
+							</SegmentedButton>
+						</contentRight>
+					</Bar>
+					<layout:FixFlex id='chartFixFlex1' class="FlexLayout" minFlexSize="500">
+						<layout:flexContent>
+							<viz:VizFrame xmlns="sap.viz" id="PRCTRDCOMPAREGRAPH" width="100%" selectData="onSelectPTCGraphPoint" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+						</layout:flexContent>
+					</layout:FixFlex>
+				</VBox>
+			</layout:Grid>
+		</content>
+	</Page>
+</mvc:View>
