@@ -216,24 +216,15 @@ com.incture.formatter.formatter = {
 	},
 
 	setPreviousStateObjects: function(sPath, oModel, selectedObj, oUndoModel, objectType, changeType, fieldId, toastMsgBval, isScales,
-		prevChangeMode, selectedTab, recordNumber) {
+		prevChangeMode, selectedTab, recordNumber, scalesToast) {
 
-		var oArray, oConditionTypes;
-		if (isScales) {
-			oConditionTypes = oUndoModel.getProperty("/oScalePrevRecord");
-			oConditionTypes.forEach(function(obj) {
-				if (selectedTab === obj.key) {
-					oArray = obj.prevStateArray;
-				}
-			});
-		} else {
-			oConditionTypes = oUndoModel.getProperty("/oConditionTypes");
-			oConditionTypes.forEach(function(obj) {
-				if (selectedTab === obj.key) {
-					oArray = obj.prevStateArray;
-				}
-			});
-		}
+		var oArray;
+		var oConditionTypes = oUndoModel.getProperty("/oConditionTypes");
+		oConditionTypes.forEach(function(obj) {
+			if (selectedTab === obj.key) {
+				oArray = obj.prevStateArray;
+			}
+		});
 
 		var oTempObj = {};
 		oTempObj.sPath = sPath;
@@ -244,6 +235,7 @@ com.incture.formatter.formatter = {
 		oTempObj.changeType = changeType;
 		oTempObj.toastMsgBval = toastMsgBval;
 		oTempObj.isScales = isScales;
+		oTempObj.scalesToast = scalesToast;
 		oTempObj.prevChangeMode = prevChangeMode;
 		oTempObj.recordNumber = recordNumber;
 		oArray.push(oTempObj);
@@ -314,6 +306,12 @@ com.incture.formatter.formatter = {
 			this.getParent().setWidth("3rem");
 		}
 		if (label === "Scales") {
+			this.getParent().setWidth("3rem");
+		}
+		if (label === "UOM") {
+			this.getParent().setWidth("3rem");
+		}
+		if (label === "CCY") {
 			this.getParent().setWidth("3rem");
 		}
 		return label;
@@ -444,6 +442,16 @@ com.incture.formatter.formatter = {
 						oTempObj.key = key;
 						conditionRec[i] = oTempObj;
 					}
+				}
+			} else {
+				for (var i = 0; i < conditionTypesLength; i++) {
+					var key = oConditionTypes[i].conditionId;
+					var oConditionId = oConditionTypes[i].conditionId;
+					var oUndoTempObj = {
+						prevStateArray: [],
+						key: key
+					};
+					oUndoConditionTypes.push(oUndoTempObj);
 				}
 			}
 		} else if (oConditionRecords === null) {
@@ -592,7 +600,7 @@ com.incture.formatter.formatter = {
 			var changeType = iConditionRec[0].changeMode;
 			var iRecordNumber = this.getConditionConditionRecNo(iConditionRec);
 			if (oRecordNum === iRecordNumber) {
-				if (changeType === "UPDATE") {
+				if (changeType === "UPDATE" || changeType === "CHANGED") {
 					indices.push(i);
 				}
 			}
@@ -906,5 +914,116 @@ com.incture.formatter.formatter = {
 			}
 		});
 		return oDateArray;
+	},
+
+	//Version2 changes is undone on scales data
+	setVersion2ScalesUndo: function(scales, recordNum, sPath, oMatSectionModel, changeMode, colorCode, selectedTabSPath) {
+		var scalesObj;
+		var oVersion2Log = oMatSectionModel.getProperty("/oVersion2Log/entry/" + selectedTabSPath + "/value/listMatrialInfoRecord/");
+		var currObjIndex = this.checkDuplicateConditionRec(recordNum, oVersion2Log);
+		var currObj = oVersion2Log[currObjIndex[1]].tableColumnRecords;
+		currObj.filter(function(obj) {
+			if (obj.fieldId === "Scales") {
+				scalesObj = obj;
+			}
+		});
+		currObj[0].changeMode = changeMode;
+		currObj[1].colorCode = colorCode;
+		scalesObj.scaleDataList = scales;
+	},
+
+	//Below function updates the scales for the same record number, when it is split
+	updateSameCondtionRecordScales: function(sPath, scales, recordNum, oMatSectionModel, selectedTabSPath, changeMode, colorCode, undoModel, newIndex, prevMode, selectedIconTab, crudMode) {
+
+		var oCurrentRowPath = sPath.split("listMatrialInfoRecord/")[1].split("/")[0];
+		var oCondtionRecords = oMatSectionModel.getProperty("/conditionTypesRecords/entry/" + selectedTabSPath + "/value/listMatrialInfoRecord");
+		var bIndices = this.getSameConditionRecords(recordNum, oCondtionRecords);
+		var currIndex = oCurrentRowPath.split("/");
+		currIndex = currIndex[currIndex.length - 1];
+
+		if (bIndices.length) {
+			for (var i = 0; i < bIndices.length; i++) {
+				if (parseInt(currIndex, 10) !== bIndices[i]) {
+					var s = sPath.split("listMatrialInfoRecord/")[1];
+					var o = s.split("/");
+					o[0] = bIndices[i];
+					var p = o.pop();
+					sPath = sPath.split("listMatrialInfoRecord/")[0] + "listMatrialInfoRecord/" + o.join("/");
+					var scaleData = oMatSectionModel.getProperty(sPath);
+					scaleData.scaleDataList = scales;
+
+					var q = sPath.split("tableColumnRecords/");
+					var w = q[0] + "tableColumnRecords/";
+					var currObj = oMatSectionModel.getProperty(w);
+					currObj[0].changeMode = changeMode;
+					currObj[1].colorCode = colorCode;
+					
+					var k = newIndex.split("/").pop();
+					sPath = sPath + "/scaleDataList/" + k; 
+					this.setPreviousStateObjects(sPath, "oMatSectionModel", prevMode, undoModel, "OBJECT", crudMode, "", "", true, "", selectedIconTab, recordNum);
+					undoModel.setProperty("/undoBtnEnabled", true);
+
+				}
+			}
+		}
+		oMatSectionModel.refresh();
+	},
+
+	undoScalesOnAdd: function(lastObj, oModel, selectedTabSPath, bVal, oRowNumber, oResourceModel) {
+		var sPath = lastObj.sPath;
+		var oPrevObj = lastObj.prevData;
+		var recordNumber = lastObj.recordNumber;
+		var changeType = lastObj.changeType;
+		
+		var sIndex = sPath.charAt(sPath.length - 1);
+		var m = sPath.split("/");
+		var s = m.splice(m.length - 1, 1);
+		var o = m.join("/");
+		var oConditionRec = oModel.getProperty(o);
+		var n = oConditionRec.splice(sIndex, 1);
+
+		var mPath = sPath.split("/tableColumnRecords");
+		mPath = mPath[0] + "/tableColumnRecords";
+		var oMainConditionRec = oModel.getProperty(mPath);
+		oMainConditionRec[0].changeMode = oPrevObj.changeMode;
+		oMainConditionRec[1].colorCode = oPrevObj.colorCode;
+
+		var scalesPath = sPath.split("scaleDataList");
+		scalesPath = scalesPath[0] + "scaleDataList";
+		var scalesData = oModel.getProperty(scalesPath);
+		
+		if(changeType === "EDIT"){
+			var getObj = oPrevObj.sPath.split("/");
+			getObj.splice(getObj.length - 1);
+			getObj = getObj.join("/");
+			oModel.setProperty(scalesPath, oPrevObj.prevRec);
+			//oModel.setProperty(getObj, oPrevObj.prevRec.parameterList);
+		}
+		if(bVal){
+			this.setVersion2ScalesUndo(scalesData, recordNumber, sPath, oModel, oPrevObj.colorCode, oPrevObj.changeMode, selectedTabSPath);	
+		}
+	},
+	
+	checkValidInputType: function(oEvent, model, modelstring){
+		var oValue =  oEvent.getSource().getValue();
+		var sPath = oEvent.getSource().getBindingContext(modelstring).getPath();
+		var selectedObj = model.getProperty(sPath);
+		if (selectedObj.fieldType === "FLOAT") {
+				var regex = "[+-]?([0-9]*[.])?[0-9]+";
+				var decimalPosition = "2"; //evt.getCustomData()[0].getValue();
+			} else if (selectedObj.fieldType === "INT") {
+				var regex = "^[1-9]([0-9]*)$";
+			} else if (selectedObj.fieldType === "CHAR") {
+				var regex = /^[a-zA-Z]+$/;
+			}
+			if (!oValue.match(regex)) {
+				selectedObj.valueState = "Error";
+				this.errorStateBVal = this.errorStateBVal + 1;
+			} else {
+				if (this.errorStateBVal > 0 && selectedObj.valueState === "Error") {
+					this.errorStateBVal = this.errorStateBVal - 1;
+					selectedObj.valueState = "None";
+				}
+		}
 	}
 };

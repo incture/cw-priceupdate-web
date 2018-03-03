@@ -350,9 +350,14 @@ sap.ui.define([
 									path: sPath + "/isLookup",
 									formatter: formatter.formatBooleanValues
 								},
+								valueState: {
+									path: bindingPath + "/valueState",
+									formatter: formatter.formaValueState
+								},
 								change: function(oEvent) {
 									var oBusinessContextModel = that.oBusinessContextModel;
 									formatter.setBusinessContextParams(oEvent, oMatSectionModel, oBusinessContextModel);
+									formatter.checkValidInputType(oEvent, oMatSectionModel, "oMatSectionModel");
 								}
 							}).addStyleClass("businessContextInputClass");
 							var oDataTemplate = new sap.ui.core.CustomData({
@@ -450,6 +455,13 @@ sap.ui.define([
 									showSuggestion: {
 										path: sPath + "/isLookup",
 										formatter: formatter.formatBooleanValues
+									},
+									valueState: {
+										path: bindingPath + "/valueState",
+										formatter: formatter.formaValueState
+									},
+									change: function(oEvent){
+										formatter.checkValidInputType(oEvent, oMatSectionModel, "oMatSectionModel");
 									}
 								}).addStyleClass("businessContextInputClass");
 								var oDataTemplate = new sap.ui.core.CustomData({
@@ -478,6 +490,13 @@ sap.ui.define([
 									showSuggestion: {
 										path: sPath + "/isLookup",
 										formatter: formatter.formatBooleanValues
+									},
+									valueState: {
+										path: bindingPath + "/valueState",
+										formatter: formatter.formaValueState
+									},
+									change:function(oEvent){
+										formatter.checkValidInputType(oEvent, oMatSectionModel, "oMatSectionModel");
 									}
 								}).addStyleClass("businessContextInputClass");
 								var oDataTemplate = new sap.ui.core.CustomData({
@@ -509,6 +528,13 @@ sap.ui.define([
 									showSuggestion: {
 										path: sPath + "/isLookup",
 										formatter: formatter.formatBooleanValues
+									},
+									valueState: {
+										path: bindingPath + "/valueState",
+										formatter: formatter.formaValueState
+									},
+									change: function(oEvent){
+										formatter.checkValidInputType(oEvent, oMatSectionModel, "oMatSectionModel");
 									}
 								}).addStyleClass("businessContextInputClass");
 								var oDataTemplate = new sap.ui.core.CustomData({
@@ -1990,8 +2016,25 @@ sap.ui.define([
 				var paramData = tableLen[i].parameterList;
 				var parLen = paramData.length;
 				if (i < (tableLen.length - 1)) {
+					
 					var paramData1 = tableLen[i + 1].parameterList;
+                    if(paramData1[0].deletionFlag === "true"){
+                    	if(i !== (tableLen.length - 2)){
+                    		paramData1 = tableLen[i + 2].parameterList;
+                    	}else{
+                    		for (var j = 0; j < paramData.length; j++) {
+								if (paramData[j].fieldId === "Max_Quantity") {
+								paramData[j].fieldValueNew = "N";
+								paramData[j].editValue = "N";
+								return;
+						}
 
+					}
+                    	}
+                    	
+                    }else{
+                    	paramData1 = paramData1;
+                    }
 					for (var j = 0; j < paramData.length; j++) {
 						if (paramData1[j].fieldId === "KSTBM") {
 							var maxvalue = parseInt(paramData1[j].fieldValueNew);
@@ -2116,6 +2159,13 @@ sap.ui.define([
 										enabled: {
 											path: sPath + "/isEditable",
 											formatter: formatter.formatBooleanValues
+										},
+										valueState: {
+											path: bindingPath + "/valueState",
+											formatter: formatter.formaValueState
+										},
+										change: function(oEvent) {
+											that.setScaleUndoSpath(oEvent);
 										}
 									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact inputBaseClass1");
 									var oNewCustomData = new sap.ui.core.CustomData({
@@ -2139,6 +2189,13 @@ sap.ui.define([
 										enabled: {
 											path: sPath + "/isEditable",
 											formatter: formatter.formatBooleanValues
+										},
+										valueState: {
+											path: bindingPath + "/valueState",
+											formatter: formatter.formaValueState
+										},
+										change: function(oEvent) {
+											that.setScaleUndoSpath(oEvent);
 										}
 									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact inputBaseClass1");
 									var oNewCustomData = new sap.ui.core.CustomData({
@@ -2165,6 +2222,13 @@ sap.ui.define([
 										enabled: {
 											path: sPath + "/isEditable",
 											formatter: formatter.formatBooleanValues
+										},
+										valueState: {
+											path: bindingPath + "/valueState",
+											formatter: formatter.formaValueState
+										},
+										change: function(oEvent) {
+											that.setScaleUndoSpath(oEvent);
 										}
 									}).addStyleClass("inputBaseClass noBorder apprvInputBaseClass sapUiSizeCompact oldValueColor inputBaseClass1");
 									var oCustomData = new sap.ui.core.CustomData({
@@ -2354,6 +2418,7 @@ sap.ui.define([
 				oTempArry.splice(sPath, 1);
 			}
 			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList = oTempArry;
+			this.setMaximumQuantity(oArray);
 			oMatSectionModel.refresh(true);
 		},
 
@@ -2369,7 +2434,9 @@ sap.ui.define([
 			var sPath = bindingContext.sPath.split("/")[length];
 			var scaleDataPath = bindingContext.sPath.split("/")[10];
 			var oCondtionTypeRec = oMatSectionModel.getData().conditionTypesRecords.entry[mPath];
-			var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
+			var oCurrRec = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords;
+			var oRecordNumber = formatter.getConditionConditionRecNo(oCurrRec);
+			var oArray = oCurrRec[scalePath].scaleDataList;
 			var currentObj = oArray[scaleDataPath].parameterList;
 
 			var evt = oEvent.getSource();
@@ -2389,7 +2456,7 @@ sap.ui.define([
 
 				var selectedObj = oMatSectionModel.getProperty(pPath);
 				selectedObj.isEditable = "false";
-				this.sortScaleTableData(sortValue, currentObj, scaleDataPath, oArray);
+				var index = this.sortScaleTableData(sortValue, currentObj, scaleDataPath, oArray);
 				currentObj.filter(function(obj1, i1, arr1) {
 					if (obj1.fieldId !== "ACTIONS" && obj1.fieldId !== "KMEIN" && obj1.fieldId !== "KONWA") {
 						obj1.fieldValueNew = null;
@@ -2402,12 +2469,45 @@ sap.ui.define([
 				var errorText = this.oResourceModel.getText("MINIMUM_QUANTITY_EXIST");
 				formatter.toastMessage(errorText);
 			}
-
+			
+			//Set cond1tion record table 1st column for the images 
+			var prevMode = {};
+			if(oCurrRec[0].changeMode === "NO_CHANGE"){
+				oCurrRec[0].changeMode = "CHANGED";
+				oCurrRec[1].colorCode = "CHANGE";
+				prevMode.changeMode = "NO_CHANGE";
+				prevMode.colorCode = "";
+			}else if(oCurrRec[0].changeMode === "CREATE"){
+				prevMode.changeMode = "CREATE";
+				prevMode.colorCode = "CREATED";
+			} else if(oCurrRec[0].changeMode === "CHANGED"){
+				prevMode.changeMode = oCurrRec[0].changeMode;
+				prevMode.colorCode = oCurrRec[1].colorCode;
+				oCurrRec[0].changeMode = "CHANGED";
+				oCurrRec[1].colorCode = "CHANGE";
+			}else if(oCurrRec[0].changeMode === "UPDATE"){
+				prevMode.changeMode = oCurrRec[0].changeMode;
+				prevMode.colorCode = oCurrRec[1].colorCode;
+				oCurrRec[0].changeMode = "CHANGED";
+				oCurrRec[1].colorCode = "CHANGE";
+			}
+			
 			var undoModel = this.oUndoModel;
 			var newIndex = bindingContext.getPath().split("/");
 			newIndex[newIndex.length - 1] = index;
 			newIndex = newIndex.join("/");
-			formatter.setPreviousStateObjects(newIndex, "oMatSectionModel", "", undoModel, "OBJECT", "NEW", "", "", true, "", this.selectedIconTab);
+			
+			var scalesPath = bindingContext.getPath();
+			scalesPath = scalesPath.split("scaleDataList");
+			scalesPath = scalesPath[0] + "scaleDataList";
+			var scalesData = oMatSectionModel.getProperty(scalesPath);
+			formatter.updateSameCondtionRecordScales(scalesPath, scalesData, oRecordNumber, oMatSectionModel, this.selectedTabSPath, oCurrRec[0].changeMode, oCurrRec[1].colorCode,
+				undoModel, newIndex, prevMode, this.selectedIconTab, "NEW"); 
+			formatter.setVersion2ScalesUndo(scalesData, oRecordNumber, scalesPath, oMatSectionModel, oCurrRec[0].changeMode, oCurrRec[1].colorCode, 
+			this.selectedTabSPath);
+			
+			var toastMsg = "Create: Scales undone for Condition record "+ oRecordNumber ;
+			formatter.setPreviousStateObjects(newIndex, "oMatSectionModel", prevMode, undoModel, "OBJECT", "NEW", "", "", true, "", this.selectedIconTab, oRecordNumber, toastMsg);
 			undoModel.setProperty("/undoBtnEnabled", true);
 
 			oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length) - 1).toString();
@@ -2419,7 +2519,8 @@ sap.ui.define([
 			var mPath = this.selectedTabSPath;
 			var oButtonValue = evt.getIcon();
 			var oMatSectionModel = this.oMatSectionModel;
-
+			var undoModel = this.oUndoModel;
+			
 			var bindingContext = OEvt.getSource().getParent().getBindingContext("oMatSectionModel");
 			var listPath = bindingContext.sPath.split("/")[6];
 			var scalePath = bindingContext.sPath.split("/")[8];
@@ -2427,9 +2528,13 @@ sap.ui.define([
 			var sPath = bindingContext.sPath.split("/")[length];
 			var scaleDataPath = bindingContext.sPath.split("/")[10];
 			var oCondtionTypeRec = oMatSectionModel.getData().conditionTypesRecords.entry[mPath];
-			var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
+			/*var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
+			var currentObj = oArray[scaleDataPath].parameterList;*/
+			var oCurrRec = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords;
+			var oRecordNumber = formatter.getConditionConditionRecNo(oCurrRec);
+			var oArray = oCurrRec[scalePath].scaleDataList;
 			var currentObj = oArray[scaleDataPath].parameterList;
-
+			
 			if (oButtonValue === "sap-icon://edit") {
 				currentObj.filter(function(obj, i, arr) {
 					if (obj.fieldId === "Max_Quantity" || obj.fieldId === "KMEIN" || obj.fieldId === "KONWA") {
@@ -2455,7 +2560,13 @@ sap.ui.define([
 					});
 
 				});
-
+				var undoObj = {};
+				//var editScaleRec = jQuery.extend(true, {}, oArray[scaleDataPath]);
+				var editScaleRec = jQuery.extend(true, [], oArray);
+				undoObj.prevRec = editScaleRec;
+				undoObj.index = scaleDataPath;
+				undoObj.sPath = bindingContext.getPath();
+				undoModel.setProperty("/scaleEdit", undoObj);
 			} else {
 				var count = 0;
 				for (var i = 0; i < currentObj.length; i++) {
@@ -2471,7 +2582,7 @@ sap.ui.define([
 						}
 					}
 
-					this.sortScaleTableData(sortValue, currentObj, scaleDataPath, oArray);
+					var index = this.sortScaleTableData(sortValue, currentObj, scaleDataPath, oArray);
 
 					currentObj.filter(function(obj, i, arr) {
 						obj.isEditable = "false";
@@ -2494,12 +2605,51 @@ sap.ui.define([
 
 					});
 					oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].fieldValueNew = ((oArray.length) - 1).toString();
+						
+					var prevMode = {};
+					var prevRec = undoModel.getProperty("/scaleEdit");
+					undoModel.setProperty("/scaleEdit", "");
+					
+					if(oCurrRec[0].changeMode === "NO_CHANGE"){
+						oCurrRec[0].changeMode = "CHANGED";
+						oCurrRec[1].colorCode = "CHANGE";
+						prevRec.changeMode = "NO_CHANGE";
+						prevRec.colorCode = "";
+					}else if(oCurrRec[0].changeMode === "CREATE"){
+						prevRec.changeMode = "CREATE";
+						prevRec.colorCode = "CREATED";
+					} else if(oCurrRec[0].changeMode === "CHANGED"){
+						prevRec.changeMode = oCurrRec[0].changeMode;
+						prevRec.colorCode = oCurrRec[1].colorCode;
+						oCurrRec[0].changeMode = "CHANGED";
+						oCurrRec[1].colorCode = "CHANGE";
+					}else if(oCurrRec[0].changeMode === "UPDATE"){
+						prevRec.changeMode = oCurrRec[0].changeMode;
+						prevRec.colorCode = oCurrRec[1].colorCode;
+						oCurrRec[0].changeMode = "CHANGED";
+						oCurrRec[1].colorCode = "CHANGE";
+					}
+					
+					var newIndex = bindingContext.getPath().split("/");
+					newIndex[newIndex.length - 1] = index;
+					newIndex = newIndex.join("/");
+
+					var scalesPath = bindingContext.getPath();
+					scalesPath = scalesPath.split("scaleDataList");
+					scalesPath = scalesPath[0] + "scaleDataList";
+					var scalesData = oMatSectionModel.getProperty(scalesPath);
+					formatter.updateSameCondtionRecordScales(scalesPath, scalesData, oRecordNumber, oMatSectionModel, this.selectedTabSPath, oCurrRec[0].changeMode, oCurrRec[1].colorCode,
+						undoModel, newIndex, prevRec, this.selectedIconTab, "EDIT"); 
+					formatter.setVersion2ScalesUndo(scalesData, oRecordNumber, scalesPath, oMatSectionModel, oCurrRec[0].changeMode, oCurrRec[1].colorCode, this.selectedTabSPath);
+			
+					var toastMsg = "Edit: Scales undone for Condition record "+ oRecordNumber ;
+					formatter.setPreviousStateObjects(newIndex, "oMatSectionModel", prevRec, undoModel, "OBJECT", "EDIT", "", "", true, "", this.selectedIconTab, oRecordNumber, toastMsg);
+					undoModel.setProperty("/undoBtnEnabled", true);
 				} else {
 					var errorText = this.oResourceModel.getText("MINIMUM_QUANTITY_EXIST");
 					formatter.toastMessage(errorText);
 				}
 			}
-
 			oMatSectionModel.refresh();
 		},
 
@@ -2562,7 +2712,12 @@ sap.ui.define([
 							newrr.parameterList[l].editValue = sortValue;
 						}
 						if (newrr.parameterList[l].fieldId === "COLOR") {
-							newrr.parameterList[l].colorCode = "IMPACTED";
+							newrr.parameterList[l].colorCode = "CREATED";
+						}
+					}
+					for (var l = 0; l < paramData.length; l++) {
+						if (paramData[l].fieldId === "COLOR") {
+							paramData[l].colorCode = "IMPACTED";
 						}
 					}
 					var len = newrr.parameterList.length;
@@ -2589,7 +2744,7 @@ sap.ui.define([
 
 					}
 					this.setMaximumQuantity(oArray);
-					return;
+					return i+1;
 
 				}
 
@@ -2846,8 +3001,14 @@ sap.ui.define([
 			var pPath = bindingContext.sPath.split("/")[length];
 			var scaleDataPath = bindingContext.sPath.split("/")[10];
 			var oCondtionTypeRec = oMatSectionModel.getData().conditionTypesRecords.entry[mPath];
-			var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
+			//var oArray = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords[scalePath].scaleDataList;
+			//var currentObj = oArray[scaleDataPath].parameterList;
+				
+			var oCurrRec = oCondtionTypeRec.value.listMatrialInfoRecord[listPath].tableColumnRecords;
+			var oRecordNumber = formatter.getConditionConditionRecNo(oCurrRec);
+			var oArray = oCurrRec[scalePath].scaleDataList;
 			var currentObj = oArray[scaleDataPath].parameterList;
+
 
 			if (selectedObj.fieldId === "KSTBM") {
 				formatter.formateValidValue(evt, oArray, oMatSectionModel, pPath, selectedObj);
@@ -2872,12 +3033,18 @@ sap.ui.define([
 			formatter.formateValueEnable(oArray, scaleDataPath, oMatSectionModel);
 			oMatSectionModel.refresh();
 
-			var undoModel = this.oUndoModel;
-			var prevValue = selectedObj.uiPrevValue;
-			formatter.setPreviousStateObjects(sPath, "oMatSectionModel", prevValue, undoModel, "PROPERTY", "CHANGE", "fieldValue", true, true,
-				"", this.selectedIconTab);
-			selectedObj.uiPrevValue = selectedObj.fieldValue;
-			undoModel.setProperty("/undoBtnEnabled", true);
+			/*var getPath = oEvent.getSource().getParent().getBindingContext("oMatSectionModel").getPath();
+			var pathArr = getPath.split("/");
+			var index = index.pop();
+			if(parseInt(index) !== 0){
+				var undoModel = this.oUndoModel;
+				var prevValue = selectedObj.uiPrevValue;
+				var toastMsg = "Edit: Scales undone for Condition record "+ oRecordNumber ;
+				formatter.setPreviousStateObjects(sPath, "oMatSectionModel", prevValue, undoModel, "PROPERTY", "CHANGE", "fieldValue", true, true,
+					"", this.selectedIconTab, oRecordNumber, toastMsg);
+				selectedObj.uiPrevValue = selectedObj.fieldValue;
+				undoModel.setProperty("/undoBtnEnabled", true);
+			}*/
 		},
 
 		createHeaderComment: function() {
@@ -3175,7 +3342,6 @@ sap.ui.define([
 		onActionUndo: function() {
 
 			var oArray;
-			//var oCurrentObj;
 			var mPath = this.selectedTabSPath;
 			var oUndoModel = this.oUndoModel;
 			var selectedIconTab = this.selectedIconTab;
@@ -3199,6 +3365,7 @@ sap.ui.define([
 				var isScales = lastObj.isScales;
 				var prevChangeMode = lastObj.prevChangeMode;
 				var recordNumber = lastObj.recordNumber;
+				var scalesToast = lastObj.scalesToast;
 
 				var oRowNumber = sPath.split("listMatrialInfoRecord/")[1].split("/")[0];
 				oRowNumber = parseInt(oRowNumber, 10) + 1;
@@ -3232,14 +3399,60 @@ sap.ui.define([
 								formatter.toastMessage(oText);
 							}
 						} else {
-							var sIndex = sPath.charAt(sPath.length - 1);
-							var s = "/conditionTypesRecords/entry/" + mPath + "/value/listMatrialInfoRecord";
-							var oConditionRec = oModel.getProperty(s);
-							oConditionRec.splice(sIndex, 1);
+							if(isScales){
+								//Revert scales add row 
+								formatter.undoScalesOnAdd(lastObj, oModel, this.selectedTabSPath, true, oRowNumber, this.oResourceModel);
+								if(oArray.length){
+									var m = sPath.split("/");
+									var k = m.pop();
+									sPath = m.join("/");
+									
+									var prevObj = oArray[oArray.length - 1];
+									var secObjPath = prevObj.sPath;
+									var s = secObjPath.split("/");
+									var n = s.pop();
+									secObjPath = s.join("/");
+										
+									if(sPath !== secObjPath){
+										if (oArray[oArray.length - 1].recordNumber === recordNumber) {
+											var obj = oArray.pop();
+											formatter.undoScalesOnAdd(obj, oModel, this.selectedTabSPath, false, oRowNumber, this.oResourceModel);											
+										}
+									}
+								}
+								formatter.toastMessage(scalesToast);
+							}else{
+								var sIndex = sPath.charAt(sPath.length - 1);
+								var s = "/conditionTypesRecords/entry/" + mPath + "/value/listMatrialInfoRecord";
+								var oConditionRec = oModel.getProperty(s);
+								oConditionRec.splice(sIndex, 1);	
+							}
 						}
 					} else if (changeType === "CHANGE") {
 						var changedObj = oModel.getProperty(sPath);
 						changedObj[changedField] = oPrevObj;
+					} else if (changeType === "EDIT" && isScales === true) {
+						//Revert scales edit
+						formatter.undoScalesOnAdd(lastObj, oModel, this.selectedTabSPath, true, oRowNumber, this.oResourceModel);
+						if(oArray.length){
+							var m = sPath.split("/");
+							var k = m.pop();
+							sPath = m.join("/");
+								
+							var prevObj = oArray[oArray.length - 1];
+							var secObjPath = prevObj.sPath;
+							var s = secObjPath.split("/");
+							var n = s.pop();
+							secObjPath = s.join("/");
+										
+							if(sPath !== secObjPath){
+								if (oArray[oArray.length - 1].recordNumber === recordNumber) {
+									var obj = oArray.pop();
+									formatter.undoScalesOnAdd(obj, oModel, this.selectedTabSPath, false, oRowNumber, this.oResourceModel);											
+								}
+							}
+						}
+						formatter.toastMessage(scalesToast);
 					} else if (changeType === "DELETE") {
 						var oSelectedArry = oModel.getProperty(sPath);
 						if (!oSelectedArry) {
@@ -3258,17 +3471,21 @@ sap.ui.define([
 							}
 						} else {
 							formatter.undoOnDelete(lastObj, oModel, this.selectedTabSPath, true, oRowNumber, this.oResourceModel);
-							if (oArray[oArray.length - 1].recordNumber === recordNumber) {
-								var obj = oArray.pop();
-								formatter.undoOnDelete(obj, oModel, this.selectedTabSPath, false, oRowNumber, this.oResourceModel);
+							if(oArray.length){
+								if (oArray[oArray.length - 1].recordNumber === recordNumber) {
+									var obj = oArray.pop();
+									formatter.undoOnDelete(obj, oModel, this.selectedTabSPath, false, oRowNumber, this.oResourceModel);
+								}
 							}
 						}
 					}
 				} else if (objectType === "PROPERTY") {
 					formatter.undoOnInputField(lastObj, oModel, this.selectedTabSPath, true, oRowNumber, this.oResourceModel);
-					if (oArray[oArray.length - 1].recordNumber === recordNumber) {
-						var obj = oArray.pop();
-						formatter.undoOnInputField(obj, oModel, this.selectedTabSPath, false, oRowNumber, this.oResourceModel);
+					if(oArray.length){
+						if (oArray[oArray.length - 1].recordNumber === recordNumber) {
+							var obj = oArray.pop();
+							formatter.undoOnInputField(obj, oModel, this.selectedTabSPath, false, oRowNumber, this.oResourceModel);
+						}	
 					}
 				}
 				if (!oArray.length) {
