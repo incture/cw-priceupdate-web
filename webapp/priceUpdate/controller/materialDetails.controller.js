@@ -46,7 +46,7 @@ sap.ui.define([
 
 		routePatternMatched: function() {
 			this.isActive = "Active";
-			this.isChanged = "ALL";
+			this.isChanged = "CHANGE";
 			this.selectedTabSPath = "";
 			this.errorStateBVal = 0;
 			this.selectedIconTab = "";
@@ -136,6 +136,13 @@ sap.ui.define([
 			var contextMetadata = this.getOwnerComponent().getModel("oMatSearchModel").getData().contextMetadata;
 			var sUrl = "/CWPRICE_WEB/conditionRecord/getAllRecords";
 			if (status === "Update Pending") {
+				
+				var requestType = "User";
+				if(this.isChanged === "eccView"){
+					this.isChanged = "ALL";
+					requestType = "ECC";
+				}
+			
 				oPayload = {
 					"usageId": "A",
 					"uiName": "4",
@@ -147,7 +154,8 @@ sap.ui.define([
 					"status": status,
 					"recordType": this.isActive,
 					"changeMode": this.isChanged,
-					"userType": "V"
+					"userType": "V",
+					"requestType": requestType
 				};
 			} else {
 				oPayload = {
