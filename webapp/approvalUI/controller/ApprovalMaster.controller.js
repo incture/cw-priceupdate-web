@@ -24,7 +24,7 @@ sap.ui.define([
 
 			this.pIndex = 0;
 			this.requestId = "";
-			this.isChanged = "eccView";
+			this.isChanged = "CHANGE";
 			this.isActive = "Active";
 			
 			var oModel = new sap.ui.model.json.JSONModel("/userapi/currentUser");

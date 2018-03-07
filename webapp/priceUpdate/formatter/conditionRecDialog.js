@@ -166,6 +166,7 @@ com.incture.formatter.conditionRecDialog = {
 			var oTable = new sap.m.Table({
 				visible:"{oSplitRecordsModel>tableVisible}"
 			});
+			oTable.addStyleClass("splitRecTable sapUiSizeCompact");
 			oTable.bindAggregation("columns", "oSplitRecordsModel>columns", function(index, context){
 				var contextPath = context.getPath();
 				var model = context.getModel();
@@ -175,8 +176,11 @@ com.incture.formatter.conditionRecDialog = {
 						hAlign: "Center", visible: false,
 						header: new sap.m.Text({
 							wrapping: true,
-							text: "{" + sPath + "/label}"
-						}).addStyleClass("textClass")
+							text:{
+								path: sPath + "/label",
+								formatter: that.formatter.formatSplitColumnWidth
+							}
+						}).addStyleClass("textClass splitTableHeaderClass")
 					});
 					return oColumn;
 				}
@@ -185,8 +189,11 @@ com.incture.formatter.conditionRecDialog = {
 					visible: { path: sPath + "/isVisible", formatter: that.formatter.formatBooleanValues},
 					header: new sap.m.Text({
 						wrapping: true,
-						text: "{" + sPath + "/label}"
-					}).addStyleClass("textClass")
+						text:{
+							path: sPath + "/label",
+							formatter: that.formatter.formatSplitColumnWidth
+						}
+					}).addStyleClass("textClass splitTableHeaderClass")
 				});
 				return oColumn;
 			});
@@ -241,7 +248,7 @@ com.incture.formatter.conditionRecDialog = {
 						}else if(cuurentObj.uiFieldType ==="Text"){
 							var oText = new sap.m.Text({
 								text:"{" + bindingPath + "/fieldValueNew}",
-								visible: { path: bindingPath + "/isVisible", formatter: that.formatter.formatBooleanValues},
+								visible: { path: bindingPath + "/isVisible", formatter: that.formatter.formatBooleanValues}
 							}).addStyleClass("inputBaseClass inputBaseClass1");
 							return oText;
 						}else if(cuurentObj.uiFieldType ==="Date"){
@@ -262,7 +269,7 @@ com.incture.formatter.conditionRecDialog = {
 							return oDate;
 						}else if(cuurentObj.uiFieldType ==="Button"){
 							var oDeleteBtn = new sap.m.Button({
-								type: "Transparent", icon: "sap-icon://delete",
+								type: "Transparent", icon: "sap-icon://delete"
 							}).addStyleClass("inputBaseClass inputBaseClass1");
 							return oDeleteBtn;
 						}else if(cuurentObj.fieldId ==="COLOR"){
@@ -280,7 +287,7 @@ com.incture.formatter.conditionRecDialog = {
 			
 			var oHorizontalLine = new sap.ui.core.HTML({ class: "horizontalLine1" });
 			oVbox.addItem(oHorizontalLine);
-			return oVbox
+			return oVbox;
 		});
 		return oVBox;
 	}

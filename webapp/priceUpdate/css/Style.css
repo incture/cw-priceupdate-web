@@ -668,6 +668,30 @@ html.sap-desktop .inctureMDITBClass .sapMITBItem:focus .sapMITBFilterIcon,
 	border-bottom: 3px solid #ada2a2;
 }
 
+
+
+.splitRecTable{
+	font-family: Open Sans !important;
+    font-weight: bold !important;
+}
+
+.splitRecTable .sapMListTblSelCol+.sapMListTblCell {
+	padding-left: 8px;
+}
+
+.splitRecTable .sapMListTblSelCol {
+	border: 1px solid #e5e5e5 !important;
+}
+
+.splitRecTable .sapMListTbl th {
+	background: #fafafa;
+	background: white;
+	border-bottom: 3px solid #ada2a2;
+}
+
+
+
+
 .pageBackground{
 	background:#f2f2f2;
 	
@@ -1020,7 +1044,7 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 
 .inputBaseClass1 .sapMInputBaseInner {
     color: #000000;
-    background: rgba(255, 255, 255, 0);
+    background: rgba(255, 255, 255, 1);
     font-size: 0.75rem !important;
     font-family: Arial,Helvetica,sans-serif;
     line-height: normal;
@@ -1232,4 +1256,9 @@ html.sap-desktop .sapContrast .sapMIBar.sapMFooter-CTX, html.sap-desktop .sapCon
 }*/
 .changeAddRowBg{
 	background: #f4fff4 !important;
+}
+.splitTableHeaderClass .sapMListTblCell {
+    padding: 0rem !important;
+    vertical-align: top;
+    font-size: 0.875rem;
 }

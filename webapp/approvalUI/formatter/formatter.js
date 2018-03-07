@@ -180,6 +180,19 @@ formatter.formatter = {
 		} else {
 			return "";
 		}
+	},
+	setImageTooltip: function(val) {
+		if (val === "CREATED") {
+			return "Created";
+		} else if (val === "CHANGE") {
+			return "Modified";
+		} else if (val === "IMPACTED") {
+			return "Impacted";
+		} else if (val === "DELETED") {
+			return "Deleted";
+		} else {
+			return "No Change";
+		}
 	}
 	
 	/*setColorMode:function(val){

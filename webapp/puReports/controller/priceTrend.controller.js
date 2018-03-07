@@ -95,7 +95,7 @@ sap.ui.define([
 			var that = this;
 			that.busy.open();
 			var oComboLapiDataModel = this.oComboLapiDataModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getKeyValueDuration/PriceTrendAnalysis";
+			var sUrl = "/CWPRICE_WEB/PricingReport/getKeyValueDuration/PriceTrendAnalysis";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -140,7 +140,7 @@ sap.ui.define([
 			var that = this;
 			that.busy.open();
 			var oSearchParamModel = this.oSearchParamModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getReportParameters/PriceTrendAnalysis";
+			var sUrl = "/CWPRICE_WEB/PricingReport/getReportParameters/PriceTrendAnalysis";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -342,7 +342,7 @@ sap.ui.define([
 			that.busy.open();
 			var payload = oPayload;
 			var oPriceTrendGraphModel = this.oPriceTrendGraphModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getSummaryReport";
+			var sUrl = "/CWPRICE_WEB/PricingReport/getSummaryReport";
 			var jsonModel = new sap.ui.model.json.JSONModel();
 			jsonModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, this.oHeader);
 			jsonModel.attachRequestCompleted(function(oEvent) {
@@ -725,7 +725,7 @@ sap.ui.define([
 			that.busy.open();
 			var payload = oPayloadData;
 			var oPriceTrendGraphModel = this.oPriceTrendGraphModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getDurationDataReport";
+			var sUrl = "/CWPRICE_WEB/PricingReport/getDurationDataReport";
 			var jsonModel = new sap.ui.model.json.JSONModel();
 			jsonModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, this.oHeader);
 			jsonModel.attachRequestCompleted(function(oEvent) {
@@ -815,7 +815,7 @@ sap.ui.define([
 			}
 			payload.listOfNetPrice.vendor = vendor;
 			
-			var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/VCADetailed";
+			var sUrl = "/CWPRICE_WEB/PricingReport/VCADetailed";
 			var jsonModel = new sap.ui.model.json.JSONModel();
 			jsonModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, this.oHeader);
 			jsonModel.attachRequestCompleted(function(oEvent) {

@@ -94,7 +94,7 @@ sap.ui.define([
 			var that = this;
 			that.busy.open();
 			var oNewSearchparameterModel = this.oNewSearchparameterModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getReportParameters/VendorCompetitorAnalysis";
+			var sUrl = "/CWPRICE_WEB/PricingReport/getReportParameters/VendorCompetitorAnalysis";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -195,7 +195,7 @@ sap.ui.define([
 			var oNewSearchparameterModel = this.oNewSearchparameterModel;
 			var oNewVendorComboListModel = this.oNewVendorComboListModel;
 			var payload = oNewSearchparameterModel.getData();
-			var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getAllVendorsByParameters";
+			var sUrl = "/CWPRICE_WEB/PricingReport/getAllVendorsByParameters";
 			var jsonModel = new sap.ui.model.json.JSONModel();
 			jsonModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, this.oHeader);
 			jsonModel.attachRequestCompleted(function(oEvent) {
@@ -361,7 +361,7 @@ sap.ui.define([
 						change: function(oEvent) {
 							var selectedValue = oEvent.getSource().getValue();
 							that.specificDate = selectedValue;
-						},
+						}
 					});
 					oDate.addStyleClass("datePickerStyle");
 					oHBoxItem.addItem(oLabel);
@@ -424,6 +424,7 @@ sap.ui.define([
 			});
 			oMultiInputBox.bindAggregation("tokens", "oMultiInputModel>/data", oItemSelectTemplate);
 			oMultiInputBox.addStyleClass("multiInputClasss");
+			this.onVendorsSearch();
 		},
 
 		deleteVendorInput: function(oEvent) {
@@ -451,6 +452,7 @@ sap.ui.define([
 			if (selectionLen === 1) {
 				oElementPropertyModel.setProperty("/multiInput", false);
 			}
+			this.onVendorsSearch();
 			oElementPropertyModel.refresh();
 		},
 
@@ -474,7 +476,7 @@ sap.ui.define([
 							errorText = that.oResourceModel.getText("PLEASE_FILl_ALL_REQUIRED_FIELDS");
 							formatter.toastMessage(errorText);
 						} else {
-							sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getSummaryReportByDate";
+							sUrl = "/CWPRICE_WEB/PricingReport/getSummaryReportByDate";
 							that.getSummaryData(sUrl);
 						}
 					} else {
@@ -483,7 +485,7 @@ sap.ui.define([
 							errorText = that.oResourceModel.getText("PLEASE_FILl_ALL_REQUIRED_FIELDS");
 							formatter.toastMessage(errorText);
 						} else {
-							sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/getSummaryReport";
+							sUrl = "/CWPRICE_WEB/PricingReport/getSummaryReport";
 							that.getSummaryData(sUrl);
 						}
 					}
@@ -749,8 +751,21 @@ sap.ui.define([
 				oVizFrame.addFeed(feedCategoryAxis1);
 			}
 		},
+		
+		sortDetailData: function(){
+			var oVendorComparisonModel = this.oVendorComparisonModel;
+			var listRangData = oVendorComparisonModel.getData().listDateRangeDto;
+			//var listNewRangData = jQuery.extend(true, [], listRangData);
+			for(var i = 0; i<listRangData.length; i++){
+				var listNetPriceData = listRangData[i].listNetPriceDto;
+				listNetPriceData.sort(function(a,b){
+				 return parseInt(a.netPrice) - parseInt(b.netPrice);
+			});
+			}
+		},
 
 		setDetailData: function() {
+			this.sortDetailData();
 			var that = this;
 			var oElementPropertyModel = this.oElementPropertyModel;
 			var vendorNetpriceGrid = this.getView().byId("VENDORS_NETPRICES_GRID");
@@ -816,38 +831,10 @@ sap.ui.define([
 					var oContentPath = oContext.getPath();
 					var vendorsPath = "oVendorComparisonModel>" + oContentPath;
 					var gridHbox = new sap.m.HBox();
-					gridHbox.onclick = function(oEvent) {
-						var detailedCompareVis = oElementPropertyModel.getProperty("/viewDetailCompare");
-						if (detailedCompareVis === true) {
-							var vBoxinner2 = gridHbox.getItems()[1];
-							var checkBoxHbox = vBoxinner2.getItems()[0];
-							var checkBox = checkBoxHbox.getItems()[0];
-							var selection = checkBox.getSelected();
-							if (selection === false) {
-								checkBox.setSelected(true);
-							} else {
-								checkBox.setSelected(false);
-							}
-						}
-					};
 					var vBoxinner1 = new sap.m.VBox();
 					vBoxinner1.addStyleClass("vBoxinner1Class");
 					var vBoxinner2 = new sap.m.VBox();
 					var checkBoxHbox = new sap.m.HBox();
-					checkBoxHbox.onclick = function(oEvent) {
-						var detailedCompareVis = oElementPropertyModel.getProperty("/viewDetailCompare");
-						if (detailedCompareVis === true) {
-							var vBoxinner2 = gridHbox.getItems()[1];
-							var checkBoxHbox = vBoxinner2.getItems()[0];
-							var checkBox = checkBoxHbox.getItems()[0];
-							var selection = checkBox.getSelected();
-							if (selection === false) {
-								checkBox.setSelected(true);
-							} else {
-								checkBox.setSelected(false);
-							}
-						}
-					};
 					checkBoxHbox.addStyleClass("checkBoxHboxClass");
 					var hBoxinnervBox2 = new sap.m.HBox();
 					hBoxinnervBox2.addStyleClass("hBoxinnervBox2");
@@ -903,6 +890,35 @@ sap.ui.define([
 			}
 		},
 
+		selectionTextChange: function(oEvent) {
+			var vendorNetpriceGrid = this.getView().byId("VENDORS_NETPRICES_GRID");
+			var vendorNetpriceGridLen = vendorNetpriceGrid.getContent().length;
+			var selectionArray = [];
+			for (var i = 0; i <= vendorNetpriceGridLen - 1; i++) {
+				var netpricegrid = vendorNetpriceGrid.getContent()[i].getItems()[1].getItems()[0];
+				var vBoxsLen = netpricegrid.getContent().length;
+				for (var j = 0; j <= vBoxsLen - 1; j++) {
+					var GridBox = netpricegrid.getContent()[j];
+					var vBoxinner2 = GridBox.getItems()[1];
+					var checkBox = vBoxinner2.getItems()[0].getItems()[0];
+					var selected = checkBox.getSelected();
+					if (selected) {
+						var selectedVendorData = GridBox.getParent().getBindingContext("oVendorComparisonModel").getObject().listNetPriceDto[j];
+						selectionArray.push(selectedVendorData);
+					}
+				}
+			}
+			var len = selectionArray.length;
+
+			if (len > 1) {
+				var button = this.getView().byId("DetailCompareId");
+				button.setText("Click to compare");
+			} else if (len <= 1) {
+				var button = this.getView().byId("DetailCompareId");
+				button.setText("Select Vendors");
+			}
+		},
+
 		onSwitchView: function(evt) {
 			var oElementPropertyModel = this.oElementPropertyModel;
 			var checkSD = this.specificDate;
@@ -927,8 +943,6 @@ sap.ui.define([
 						oElementPropertyModel.setProperty("/viewBackDetail", false);
 						oElementPropertyModel.setProperty("/viewDetailCompare", true);
 						oElementPropertyModel.setProperty("/detailedCompare", true);
-					} else {
-
 					}
 				}
 				var navCon = this.getView().byId("navCon");
@@ -967,7 +981,11 @@ sap.ui.define([
 						var GridBox = netpricegrid.getContent()[j];
 						var vBoxinner2 = GridBox.getItems()[1];
 						var checkBoxHbox = vBoxinner2.getItems()[0];
-						var GridCheckBox = new sap.m.CheckBox();
+						var GridCheckBox = new sap.m.CheckBox({
+							select: function(oEvent) {
+								that.selectionTextChange(oEvent);
+							}
+						});
 						checkBoxHbox.addStyleClass("checkBoxStyle");
 						checkBoxHbox.addItem(GridCheckBox);
 					}
@@ -1044,7 +1062,7 @@ sap.ui.define([
 				formatter.toastMessage(errorText);
 			} else {
 				this.busy.open();
-				var sUrl = "/CWDPRICE/oneapp/cwpu/PricingReport/VCADetailed";
+				var sUrl = "/CWPRICE_WEB/PricingReport/VCADetailed";
 				var jsonModel = new sap.ui.model.json.JSONModel();
 				jsonModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, this.oHeader);
 				jsonModel.attachRequestCompleted(function(oEvent) {
@@ -1283,6 +1301,14 @@ sap.ui.define([
 
 		onClearMaterial: function() {
 			var oElementPropertyModel = this.oElementPropertyModel;
+			var oNewSearchparameterModel = this.oNewSearchparameterModel;
+			var perListData = oNewSearchparameterModel.getData().parameterList;
+			for (var i = 0; i <= perListData.length - 1; i++) {
+				if(perListData[i].fieldId === "DATE/PERIOD"){
+					perListData[i].fieldValue = "";
+				}
+			}
+			oNewSearchparameterModel.getData().result = [];
 			var materialSearch = oElementPropertyModel.getProperty("/MaterialSearch");
 			if (materialSearch === false) {
 				oElementPropertyModel.setProperty("/MaterialSearch", true);
@@ -1333,7 +1359,7 @@ sap.ui.define([
 			var evt = data;
 			this.createPopOver(evt);
 		},
-		
+
 		createPopOver: function(evt) {
 			var oEvent = evt;
 			if (!this.oPopOver) {
@@ -1343,20 +1369,20 @@ sap.ui.define([
 			this.oPopOver.setModel(this.getView().getModel("oGraphPopOverModel"));
 			this.oPopOver.openBy(oEvent.getParameter("data")[0].target);
 		},
-        
-        onClosePopOver: function() {
-			var oGraphPopOverModel = this.oGraphPopOverModel;
-			oGraphPopOverModel.setData({});
-			this.oPopOver.close();
-		}
-		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf view.vendoreCompebest
-		 */
-		//	onInit: function() {
-		//
-		//	},
+
+		onClosePopOver: function() {
+				var oGraphPopOverModel = this.oGraphPopOverModel;
+				oGraphPopOverModel.setData({});
+				this.oPopOver.close();
+			}
+			/**
+			 * Called when a controller is instantiated and its View controls (if available) are already created.
+			 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
+			 * @memberOf view.vendoreCompebest
+			 */
+			//	onInit: function() {
+			//
+			//	},
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

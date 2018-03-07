@@ -106,14 +106,14 @@ sap.ui.define([
 			var that = this;
 			that.busy.open();
 			var oSearchparameterModel = this.oSearchparameterModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/Report/getParameters";
+			var sUrl = "/CWPRICE_WEB/Report/getParameters";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
 				if (oEvent.getParameter("success")) {
 					var resultData = oModel.getData();
 					if (resultData) {
-						var parametersDto = resultData.parametersDto;
+						var parametersDto = resultData.parameterList;
 						oSearchparameterModel.setProperty("/parametersDto", parametersDto);
 						that.getBOLapiData();
 						that.getStatusLapiData();
@@ -288,7 +288,7 @@ sap.ui.define([
 			that.busy.open();
 			var oSearchparameterModel = this.oSearchparameterModel;
 			var oBussinessObjectModel = this.oBussinessObjectModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/Report/getBusinessObject";
+			var sUrl = "/CWPRICE_WEB/Report/getBusinessObject";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -321,7 +321,7 @@ sap.ui.define([
 			var that = this;
 			that.busy.open();
 			var oSearchparameterModel = this.oSearchparameterModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/Report/getStatus";
+			var sUrl = "/CWPRICE_WEB/Report/getStatus";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -466,7 +466,7 @@ sap.ui.define([
 			var oSearchparameterModel = this.oSearchparameterModel;
 			this.bussinessObject = oEvent.getSource().getSelectedKey();
 			var oKey = this.bussinessObject;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/Report/getDecisionTable/" + oKey;
+			var sUrl = "/CWPRICE_WEB/Report/getDecisionTable/" + oKey;
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, "", true, "GET", false, false, this.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -615,7 +615,7 @@ sap.ui.define([
 			this.busy.open();
 			var oTableModel = that.oTableModel;
 			var oAdvanceSearchModel = that.oAdvanceSearchModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/Report/getDetailedReport";
+			var sUrl = "/CWPRICE_WEB/Report/getDetailedReport";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, JSON.stringify(oPayload), true, "POST", false, false, that.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -716,7 +716,7 @@ sap.ui.define([
 			var that = this;
 			that.busy.open();
 			var oGraphDataModel = this.oGraphDataModel;
-			var sUrl = "/CWDPRICE/oneapp/cwpu/Report/getSummaryReport";
+			var sUrl = "/CWPRICE_WEB/Report/getSummaryReport";
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, that.oHeader);
 			oModel.attachRequestCompleted(function(oEvent) {
@@ -870,7 +870,7 @@ sap.ui.define([
 			var that = this;
 			that.busy.open();
 			var payload = this.getPayloadData();
-			var sUrl = "/CWDPRICE/oneapp/cwpu/Report/getExcel";
+			var sUrl = "/CWPRICE_WEB/Report/getExcel";
 			var oExcelModel = new sap.ui.model.json.JSONModel();
 			oExcelModel.loadData(sUrl, JSON.stringify(payload), true, "POST", false, false, this.oHeader);
 			oExcelModel.attachRequestCompleted(null, function() {

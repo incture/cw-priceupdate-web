@@ -328,6 +328,14 @@ com.incture.formatter.formatter = {
 		}
 		return label;
 	},
+	
+	formatSplitColumnWidth: function(label) {
+		
+		if (label === "UOM") {
+			this.getParent().setWidth("4rem");
+		}
+		return label;
+	},
 
 	formatStatusBooleanValues: function(oVal, bVal) {
 		bVal = com.incture.formatter.formatter.formatBooleanValues(bVal);
@@ -669,13 +677,14 @@ com.incture.formatter.formatter = {
 		if (hasFlag) {
 			firstObj.deletionFlag = "false";
 			firstObj.changeMode = oPrevObj;
-
+            
 			var secondObjSpath = sPath.split("/").slice(0, -1).join("/") + "/1";
 			var secondObj = oModel.getProperty(secondObjSpath);
 			//var prevState = secondObj.uiPrevValue;
 			secondObj.colorCode = prevChangeMode;
 
 			var oSelectedArry = oModel.getProperty(sPath.split("/").slice(0, -1).join("/"));
+			oSelectedArry[oSelectedArry.length - 1].isVisible = "true";
 			this.setConditionRecEditable(oSelectedArry, "true");
 		}
 

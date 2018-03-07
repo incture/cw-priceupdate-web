@@ -37,6 +37,15 @@
 			<VBox class="priceUpdateHdrBoxClass sapUiSizeCompact" visible="{oElementPropertyModel>/mainVbox}">
 				<Bar class="toolbarClass">
 					<contentLeft>
+						
+						<!--<Label text="{i18n>LINE_GRAPH}" class="ViewLblClass searchlabelClass"/>-->
+					</contentLeft>
+					<contentRight>
+						<ToggleButton id="toggleButtonId" class="ToggleButton" visible="{oElementPropertyModel>/detailedCompare}" text="select" enabled="true" press="onTogglePress">
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</ToggleButton>
 						<Button id="DetailCompareId" text="Detail Compare" visible="{oElementPropertyModel>/viewDetailCompare}" press="onDetailCompare"
 							class="DetailCompare inctureDialogBtn sapUiSizeCompact sapUiSmallMarginBegin ">
 							<customData>
@@ -49,29 +58,18 @@
 								<core:CustomData key="target" value="detailedViewPageId"/>
 							</customData>
 						</Button>
-						<!--<Label text="{i18n>LINE_GRAPH}" class="ViewLblClass searchlabelClass"/>-->
-					</contentLeft>
-					<contentMiddle>
-						<Label text="{i18n>VENDOR_COMPARISON}" class="matTblLblClass searchlabelClass "/>
-					</contentMiddle>
-					<contentRight>
-						<ToggleButton id="toggleButtonId" class="ToggleButton" visible="{oElementPropertyModel>/detailedCompare}" text="select" enabled="true" press="onTogglePress">
-							<layoutData>
-								<FlexItemData growFactor="1"/>
-							</layoutData>
-						</ToggleButton>
 						<SegmentedButton class= "segmentedBtnClass">
 							<items>
-								<SegmentedButtonItem id="viewGrapgh" icon="sap-icon://line-chart" class="iconBtn sapUiSizeCopact sapUiSmallMarginBegin"
-									press="onSwitchView" visible="{oElementPropertyModel>/SegmentedButton}">
-									<customData>
-										<core:CustomData key="target" value="graphViewPageId"/>
-									</customData>
-								</SegmentedButtonItem>
 								<SegmentedButtonItem id="viewDetail" icon="sap-icon://table-view" class="iconBtn sapUiSizeCompact sapUiSmallMarginBegin"
 									press="onSwitchView" visible="{oElementPropertyModel>/SegmentedButton}">
 									<customData>
 										<core:CustomData key="target" value="detailedViewPageId"/>
+									</customData>
+								</SegmentedButtonItem>
+								<SegmentedButtonItem id="viewGrapgh" icon="sap-icon://line-chart" class="iconBtn sapUiSizeCopact sapUiSmallMarginBegin"
+									press="onSwitchView" visible="{oElementPropertyModel>/SegmentedButton}">
+									<customData>
+										<core:CustomData key="target" value="graphViewPageId"/>
 									</customData>
 								</SegmentedButtonItem>
 							</items>
@@ -79,11 +77,11 @@
 					</contentRight>
 				</Bar>
 				<NavContainer id="navCon" width="100%" height="30rem">
-					<Page id="graphViewPageId" showHeader="false">
-						<viz:VizFrame xmlns="sap.viz" id="vendorsGraph" width="100%" vizType="line" selectData="onSelectGraphPoint"></viz:VizFrame>
-					</Page>
 					<Page id="detailedViewPageId" showHeader="false">
 						<layout:Grid defaultSpan="L12 M12 S12" id="VENDORS_NETPRICES_GRID" class="detailGridClass"></layout:Grid>
+					</Page>
+					<Page id="graphViewPageId" showHeader="false">
+						<viz:VizFrame xmlns="sap.viz" id="vendorsGraph" width="100%" vizType="line" selectData="onSelectGraphPoint"></viz:VizFrame>
 					</Page>
 					<Page id="cardViewPageId" showHeader="false">
 						<HBox id="VendorCompareId">
@@ -129,9 +127,6 @@
 					</contentRight>
 				</Bar>
 				<NavContainer id="navConSD" width="100%" height="30rem">
-					<Page id="graphViewSDPageId" showHeader="false">
-						<viz:VizFrame xmlns="sap.viz" id="vendorsGraphSD" width="100%" vizType="line" ></viz:VizFrame>
-					</Page>
 					<Page id="cardViewSDPageId" showHeader="false">
 						<HBox id="VendorCompareSDId">
 							<VBox class="ConditionSuperSet sapUiSizeCompact">
@@ -147,6 +142,9 @@
 									<HBox id="VendorCompareDataSDId" class="scrollContainerClass"></HBox>
 							</ScrollContainer> 
 						</HBox>
+					</Page>
+					<Page id="graphViewSDPageId" showHeader="false">
+						<viz:VizFrame xmlns="sap.viz" id="vendorsGraphSD" width="100%" vizType="line" ></viz:VizFrame>
 					</Page>
 				</NavContainer>
 			</VBox>

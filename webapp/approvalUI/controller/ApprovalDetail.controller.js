@@ -52,7 +52,7 @@ sap.ui.define([
 			this.errorStateBVal = 0;
 			this.selectedIconTab = "";
 			this.isActive = "Active";
-			this.isChanged = "eccView";
+			this.isChanged = "CHANGE";
 			this.conditionRecord = "";
 		},
 
@@ -80,6 +80,7 @@ sap.ui.define([
 		setUIBusinessContext: function() {
 
 			var that = this;
+			var changeType = this.isChanged;
 			var oApprovalMatSectionModel = this.oApprovalMatSectionModel;
 			var oAppDetModel = this.oAppDetModel;
 			var oApprovalBusinessContextModel = this.oApprovalBusinessContextModel;
@@ -129,7 +130,7 @@ sap.ui.define([
 						var parentObj = oAppDetModel1.getProperty(index);
 
 						if (fieldType === "Text") {
-							if (currentObj.fieldValueNew === currentObj.fieldValue) {
+							if (currentObj.fieldValueNew === currentObj.fieldValue || currentObj.fieldValue === null || currentObj.fieldValue === "" || changeType ==="eccView") {
 								var oVBox = new sap.m.VBox();
 								var oNewText = new sap.m.Label({
 									text: "{" + sPath + "/fieldValueNew}",
@@ -254,6 +255,7 @@ sap.ui.define([
 		onIconBarSelect: function(oEvent) {
 
 			var that = this;
+			var changeType = this.isChanged;
 			if (typeof(oEvent) === "string") {
 				var selectedIconTab = oEvent;
 				this.selectedIconTab = selectedIconTab;
@@ -291,7 +293,7 @@ sap.ui.define([
 							var fieldVisible = formatter.formatter.formatBooleanValues(cuurentObj.isVisible);
 							if (fieldVisible) {
 								if (cuurentObj.uiFieldType === "Input") {
-									if (cuurentObj.fieldValueNew === cuurentObj.fieldValue) {
+									if (cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === null || cuurentObj.fieldValue === "" || changeType ==="eccView") {
 										var oNewInput = new sap.m.Input({
 											value: "{" + bindingPath + "/fieldValueNew}",
 											maxLength: {
@@ -394,7 +396,22 @@ sap.ui.define([
 										return oVBox;
 									}
 								} else if (cuurentObj.uiFieldType === "Link") {
-									var oVBox = new sap.m.VBox();
+									if(changeType ==="eccView"){
+										var oNewLink = new sap.m.Link({
+										text: "{" + bindingPath + "/fieldValueNew}",
+										visible: {
+											path: bindingPath + "/isVisible",
+											formatter: formatter.formatter.formatBooleanValues
+										},
+										enabled: {
+											path: bindingPath + "/isEditable",
+											formatter: formatter.formatter.formatBooleanValues
+										}
+									}).addStyleClass("cellBground");
+									return oNewLink;
+									
+									}else {
+										var oVBox = new sap.m.VBox();
 									var oNewLink = new sap.m.Link({
 										text: "{" + bindingPath + "/fieldValueNew}",
 										visible: {
@@ -428,11 +445,17 @@ sap.ui.define([
 										that.openScaleDetails(oEvent);
 									};
 									return oVBox;
+									}
+									
 								} else if (cuurentObj.uiFieldType === "Vbox") {
 									var oImage = new sap.m.Image({
 										src: {
 											path: bindingPath + "/colorCode",
 											formatter: formatter.formatter.setImageColorMode
+										},
+										tooltip: {
+											path: bindingPath + "/colorCode",
+											formatter: formatter.formatter.setImageTooltip
 										}
 									});
 									return oImage;
@@ -465,7 +488,7 @@ sap.ui.define([
 										return oButton;
 									}
 								} else if (cuurentObj.uiFieldType === "Text") {
-									if (cuurentObj.fieldValueNew === cuurentObj.fieldValue) {
+									if (cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === null || cuurentObj.fieldValue === "" || changeType ==="eccView") {
 										var oNewText = new sap.m.Text({
 											text: "{" + bindingPath + "/fieldValueNew}",
 											visible: {
@@ -500,7 +523,7 @@ sap.ui.define([
 										return oVBox;
 									}
 								} else if (cuurentObj.uiFieldType === "Date") {
-									if (cuurentObj.fieldValueNew === cuurentObj.fieldValue) {
+									if (cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === null || cuurentObj.fieldValue === "" || changeType ==="eccView") {
 										var oNewDate = new sap.m.DatePicker({
 											displayFormat: "MM/dd/yyyy",
 											value: {
@@ -681,7 +704,7 @@ sap.ui.define([
 					if (fieldVisible) {
 						if (cuurentObj.uiFieldType === "Input") {
 
-							if (cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === "") {
+							if (cuurentObj.fieldValueNew === cuurentObj.fieldValue || cuurentObj.fieldValue === null || cuurentObj.fieldValue === "" || changeType ==="eccView") {
 								var oNewInput = new sap.m.Input({
 									value: "{" + sPath + "/fieldValueNew}",
 									visible: {
@@ -1074,9 +1097,10 @@ sap.ui.define([
 			this.busy.open();
 			var payload = this.oPayload;
 
-			var sUrl = "/CWPRICE_WEB/record/validate";
+			var sUrl = "/CWPRICE_WEB/record/eccpost";
 			var oPayload = {};
 			oPayload.requestId = payload.requestId;
+			oPayload.mode = "V";
 			oPayload.inputList = [{
 				"decisionTable": "A017",
 				"variableKey": payload.vkey

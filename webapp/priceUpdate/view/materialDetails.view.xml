@@ -51,7 +51,6 @@
 						<ToolbarSpacer />
 						<Button type="Emphasized" text="{i18n>NET_PRICE_ANALYSIS}"
 						press="getNetPrice" class=" inctureCheckoutNetPriceBtn submitButtonClass sapUiSizeCompact" />
-
 					</Toolbar>
 					<VBox class="priceUpdateHdrBoxStyleClass sapUiSizeCompact">
 						<IconTabBar items="{oMatSectionModel>/conditionTypes}" select="onIconBarSelect" 
