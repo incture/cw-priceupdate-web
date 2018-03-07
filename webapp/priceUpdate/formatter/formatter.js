@@ -1027,10 +1027,9 @@ com.incture.formatter.formatter = {
 			}
 			if (!oValue.match(regex)) {
 				selectedObj.valueState = "Error";
-				this.errorStateBVal = this.errorStateBVal + 1;
 			} else {
-				if (this.errorStateBVal > 0 && selectedObj.valueState === "Error") {
-					this.errorStateBVal = this.errorStateBVal - 1;
+				if (selectedObj.valueState === "Error") {
+					//this.errorStateBVal = this.errorStateBVal - 1;
 					selectedObj.valueState = "None";
 				}
 		}

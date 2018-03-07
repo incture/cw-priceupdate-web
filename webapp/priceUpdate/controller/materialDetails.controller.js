@@ -1793,10 +1793,32 @@ sap.ui.define([
 			var oButtonType = oEvent.getSource().getCustomData()[0].getValue();
 			var oMatSectionModel = this.oMatSectionModel;
 			var oConditionTypesRecords = oMatSectionModel.getData().conditionTypesRecords;
-			if (oConditionTypesRecords == null) {
+			var oBusinessObjectList = oMatSectionModel.getData().businessObjectList;
+			if (oConditionTypesRecords == null && oBusinessObjectList === null) {
 				this.onSubmit(oButtonType);
 			} else {
 				var oCondtionTypeRec = oConditionTypesRecords.entry;
+				for(var j = 0; j<oBusinessObjectList.length; j++){
+					var hasFieldInput = oBusinessObjectList[j].hasOwnProperty("boList");
+					if (hasFieldInput) {
+						if (!Array.isArray(oBusinessObjectList[j].boList)) {
+							var oTempArry = [];
+							oTempArry.push(oBusinessObjectList[j].boList);
+							oBusinessObjectList[j].boList = oTempArry;
+						} 
+						var oBOList = oBusinessObjectList[j].boList;
+						for(var k = 0; k<oBOList.length; k++){
+							if (oBOList[k].valueState === "Error") {
+										var errorText = this.oResourceModel.getText("ERR_ENTER_VALID_VAL");
+										formatter.toastMessage(errorText);
+										return;
+									}
+						}
+						
+					}else{
+						continue;
+					}
+				}
 				var length = oCondtionTypeRec.length;
 				for (var i = 0; i < length; i++) {
 					var oArray = oCondtionTypeRec[i].value.listMatrialInfoRecord;
