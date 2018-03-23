@@ -1,0 +1,163 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+
+	<Dialog title="Create New SKU" class="sapUiSizeCompact createSKUFrag fragTitle">
+		<content>
+			<l:Grid defaultSpan="L6 M6 S6" class="GridClass">
+				<l:content>
+					<Label text="{i18n>MATERIAL_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox change="" class="comboBoxBorder sapUiTinyMarginTop"
+						items="{SKUModel>/materialType}" value="{createSKUModel>/materialType}">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>mT}" />
+					</ComboBox>
+
+					<Label required="true" text="{i18n>UPC}" class="labelBold sapUiSmallMarginTop"></Label>
+					<HBox>
+						<CheckBox selected="false" select="UPCCheckboxSelected"> </CheckBox>
+						<Input maxLength="20" class="sapUiTinyMarginTop" value="{createSKUModel>/upc}" change="UPCvalid"></Input>
+						<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid"
+							class="UPCValidationIcon" visible="{createSKUModel>/UPCInvalidVisiblity}" />
+						<Image src="images/valid_icon.png" width="1rem" tooltip="valid"
+							class="UPCValidationIcon" visible="{createSKUModel>/UPCValidVisiblity}"/>
+					</HBox>
+					<Label text="{i18n>BUOM}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox class="sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/BUOM}"></ComboBox>
+					<Label text="{i18n>PLU_CODE}" class="labelBold sapUiSmallMarginTop"></Label>
+					<Input class="inputFieldBorder sapUiTinyMarginTop" value="{createSKUModel>/PLUCode}"></Input>
+					<Label required="true" text="{i18n>BRAND}" class="labelBold sapUiSmallMarginTop"></Label>
+					<HBox>
+					<ComboBox change="" class="comboBoxBorder sapUiTinyMarginTop"
+						items="{SKUModel>/brand}" value="{createSKUModel>/brand}">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>b}" />
+					</ComboBox>
+					<Image src="images/add_icon.png" width="1rem" tooltip="Add Brand"
+							class="UPCValidationIcon" press="onAddBrand" />
+							</HBox>
+					<Label text="{i18n>DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
+					<Input class="inputFieldBorder sapUiTinyMarginTop" value="{createSKUModel>/prodDesc}"></Input>
+					<Label required="true" text="{i18n>MERCHANT_PRODUCT_NAME}"
+						class="labelBold sapUiSmallMarginTop"></Label>
+					<TextArea class="createSKUtextArea sapUiTinyMarginTop"></TextArea>
+					<Label text="{i18n>MERCHANT_PRODUCT_FLAVOUR}" class="labelBold sapUiSmallMarginTop"></Label>
+					<Input class="inputFieldBorder sapUiTinyMarginTop" maxLength="40"
+						value="{createSKUModel>/merchantProductFlavour}"></Input>
+					<Label text="{i18n>PURCHASING_GROUP}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox change="" class="comboBoxBorder sapUiTinyMarginTop" items="{SKUModel>/packageGroup}"
+						value="{createSKUModel>/PurchasingGroup}">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>pg}" />
+					</ComboBox>
+					<VBox>
+						<Label text="{i18n>TARGET_ACTIVATION}" class="labelBold"></Label>
+						<Label text="{i18n>TARGET_ACTIVATION_TOOLTIP}" class="tooltip"></Label>
+					</VBox>
+					<CheckBox selected="false" select="tarActASAPfn" class="sapUiTinyMarginTop"
+						value="{createSKUModel>/targetActivation}">
+
+					</CheckBox>
+					<Label text="{i18n>TARGET_ACTIVATION_DATE}" class="labelBold sapUiSmallMarginTop">
+					</Label>
+					<DatePicker enabled="{createSKUModel>/tarActDateenabled}"
+						value="{createSKUModel>/tarActDate}" setMinDate="{createSKUModel>/tarActMinDate}"
+						change="onTargetActivationDateChange" displayFormat="MM/dd/yyyy"
+						valueFormat="MM/dd/yyyy" class="sapUiTinyMarginTop" placeholder="MM/DD/YYYY">
+					</DatePicker>
+
+					
+					<Label required="true" text="{i18n>STORAGE_TEMP_ZONE}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox change="" class="comboBoxBorder sapUiTinyMarginTop"
+						value="{createSKUModel>/stoarageTempZone}" items="{SKUModel>/storageTemp}"> 
+						<core:Item key="{SKUModel>key}" text="{SKUModel>st}" />
+					</ComboBox>
+				</l:content>
+			</l:Grid>
+			<l:Grid defaultSpan="L3 M6 S6" class="GridClass createSKUFragGrid">
+				<l:content>
+					<Label required="true" text="{i18n>TIER1}" width="100%"
+						class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox change="onTier1Selection" width="100%"
+						value="{createSKUModel>/tier1}" items="{SKUModel>/tier1}"
+						class="sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t1}" />
+					</ComboBox>
+					<Label required="true" text="{i18n>CATEGORY_ATTRIBUTE1}"
+						class="labelBold attrLabel"></Label>
+					<ComboBox change="" width="100%" items="{SKUModel>/tier2array/0}"
+						value="{createSKUModel>/categoryAttribute1}" class="sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+					</ComboBox>
+					<Label required="true" text="{i18n>TIER2}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox change="onTier2Selection" width="100%"
+						items="{SKUModel>/tier2array/0}" value="{createSKUModel>/tier2}"
+						class="sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+					</ComboBox>
+					<Label required="true" text="{i18n>CATEGORY_ATTRIBUTE2}"
+						class="labelBold attrLabel"></Label>
+					<ComboBox change="" width="100%" items="{SKUModel>/tier2array/0}"
+						value="{createSKUModel>/categoryAttribute2}" class="sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+					</ComboBox>
+					<Label required="true" text="{i18n>TIER3}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox change="onTier3Selection" width="100%"
+						value="{createSKUModel>/tier3}" items="{SKUModel>/tier3array/0}"
+						class="sapUiTinyMarg inTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t3}" />
+					</ComboBox>
+					<Label required="true" text="{i18n>CATEGORY_ATTRIBUTE3}"
+						class="labelBold attrLabel"></Label>
+					<ComboBox change="" width="100%" items="{SKUModel>/tier2array/0}"
+						value="{createSKUModel>/categoryAttribute3}" class="sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+					</ComboBox>
+					<Label required="true" text="{i18n>TIER4}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox change="" width="100%" items="{SKUModel>/tier4array/0}"
+						value="{createSKUModel>/tier4}" class="sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t4}" />
+					</ComboBox>
+					<Label required="true" text="{i18n>CATEGORY_ATTRIBUTE4}"
+						class="labelBold attrLabel"></Label>
+					<ComboBox change="" width="100%" items="{SKUModel>/tier2array/0}"
+						value="{createSKUModel>/categoryAttribute4}" class="sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+					</ComboBox>
+				</l:content>
+			</l:Grid>
+			<l:Grid defaultSpan="L6 M6 S6" class="GridClass">
+				<l:content>
+
+					<Label text="{i18n>PACKAGE_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox class="sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/packageType}" items="{SKUModel>/packageType}">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>pt}" /></ComboBox>
+					<Label text="{i18n>PACKAGE_COUNT}" required="true" class="labelBold sapUiSmallMarginTop"></Label>
+					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/packageCount}"></Input>
+					<Label text="{i18n>INDIVIDUAL_PACKAGE_SIZE}" required="true" class="labelBold sapUiSmallMarginTop"></Label>
+					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/indPackageSize}"></Input>
+					<Label text="{i18n>INDIVIDUAL_PACKAGE_SIZE_UOM}" required="true" class="labelBold sapUiSmallMarginTop"></Label>
+					<ComboBox class="sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/indPackageSizeUOM}" items="{SKUModel>/IndPackUOM}">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>ip}" /></ComboBox>
+					<VBox>
+						<Label text="{i18n>SAP_PRODUCT_DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
+						<Label text="{i18n>SAP_PRODUCT_DESCRIPTION_TOOLTIP}" class="tooltip"></Label>
+					</VBox>
+					<HBox>
+						<TextArea class="createSKUtextArea sapUiTinyMarginTop"
+							value="{parts:['createSKUModel>/indPackageSize','createSKUModel>/brand','createSKUModel>/prodDesc','createSKUModel>/indPackageSizeUOM','createSKUModel>/packageCount'],formatter:'.sapProdDescfun'}"
+							enabled="{createSKUModel>/sapProdDescEditEnabled}"></TextArea>
+						<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid"
+							class="validationIcon" visible="{createSKUModel>/sapProdDescInvalidVisiblity}" />
+						<Image src="images/valid_icon.png" width="1rem" tooltip="valid"
+							class="validationIcon" visible="{createSKUModel>/sapProdDescValidVisiblity}" />
+						<core:Icon src="sap-icon://edit" class="createSKUFragEdit"
+							press="sapProdDescEdit" />
+					</HBox>
+				</l:content>
+			</l:Grid>
+		</content>
+		<buttons>
+			<Button text="Cancel" type="Reject" press="onCancel"></Button>
+			<Button text="Save" type="Accept" press="onSave"></Button>
+			<Button text="Submit" press="" type="Accept"></Button>
+		</buttons>
+
+	</Dialog>
+</core:FragmentDefinition>

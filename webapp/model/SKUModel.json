@@ -1,0 +1,443 @@
+{
+	"brand": [{
+		"b": "Agro-Farma Inc",
+		"key": "01"
+	}, {
+		"b": "Amy's Kitchen Inc.",
+		"key": "02"
+	}, {
+		"b": "Barilla America",
+		"key": "03"
+	}, {
+		"b": "18 Rabbits",
+		"key": "04"
+	}, {
+		"b": "1907 New Zealand Water",
+		"key": "05"
+	}, {
+		"b": "2 Moms in the Raw",
+		"key": "06"
+	}, {
+		"b": "34 Degrees",
+		"key": "07"
+	}, {
+		"b": "4505 Meats",
+		"key": "08"
+	}, {
+		"b": "3Zeros",
+		"key": "09"
+	}, {
+		"b": "4C Foods",
+		"key": "10"
+	}],
+	"packageGroup": [{
+		"pg": "001",
+		"key": "pg01"
+	}, {
+		"pg": "002",
+		"key": "pg02"
+	}, {
+		"pg": "003",
+		"key": "pg03"
+	}, {
+		"pg": "004",
+		"key": "pg04"
+	}],
+	"packageType": [{
+		"pt": "Cans",
+		"key": "pt01"
+	}, {
+		"pt": "Bottles",
+		"key": "pt02"
+	}, {
+		"pt": "Packs",
+		"key": "pt03"
+	}],
+	"storageTemp": [{
+		"st": "Ambient",
+		"key": "st01"
+	}, {
+		"st": "Chill",
+		"key": "st02"
+	}, {
+		"st": "Frozen-10",
+		"key": "st03"
+	},
+	{
+		"st": "Frozen-20",
+		"key": "st04"
+	}],
+	"IndPackUOM": [{
+		"ip": "LB",
+		"key": "ip01"
+	}, {
+		"ip": "EA",
+		"key": "ip02"
+	}, {
+		"ip": "FLO",
+		"key": "ip03"
+	},
+	{
+		"ip": "Z",
+		"key": "ip04"
+	},
+	{
+		"ip": "OZ",
+		"key": "ip04"
+	},
+	{
+		"ip": "ML",
+		"key": "ip04"
+	},
+	{
+		"ip": "L",
+		"key": "ip04"
+	}],
+	"materialType": [{
+		"mT": "FERT",
+		"key": "01"
+	}, {
+		"mT": "HAWA",
+		"key": "02"
+	}, {
+		"mT": "NLAG",
+		"key": "03"
+	}, {
+		"mT": "UNBW",
+		"key": "04"
+	}, {
+		"mT": "ZMKT",
+		"key": "05"
+	}],
+	"tier1": [{
+		"t1": "Alcoholic Beverages",
+		"key": "t101"
+	}, {
+		"t1": "Bakery",
+		"key": "t102"
+	}, {
+		"t1": "Catering",
+		"key": "t103"
+	}, {
+		"t1": "Dairy",
+		"key": "t104"
+	}],
+	"tier2": [{
+			"key": "t101",
+			"value": [{
+				"t2": "Beer",
+				"key": "t2101"
+			}, {
+				"t2": "Liquor",
+				"key": "t2102"
+			}, {
+				"t2": "Wine",
+				"key": "t2103"
+			}]
+		}, {
+			"key": "t102",
+			"value": [{
+				"t2": "Croissants and Danishes BP",
+				"key": "t2201"
+			}, {
+				"t2": "Cupcakes BP",
+				"key": "t2202"
+			}]
+		}, {
+
+			"key": "t103",
+			"value": [{
+				"t2": "Breakfast and Brunch CC T2",
+				"key": "t2301"
+			}, {
+				"t2": "Catering Accessories",
+				"key": "t2302"
+			}, {
+				"t2": "Cheese Pate and Caviar CC T2",
+				"key": "t2303"
+			}, {
+				"t2": "Deli Salads CC T2",
+				"key": "t2304"
+			}, {
+				"t2": "Desserts and Baked Goods CC",
+				"key": "t2305"
+			}]
+		},
+		{
+			"key": "t104",
+			"value": [{
+				"t2": "Condiments and Dressings Refrigerated",
+				"key": "t2401"
+			}, {
+				"t2": "Dips and Spreads Refrigerated",
+				"key": "t2402"
+			}, {
+				"t2": "Eggs and Egg Substitutes",
+				"key": "t2403"
+			}]
+		}
+	],
+	"tier3": [{
+		"key": "t2101",
+		"value": [{
+			"t3": "Beer Crowlers Craft Niche",
+			"key": "t31101"
+		}]
+	}, {
+		"key": "t2102",
+		"value": [{
+			"t3": "Whiskey",
+			"key": "t31201"
+		}]
+	}, {
+		"key": "t2103",
+		"value": [{
+			"t3": "Ciders AB",
+			"key": "t31301"
+		}]
+	}, {
+		"key": "t2201",
+		"value": [{
+				"t3": "Croissants BP",
+				"key": "t32101"
+			},
+			{
+				"t3": "Danishes BP",
+				"key": "t32102"
+			}
+		]
+	}, {
+		"key": "t2202",
+		"value": [{
+				"t3": "Holiday Cupcakes BP",
+				"key": "t32201"
+			},
+			{
+				"t3": "Mini Cupcakes BP",
+				"key": "t32202"
+			}
+		]
+	}, {
+		"key": "t2301",
+		"value": [{
+			"t3": "Breakfast and Brunch CC T3",
+			"key": "t33101"
+		}]
+	}, {
+		"key": "t2302",
+		"value": [{
+				"t3": "Napkins CC-t332",
+				"key": "t33201"
+			},
+			{
+				"t3": "Plates and Utensils CC",
+				"key": "t33202"
+			}
+		]
+	}, {
+		"key": "t2303",
+		"value": [{
+			"t3": "Cheese Pate and Caviar CC T3",
+			"key": "t33301"
+		}]
+	}, {
+		"key": "t2304",
+		"value": [{
+			"t3": "Deli Salads CC T3",
+			"key": "t33401"
+		}]
+	}, {
+		"key": "t2305",
+		"value": [{
+			"t3": "Bread Bagels and Rolls CC",
+			"key": "t33501"
+		}]
+	}, {
+		"key": "t2401",
+		"value": [{
+				"t3": "Salad Dressing Rfdg-t34101",
+				"key": "t34101"
+			},
+			{
+				"t3": "Sour Cream Rfdg",
+				"key": "t34102"
+			}
+		]
+	}, {
+		"key": "t2402",
+		"value": [{
+				"t3": "Bean Dips Rfdg",
+				"key": "t34201"
+			},
+			{
+				"t3": "Guacamole Rfdg",
+				"key": "t34202"
+			}
+		]
+	}, {
+		"key": "t2403",
+		"value": [{
+				"t3": "Eggs",
+				"key": "t34301"
+			},
+			{
+				"t3": "Liquid Eggs",
+				"key": "t34302"
+			}
+		]
+	}],
+	"tier4": [{
+		"key": "t31101",
+		"value": [{
+				"t4": "Craft Niche Crowlers Amber Red and Brown Ales",
+				"key": "t411101"
+			},
+			{
+				"t4": "Craft Niche Crowlers Blonde and Pale Ales",
+				"key": "t411102"
+			}
+		]
+	}, {
+		"key": "t31201",
+		"value": [{
+				"t4": "Rye Whiskey",
+				"key": "t412101"
+			},
+			{
+				"t4": "Single Malt Scotch-",
+				"key": "t412102"
+			}
+		]
+	}, {
+		"key": "t31301",
+		"value": [{
+				"t4": "Apple Ciders AB-t413101",
+				"key": "t413101"
+			},
+			{
+				"t4": "Pear Ciders AB-t413102",
+				"key": "t413102"
+			}
+		]
+	}, {
+		"key": "t32101",
+		"value": [{
+			"t4": "Specialty Croissants BP-t421101",
+			"key": "t421101"
+		}]
+	}, {
+		"key": "t32102",
+		"value": [{
+				"t4": "Regular Danishes BP-t421201",
+				"key": "t421201"
+			},
+			{
+				"t4": "Specialty Danishes BP",
+				"key": "t421202"
+			}
+		]
+	}, {
+		"key": "t32201",
+		"value": [{
+			"t4": "All Holiday Cupcakes BP",
+			"key": "t422101"
+		}]
+	}, {
+		"key": "t32202",
+		"value": [{
+			"t4": "All Mini Cupcakes BP-",
+			"key": "t422201"
+		}]
+	}, {
+		"key": "t33101",
+		"value": [{
+			"t4": "Breakfast and Brunch CC T4",
+			"key": "t431101"
+		}]
+	}, {
+		"key": "t33201",
+		"value": [{
+			"t4": "All Napkins CC",
+			"key": "t432101"
+		}]
+	}, {
+		"key": "t33202",
+		"value": [{
+				"t4": "Plates CC-t432201",
+				"key": "t432201"
+			},
+			{
+				"t4": "Plates and Utensils Combo CC",
+				"key": "t432202"
+			}
+		]
+	}, {
+		"key": "t33301",
+		"value": [{
+			"t4": "Cheese Pate and Caviar CC T4",
+			"key": "t433101"
+		}]
+	}, {
+		"key": "t33401",
+		"value": [{
+			"t4": "Deli Salads CC T4",
+			"key": "t434101"
+		}]
+	}, {
+		"key": "t33501",
+		"value": [{
+				"t4": "Bagels CC",
+				"key": "t435101"
+			},
+			{
+				"t4": "Bread CC-t435102",
+				"key": "t435102"
+			}
+		]
+	}, {
+		"key": "t34101",
+		"value": [{
+			"t4": "Oil Based Salad Dressing Rfdg",
+			"key": "t441101"
+		}]
+	}, {
+		"key": "t34102",
+		"value": [{
+			"t4": "All Sour Cream Rfdg",
+			"key": "t441201"
+		}]
+	}, {
+		"key": "t34201",
+		"value": [{
+			"t4": "All Bean Dips Rfdg",
+			"key": "t442101"
+		}]
+	}, {
+		"key": "t34202",
+		"value": [{
+			"t4": "All Guacamole Rfdg",
+			"key": "t442201"
+		}]
+	}, {
+		"key": "t34301",
+		"value": [{
+				"t4": "Specialty Eggs",
+				"key": "t443101"
+			},
+			{
+				"t4": "White Eggs",
+				"key": "t443102"
+			}]
+	}, {
+		"key": "t34302",
+		"value": [{
+				"t4": "Egg Whites",
+				"key": "t443201"
+			},
+			{
+				"t4": "Whole Liquid Egg",
+				"key": "t443202"
+			}
+		]
+	}]
+}

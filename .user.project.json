@@ -1,6 +1,25 @@
 {
   "run": [
     {
+      "filePath": "/webapp/index.html",
+      "previewMode": 1,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "ui5ActiveVersion": null,
+      "ui5VerSource": null,
+      "isDefaultVersion": 0,
+      "urlParameters": [],
+      "hashParameter": "",
+      "backendSystem": [],
+      "urlParametersNotNeeded": false,
+      "_metadata": {
+        "runnerId": "webapprunner",
+        "id": 9193674,
+        "displayName": "Run index.html 4",
+        "lastRunTimeStamp": 1521801499759
+      }
+    },
+    {
       "filePath": "/webapp/priceUpdate/index.html",
       "previewMode": 1,
       "dataMode": 1,

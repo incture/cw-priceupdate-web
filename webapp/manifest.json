@@ -56,7 +56,8 @@
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
 					"bundleName": "freshDirectSKU.SKU.i18n.i18n"
-				}
+				},
+				"uri": "i18n/messageBundle.properties"
 			}
 		},
 		"resources": {

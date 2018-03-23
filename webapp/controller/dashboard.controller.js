@@ -80,7 +80,8 @@ sap.ui.define([
 		onSortActionSelected: function(oEvent) {
 			var oTable = this.getView().byId("idSkuDashboardTable");
 			var oBinding = oTable.getBinding("items");
-			var aSorters = [], bDescending;
+			var aSorters = [],
+				bDescending;
 			var sPath = this.selectedColumn;
 			var sortSelection = oEvent.getSource().getText();
 			if (sortSelection === "Ascending") {
@@ -140,7 +141,267 @@ sap.ui.define([
 					}
 				}
 			}, this);
+		},
+
+		/*Create SKU Fragment Code Starts*/
+
+		onCreatePress: function() {
+			this.loadModel();
+			this.onCreateNewSKU();
+			this.dialog = sap.ui.xmlfragment(
+				"freshDirectSKU.SKU.fragment.createNewSKU", this);
+			this.getView().addDependent(this.dialog);
+			this.dialog.open();
+
+		},
+		onAddBrand: function(oEvent) {
+			this.popover = sap.ui.xmlfragment(
+				"freshDirectSKU.SKU.fragment.addBrand", this);
+			this.getView().addDependent(this.popover);
+			this.popover.openBy(oEvent.getSource());
+		},
+		onRejectNewBrand: function() {
+
+			this.popover.destroy();
+
+		},
+		onAddNewBrand: function() {
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var newBrand = createSKUModel.getProperty("/newBrand",
+				"");
+			createSKUModel.setProperty("/brand", newBrand);
+
+			this.popover.destroy();
+
+		},
+		loadModel: function() {
+			var SKUModel = new sap.ui.model.json.JSONModel();
+			SKUModel.loadData("model/SKUModel.json");
+			this.getView().setModel(SKUModel, "SKUModel");
+		},
+		onCreateNewSKU: function() {
+			var createSKUModel = new sap.ui.model.json.JSONModel();
+			this.getView().setModel(createSKUModel,
+				"createSKUModel");
+			this.setCreateSKUModelProperty();
+		},
+		setCreateSKUModelProperty: function() {
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			createSKUModel.setProperty("/brand", "");
+			createSKUModel.setProperty("/prodDesc", "");
+			createSKUModel.setProperty("/packageSize", "");
+			createSKUModel.setProperty("/tarActDateenabled", true);
+			createSKUModel.setProperty("/sapProdDescEditEnabled", false);
+			createSKUModel.setProperty("/tarActDate", "");
+			createSKUModel.setProperty("/sapProdDescvalid", "");
+			createSKUModel.setProperty("/sapProdDescValidVisiblity", false);
+			createSKUModel.setProperty("/sapProdDescInvalidVisiblity", false);
+			createSKUModel.setProperty("/upc", "");
+			createSKUModel.setProperty("/UPCInvalidVisiblity", false);
+			createSKUModel.setProperty("/UPCValidVisiblity", false);
+			createSKUModel.setProperty("/UPCCheckboxState", false);
+			createSKUModel.setProperty("/packageType", "");
+			createSKUModel.setProperty("/packageCount", "");
+			createSKUModel.setProperty("/indPackageSize", "");
+			createSKUModel.setProperty("/indPackageSizeUOM", "");
+			createSKUModel.setProperty("/tier1", "");
+			createSKUModel.setProperty("/tier2", "");
+			createSKUModel.setProperty("/tier3", "");
+			createSKUModel.setProperty("/tier4", "");
+			createSKUModel.setProperty("/categoryAttribute1", "");
+			createSKUModel.setProperty("/categoryAttribute2", "");
+			createSKUModel.setProperty("/categoryAttribute3", "");
+			createSKUModel.setProperty("/categoryAttribute4", "");
+			createSKUModel.setProperty("/stoarageTempZone", "");
+			createSKUModel.setProperty("/materialType", "");
+			createSKUModel.setProperty("/BUOM", "");
+			createSKUModel.setProperty("/PLUCode", "");
+			createSKUModel.setProperty("/merchantProductFlavour", "");
+			createSKUModel.setProperty("/PurchasingGroup", "");
+			createSKUModel.setProperty("/newBrand", "");
+
+		},
+		UPCCheckboxSelected: function(oEvent) {
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var UPCCheckboxState = oEvent.getParameters().selected;
+			createSKUModel.setProperty("/UPCCheckboxState",
+				UPCCheckboxState);
+			this.UPCvalid();
+
+		},
+		UPCvalid: function(upc) {
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var UPCCheckboxState = createSKUModel
+				.getProperty("/UPCCheckboxState");
+			var upc = createSKUModel.getProperty("/upc");
+			if (upc.length === 15 && UPCCheckboxState === true) {
+				createSKUModel.setProperty("/UPCInvalidVisiblity",
+					false);
+				createSKUModel.setProperty("/UPCValidVisiblity",
+					true);
+
+			} else if (upc !== "" && UPCCheckboxState === true) {
+
+				createSKUModel.setProperty("/UPCInvalidVisiblity",
+					true);
+				createSKUModel.setProperty("/UPCValidVisiblity",
+					false);
+
+			} else {
+				createSKUModel.setProperty("/UPCInvalidVisiblity",
+					false);
+				createSKUModel.setProperty("/UPCValidVisiblity",
+					false);
+
+			}
+		},
+
+		onCancel: function(oEvent) {
+			this.dialog.close();
+			this.setCreateSKUModelProperty();
+		},
+		sapProdDescfun: function(packageSize, brand, prodDesc,
+			indPackageSizeUOM, packageCount) {
+
+			if ((packageSize !== "" && packageSize !== undefined) && (brand !== "" && brand !== undefined) && (prodDesc !== "" && prodDesc !==
+					undefined) && (indPackageSizeUOM !== "" && indPackageSizeUOM !== undefined) && (packageCount !== " " && indPackageSizeUOM !==
+					undefined)) {
+				var sapProdDesc = brand + " " + prodDesc + "" + packageCount + " " + packageSize + " " + indPackageSizeUOM;
+				var createSKUModel = this.getView().getModel(
+					"createSKUModel");
+				if (sapProdDesc.length > 40) {
+					createSKUModel.setProperty(
+						"/sapProdDescValidVisiblity", false);
+					createSKUModel.setProperty(
+						"/sapProdDescInvalidVisiblity", true);
+				} else {
+					createSKUModel.setProperty(
+						"/sapProdDescValidVisiblity", true);
+					createSKUModel.setProperty(
+						"/sapProdDescInvalidVisiblity", false);
+				}
+				return sapProdDesc;
+			}
+
+		},
+		targetActitivationDate: function() {
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var today = new Date();
+			var modDate = today.setDate(today.getDate() + 13);
+			var finaldate = new Date(modDate);
+			createSKUModel.setProperty("/finalDate", finaldate);
+		},
+		tarActASAPfn: function(oEvent) {
+			this.targetActitivationDate();
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var checkboxState = oEvent.getParameters().selected;
+			var finalDate = createSKUModel
+				.getProperty("/finalDate");
+			var dd = finalDate.getDate();
+			var mm = finalDate.getMonth() + 1;
+			var yy = finalDate.getFullYear();
+			var date = dd + "/" + mm + "/" + yy;
+			if (checkboxState === true) {
+
+				createSKUModel.setProperty("/tarActDate", date);
+				createSKUModel.setProperty("/tarActDateenabled",
+					false);
+			} else {
+				createSKUModel.setProperty("/tarActMinDate", date);
+				createSKUModel.setProperty("/tarActDate", "");
+				createSKUModel.setProperty("/tarActDateenabled",
+					true);
+			}
+		},
+		onTargetActivationDateChange: function(oEvent) {
+			this.targetActitivationDate();
+			var selectedDate = oEvent.getSource().getDateValue();
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var finalDate = createSKUModel
+				.getProperty("/finalDate");
+			if (finalDate >= selectedDate) {
+
+				sap.m.MessageBox
+					.show(
+						"Target Activation date should be more than 14 days from current date", {
+							icon: sap.m.MessageBox.Icon.INFORMATION,
+							title: "info"
+						});
+				createSKUModel.setProperty("/tarActDate", "");
+			}
+
+		},
+		sapProdDescEdit: function() {
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			createSKUModel.setProperty("/sapProdDescEditEnabled",
+				true);
+		},
+
+		onTier1Selection: function(oEvent) {
+
+			var temp1 = [];
+			var SKUModel = this.getView().getModel("SKUModel");
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var SKUModelData = SKUModel.getData().tier1;
+			var selectedkey = oEvent.getSource().getSelectedKey();
+			var tier2Data = SKUModel.getData().tier2;
+
+			for (var i = 0; i < SKUModelData.length; i++) {
+				if (selectedkey === tier2Data[i].key) {
+					temp1.push(tier2Data[i].value);
+				}
+			}
+
+			SKUModel.setProperty("/tier2array", temp1);
+			createSKUModel.setProperty("/tier2", "");
+			createSKUModel.setProperty("/tier3", "");
+			createSKUModel.setProperty("/tier4", "");
+		},
+
+		onTier2Selection: function(oEvent) {
+			var SKUModel = this.getView().getModel("SKUModel");
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var SKUModelData = SKUModel.getData();
+			var selectedkey = oEvent.getSource().getSelectedKey();
+			var temp2 = [];
+			for (var i = 0; i < SKUModelData.tier3.length; i++) {
+				if (SKUModelData.tier3[i].key === selectedkey) {
+					temp2.push(SKUModelData.tier3[i].value);
+					SKUModel.setProperty("/tier3array", temp2);
+					console.log(temp2);
+					createSKUModel.setProperty("/tier3", "");
+					createSKUModel.setProperty("/tier4", "");
+				}
+			}
+		},
+		onTier3Selection: function(oEvent) {
+			var SKUModel = this.getView().getModel("SKUModel");
+			var createSKUModel = this.getView().getModel(
+				"createSKUModel");
+			var SKUModelData = SKUModel.getData();
+			var selectedkey3 = oEvent.getSource().getSelectedKey();
+			var temp3 = [];
+			for (var i = 0; i < SKUModelData.tier4.length; i++) {
+				if (SKUModelData.tier4[i].key === selectedkey3) {
+					temp3.push(SKUModelData.tier4[i].value);
+					console.log(temp3);
+					SKUModel.setProperty("/tier4array", temp3);
+					createSKUModel.setProperty("/tier4", "");
+				}
+			}
 		}
+
+		/*Create SKU Fragment Code Ends*/
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
