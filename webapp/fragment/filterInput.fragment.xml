@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover class="popOverStyle"  placement="Bottom"
+		showHeader="false" contentWidth="11rem">
+	<VBox id ="comments" class="boxClass">
+		<Input id="idFilterInput" class="removeInputBorderStyle" placeholder="Filter..." 
+		liveChange="dashboradTblFilter"/>	
+	</VBox>
+	</Popover> 
+</core:FragmentDefinition>

@@ -1,10 +1,311 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="freshDirectSKU.SKU.controller.dashboard"
-	xmlns:html="http://www.w3.org/1999/xhtml">
-	<App>
-		<pages>
-			<Page title="Title">
-				<content></content>
-			</Page>
-		</pages>
-	</App>
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout">
+	<Page title="SKU">
+		<content>
+			<VBox class="dashboardHeaderPanelClass">
+				<Panel expandable="true" headerText="{i18n>MERCHANT_DETAILS}" class="dashboardPanelHdng" width="97.4%">
+					<content>
+						<layout:Grid defaultSpan="L3 M6 S12" width="100%">
+							<layout:content>
+								<VBox alignItems="Center">
+									<Label text="Merchant Id" design="Bold"/>
+									<Text text="FSKU16D64"/>
+								</VBox>
+								<VBox alignItems="Center">
+									<Label text="Merchant Name" design="Bold"/>
+									<Text text="Chuck"/>
+								</VBox>
+								<VBox alignItems="Center">
+									<Label text="Profit Center" design="Bold"/>
+									<Text text="700140000"/>
+								</VBox>
+								<VBox alignItems="Center">
+									<Label text="Profit Center Name" design="Bold"/>
+									<Text text="HPC Category"/>
+								</VBox>
+							</layout:content>
+						</layout:Grid>
+					</content>
+				</Panel>
+			</VBox>
+			<HBox justifyContent="End" class="dashboardHdrBoxClass">
+				<Input value="" class="dashboardHdrInputStyle removeInputBorderStyle" placeholder="No. of SKU's"/>
+				<Button text="{i18n>CREATE}" type="Accept" class="dashboardHdrBtnStyle" press="onCreatePress"/>
+				<Button text="{i18n>UPLOAD}" type="Emphasized" class="dashboardHdrBtnStyle"/>
+			</HBox>
+			<VBox class="dshbrdHdrBoxClass">
+				<Toolbar class="dashboardTlToolbarStyle">
+					<content>
+						<Label text="{i18n>SKUS}" design="Bold" class="dashboardTblLblClass"/>
+						<ToolbarSpacer></ToolbarSpacer>
+						<Button text="Clear Filter" type="Reject" visible="{dshbrdVisibleModel>/clearVisible}" press="onClearFilter"/>
+						<Button text="{i18n>MODIFY}" class="modifyBtnStyle"/>
+						<Button text="{i18n>EXPORT_TO_EXCEL}" type="Accept" class="exportBtnStyle" press="onExporttoExcel"/>
+						<Button text="{i18n>DOWNLOAD_TEMPLATES}" type="Accept" class="downloadBtnStyle"/>
+					</content>
+				</Toolbar>
+				<Table class="sapUiSizeCompact tableOddRowCSS tableBorderClass" inset="false" items="{oDashboardModel>/result}" id="idSkuDashboardTable"
+					selectionChange="onSelectItem" mode="MultiSelect" select="onTabSelect" growing="true" growingThreshold="100">
+					<columns>
+						<Column width="9rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>REQUEST_ID}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="requestId" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sorting-ranking" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="3.7rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="I" class="dshbrdColumnTblHdrClass"/>
+								<Text text="iImage" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="3.7rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="F" class="dshbrdColumnTblHdrClass"/>
+								<Text text="fImage" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="3.7rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="C" class="dshbrdColumnTblHdrClass"/>
+								<Text text="cImage" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="7rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>UPC}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="upc" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="7rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>BRAND}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="brand" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="14rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>DESCRIPTION}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="description" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="8rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>MATERIAL_TYPE}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="material_type" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="7rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>OWNERS}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="owners" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="9rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>CREATED_ON}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="createdDate" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="9rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>UPDATED_ON}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="updatedDate" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="12rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>TARGET_ACTIVATION}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="target_activation" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="11rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>TIER1}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="tier1" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="11rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>TIER2}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="tier2" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="11rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>TIER3}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="tier3" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="11rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>TIER4}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="tier4" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="9rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>CATEGORY_ATTRIBUTE1}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="attribute1" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="9rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>CATEGORY_ATTRIBUTE2}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="attribute2" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<!-- <Column width="11rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>CATEGORY_ATTRIBUTE3}" class="dshbrdColumnTblHdrClass" />
+								<Text text="updatedDate" visible="false"></Text>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress" />
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption" />
+							</Toolbar>
+						</Column>
+						<Column width="11rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>CATEGORY_ATTRIBUTE4}" class="dshbrdColumnTblHdrClass" />
+								<Text text="updatedDate" visible="false"></Text>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress" />
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption" />
+							</Toolbar>
+						</Column> -->
+						<Column width="8rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>PACKAGE_SIZE}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="package_size" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="17rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>SAP_PRODUCT_DESCRIPTION}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="sap_product_desc" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="8rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>PICK_DEPARTMENT}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="pick_dept" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="13rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>STORAGE_TEMP_ZONE}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="storage_temp" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="10rem">
+							<Toolbar class="sortingStyleClass">
+								<Text text="{i18n>SUBMITTED_ON}" class="dshbrdColumnTblHdrClass"/>
+								<Text text="submitted_on" visible="false"/>
+								<ToolbarSpacer></ToolbarSpacer>
+								<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								<core:Icon src="sap-icon://sort" press="handleOpenSortOption"/>
+							</Toolbar>
+						</Column>
+						<Column width="2.8rem">
+							<Text text="{i18n>NOTES}" class="dshbrdColumnTblHdrClass"></Text>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem id="invoiceReportTblItem">
+							<Text text="{oDashboardModel>requestId}"/>
+							<Image src="{oDashboardModel>iImage}"/>
+							<Image src="{oDashboardModel>fImage}"/>
+							<Image src="{oDashboardModel>cImage}"/>
+							<Text text="{oDashboardModel>upc}"/>
+							<Text text="{oDashboardModel>brand}"/>
+							<Text text="{oDashboardModel>description}"/>
+							<Text text="{oDashboardModel>material_type}"/>
+							<Text text="{oDashboardModel>owners}"/>
+							<Text text="{oDashboardModel>createdDate}"/>
+							<Text text="{oDashboardModel>updatedDate}"/>
+							<Text text="{oDashboardModel>target_activation}"/>
+							<Text text="{oDashboardModel>tier1}"/>
+							<Text text="{oDashboardModel>tier2}"/>
+							<Text text="{oDashboardModel>tier3}"/>
+							<Text text="{oDashboardModel>tier4}"/>
+							<Text text="{oDashboardModel>attribute1}"/>
+							<Text text="{oDashboardModel>attribute2}"/>
+							<Text text="{oDashboardModel>package_size}"/>
+							<Text text="{oDashboardModel>sap_product_desc}"/>
+							<Text text="{oDashboardModel>pick_dept}"/>
+							<Text text="{oDashboardModel>storage_temp}"/>
+							<Text text="{oDashboardModel>submitted_on}"/>
+							<core:Icon src="sap-icon://notes" press="onNotesPress"/>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<HBox justifyContent="Center">
+					<Button text="Load 100 More..." width="25rem" class="dashboardTblFootebtnStyle"/>
+				</HBox>
+			</VBox>
+		</content>
+	</Page>
 </mvc:View>

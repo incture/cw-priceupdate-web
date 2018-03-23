@@ -77,30 +77,18 @@
 			},
 			"routes": [
 				{
-					"name": "RouteView1",
-					"pattern": "RouteView1",
+					"name": "",
+					"pattern": "",
 					"target": [
-						"TargetView1"
+						"dashboard"
 					]
 				}
 			],
 			"targets": {
-				"TargetView1": {
-					"viewType": "XML",
-					"transition": "slide",
-					"clearAggregation": true,
-					"viewName": "View1",
-					"routerClass": "sap.m.routing.Router",
-					"async": true,
-					"viewPath": "freshDirectSKU.SKU.view",
-					"controlAggregation": "pages",
-					"controlId": "idAppControl"
-				},
 				"dashboard": {
 					"viewType": "XML",
 					"viewName": "dashboard",
 					"routerClass": "sap.m.routing.Router",
-					"async": true,
 					"viewPath": "freshDirectSKU.SKU.view",
 					"controlAggregation": "pages",
 					"controlId": "idAppControl"
