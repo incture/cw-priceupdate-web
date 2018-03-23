@@ -38,7 +38,7 @@ sap.ui.define([
 			if (oEvent) {
 				sQuery = oEvent.getSource().getValue();
 			}
-			if (sQuery == "") {
+			if (sQuery === "") {
 				dshbrdVisibleModel.setProperty("/clearVisible", false);
 			} else {
 				dshbrdVisibleModel.setProperty("/clearVisible", true);
@@ -83,7 +83,7 @@ sap.ui.define([
 			var aSorters = [], bDescending;
 			var sPath = this.selectedColumn;
 			var sortSelection = oEvent.getSource().getText();
-			if (sortSelection == "Ascending") {
+			if (sortSelection === "Ascending") {
 				bDescending = false;
 			} else {
 				bDescending = true;
@@ -140,7 +140,7 @@ sap.ui.define([
 					}
 				}
 			}, this);
-		},
+		}
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
