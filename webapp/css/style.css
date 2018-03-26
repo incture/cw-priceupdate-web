@@ -114,12 +114,12 @@
 .sapMActionSheetPopover.sapMPopover>.sapMPopoverArrUp:after{
 	border-bottom-color : white !important;
 }
-.sapMBtnInner{
+/*.sapMBtnInner{
 	height : 2rem;
 }
 .sapMBtnContent{
 	line-height : 2rem;
-}
+}*/
 .modifyBtnStyle .sapMBtnInner{
 	background : orange;
 	color : white;
@@ -253,15 +253,6 @@
 	padding: 0 0.7rem;
 	border-left: 0px !important;
 	border-right: 0px !important;
-}
-
-.comboBoxBorder.sapMComboBoxTextField {
-	height: 1.625rem;
-	margin: 0.1875rem 0;
-	border-bottom-style: none;
-	border-top-style: none;
-	border-left-style: none;
-	border-right-style: none;
 }
 
 .createSKUtextArea.sapMInputBase.sapMTextArea .sapMTextAreaInner {
