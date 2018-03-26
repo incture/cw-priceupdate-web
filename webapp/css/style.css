@@ -301,6 +301,21 @@
     position: relative;
     top: 0.15rem;
 }
+.selectFragClass{
+	width : 100% !important;
+	  border-top-style: none;
+	    border-bottom-style: solid;
+	    border-right-style: none;
+	    border-left-style: none;
+}
+
+.selectBrandFragClass{
+    border-top-style: none;
+    border-bottom-style: solid;
+    border-right-style: none;
+    border-left-style: none;
+    width: 82% !important;
+}
 
 
 /*Create Sku Fragment CSS Starts*/

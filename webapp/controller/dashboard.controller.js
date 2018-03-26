@@ -399,7 +399,46 @@ sap.ui.define([
 					createSKUModel.setProperty("/tier4", "");
 				}
 			}
-		}
+		},
+		onSubmit:function()
+					{
+						var createSKUModel = this.getView().getModel(
+						"createSKUModel");
+						var SKUData=createSKUModel.getData();
+						if((SKUData.packageSize != "" && SKUData.packageSize != undefined)
+							&& (SKUData.brand != "" && SKUData.brand != undefined)
+							&& (SKUData.prodDesc != "" && SKUData.prodDesc != undefined)
+							&& (SKUData.indPackageSizeUOM != "" && SKUData.indPackageSizeUOM != undefined)
+							&& (SKUData.packageCount != " " && SKUData.indPackageSizeUOM != undefined)&&(SKUData.upc != "" && SKUData.upc != undefined)
+							&& (SKUData.merchantProductName != "" && SKUData.merchantProductName != undefined)
+							&& (SKUData.stoarageTempZone != "" && SKUData.stoarageTempZone != undefined)
+							&& (SKUData.tier1 != "" && SKUData.tier1 != undefined)&& (SKUData.tier2 != "" && SKUData.tier2 != undefined)
+							&& (SKUData.tier3 != "" && SKUData.tier3 != undefined)&& (SKUData.tier4 != "" && SKUData.tier4 != undefined)
+							&& (SKUData.categoryAttribute1 != " " && SKUData.categoryAttribute1 != undefined)
+							&& (SKUData.categoryAttribute2 != " " && SKUData.categoryAttribute2 != undefined)
+							&& (SKUData.categoryAttribute3 != " " && SKUData.categoryAttribute3 != undefined)
+							&& (SKUData.categoryAttribute4 != " " && SKUData.categoryAttribute4 != undefined)
+								&& (SKUData.packageCount != " " && SKUData.packageCount != undefined))
+							{
+							sap.m.MessageBox
+							.show(
+									"SKU has been successfully created",
+									{
+										icon : sap.m.MessageBox.Icon.INFORMATION,
+										title : "info"
+									});
+							}
+						else
+							{
+							sap.m.MessageBox
+							.show(
+									"Fill all the Required(*) fields",
+									{
+										icon : sap.m.MessageBox.Icon.INFORMATION,
+										title : "info"
+									});
+							}
+					}
 
 		/*Create SKU Fragment Code Ends*/
 
