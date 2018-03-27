@@ -307,6 +307,31 @@
     border-left-style: none;
     width: 82% !important;
 }
+.selectFragClass{
+	width : 100% !important;
+	  border-top-style: none;
+	    border-bottom-style: solid;
+	    border-right-style: none;
+	    border-left-style: none;
+}
+
+.selectBrandFragClass{
+    border-top-style: none;
+    border-bottom-style: solid;
+    border-right-style: none;
+    border-left-style: none;
+    width: 82% !important;
+}
+.addBrand.sapMImg
+{
+	margin-left: -1.8rem !important; 
+	  padding-top: 0.8rem;
+}
+.UPCIcon {
+   
+    top: 0.8rem;
+   
+}
 
 
 /*Create Sku Fragment CSS Starts*/

@@ -1,3 +1,4 @@
+jQuery.sap.require("sap.m.MessageBox");
 sap.ui.define([
 	"sap/ui/core/mvc/Controller"
 ], function(Controller) {
@@ -402,6 +403,7 @@ sap.ui.define([
 		},
 		onSubmit:function()
 					{
+						var that=this;
 						var createSKUModel = this.getView().getModel(
 						"createSKUModel");
 						var SKUData=createSKUModel.getData();
@@ -420,6 +422,7 @@ sap.ui.define([
 							&& (SKUData.categoryAttribute4 != " " && SKUData.categoryAttribute4 != undefined)
 								&& (SKUData.packageCount != " " && SKUData.packageCount != undefined))
 							{
+								that.setCreateSKUModelProperty();
 							sap.m.MessageBox
 							.show(
 									"SKU has been successfully created",
@@ -432,7 +435,7 @@ sap.ui.define([
 							{
 							sap.m.MessageBox
 							.show(
-									"Fill all the Required(*) fields",
+									"Fill all the Fields",
 									{
 										icon : sap.m.MessageBox.Icon.INFORMATION,
 										title : "info"
