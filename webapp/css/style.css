@@ -1,4 +1,3 @@
-/* Enter your custom styles here */
 .dshbrdHdrBoxClass {
 	border: 1px solid gainsboro;
 	background: #fff;
@@ -335,3 +334,124 @@
 
 
 /*Create Sku Fragment CSS Starts*/
+.backBtnHBoxClass{
+	height : 0rem;
+}
+.backBtnStyle .sapMBtnIcon{
+	font-size : 1rem;
+	line-height : none;
+}
+.backBtnStyle .sapMBtnInner{
+	border : none;
+	background : transparent;
+	
+}
+.statusHboxStyle{
+	margin-top : 2rem;
+	margin-left : 20rem;
+	width : 40rem;
+	z-index : -1;
+	background-color : red;
+	height : 0.2rem;
+}
+.sizeVBoxStyle{
+	width : 2rem;
+	height : 2rem;
+	margin-right : 2rem;
+	margin-left : 2rem;
+	margin-top : -1rem;
+	background  : #232323;
+	border-radius : 1rem;
+	border : 5px solid #00A264;
+}
+.lineHBoxStyle{
+	width : 14rem;
+	z-index : -1;
+	background-color : red;
+	height : 0.2rem;
+	margin-top : 1rem;
+}
+.basicSwitchBtnClass .sapMSwtOn{
+	background: #346f51;
+    border-color: #346f51;
+}
+.basicSwitchBtnClass .sapMSwtOff{
+	background: #346f51;
+    border-color: #346f51;
+}
+.basicSwitchBtnClass .sapMSwtHoverable.sapMSwtOn:not(.sapMSwtAcceptReject):hover{
+	background: #346f51 !important;
+}
+.basicSwitchBtnClass .sapMSwt.sapMSwtHoverable:hover{
+	border-color: #346f51 !important;
+}
+.basicSwitchBtnClass .sapMSwtOff .sapMSwtText{
+	color : white !important;
+}
+.basicSwitchBtnClass .sapMSwtOff .sapMSwtHandle{
+	background: white !important;
+}
+.IconTabSelectClass{
+	width : 80% !important;
+	border-top-style: none;
+	border-bottom-style: solid;
+	border-right-style: none;
+	border-left-style: none;
+}
+.IconTabInputClass .sapMInputBaseInner{
+	border-right: 0px !important;
+	border-left: 0px !important;
+	border-top: 0px !important;
+	width : 80%;
+}
+.merchndsngTableClass{
+	width : 70%;
+	margin-left: 20%;
+	box-shadow: 0 0 0px rgba(0, 0, 0, .12), 0 1px 1px rgba(0, 0, 0, .5);
+	border-radius : 2px;
+}
+.iconTabfilter .sapMITH {
+    box-shadow: inset 0 -0.25rem 0 -0.125rem #dddddd;
+    background-color: #ceeaca;
+}
+
+.iconTabWidth .sapMITBTextOnly .sapMITBFilterDefault>.sapMITBText {
+    color: #333333;
+    text-shadow: 0 0rem 0;
+}
+.iconTabWidth .sapMITBTextOnly .sapMITBFilterDefault.sapMITBSelected>.sapMITBText {
+    color: #4ea463;
+}
+.iconTabWidth .sapMITBSelected>.sapMITBContentArrow {
+    border-bottom-color: #4ea463;
+}
+
+.iconPanelHdng .sapMPanelExpandableIcon{
+	left : 95%;
+}
+.iconPanelHdng .sapMPanelBGTranslucent{
+	background : white;
+}
+.iconPanelHdng{
+	background : #ceeaca;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.iconPanelHdng .sapMPanelHdr{
+	text-shadow : none;
+}
+.commitBtnClass{
+	margin-right: 1.7rem;
+}
+.iconPanelCheckbox .sapUiRespGrid.sapUiRespGridVSpace1>div {
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+}
+.iconPanelToolbar.sapMTB {
+    height: 3rem;
+    background: #ceeaca;
+    border: 1px solid  #ceeaca;
+    border-radius: 0.4rem;
+}
