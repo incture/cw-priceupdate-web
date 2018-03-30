@@ -75,14 +75,14 @@
 				"controlId": "idAppControl"
 			},
 			"routes": [{
-				"name": "1",
-				"pattern": "1",
+				"name": "dashboard",
+				"pattern": "",
 				"target": [
 					"dashboard"
 				]
 			}, {
-				"name": "",
-				"pattern": "",
+				"name": "page3",
+				"pattern": "page3",
 				"target": [
 					"page3"
 				]
@@ -91,6 +91,7 @@
 				"dashboard": {
 					"viewType": "XML",
 					"viewName": "dashboard",
+					"viewLevel" : 1,
 					"routerClass": "sap.m.routing.Router",
 					"viewPath": "freshDirectSKU.SKU.view",
 					"controlAggregation": "pages",
@@ -102,7 +103,8 @@
 				},
 				"page3": {
 					"viewType": "XML",
-					"viewName": "page3"
+					"viewName": "page3",
+					"viewLevel" : 1
 				}
 			}
 		}
