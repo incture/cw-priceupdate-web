@@ -275,7 +275,7 @@
 					</columns>
 					<items>
 						<ColumnListItem id="invoiceReportTblItem">
-							<Text text="{oDashboardModel>requestId}"/>
+							<Link text="{oDashboardModel>requestId}" press="onRequestIdPress"/>
 							<Image src="{oDashboardModel>iImage}"/>
 							<Image src="{oDashboardModel>fImage}"/>
 							<Image src="{oDashboardModel>cImage}"/>

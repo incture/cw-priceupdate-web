@@ -61,11 +61,9 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -76,22 +74,19 @@
 				"controlAggregation": "pages",
 				"controlId": "idAppControl"
 			},
-			"routes": [
-				{
-					"name": "1",
-					"pattern": "1",
-					"target": [
-						"dashboard"
-					]
-				},
-				{
-					"name": "",
-					"pattern": "",
-					"target": [
-						"page3"
-					]
-				}
-			],
+			"routes": [{
+				"name": "1",
+				"pattern": "1",
+				"target": [
+					"dashboard"
+				]
+			}, {
+				"name": "",
+				"pattern": "",
+				"target": [
+					"page3"
+				]
+			}],
 			"targets": {
 				"dashboard": {
 					"viewType": "XML",
@@ -105,7 +100,7 @@
 					"viewType": "XML",
 					"viewName": "createSKU"
 				},
-					"page3": {
+				"page3": {
 					"viewType": "XML",
 					"viewName": "page3"
 				}

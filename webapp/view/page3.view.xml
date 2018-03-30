@@ -3,7 +3,65 @@
 	<Page title="Title" class="sapUiSizeCompact">
 		<content>
 			<HBox class="backBtnHBoxClass">
-				<Button icon="sap-icon://arrow-left" class="backBtnStyle"/>
+				<Button icon="sap-icon://arrow-left" class="backBtnStyle" press="onBackPress"/>
+			</HBox>
+			<HBox justifyContent="Center" class="nav">
+				<VBox>
+					<HBox>
+						<HBox class="lineHBoxStylenew1"></HBox>
+						<VBox class="sizeVBoxStylenew"></VBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+					</HBox>
+					<Text text="Basic Product Attribute"/>
+				</VBox>
+				<VBox>
+					<HBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+						<VBox class="sizeVBoxStylenew"></VBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+					</HBox>
+					<Text text="Weight"/>
+				</VBox>
+				<VBox>
+					<HBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+						<VBox class="sizeVBoxStylenew"></VBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+					</HBox>
+					<Text text="Binning"/>
+				</VBox>
+				<VBox>
+					<HBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+						<VBox class="sizeVBoxStylenew"></VBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+					</HBox>
+					<Text text="Product Sources"/>
+				</VBox>
+				<VBox>
+					<HBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+						<VBox class="sizeVBoxStylenew"></VBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+					</HBox>
+					<Text text="Pricing"/>
+				</VBox>
+				<VBox>
+					<HBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+						<VBox class="sizeVBoxStylenew"></VBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+					</HBox>
+					<Text text="Merchandising"/>
+				</VBox>
+				<VBox>
+					<HBox>
+						<HBox class="lineHBoxStylenew"></HBox>
+						<VBox class="sizeVBoxStylenew"></VBox>
+						<HBox class="lineHBoxStylenew1"></HBox>
+					</HBox>
+					<Text text="Binning"/>
+				</VBox>
 			</HBox>
 			<HBox justifyContent="End">
 				<Button text="Commit" type="Accept" class="commitBtnClass"/>
@@ -14,35 +72,35 @@
 						<layout:Grid defaultSpan="L3 M6 S12" width="100%">
 							<layout:content>
 								<VBox alignItems="Center">
-									<Label text="UPC" design="Bold"/>
+									<Label text="{i18n>UPC}" design="Bold"/>
 									<Text text="0 76808 00022 1"/>
 								</VBox>
 								<VBox alignItems="Center">
-									<Label text="Request ID" design="Bold"/>
+									<Label text="{i18n>REQUEST_ID}" design="Bold"/>
 									<Text text="NPR00000014"/>
 								</VBox>
 								<VBox alignItems="Center">
-									<Label text="Brand" design="Bold"/>
+									<Label text="{i18n>BRAND}" design="Bold"/>
 									<Text text="BARILLA"/>
 								</VBox>
 								<VBox alignItems="Center">
-									<Label text="Description" design="Bold"/>
+									<Label text="{i18n>DESCRIPTION}" design="Bold"/>
 									<Text text="NOOSA MATES FINYOGCCNUT"/>
 								</VBox>
 								<VBox alignItems="Center">
-									<Label text="Tier 1" design="Bold"/>
+									<Label text="{i18n>TIER1}" design="Bold"/>
 									<Text text="Grocery"/>
 								</VBox>
 								<VBox alignItems="Center">
-									<Label text="Tier 2" design="Bold"/>
+									<Label text="{i18n>TIER2}" design="Bold"/>
 									<Text text="Grocery"/>
 								</VBox>
 								<VBox alignItems="Center">
-									<Label text="Tier 3" design="Bold"/>
+									<Label text="{i18n>TIER3}" design="Bold"/>
 									<Text text="Grocery"/>
 								</VBox>
 								<VBox alignItems="Center">
-									<Label text="Tier 4" design="Bold"/>
+									<Label text="{i18n>TIER4}" design="Bold"/>
 									<Text text="Grocery"/>
 								</VBox>
 							</layout:content>
@@ -53,99 +111,79 @@
 			<VBox class="dashboardHeaderPanelClass">
 				<IconTabBar select="handleIconTabBarSelect" class="iconTabfilter iconTabWidth">
 					<items>
-						<IconTabFilter text="Basic Product Attributes" key="Basic Product Attributes">
-							<Panel expandable="true" headerText="Product Attributes" class="iconPanelHdng" width="99.4%">
+						<IconTabFilter text="{i18n>BASIC_PRODUCT_ATTRIBUTE}" key="Basic Product Attributes">
+							<Panel expandable="true" headerText="{i18n>PRODUCT_ATTRIBUTES}" class="iconPanelHdng" width="99.4%">
 								<content>
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="Storage Temp Range:" design="Bold"/>
+											<Label text="{i18n>STORAGE_TEMP_RANGE}:" design="Bold"/>
 											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 												class="IconTabSelectClass">
 												<core:Item key="{ProductId}" text="{Name}"/>
 											</Select>
-											<Label text="Storage Temperature Other Text:" design="Bold"/>
+											<Label text="{i18n>STORAGE_TEMO_OTHER_TEXT}:" design="Bold"/>
 											<Input/>
-											<Label text="Storage Temperature Min:" design="Bold"/>
+											<Label text="{i18n>STORAGE_TEMP_MIN}:" design="Bold"/>
 											<Input/>
-											<Label text="Storage Temperature Max:" design="Bold"/>
+											<Label text="{i18n>STORAGE_TEMP_MAX}:" design="Bold"/>
 											<Input/>
-											<Label text="Storage Condition:" design="Bold"/>
+											<Label text="{i18n>STORAGE_CONDITION}:" design="Bold"/>
 											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 												class="IconTabSelectClass">
 												<core:Item key="{ProductId}" text="{Name}"/>
 											</Select>
-											<Label text="Storage Condition Text:" design="Bold"/>
+											<Label text="{i18n>STORAGE_CONDITION_TEXT}:" design="Bold"/>
 											<Input/>
-											<Label text="Variable Weight Product:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Product Date Coded:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Variable Weight Label Product:" design="Bold"/>
+											<Label text="{i18n>VARIABLE_WEIGHT_PRODUCT}:" design="Bold"/>
+											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>PRODUCT_DATE_CODED}:" design="Bold"/>
+											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>VARIABLE_WEIGHT_LABEL_PRODUCT}:" design="Bold"/>
 											<Input/>
-											<Label text="Product Dating:" design="Bold"/>
+											<Label text="{i18n>PRODUCT_DATING}:" design="Bold"/>
 											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 												class="IconTabSelectClass">
 												<core:Item key="{ProductId}" text="{Name}"/>
 											</Select>
-											<Label text="Vendor Attributes 1:" design="Bold"/>
+											<Label text="{i18n>VENDOR_ATTRIBUTES_1}:" design="Bold"/>
 											<Input/>
-											<Label text="Batch/Lot Coded:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Vendor Attributes 2:" design="Bold"/>
+											<Label text="{i18n>BATCH_LOT_CODED}:" design="Bold"/>
+											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>VENDOR_ATTRIBUTES_2}:" design="Bold"/>
 											<Input/>
-											<Label text="Nutrition Panel Required:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Vendor Attributes 3:" design="Bold"/>
+											<Label text="{i18n>NUTRITION_PANEL_REQUIRED}:" design="Bold"/>
+											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>VENDOR_ATTRIBUTES_3}:" design="Bold"/>
 											<Input/>
-											<Label text="Nutrition Panel:" design="Bold"/>
+											<Label text="{i18n>NUTRITION_PANEL}:" design="Bold"/>
 											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 												class="IconTabSelectClass">
 												<core:Item key="{ProductId}" text="{Name}"/>
 											</Select>
-											<Label text="Total Shelf Life:" design="Bold"/>
+											<Label text="{i18n>TOTAL_SHELF_LIFE}:" design="Bold"/>
 											<Input/>
-											<Label text="Minimum Shelf life Required upon recepit:" design="Bold"/>
+											<Label text="{i18n>MIN_SHELF_LIFE_REQ}:" design="Bold"/>
 											<Input/>
-											<Label text="Gauranteed Days Fresh to Customer:" design="Bold"/>
+											<Label text="{i18n>GUARANTEED_DAYS_FRESH_TO_CUST}:" design="Bold"/>
 											<Input/>
-											<Label text="Days to Fresh:" design="Bold"/>
+											<Label text="{i18n>DAYS_TO_FRESH}:" design="Bold"/>
 											<Input/>
-											<Label text="Bottles Deposit Required:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Juice Percentage:" design="Bold"/>
+											<Label text="{i18n>BOTTLES_DEPOSIT_REQ}:" design="Bold"/>
+											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>JUICE_PERCENTAGE}:" design="Bold"/>
 											<Input/>
-											<Label text="Alcohol Percentage:" design="Bold"/>
+											<Label text="{i18n>ALCOHOL_PERCENTAGE}:" design="Bold"/>
 											<Input/>
 										</layout:content>
 									</layout:Grid>
 									<Table>
 										<columns>
-											<Column text="State"/>
-											<Column text="Bottle Deposit"/>
-											<Column text="No. of bottles in each"/>
-											<Column text="No. of bottles in case"/>
-											<Column text="Amount for each"/>
-											<Column text="Amount for case"/>
+											<Column text="{i18n>STATE}"/>
+											<Column text="{i18n>BOTTLE_DEPOSIT}"/>
+											<Column text="{i18n>NO_OF_BOTTLE_EACH}"/>
+											<Column text="{i18n>NO_OF_BOTTLE_CASE}"/>
+											<Column text="{i18n>AMT_EACH}"/>
+											<Column text="{i18n>AMT_CASE}"/>
 										</columns>
 										<items>
 											<ColumnListItem>
@@ -160,39 +198,27 @@
 									</Table>
 								</content>
 							</Panel>
-							<Panel expandable="true" headerText="Brand Owner Details" class="iconPanelHdng" width="99.4%">
+							<Panel expandable="true" headerText="{i18n>BRAND_OWNER_DETAILS}" class="iconPanelHdng" width="99.4%">
 								<content>
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="Brand Owner:" design="Bold"/>
+											<Label text="{i18n>BRAND_OWNER}:" design="Bold"/>
 											<Input/>
-											<Label text="Product Website Link:" design="Bold"/>
+											<Label text="{i18n>PRODUCT_WEBSITE_LINK}:" design="Bold"/>
 											<Input/>
-											<Label text="Brand Owner Contact Name:" design="Bold"/>
+											<Label text="{i18n>BRAND_OWNER_CONTACT_NO}:" design="Bold"/>
 											<Input/>
-											<Label text="CPI Brand:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Brand Owner Contact Email:" design="Bold"/>
+											<Label text="{i18n>CPI_BRAND}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>BRAND_OWNER_CONTACT_EMAIL}:" design="Bold"/>
 											<Input/>
-											<Label text="GDSN Capable:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Brand Owner Contact Title:" design="Bold"/>
+											<Label text="{i18n>GDSN_CAPABLE}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>BRAND_OWNER_CONTACT_TITLE}:" design="Bold"/>
 											<Input/>
-											<Label text="GDSN Published to FD:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Brand Owner Contact Phone:" design="Bold"/>
+											<Label text="{i18n>GDSN_PUBLISHED_TO_FD}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>BRAND_OWNER_CONTACT_PHONE}:" design="Bold"/>
 											<Input/>
 										</layout:content>
 									</layout:Grid>
@@ -203,132 +229,96 @@
 								<Button text="Save" type="Accept" class="commitBtnClass"/>
 							</HBox>
 						</IconTabFilter>
-						<IconTabFilter text="WeightDims" key="WeightDims"></IconTabFilter>
-						<IconTabFilter text="Binning" key="Binning"></IconTabFilter>
-						<IconTabFilter text="Product Sources" key="Product Sources">
+						<IconTabFilter text="{i18n>WEIGHT_DIMS}" key="WeightDims"></IconTabFilter>
+						<IconTabFilter text="{i18n>BINNING}" key="Binning"></IconTabFilter>
+						<IconTabFilter text="{i18n>PRODUCT_SOURCE}" key="Product Sources">
 							<HBox justifyContent="End">
-								<Button text="View Sources" type="Accept" class="commitBtnClass"></Button>
+								<Button text="{i18n>VIEW_SOURCE}" type="Accept" class="commitBtnClass"></Button>
 							</HBox>
-							<Panel expandable="true" headerText="Source Information" class="iconPanelHdng" width="99.4%">
+							<Panel expandable="true" headerText="{i18n>SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
 								<content>
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="Source Vendor Number:" design="Bold"/>
+											<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold"/>
 											<Input/>
-											<Label text="Brand Owner is Source:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Vendor Name:" design="Bold"/>
+											<Label text="{i18n>B_O_IS_SOURCE}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
 											<Input/>
-											<Label text="Source is new Source for FD:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Source Type:" design="Bold"/>
+											<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
 											<Input/>
-											<Label text="Is Primary Source:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Contact Name:" design="Bold"/>
+											<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
 											<Input/>
-											<Label text="Is CPI Source:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Contact Title:" design="Bold"/>
+											<Label text="{i18n>IS_CPI_SOURCE}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
 											<Input/>
-											<Label text="Source will deliver:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Email:" design="Bold"/>
+											<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>EMAIL}:" design="Bold"/>
 											<Input/>
-											<Label text="Sale Sourced Product:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Phone Number:" design="Bold"/>
+											<Label text="{i18n>SALE_SOURCED_PRODUCT}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
 											<Input/>
-											<Label text="Source allows customer pick up:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Ship from location:" design="Bold"/>
+											<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>SHIP_FROM_LOC}:" design="Bold"/>
 											<Input/>
-											<Label text="Covered under Source Contract:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Payment Terms:" design="Bold"/>
+											<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
 											<Input/>
-											<Label text="First Order Delivery or Pickup:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass">
-												<layoutData>
-													<FlexItemData growFactor="1"/>
-												</layoutData>
-											</Switch>
-											<Label text="Lead Time:" design="Bold"/>
+											<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
 											<Input/>
-											<Label text="Incoterms:" design="Bold"/>
+											<Label text="{i18n>INCOTERMS}:" design="Bold"/>
 											<Input/>
-											<Label text="Source Contract Id:" design="Bold"/>
+											<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
 											<Input/>
 										</layout:content>
 									</layout:Grid>
 								</content>
 							</Panel>
-							<Panel expandable="true" headerText="Cost Sheet" class="iconPanelHdng" width="99.4%">
+							<Panel expandable="true" headerText="{i18n>COST_SHEET}" class="iconPanelHdng" width="99.4%">
 								<content></content>
 							</Panel>
-							<Panel expandable="true" headerText="Ordering Information" class="iconPanelHdng" width="99.4%">
+							<Panel expandable="true" headerText="{i18n>ORDERING_INFO}" class="iconPanelHdng" width="99.4%">
 								<content>
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="Source Item Number:" design="Bold"/>
+											<Label text="{i18n>SOURCE_ITEM_NO}:" design="Bold"/>
 											<Input/>
-											<Label text="Source Product desc:" design="Bold"/>
+											<Label text="{i18n>SOURCE_PRODUCT_DESC}:" design="Bold"/>
 											<Input/>
-											<Label text="Order Unit of measure:" design="Bold"/>
+											<Label text="{i18n>ORDER_UNIT_MEASURE}:" design="Bold"/>
 											<Input/>
-											<Label text="Order Unit UPC:" design="Bold"/>
+											<Label text="{i18n>ORDER_UNIT_UPC}:" design="Bold"/>
 											<Input/>
-											<Label text="Unit Per case:" design="Bold"/>
+											<Label text="{i18n>UNIT_PER_CASE}:" design="Bold"/>
 											<Input/>
-											<Label text="Cases per layer:" design="Bold"/>
+											<Label text="{i18n>CASES_PER_LAYER}:" design="Bold"/>
 											<Input/>
-											<Label text="Layers per pallet:" design="Bold"/>
+											<Label text="{i18n>LAYERS_PER_PALLET}:" design="Bold"/>
 											<Input/>
-											<Label text="Cases per pallet:" design="Bold"/>
+											<Label text="{i18n>CASES_PER_PALLET}:" design="Bold"/>
 											<Input/>
-											<Label text="Minimum item order quantity:" design="Bold"/>
+											<Label text="{i18n>MINIMUM_ITEM_ORDER_QUANTITY}:" design="Bold"/>
 											<Input/>
-											<Label text="Order Multiple:" design="Bold"/>
+											<Label text="{i18n>ORDER_MULTIPLE}:" design="Bold"/>
 											<Input/>
-											<Label text="Order Maximum:" design="Bold"/>
+											<Label text="{i18n>ORDER_MAXIMUM}:" design="Bold"/>
 											<Input/>
-											<Label text="Minimum order level order quantity:" design="Bold"/>
+											<Label text="{i18n>MIN_ORDER_LEVL_ORDER_QUANTITY}:" design="Bold"/>
 											<Input/>
-											<Label text="Minimum Guaranteed shelf life derived:" design="Bold"/>
+											<Label text="{i18n>MIN_GUARANTED_SHELF_LIFE_DERIVED}:" design="Bold"/>
 											<Input/>
-											<Label text="Country of Origin:" design="Bold"/>
+											<Label text="{i18n>COUNTRY_OF_ORIGIN}:" design="Bold"/>
 											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 												class="IconTabSelectClass">
 												<core:Item key="{ProductId}" text="{Name}"/>
@@ -342,20 +332,20 @@
 								<Button text="Save" type="Accept" class="commitBtnClass"/>
 							</HBox>
 						</IconTabFilter>
-						<IconTabFilter text="Merchandising" key="Merchandising">
-							<Panel expandable="true" headerText="Reference Materials" class="iconPanelHdng" width="99.4%">
+						<IconTabFilter text="{i18n>MERCHANDISING}" key="Merchandising">
+							<Panel expandable="true" headerText="{i18n>REFERENCE_MATERIALS}" class="iconPanelHdng" width="99.4%">
 								<content>
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="Refernce Material number for forecasting:"/>
+											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:"/>
 											<Input/>
-											<Label text="Refernce Material number Desc for forecasting:"/>
+											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:"/>
 											<Input/>
-											<Label text="Average actual weekly unit volume:"/>
+											<Label text="{i18n>AVRG_WEEKLY_UNIT_VOL}:"/>
 											<Input/>
-											<Label text="Percentage of reference SKU demand:"/>
+											<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:"/>
 											<Input/>
-											<Label text="Average weekly unit demand:"/>
+											<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:"/>
 											<Input/>
 										</layout:content>
 									</layout:Grid>
@@ -368,22 +358,22 @@
 										<Table>
 											<columns>
 												<Column>
-													<Text text="Week1"/>
+													<Text text="{i18n>WEEK1}"/>
 												</Column>
 												<Column>
-													<Text text="Week2"/>
+													<Text text="{i18n>WEEK2}"/>
 												</Column>
 												<Column>
-													<Text text="Week3"/>
+													<Text text="{i18n>WEEK3}"/>
 												</Column>
 												<Column>
-													<Text text="Week4"/>
+													<Text text="{i18n>WEEK4}"/>
 												</Column>
 												<Column>
-													<Text text="Week5"/>
+													<Text text="{i18n>WEEK5}"/>
 												</Column>
 												<Column>
-													<Text text="Week6"/>
+													<Text text="{i18n>WEEK6}"/>
 												</Column>
 											</columns>
 											<items>
@@ -402,21 +392,21 @@
 							</Panel>
 							<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 								<layout:content>
-									<Label text="MSRP:"/>
+									<Label text="{i18n>MSRP}:"/>
 									<Input/>
-									<Label text="Merchant suggested price for each:"/>
+									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_EACH}:"/>
 									<Input/>
-									<Label text="Merchant suggested price for case:"/>
+									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_CASE}:"/>
 									<Input/>
-									<Label text="Market final price each(ZALT):"/>
+									<Label text="{i18n>MARKET_FINAL_PRICE}:"/>
 									<Input/>
-									<Label text="Market final price for case:"/>
+									<Label text="{i18n>MARKET_FINAL_PRICE_CASE}:"/>
 									<Input/>
-									<Label text="First PO quantity(in Cases):"/>
+									<Label text="{i18n>FIRST_PO_QUANTITY}:"/>
 									<Input/>
-									<Label text="Incrementality Classification:"/>
+									<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:"/>
 									<Input/>
-									<Label text="Incrementality Percentage:"/>
+									<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:"/>
 									<Input/>
 								</layout:content>
 							</layout:Grid>
@@ -425,71 +415,106 @@
 								<Button text="Save" type="Accept" class="commitBtnClass"/>
 							</HBox>
 						</IconTabFilter>
-						<IconTabFilter text="Store Front Attributes"></IconTabFilter>
-						<IconTabFilter text="Product tags">
-							<Panel expandable="true" class="iconPanelHdng" headerText="Certifications">
+						<IconTabFilter text="{i18n>STORE_FRONT_ATTRIBUTES}"></IconTabFilter>
+						<IconTabFilter text="{i18n>PRODUCT_TAGS}">
+							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CERTIFICATION}">
 								<content>
-									<layout:Grid defaultSpan="L2 M2 S2" class="">
-										<layout:content>
-											<CheckBox text="Organic" design="Bold" selected=""/>
-											<CheckBox text="Gluten Free" design="Bold" selected=""/>
-											<CheckBox text="Kosher" design="Bold" selected=""/>
-										</layout:content>
-									</layout:Grid>
+									<l:Grid defaultSpan="L2 M2 S2" class="">
+										<l:content>
+											<CheckBox text="{i18n>ORGANIC}" selected=""/>
+											<CheckBox text="{i18n>GLUTEN_FREE}" selected=""/>
+											<CheckBox text="{i18n>KOSHER}" selected=""/>
+										</l:content>
+									</l:Grid>
 								</content>
 							</Panel>
-							<Panel expandable="true" class="iconPanelHdng" headerText="Global Tags">
+							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>GLOBAL_TAGS}">
 								<content>
-									<layout:Grid defaultSpan="L2 M2 S2" class="">
-										<layout:content>
-											<CheckBox design="Bold" text="Grass-Fed" selected=""/>
-											<CheckBox design="Bold" text="Kids" selected=""/>
-											<CheckBox design="Bold" text="Local" selected=""/>
-											<CheckBox design="Bold" text="Local-CT" selected=""/>
-											<CheckBox design="Bold" text="Local-NJ" selected=""/>
-											<CheckBox design="Bold" text="Local-NY" selected=""/>
-											<CheckBox design="Bold" text="Local-PA" selected=""/>
-											<CheckBox design="Bold" text="Local-VT" selected=""/>
-											<CheckBox design="Bold" text="Made in NYC" selected=""/>
-											<CheckBox design="Bold" text="Only Here" selected=""/>
-											<CheckBox design="Bold" text="Portioned" selected=""/>
-											<CheckBox design="Bold" text="Seasonal" selected=""/>
-											<CheckBox design="Bold" text="Staff Pick" selected=""/>
-											<CheckBox design="Bold" text="Variety Pick" selected=""/>
-										</layout:content>
-									</layout:Grid>
+									<l:Grid defaultSpan="L2 M2 S2" class="">
+										<l:content>
+											<CheckBox text="{i18n> GRASS_FED}" selected=""/>
+											<CheckBox text="{i18n>KIDS}" selected=""/>
+											<CheckBox text="{i18n>LOCAL}" selected=""/>
+											<CheckBox text="{i18n>LOCAL-CT}" selected=""/>
+											<CheckBox text="{i18n>LOCAL-NJ}" selected=""/>
+											<CheckBox text="{i18n>LOCAL-NY}" selected=""/>
+											<CheckBox text="{i18n>LOCAL-PA}" selected=""/>
+											<CheckBox text="{i18n>LOCAL-VT}" selected=""/>
+											<CheckBox text="{i18n>MADE_IN_NYC}" selected=""/>
+											<CheckBox text="{i18n>ONLY_HERE}" selected=""/>
+											<CheckBox text="{i18n>PORTIONED}" selected=""/>
+											<CheckBox text="{i18n>SEASONAL}" selected=""/>
+											<CheckBox text="{i18n>STAFF_PICK}" selected=""/>
+											<CheckBox text="{i18n>VARIETY_PICK}" selected=""/>
+										</l:content>
+									</l:Grid>
 								</content>
 							</Panel>
-							<Panel expandable="true" class="iconPanelHdng" headerText="Category Specifications">
+							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CATEGORY_SPECIFICATION}">
 								<content>
-									<Toolbar class="iconPanelToolbar">
-										<Title text="Dairy Department"/>
-									</Toolbar>
-									<Toolbar>
-										<Title text="Milk Type"/>
-									</Toolbar>
-									<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox ">
-										<layout:content>
-											<CheckBox design="Bold" text="1%" selected=""/>
-											<CheckBox design="Bold" text="2%" selected=""/>
-											<CheckBox design="Bold" text="Skim" selected=""/>
-											<CheckBox design="Bold" text="Whole" selected=""/>
-										</layout:content>
-									</layout:Grid>
-									<Toolbar>
-										<Title text="Pack Count"/>
-									</Toolbar>
-									<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
-										<layout:content>
-											<CheckBox design="Bold" text="1-3 pks" selected=""/>
-											<CheckBox design="Bold" text="15-18 pks" selected=""/>
-											<CheckBox design="Bold" text="20+ pks" selected=""/>
-											<CheckBox design="Bold" text="4-6 pks" selected=""/>
-											<CheckBox design="Bold" text="8-12 pks" selected=""/>
-										</layout:content>
-									</layout:Grid>
+									<VBox class="VBox">
+										<Toolbar class="iconPanelToolbar VBox">
+											<Title text="{i18n>DAIRY_DEPARTMENT}"/>
+										</Toolbar>
+										<Toolbar>
+											<Title text="{i18n>MILK_TYPE}"/>
+										</Toolbar>
+										<l:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
+											<l:content>
+												<CheckBox text="1%" selected=""/>
+												<CheckBox text="2%" selected=""/>
+												<CheckBox text="{i18n>SKIM}" selected=""/>
+												<CheckBox text="{i18n>WHOLE}" selected=""/>
+											</l:content>
+										</l:Grid>
+										<Toolbar>
+											<Title text="{i18n>PACK_COUNT}"/>
+										</Toolbar>
+										<l:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
+											<l:content>
+												<CheckBox text="1-3 pks" selected=""/>
+												<CheckBox text="15-18 pks" selected=""/>
+												<CheckBox text="20+ pks" selected=""/>
+												<CheckBox text="4-6 pks" selected=""/>
+												<CheckBox text="8-12 pks" selected=""/>
+											</l:content>
+										</l:Grid>
+									</VBox>
 								</content>
 							</Panel>
+							<HBox justifyContent="End">
+								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+								<Button text="Save" type="Accept" class="commitBtnClass"/>
+							</HBox>
+						</IconTabFilter>
+						<IconTabFilter text="{i18n>SALES_TAX}">
+							<l:Grid defaultSpan="L3 M3 S6" width="100%">
+								<l:content>
+									<Label text="{i18n>CATEGORY}:"/>
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+										class="IconTabSelectClass">
+										<core:Item key="{ProductId}" text="{Name}"/>
+									</Select>
+									<Label text="{i18n>SUB_CATEGORY}:">
+										<layoutData>
+											<l:GridData linebreak="true"></l:GridData>
+										</layoutData>
+									</Label>
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+										class="IconTabSelectClass">
+										<core:Item key="{ProductId}" text="{Name}"/>
+									</Select>
+									<Label text="{i18n>AVALARA_TAX_CODE}:">
+										<layoutData>
+											<l:GridData linebreak="true"></l:GridData>
+										</layoutData>
+									</Label>
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+										class="IconTabSelectClass">
+										<core:Item key="{ProductId}" text="{Name}"/>
+									</Select>
+								</l:content>
+							</l:Grid>
 							<HBox justifyContent="End">
 								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
 								<Button text="Save" type="Accept" class="commitBtnClass"/>
