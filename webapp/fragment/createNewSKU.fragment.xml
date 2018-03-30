@@ -28,7 +28,7 @@
 					<Select forceSelection="false"
 						class="selectFragClass sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/BUOM}"></Select>
 					<Label text="{i18n>PLU_CODE}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Input class="inputFieldBorder sapUiTinyMarginTop" value="{createSKUModel>/PLUCode}"></Input>
+					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/PLUCode}"></Input>
 					<Label text="{i18n>BRAND}" class="labelBold sapUiSmallMarginTop"></Label>
 					<HBox>
 						<Select forceSelection="false" change=""
@@ -40,12 +40,12 @@
 							class="addBrand" press="onAddBrand" />
 					</HBox>
 					<Label text="{i18n>DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Input class="inputFieldBorder sapUiTinyMarginTop" value="{createSKUModel>/prodDesc}"></Input>
+					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/prodDesc}"></Input>
 					<Label text="{i18n>MERCHANT_PRODUCT_NAME}" class="labelBold sapUiSmallMarginTop"></Label>
 					<TextArea class="createSKUtextArea sapUiTinyMarginTop"
 						value="{createSKUModel>/merchantProductName}"></TextArea>
 					<Label text="{i18n>MERCHANT_PRODUCT_FLAVOUR}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Input class="inputFieldBorder sapUiTinyMarginTop" maxLength="40"
+					<Input class="sapUiTinyMarginTop" maxLength="40"
 						value="{createSKUModel>/merchantProductFlavour}"></Input>
 					<Label text="{i18n>PURCHASING_GROUP}" class="labelBold sapUiSmallMarginTop"></Label>
 					<Select forceSelection="false" change=""

@@ -78,10 +78,17 @@
 			},
 			"routes": [
 				{
+					"name": "1",
+					"pattern": "1",
+					"target": [
+						"dashboard"
+					]
+				},
+				{
 					"name": "",
 					"pattern": "",
 					"target": [
-						"dashboard"
+						"page3"
 					]
 				}
 			],
@@ -97,6 +104,10 @@
 				"createSKU": {
 					"viewType": "XML",
 					"viewName": "createSKU"
+				},
+					"page3": {
+					"viewType": "XML",
+					"viewName": "page3"
 				}
 			}
 		}

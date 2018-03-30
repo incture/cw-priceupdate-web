@@ -445,6 +445,7 @@ sap.ui.define([
 
 		/*Create SKU Fragment Code Ends*/
 
+
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
 		 * @memberOf freshDirectSKU.SKU.view.dashboard

@@ -1,4 +1,4 @@
-sap.ui.controller("sku.controller.page3", {
+sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -6,9 +6,32 @@ sap.ui.controller("sku.controller.page3", {
 * @memberOf view.page3
 */
 	onInit: function() {
+		this.commercialFinanceModelLoad();
 		/*this.oProcessFlow1 = this.getView().byId("processflow2");
 		this.oProcessFlow1.setZoomLevel("Four");*/
-	}
+	},
+			
+	/*	Commercial Finance code starts*/
+	
+	
+		financeEachValue:function(value)
+			{
+				if(value)
+				{
+					var each=value/12;
+					var each1=each.toFixed(2);
+					return each1;
+				}
+			},
+			commercialFinanceModelLoad:function()
+			{
+					var commercialFinanceModel = new sap.ui.model.json.JSONModel();
+			commercialFinanceModel.loadData("model/commercialFinanceModel.json");
+			this.getView().setModel(commercialFinanceModel, "commercialFinanceModel");
+			}
+	
+	
+	/*	Commercial Finance code starts*/
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
