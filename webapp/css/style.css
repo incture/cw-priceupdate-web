@@ -553,3 +553,9 @@
     -webkit-align-self: auto;
     align-self: center;
 }
+.formBoxStyle{
+	background: lightgrey;
+    margin: 0rem;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 1px 1px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+}

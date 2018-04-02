@@ -1,5 +1,6 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:layout="sap.ui.layout"
-	controllerName="freshDirectSKU.SKU.controller.page3" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:suite="sap.suite.ui.commons">
+	controllerName="freshDirectSKU.SKU.controller.page3" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:suite="sap.suite.ui.commons"
+	xmlns:f="sap.ui.layout.form">
 	<Page title="Title" class="sapUiSizeCompact">
 		<content>
 			<HBox class="backBtnHBoxClass">
@@ -235,54 +236,109 @@
 							<HBox justifyContent="End">
 								<Button text="{i18n>VIEW_SOURCE}" type="Accept" class="commitBtnClass"></Button>
 							</HBox>
-							<Panel expandable="true" headerText="{i18n>SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
+							<Panel expandable="true" headerText="{i18n>SOURCE_INFO}"
+								class="iconPanelHdng" width="99.4%">
 								<content>
-									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+									<layout:Grid defaultSpan="L3 M6 S12" width="100%"
+										class="IconTabInputClass">
 										<layout:content>
-											<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>B_O_IS_SOURCE}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>IS_CPI_SOURCE}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>EMAIL}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SALE_SOURCED_PRODUCT}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>SHIP_FROM_LOC}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>INCOTERMS}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
-											<Input/>
+											<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:"
+												design="Bold" />
+											<Switch state="true" customTextOn="Yes" customTextOff="No"
+												class="basicSwitchBtnClass">
+											</Switch>
+											<Label text="{i18n>VENDOR_NAME}:" design="Bold" />
+											<Input />
+											<Label text="Sole Sourced Product:" design="Bold" />
+											<Switch state="true" customTextOn="Yes" customTextOff="No"
+												class="basicSwitchBtnClass">
+											</Switch>
+											<Label text="{i18n>SOURCE_TYPE}:" design="Bold" />
+											<Select selectedKey="{/ProductCollection/0/ProductId}"
+												items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+												class="IconTabSelectClass">
+												<core:Item key="{ProductId}" text="{Name}" />
+											</Select> 
+											<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold" />
+											<Switch state="true" customTextOn="Yes" customTextOff="No"
+												class="basicSwitchBtnClass">
+											</Switch>
+											<Label text="{i18n>CONTACT_NAME}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:"
+												design="Bold" />
+											<Switch state="true" customTextOn="Yes" customTextOff="No"
+												class="basicSwitchBtnClass">
+											</Switch>
+											<Label text="{i18n>CONTACT_TITLE}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold" />
+											<Switch state="true" customTextOn="Yes" customTextOff="No"
+												class="basicSwitchBtnClass">
+											</Switch>
+											<Label text="{i18n>EMAIL}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:"
+												design="Bold" />
+											<Switch state="true" customTextOn="Yes" customTextOff="No"
+												class="basicSwitchBtnClass">
+											</Switch>
+											<Label text="{i18n>PHONE_NUMBER}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:"
+												design="Bold" />
+											<Switch state="true" customTextOn="Yes" customTextOff="No"
+												class="basicSwitchBtnClass">
+											</Switch>
+											<Label text="{i18n>PAYMENT_TERMS}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>LEAD_TIME}:" design="Bold" />
+											<Input />
+											<Label text="{i18n>INCOTERMS}:" design="Bold" />
+											<Input />
 										</layout:content>
 									</layout:Grid>
+									<VBox class="sapUiSmallMargin formBoxStyle">
+									<f:SimpleForm 	layout="ResponsiveGridLayout">
+										<Title text="Ship from Location"></Title>
+										<Label text="Location Name"></Label>
+										<Input value="">
+											<layoutData>
+												<l:GridData span="XL2 L3 M4 S4" />
+											</layoutData>
+										</Input>
+										<Label text="Street Address"></Label>
+										<Input value=""></Input>
+										<Label text="State"></Label>
+										<Select selectedKey="{/ProductCollection/0/ProductId}"
+												items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+												class="IconTabSelectClass">
+												<core:Item key="{ProductId}" text="{Name}" />
+												<layoutData>
+												<l:GridData span="XL2 L3 M4 S4" />
+											</layoutData>
+										</Select>
+										<Label text="City"></Label>
+										<Select selectedKey="{/ProductCollection/0/ProductId}"
+												items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+												class="IconTabSelectClass">
+												<core:Item key="{ProductId}" text="{Name}" />
+												<layoutData>
+												<l:GridData span="XL2 L3 M4 S4" />
+											</layoutData>
+										</Select>
+										<Label text="ZIP"></Label>
+										<Input>
+											<layoutData>
+												<l:GridData span="XL2 L3 M4 S4" />
+											</layoutData>
+										</Input>
+										</f:SimpleForm>
+									</VBox>
 								</content>
 							</Panel>
 							<Panel expandable="true" headerText="{i18n>COST_SHEET}" class="iconPanelHdng" width="99.4%">
