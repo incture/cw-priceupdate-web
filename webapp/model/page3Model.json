@@ -1,0 +1,51 @@
+{
+	"commercialFinance": [{
+		"h": "Net Item Costs",
+		"case": 12.23
+	}, {
+		"h": "Net Header Costs",
+		"case": 0.23
+	}, {
+		"h": "True Net Product Cost",
+		"case": 12.46
+	}, {
+		"h": "Dead-Net Cost",
+		"case": 13.08
+	}, {
+		"h": "CFM $",
+		"case":""
+	}, {
+		"h": "CFM %"
+	}, {
+		"h": "Dead Net Cost"
+
+	}, {
+		"h": "Price",
+		"case": "20.08"
+	}, {
+		"h": "Gross Margin"
+
+	}],
+	"salesTaxCategory": [{
+		"category": "Food"
+	}, {
+		"category": "Beverage"
+	}, {
+		"category": "Tangible"
+	}],
+	"salesTaxSubCategory": [{
+		"subcategory": "Candy"
+	}, {
+		"subcategory": "Cooking and Baking"
+	}, {
+		"subcategory": "Dietary Supplements"
+	}, {
+		"subcategory": "Milk / Milk Ingredients"
+	}, {
+		"subcategory": "IceCream / Popsicles / Italian Ices"
+	}, {
+		"subcategory": "Yogurt"
+	}, {
+		"subcategory": "Snacks"
+	}]
+}

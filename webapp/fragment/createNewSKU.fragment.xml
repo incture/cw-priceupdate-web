@@ -1,148 +1,111 @@
-<core:FragmentDefinition xmlns:l="sap.ui.layout"
-	xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
-
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog title="Create New SKU" class="sapUiSizeCompact createSKUFrag fragTitle">
 		<content>
-	<l:Grid defaultSpan="L6 M12 S12" class="GridClass">
+			<l:Grid defaultSpan="L6 M12 S12" class="gridClass">
 				<l:content>
 					<Label text="{i18n>MATERIAL_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change=""
-						class="selectFragClass sapUiTinyMarginTop" items="{SKUModel>/materialType}"
+					<Select forceSelection="false" change="" class="selectFragClass sapUiTinyMarginTop" items="{SKUModel>/materialType}"
 						value="{createSKUModel>/materialType}">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>mT}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>mT}"/>
 					</Select>
-
 					<Label text="{i18n>UPC}" class="labelBold sapUiSmallMarginTop"></Label>
 					<HBox>
-						<CheckBox selected="false" select="UPCCheckboxSelected"
-							class="UPCIcon">
-						</CheckBox>
-						<Input maxLength="20" class="sapUiTinyMarginTop" value="{createSKUModel>/upc}"
-							change="UPCvalid"></Input>
-						<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid"
-							class="UPCValidationIcon" visible="{createSKUModel>/UPCInvalidVisiblity}" />
-						<Image src="images/valid_icon.png" width="1rem" tooltip="valid"
-							class="UPCValidationIcon" visible="{createSKUModel>/UPCValidVisiblity}" />
+						<CheckBox selected="false" select="UPCCheckboxSelected" class="UPCIcon"></CheckBox>
+						<Input maxLength="20" class="sapUiTinyMarginTop" value="{createSKUModel>/upc}" change="UPCvalid"></Input>
+						<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="UPCValidationIcon"
+							visible="{createSKUModel>/UPCInvalidVisiblity}"/>
+						<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="UPCValidationIcon" visible="{createSKUModel>/UPCValidVisiblity}"/>
 					</HBox>
 					<Label text="{i18n>BUOM}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false"
-						class="selectFragClass sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/BUOM}"></Select>
+					<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/BUOM}"></Select>
 					<Label text="{i18n>PLU_CODE}" class="labelBold sapUiSmallMarginTop"></Label>
 					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/PLUCode}"></Input>
 					<Label text="{i18n>BRAND}" class="labelBold sapUiSmallMarginTop"></Label>
 					<HBox>
-						<Select forceSelection="false" change=""
-							class="selectBrandFragClass sapUiTinyMarginTop" items="{SKUModel>/brand}"
+						<Select forceSelection="false" change="" class="selectBrandFragClass sapUiTinyMarginTop" items="{SKUModel>/brand}"
 							value="{createSKUModel>/brand}">
-							<core:Item key="{SKUModel>key}" text="{SKUModel>b}" />
+							<core:Item key="{SKUModel>key}" text="{SKUModel>b}"/>
 						</Select>
-						<Image src="images/add_icon.png" width="1rem" tooltip="Add Brand"
-							class="addBrand" press="onAddBrand" />
+						<Image src="images/add_icon.png" width="1rem" tooltip="Add Brand" class="addBrand" press="onAddBrand"/>
 					</HBox>
 					<Label text="{i18n>DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
 					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/prodDesc}"></Input>
 					<Label text="{i18n>MERCHANT_PRODUCT_NAME}" class="labelBold sapUiSmallMarginTop"></Label>
-					<TextArea class="createSKUtextArea sapUiTinyMarginTop"
-						value="{createSKUModel>/merchantProductName}"></TextArea>
+					<TextArea class="createSKUtextArea sapUiTinyMarginTop" value="{createSKUModel>/merchantProductName}"></TextArea>
 					<Label text="{i18n>MERCHANT_PRODUCT_FLAVOUR}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Input class="sapUiTinyMarginTop" maxLength="40"
-						value="{createSKUModel>/merchantProductFlavour}"></Input>
+					<Input class="sapUiTinyMarginTop" maxLength="40" value="{createSKUModel>/merchantProductFlavour}"></Input>
 					<Label text="{i18n>PURCHASING_GROUP}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change=""
-						class=" selectFragClass sapUiTinyMarginTop" items="{SKUModel>/packageGroup}"
+					<Select forceSelection="false" change="" class=" selectFragClass sapUiTinyMarginTop" items="{SKUModel>/packageGroup}"
 						value="{createSKUModel>/PurchasingGroup}">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>pg}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>pg}"/>
 					</Select>
 					<VBox>
 						<Label text="{i18n>TARGET_ACTIVATION}" class="labelBold"></Label>
 						<Label text="{i18n>TARGET_ACTIVATION_TOOLTIP}" class="tooltip"></Label>
 					</VBox>
-					<CheckBox selected="false" select="tarActASAPfn" class="sapUiTinyMarginTop"
-						value="{createSKUModel>/targetActivation}">
-
-					</CheckBox>
-					<Label text="{i18n>TARGET_ACTIVATION_DATE}" class="labelBold sapUiSmallMarginTop">
-					</Label>
-					<DatePicker enabled="{createSKUModel>/tarActDateenabled}"
-						value="{createSKUModel>/tarActDate}" setMinDate="{createSKUModel>/tarActMinDate}"
-						change="onTargetActivationDateChange" displayFormat="MM/dd/yyyy"
-						valueFormat="MM/dd/yyyy" class="sapUiTinyMarginTop" placeholder="MM/DD/YYYY">
-					</DatePicker>
-
-
+					<CheckBox selected="false" select="tarActASAPfn" class="sapUiTinyMarginTop" value="{createSKUModel>/targetActivation}"></CheckBox>
+					<Label text="{i18n>TARGET_ACTIVATION_DATE}" class="labelBold sapUiSmallMarginTop"></Label>
+					<DatePicker enabled="{createSKUModel>/tarActDateenabled}" value="{createSKUModel>/tarActDate}" setMinDate="{createSKUModel>/tarActMinDate}"
+						change="onTargetActivationDateChange" displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" class="sapUiTinyMarginTop"
+						placeholder="MM/DD/YYYY"></DatePicker>
 					<Label text="{i18n>STORAGE_TEMP_ZONE}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change=""
-						class="selectFragClass sapUiTinyMarginTop" value="{createSKUModel>/stoarageTempZone}"
+					<Select forceSelection="false" change="" class="selectFragClass sapUiTinyMarginTop" value="{createSKUModel>/stoarageTempZone}"
 						items="{SKUModel>/storageTemp}">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>st}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>st}"/>
 					</Select>
-
-					<Label text="{i18n>TIER1}" width="100%"
-						class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="onTier1Selection"
-						width="100%" value="{createSKUModel>/tier1}" items="{SKUModel>/tier1}"
+					<Label text="{i18n>TIER1}" width="100%" class="labelBold sapUiSmallMarginTop"></Label>
+					<Select forceSelection="false" change="onTier1Selection" width="100%" value="{createSKUModel>/tier1}" items="{SKUModel>/tier1}"
 						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t1}" />
-					</Select>
-					<Label text="{i18n>CATEGORY_ATTRIBUTE1}" class="labelBold  sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="" width="100%"
-						items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute1}"
-						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t1}"/>
 					</Select>
 					<Label text="{i18n>TIER2}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="onTier2Selection"
-						width="100%" items="{SKUModel>/tier2array/0}" value="{createSKUModel>/tier2}"
+					<Select forceSelection="false" change="onTier2Selection" width="100%" items="{SKUModel>/tier2array/0}" value="{createSKUModel>/tier2}"
 						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
-					</Select>
-					<Label text="{i18n>CATEGORY_ATTRIBUTE2}" class="labelBold  sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="" width="100%"
-						items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute2}"
-						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
 					</Select>
 					<Label text="{i18n>TIER3}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="onTier3Selection"
-						width="100%" value="{createSKUModel>/tier3}" items="{SKUModel>/tier3array/0}"
+					<Select forceSelection="false" change="onTier3Selection" width="100%" value="{createSKUModel>/tier3}" items="{SKUModel>/tier3array/0}"
 						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t3}" />
-					</Select>
-					<Label text="{i18n>CATEGORY_ATTRIBUTE3}" class="labelBold  sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="" width="100%"
-						items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute3}"
-						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t3}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t3}"/>
 					</Select>
 					<Label text="{i18n>TIER4}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="" width="100%"
-						items="{SKUModel>/tier4array/0}" value="{createSKUModel>/tier4}"
+					<Select forceSelection="false" change="" width="100%" items="{SKUModel>/tier4array/0}" value="{createSKUModel>/tier4}"
 						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t4}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t4}"/>
 					</Select>
-					<Label text="{i18n>CATEGORY_ATTRIBUTE4}" class="labelBold  sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false" change="" width="100%"
-						items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute4}"
+					<Label text="{i18n>CATEGORY_ATTRIBUTE1}" class="labelBold sapUiSmallMarginTop"></Label>
+					<Select forceSelection="false" change="" width="100%" items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute1}"
 						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
 					</Select>
-
-
+					<Label text="{i18n>CATEGORY_ATTRIBUTE2}" class="labelBold sapUiSmallMarginTop"></Label>
+					<Select forceSelection="false" change="" width="100%" items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute2}"
+						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
+					</Select>
+					<Label text="{i18n>CATEGORY_ATTRIBUTE3}" class="labelBold sapUiSmallMarginTop"></Label>
+					<Select forceSelection="false" change="" width="100%" items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute3}"
+						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t3}"/>
+					</Select>
+					<Label text="{i18n>CATEGORY_ATTRIBUTE4}" class="labelBold sapUiSmallMarginTop"></Label>
+					<Select forceSelection="false" change="" width="100%" items="{SKUModel>/tier2array/0}" value="{createSKUModel>/categoryAttribute4}"
+						class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+						<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
+					</Select>
 					<Label text="{i18n>PACKAGE_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false"
-						class="selectFragClass sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/packageType}"
+					<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/packageType}"
 						items="{SKUModel>/packageType}">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>pt}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>pt}"/>
 					</Select>
 					<Label text="{i18n>PACKAGE_COUNT}" class="labelBold sapUiSmallMarginTop"></Label>
 					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/packageCount}"></Input>
 					<Label text="{i18n>INDIVIDUAL_PACKAGE_SIZE}" class="labelBold sapUiSmallMarginTop"></Label>
 					<Input class="sapUiTinyMarginTop" value="{createSKUModel>/indPackageSize}"></Input>
 					<Label text="{i18n>INDIVIDUAL_PACKAGE_SIZE_UOM}" class="labelBold sapUiSmallMarginTop"></Label>
-					<Select forceSelection="false"
-						class="selectFragClass sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/indPackageSizeUOM}"
+					<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" value="{createSKUModel>/indPackageSizeUOM}"
 						items="{SKUModel>/IndPackUOM}">
-						<core:Item key="{SKUModel>key}" text="{SKUModel>ip}" />
+						<core:Item key="{SKUModel>key}" text="{SKUModel>ip}"/>
 					</Select>
 					<VBox>
 						<Label text="{i18n>SAP_PRODUCT_DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
@@ -152,22 +115,18 @@
 						<TextArea class="createSKUtextArea sapUiTinyMarginTop"
 							value="{parts:['createSKUModel>/indPackageSize','createSKUModel>/brand','createSKUModel>/prodDesc','createSKUModel>/indPackageSizeUOM','createSKUModel>/packageCount'],formatter:'.sapProdDescfun'}"
 							enabled="{createSKUModel>/sapProdDescEditEnabled}"></TextArea>
-						<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid"
-							class="validationIcon" visible="{createSKUModel>/sapProdDescInvalidVisiblity}" />
-						<Image src="images/valid_icon.png" width="1rem" tooltip="valid"
-							class="validationIcon" visible="{createSKUModel>/sapProdDescValidVisiblity}" />
-						<core:Icon src="sap-icon://edit" class="createSKUFragEdit"
-							press="sapProdDescEdit" />
+						<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="validationIcon"
+							visible="{createSKUModel>/sapProdDescInvalidVisiblity}"/>
+						<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="validationIcon" visible="{createSKUModel>/sapProdDescValidVisiblity}"/>
+						<core:Icon src="sap-icon://edit" class="createSKUFragEdit" press="sapProdDescEdit"/>
 					</HBox>
 				</l:content>
 			</l:Grid>
-
 		</content>
 		<buttons>
 			<Button text="Cancel" type="Reject" press="onCancel"></Button>
 			<Button text="Save" type="Accept" press="onSave"></Button>
 			<Button text="Submit" press="onSubmit" type="Accept"></Button>
 		</buttons>
-
 	</Dialog>
 </core:FragmentDefinition>

@@ -8,6 +8,7 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 	onInit: function() {
 		this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 		this.commercialFinanceModelLoad();
+
 		/*this.oProcessFlow1 = this.getView().byId("processflow2");
 		this.oProcessFlow1.setZoomLevel("Four");*/
 	},
@@ -24,13 +25,25 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 			return each1;
 		}
 	},
+	financeCaseValue: function(oEvent) {
+		var page3Model = this.getView().getModel("page3Model");
+		var v = page3Model.getData().commercialFinance;
+		v[6].case = v[3].case-v[4].case;
+		v[8].case = (v[7].case-v[6].case).toFixed(2);
+
+	},
 	commercialFinanceModelLoad: function() {
-		var commercialFinanceModel = new sap.ui.model.json.JSONModel();
-		commercialFinanceModel.loadData("model/commercialFinanceModel.json");
-		this.getView().setModel(commercialFinanceModel, "commercialFinanceModel");
+		var page3Model = new sap.ui.model.json.JSONModel();
+		page3Model.loadData("model/page3Model.json");
+		var that = this;
+		page3Model.attachRequestCompleted(function(oEvent) {
+			that.getView().setModel(page3Model, "page3Model");
+			that.financeCaseValue();
+		});
+
 	}
 
-	/*	Commercial Finance code starts*/
+	/*	Commercial Finance code ends*/
 
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

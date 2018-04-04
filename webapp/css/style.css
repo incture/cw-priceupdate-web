@@ -559,3 +559,29 @@
     box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 1px 1px rgba(0, 0, 0, .5);
     border-radius: 5px;
 }
+
+
+
+.tableClass .sapMInputBaseInner {
+    color: #000000;
+    border-top: 0px !important;
+    background: #ffffff;
+    border: 0px none #bfbfbf;
+    -webkit-appearance: none;
+    border-radius: 0;
+    vertical-align: top;
+    margin: 0;
+    -moz-appearance: textfield;
+    font-size: 0.875rem;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: normal;
+    height: 1.6rem;
+    padding: 0 0.7rem;
+    border-left: 0px !important;
+    border-right: 0px !important;
+}
+
+.tableClass
+{
+	padding-bottom:1rem;
+}

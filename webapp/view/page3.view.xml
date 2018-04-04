@@ -308,7 +308,7 @@
 										<Label text="Location Name"></Label>
 										<Input value="">
 											<layoutData>
-												<l:GridData span="XL2 L3 M4 S4" />
+												<layout:GridData span="XL2 L3 M4 S4" />
 											</layoutData>
 										</Input>
 										<Label text="Street Address"></Label>
@@ -319,7 +319,7 @@
 												class="IconTabSelectClass">
 												<core:Item key="{ProductId}" text="{Name}" />
 												<layoutData>
-												<l:GridData span="XL2 L3 M4 S4" />
+												<layout:GridData span="XL2 L3 M4 S4" />
 											</layoutData>
 										</Select>
 										<Label text="City"></Label>
@@ -328,13 +328,13 @@
 												class="IconTabSelectClass">
 												<core:Item key="{ProductId}" text="{Name}" />
 												<layoutData>
-												<l:GridData span="XL2 L3 M4 S4" />
+												<layout:GridData span="XL2 L3 M4 S4" />
 											</layoutData>
 										</Select>
 										<Label text="ZIP"></Label>
 										<Input>
 											<layoutData>
-												<l:GridData span="XL2 L3 M4 S4" />
+												<layout:GridData span="XL2 L3 M4 S4" />
 											</layoutData>
 										</Input>
 										</f:SimpleForm>
@@ -475,19 +475,19 @@
 						<IconTabFilter text="{i18n>PRODUCT_TAGS}">
 							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CERTIFICATION}">
 								<content>
-									<l:Grid defaultSpan="L2 M2 S2" class="">
-										<l:content>
+									<layout:Grid defaultSpan="L2 M2 S2" class="">
+										<layout:content>
 											<CheckBox text="{i18n>ORGANIC}" selected=""/>
 											<CheckBox text="{i18n>GLUTEN_FREE}" selected=""/>
 											<CheckBox text="{i18n>KOSHER}" selected=""/>
-										</l:content>
-									</l:Grid>
+										</layout:content>
+									</layout:Grid>
 								</content>
 							</Panel>
 							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>GLOBAL_TAGS}">
 								<content>
-									<l:Grid defaultSpan="L2 M2 S2" class="">
-										<l:content>
+									<layout:Grid defaultSpan="L2 M2 S2" class="">
+										<layout:content>
 											<CheckBox text="{i18n> GRASS_FED}" selected=""/>
 											<CheckBox text="{i18n>KIDS}" selected=""/>
 											<CheckBox text="{i18n>LOCAL}" selected=""/>
@@ -502,8 +502,8 @@
 											<CheckBox text="{i18n>SEASONAL}" selected=""/>
 											<CheckBox text="{i18n>STAFF_PICK}" selected=""/>
 											<CheckBox text="{i18n>VARIETY_PICK}" selected=""/>
-										</l:content>
-									</l:Grid>
+										</layout:content>
+									</layout:Grid>
 								</content>
 							</Panel>
 							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CATEGORY_SPECIFICATION}">
@@ -515,26 +515,26 @@
 										<Toolbar>
 											<Title text="{i18n>MILK_TYPE}"/>
 										</Toolbar>
-										<l:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
-											<l:content>
+										<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
+											<layout:content>
 												<CheckBox text="1%" selected=""/>
 												<CheckBox text="2%" selected=""/>
 												<CheckBox text="{i18n>SKIM}" selected=""/>
 												<CheckBox text="{i18n>WHOLE}" selected=""/>
-											</l:content>
-										</l:Grid>
+											</layout:content>
+										</layout:Grid>
 										<Toolbar>
 											<Title text="{i18n>PACK_COUNT}"/>
 										</Toolbar>
-										<l:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
-											<l:content>
+										<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
+											<layout:content>
 												<CheckBox text="1-3 pks" selected=""/>
 												<CheckBox text="15-18 pks" selected=""/>
 												<CheckBox text="20+ pks" selected=""/>
 												<CheckBox text="4-6 pks" selected=""/>
 												<CheckBox text="8-12 pks" selected=""/>
-											</l:content>
-										</l:Grid>
+											</layout:content>
+										</layout:Grid>
 									</VBox>
 								</content>
 							</Panel>
@@ -544,40 +544,44 @@
 							</HBox>
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>SALES_TAX}">
-							<l:Grid defaultSpan="L3 M3 S6" width="100%">
-								<l:content>
-									<Label text="{i18n>CATEGORY}:"/>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-										class="IconTabSelectClass">
-										<core:Item key="{ProductId}" text="{Name}"/>
-									</Select>
-									<Label text="{i18n>SUB_CATEGORY}:">
+							<layout:Grid defaultSpan="L3 M3 S6" width="100%">
+								<layout:content>
+									<Label text="{i18n>CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
 										<layoutData>
-											<l:GridData linebreak="true"></l:GridData>
+											<layout:GridData span="L2 M4 S6"></layout:GridData>
 										</layoutData>
 									</Label>
 									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-										class="IconTabSelectClass">
+										class="IconTabSelectClass sapUiTinyMarginTop">
 										<core:Item key="{ProductId}" text="{Name}"/>
 									</Select>
-									<Label text="{i18n>AVALARA_TAX_CODE}:">
+									<Label text="{i18n>SUB_CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
 										<layoutData>
-											<l:GridData linebreak="true"></l:GridData>
+											<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
 										</layoutData>
 									</Label>
 									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-										class="IconTabSelectClass">
+										class="IconTabSelectClass sapUiTinyMarginTop">
 										<core:Item key="{ProductId}" text="{Name}"/>
 									</Select>
-								</l:content>
-							</l:Grid>
+									<Label text="{i18n>AVALARA_TAX_CODE}:" design="Bold" class="sapUiSmallMarginTop">
+										<layoutData>
+											<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
+										</layoutData>
+									</Label>
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+										class="IconTabSelectClass sapUiTinyMarginTop">
+										<core:Item key="{ProductId}" text="{Name}"/>
+									</Select>
+								</layout:content>
+							</layout:Grid>
 							<HBox justifyContent="End">
 								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
 								<Button text="Save" type="Accept" class="commitBtnClass"/>
 							</HBox>
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>COMMERCIAL_FINANCE}">
-							<Table items="{commercialFinanceModel>/commercialFinance}">
+							<Table items="{page3Model>/commercialFinance}" class="tableClass">
 								<columns>
 									<Column minScreenWidth="Tablet" width="15rem" demandPopin="true">
 										<Text text=""/>
@@ -592,9 +596,9 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Label text="{commercialFinanceModel>h}"/>
-											<Input class="sapUiTinyMarginTop" value="{commercialFinanceModel>case}"/>
-											<Text text="{path:'commercialFinanceModel>case',formatter:'.financeEachValue'}"/>
+											<Label text="{page3Model>h}"/>
+											<Input class="sapUiTinyMarginTop" value="{page3Model>case}"  change="financeCaseValue"/>
+											<Text text="{path:'page3Model>case',formatter:'.financeEachValue'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -686,6 +690,11 @@
 											<layout:GridData span="L3 M4 S6" linebreak="true"/>
 										</layoutData>
 									</Label>
+									<TextArea>
+											<layoutData>
+											<layout:GridData span="L3 M4 S6"/>
+										</layoutData>
+									</TextArea>
 								</layout:content>
 							</layout:Grid>
 						</IconTabFilter>

@@ -76,13 +76,13 @@
 			},
 			"routes": [{
 				"name": "dashboard",
-				"pattern": "",
+				"pattern": "1",
 				"target": [
 					"dashboard"
 				]
 			}, {
-				"name": "page3",
-				"pattern": "page3",
+				"name": "",
+				"pattern": "",
 				"target": [
 					"page3"
 				]
