@@ -25,7 +25,7 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 			return each1;
 		}
 	},
-	financeCaseValue: function(oEvent) {
+	financeCaseValue: function() {
 		var page3Model = this.getView().getModel("page3Model");
 		var v = page3Model.getData().commercialFinance;
 		v[6].case = v[3].case-v[4].case;
@@ -38,10 +38,10 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		var that = this;
 		page3Model.attachRequestCompleted(function(oEvent) {
 			that.getView().setModel(page3Model, "page3Model");
-			that.financeCaseValue();
+			
 		});
 
-	}
+	},
 
 	/*	Commercial Finance code ends*/
 
@@ -59,9 +59,9 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 	 * This hook is the same one that SAPUI5 controls get after being rendered.
 	 * @memberOf view.page3
 	 */
-	//	onAfterRendering: function() {
-	//
-	//	},
+		onAfterRendering: function() {
+	this.financeCaseValue();
+		}
 
 	/**
 	 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.

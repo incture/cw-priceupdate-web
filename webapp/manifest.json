@@ -81,10 +81,17 @@
 					"dashboard"
 				]
 			}, {
-				"name": "",
-				"pattern": "",
+				"name": "page3",
+				"pattern": "2",
 				"target": [
 					"page3"
+				]
+			},
+			{
+				"name": "salesTaxMaintenance",
+				"pattern": "",
+				"target": [
+					"salesTaxMaintenance"
 				]
 			}],
 			"targets": {
@@ -105,6 +112,11 @@
 					"viewType": "XML",
 					"viewName": "page3",
 					"viewLevel" : 2
+				},
+					"salesTaxMaintenance": {
+					"viewType": "XML",
+					"viewName": "salesTaxMaintenance"
+				
 				}
 			}
 		}

@@ -1,0 +1,86 @@
+{
+	"avalaraTax": [{
+			"category": "Food",
+			"subCategory": "Food",
+			"taxCode": "PF160017",
+			"taxable": 0,
+			"description": "Prepackaged Prepared Salads That Require Refrigeration (Not Frozen) Sold In Any Size Or Container"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Food",
+			"taxCode": "PF051546",
+			"taxable": 1,
+			"description": "Lunchables w/ Candy /OR Lunchables Without Candy"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Candy",
+			"taxCode": "PF050309",
+			"taxable": 1,
+			"description": "Candy item containing flour ingredients"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Candy",
+			"taxCode": "PF050300",
+			"taxable": 1,
+			"description": "Candy / Gum / Mints / Candy covered food / Candy, Caramel, Chocolate, Glazed, honey or yogurt coated Fruit, Granola bars, nuts, popcorn, other"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Cooking and Baking",
+			"taxCode": "PF160039",
+			"taxable": 1,
+			"description": "Bakery Party Trays and Platters Prepared By The Seller"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Cooking and Baking",
+			"taxCode": "PF050097",
+			"taxable": 1,
+			"description": "Chocolate, cocoa beans, cocoa butter, and chocolate cookies."
+		},
+		{
+			"category": "Food",
+			"subCategory": "Dietary Supplements",
+			"taxCode": "PF050700",
+			"taxable": 0,
+			"description": "General - Antioxidants, Herbal, Metabolic, Vitamins, Supplements, Caffeine Stimulant"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Milk / Milk Ingredients",
+			"taxCode": "PF050215",
+			"taxable": 0,
+			"description": "Milk products - Milk, Soy, Almond"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Ice Cream / Popsicles / Italian Ices",
+			"taxCode": "PF050902",
+			"taxable": 0,
+			"description": "Ice Cream, Popsicles, Italian Ices, Packaged Iced Cream Greater than a pint"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Yogurt",
+			"taxCode": "PF050081",
+			"taxable": 0,
+			"description": "Yogurt"
+		},
+		{
+			"category": "Food",
+			"subCategory": "Snacks",
+			"taxCode": "PF050070",
+			"taxable": 1,
+			"description": "Fruit snacks, non-roasted nuts and similar products"
+		}, {
+			"category": "Food",
+			"subCategory": "Snacks",
+			"taxCode": "PF050900",
+			"taxable": 0,
+			"description": "Snacks, Health Foods, Sunflower Seeds, cookies, biscuits"
+		}
+	]
+}

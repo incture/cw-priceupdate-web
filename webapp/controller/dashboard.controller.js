@@ -152,10 +152,13 @@ sap.ui.define([
 		onCreatePress: function() {
 			this.loadModel();
 			this.onCreateNewSKU();
-			this.dialog = sap.ui.xmlfragment(
+			if(!this.createNewSkudialog)
+			{
+			this.createNewSkudialog = sap.ui.xmlfragment(
 				"freshDirectSKU.SKU.fragment.createNewSKU", this);
-			this.getView().addDependent(this.dialog);
-			this.dialog.open();
+			this.getView().addDependent(this.createNewSkudialog);
+			}
+			this.createNewSkudialog.open();
 
 		},
 		onAddBrand: function(oEvent) {

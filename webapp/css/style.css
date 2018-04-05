@@ -273,7 +273,7 @@
     width: 35%;
 }
 
-.GridClass .sapMInputBaseInner {
+.gridClass .sapMInputBaseInner {
     color: #000000;
     border-top: 0px !important;
     background: #ffffff;
@@ -519,6 +519,11 @@
     border: 1px solid #ceeaca;
     border-radius: 0.4rem;
 }
+.iconPanelToolbar .sapMTitle
+{
+	color:#508171;
+	 font-weight: Bold;
+}
 
 .VBox {
     background: #fff;
@@ -585,3 +590,53 @@
 {
 	padding-bottom:1rem;
 }
+
+
+.createNewTaxCode.sapUiSizeCompact.sapMDialog,
+.sapUiSizeCompact .sapMDialog {
+    min-height: 2.5rem;
+    padding-bottom: 2.5rem;
+    padding-top: 2.5rem;
+    width: 25%;
+}
+.createNewTaxCode .sapUiRespGrid.sapUiRespGridVSpace1>div {
+    margin-bottom: 0rem !important;
+}
+.createTaxCodeTextArea.sapMTextArea .sapMTextAreaInner {
+    -webkit-overflow-scrolling: touch;
+    line-height: 1.4;
+    height: 100%;
+    width: 170%;
+}
+.createTaxCodeTextArea.sapMInputBaseInner {
+    color: #000000;
+   
+    background: #ffffff;
+    border: 1px solid #bfbfbf;
+    -webkit-appearance: none;
+    border-radius: 0;
+    vertical-align: top;
+    margin: 0;
+    -moz-appearance: textfield;
+    font-size: 0.875rem;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: normal;
+   
+    padding: 0 0.7rem;
+}
+.createNewTaxCodefragTitle.sapMDialog>header.sapMDialogTitle .sapMTitle {
+    color: #508171;
+    font-weight: Bold;
+}
+.avalaraTaxToolbar.sapMTB {
+    height: 3rem;
+    background: #ceeaca;
+    border: 1px solid #ceeaca;
+   
+}
+.avalaraTaxToolbar .sapMTitle
+{
+	color:#508171;
+	 font-weight: Bold;
+}
+ 

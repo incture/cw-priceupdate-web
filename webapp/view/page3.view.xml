@@ -603,7 +603,7 @@
 									</ColumnListItem>
 								</items>
 							</Table>
-							<layout:Grid class="GridClass">
+							<layout:Grid class="gridClass">
 								<layout:content>
 									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>MIN_ORDER_QUANTITY}">
 										<layoutData>

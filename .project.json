@@ -3,5 +3,12 @@
     "account": "af91a028a",
     "name": "cwpriceupdateweb",
     "lastVersionWeTriedToDeploy": "1.0.673"
-  }
+  },
+  "generation": [
+    {
+      "templateId": "ui5template.basicSAPUI5ApplicationComponent",
+      "templateVersion": "1.4.0",
+      "dateTimeStamp": "Thu, 05 Apr 2018 05:16:10 GMT"
+    }
+  ]
 }

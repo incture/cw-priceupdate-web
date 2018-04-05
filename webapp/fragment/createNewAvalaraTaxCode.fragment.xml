@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Create New Code" class="createNewTaxCodefragTitle createNewTaxCode sapUiSizeCompact">
+		<content>
+			<layout:Grid defaultSpan="L6 M12 S12" class="gridClass">
+				<layout:content>
+					<Label text="{i18n>CATEGORY}" design="Bold" class="sapUiSmallMarginTop"></Label>
+					<Select editable="{createNewTaxCodeModel>/categoryEditable}" forceSelection="false" class="selectFragClass sapUiTinyMarginTop"
+						visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" value="{createNewTaxCodeModel>/category}" items="{>/}">
+						<core:Item key="{}" text="{}"/>
+					</Select>
+					<Input class="sapUiTinyMarginTop createTaxCodeInput" editable="{createNewTaxCodeModel>/categoryEditable}"
+						visible="{createNewTaxCodeModel>/CategoryInputVisible}" value="{selactedAvalaraTaxModel>/category}"></Input>
+					<Label text="{i18n>SUB_CATEGORY}" design="Bold" class="sapUiSmallMarginTop"></Label>
+					<Select forceSelection="false" visible="{createNewTaxCodeModel>/subCategoryDropdownVisible}" value="{createNewTaxCodeModel>/subCategory}"
+						editable="{createNewTaxCodeModel>/CategoryEditable}" class="selectFragClass sapUiTinyMarginTop" items="{>/}">
+						<core:Item key="{}" text="{}"/>
+					</Select>
+					<!--<Input class="sapUiTinyMarginTop createTaxCodeInput" editable="{createNewTaxCodeModel>/taxCodeEditable}"-->
+					<!--	value="{selactedAvalaraTaxModel>/taxCode}"></Input>-->
+					<Input class="sapUiTinyMarginTop createTaxCodeInput" visible="{createNewTaxCodeModel>/subCategoryInputVisible}"
+					value="{selactedAvalaraTaxModel>/subCategory}"></Input>
+					<Label text="{i18n>AVALARA_TAX_CODE}" design="Bold" class="sapUiSmallMarginTop"></Label>
+					<Input class="sapUiTinyMarginTop createTaxCodeInput" editable="{createNewTaxCodeModel>/taxCodeEditable}"
+						value="{selactedAvalaraTaxModel>/taxCode}"></Input>
+					<Label text="{i18n>TAXABLE_IN_NY}" design="Bold" class="sapUiSmallMarginTop"></Label>
+					<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" editable="{createNewTaxCodeModel>/taxableEditable}" items="{>/}"
+					value="{createNewTaxCodeModel>/taxable}">
+						<core:Item key="{}" text="{}"/>
+					</Select>
+					<Label text="{i18n>DESCRIPTION}" design="Bold" class="sapUiSmallMarginTop"></Label>
+					<TextArea class="createTaxCodeTextArea" editable="{createNewTaxCodeModel>/descriptionEditable}"
+						value="{selactedAvalaraTaxModel>/description}">
+						<layoutData>
+							<layout:GridData span="L12 M12 S12" linebreak="true"/>
+						</layoutData>
+					</TextArea>
+				</layout:content>
+			</layout:Grid>
+		</content>
+		<buttons>
+			<Button text="Cancel" type="Reject" press="onCancelCreateNewTaxCode"></Button>
+			<Button text="Create" type="Accept"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
