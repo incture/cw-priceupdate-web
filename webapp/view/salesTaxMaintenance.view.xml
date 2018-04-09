@@ -39,7 +39,7 @@
 									<Text text="{avalaraTaxModel>subCategory}"/>
 									<Text text="{avalaraTaxModel>taxCode}"/>
 									<Text text="{avalaraTaxModel>taxable}"/>
-									<Text text="{avalaraTaxModel>description}"/>
+									<Text text="{avalaraTaxModel>Description}"/>
 								</cells>
 							</ColumnListItem>
 						</items>

@@ -1,86 +1,120 @@
 {
 	"avalaraTax": [{
-			"category": "Food",
-			"subCategory": "Food",
-			"taxCode": "PF160017",
-			"taxable": 0,
-			"description": "Prepackaged Prepared Salads That Require Refrigeration (Not Frozen) Sold In Any Size Or Container"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Food",
-			"taxCode": "PF051546",
-			"taxable": 1,
-			"description": "Lunchables w/ Candy /OR Lunchables Without Candy"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Candy",
-			"taxCode": "PF050309",
-			"taxable": 1,
-			"description": "Candy item containing flour ingredients"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Candy",
-			"taxCode": "PF050300",
-			"taxable": 1,
-			"description": "Candy / Gum / Mints / Candy covered food / Candy, Caramel, Chocolate, Glazed, honey or yogurt coated Fruit, Granola bars, nuts, popcorn, other"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Cooking and Baking",
-			"taxCode": "PF160039",
-			"taxable": 1,
-			"description": "Bakery Party Trays and Platters Prepared By The Seller"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Cooking and Baking",
-			"taxCode": "PF050097",
-			"taxable": 1,
-			"description": "Chocolate, cocoa beans, cocoa butter, and chocolate cookies."
-		},
-		{
-			"category": "Food",
-			"subCategory": "Dietary Supplements",
-			"taxCode": "PF050700",
-			"taxable": 0,
-			"description": "General - Antioxidants, Herbal, Metabolic, Vitamins, Supplements, Caffeine Stimulant"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Milk / Milk Ingredients",
-			"taxCode": "PF050215",
-			"taxable": 0,
-			"description": "Milk products - Milk, Soy, Almond"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Ice Cream / Popsicles / Italian Ices",
-			"taxCode": "PF050902",
-			"taxable": 0,
-			"description": "Ice Cream, Popsicles, Italian Ices, Packaged Iced Cream Greater than a pint"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Yogurt",
-			"taxCode": "PF050081",
-			"taxable": 0,
-			"description": "Yogurt"
-		},
-		{
-			"category": "Food",
-			"subCategory": "Snacks",
-			"taxCode": "PF050070",
-			"taxable": 1,
-			"description": "Fruit snacks, non-roasted nuts and similar products"
-		}, {
-			"category": "Food",
-			"subCategory": "Snacks",
-			"taxCode": "PF050900",
-			"taxable": 0,
-			"description": "Snacks, Health Foods, Sunflower Seeds, cookies, biscuits"
-		}
-	]
+		"category": "Food",
+		"subCategory": "Food",
+		"taxCode": "PF160017",
+		"taxable": 0,
+		"Description": "Prepackaged Prepared Salads That Require Refrigeration (Not Frozen) Sold In Any Size Or Container"
+	}, {
+		"category": "Food",
+		"subCategory": "Food",
+		"taxCode": "PF051546",
+		"taxable": 1,
+		"Description": "Lunchables w/ Candy /OR Lunchables Without Candy"
+	}, {
+		"category": "Food",
+		"subCategory": "Candy",
+		"taxCode": "PF050309",
+		"taxable": 1,
+		"Description": "Candy item containing flour ingredients"
+	}, {
+		"category": "Food",
+		"subCategory": "Candy",
+		"taxCode": "PF050300",
+		"taxable": 1,
+		"Description": "Candy / Gum / Mints / Candy covered food / Candy, Caramel, Chocolate, Glazed, honey or yogurt coated Fruit, Granola bars, nuts, popcorn, other"
+	}, {
+		"category": "Food",
+		"subCategory": "Cooking and Baking",
+		"taxCode": "PF160039",
+		"taxable": 1,
+		"Description": "Bakery Party Trays and Platters Prepared By The Seller"
+	}, {
+		"category": "Food",
+		"subCategory": "Cooking and Baking",
+		"taxCode": "PF050097",
+		"taxable": 1,
+		"Description": "Chocolate, cocoa beans, cocoa butter, and chocolate cookies."
+	}, {
+		"category": "Food",
+		"subCategory": "Dietary Supplements",
+		"taxCode": "PF050700",
+		"taxable": 0,
+		"Description": "General - Antioxidants, Herbal, Metabolic, Vitamins, Supplements, Caffeine Stimulant"
+	}, {
+		"category": "Food",
+		"subCategory": "Milk / Milk Ingredients",
+		"taxCode": "PF050215",
+		"taxable": 0,
+		"Description": "Milk products - Milk, Soy, Almond"
+	}, {
+		"category": "Food",
+		"subCategory": "Ice Cream / Popsicles / Italian Ices",
+		"taxCode": "PF050902",
+		"taxable": 0,
+		"Description": "Ice Cream, Popsicles, Italian Ices, Packaged Iced Cream Greater than a pint"
+	}, {
+		"category": "Food",
+		"subCategory": "Yogurt",
+		"taxCode": "PF050081",
+		"taxable": 0,
+		"Description": "Yogurt"
+	}, {
+		"category": "Food",
+		"subCategory": "Snacks",
+		"taxCode": "PF050070",
+		"taxable": 1,
+		"Description": "Fruit snacks, non-roasted nuts and similar products"
+	}, {
+		"category": "Food",
+		"subCategory": "Snacks",
+		"taxCode": "PF050900",
+		"taxable": 0,
+		"Description": "Snacks, Health Foods, Sunflower Seeds, cookies, biscuits"
+	}],
+	"cat": [{
+		"c": "Beverage",
+		"key": "01"
+	}, {
+		"c": "Food",
+		"key": "02"
+	}],
+	"01": [{
+		"sc": "Juice - Non Carbonated"
+	}, {
+		"sc": "Alcohol Related (Beer, Wine, Liquor, Cocktail Mixers)"
+	}, {
+		"sc": "Tea & Coffee"
+	}, {
+		"sc": "Water"
+	}, {
+		"sc": "Non-Carbonated"
+	}, {
+		"sc": "Carbonated"
+	}, {
+		"sc": "Misc. Beverage (Protein Shakes, Powder Mixers, Energy, Energy Shot)"
+	}],
+	"02": [{
+		"sc": "Food"
+	}, {
+		"sc": "Candy"
+	}, {
+		"sc": "Cooking and Baking"
+	}, {
+		"sc": "Dietary Supplements"
+	}, {
+		"sc": "Milk / Milk Ingredients"
+	}, {
+		"sc": "Ice Cream / Popsicles / Italian Ices"
+	}, {
+		"sc": "Yogurt"
+	}, {
+		"sc": "Snacks"
+	}],
+	"taxable":[{
+		"t":1
+	},
+	{
+		"t":0
+	}]
 }
