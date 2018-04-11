@@ -76,20 +76,19 @@
 			},
 			"routes": [{
 				"name": "dashboard",
-				"pattern": "1",
+				"pattern": "",
 				"target": [
 					"dashboard"
 				]
 			}, {
 				"name": "page3",
-				"pattern": "2",
+				"pattern": "1",
 				"target": [
 					"page3"
 				]
-			},
-			{
+			}, {
 				"name": "salesTaxMaintenance",
-				"pattern": "",
+				"pattern": "2",
 				"target": [
 					"salesTaxMaintenance"
 				]
@@ -98,25 +97,21 @@
 				"dashboard": {
 					"viewType": "XML",
 					"viewName": "dashboard",
-					"viewLevel" : 1,
+					"viewLevel": 1,
 					"routerClass": "sap.m.routing.Router",
 					"viewPath": "freshDirectSKU.SKU.view",
 					"controlAggregation": "pages",
 					"controlId": "idAppControl"
 				},
-				"createSKU": {
-					"viewType": "XML",
-					"viewName": "createSKU"
-				},
 				"page3": {
 					"viewType": "XML",
 					"viewName": "page3",
-					"viewLevel" : 2
+					"viewLevel": 2
 				},
-					"salesTaxMaintenance": {
+				"salesTaxMaintenance": {
 					"viewType": "XML",
-					"viewName": "salesTaxMaintenance"
-				
+					"viewName": "salesTaxMaintenance",
+					"viewLevel": 3
 				}
 			}
 		}

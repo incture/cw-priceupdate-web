@@ -519,10 +519,10 @@
     border: 1px solid #ceeaca;
     border-radius: 0.4rem;
 }
-.iconPanelToolbar .sapMTitle
-{
-	color:#508171;
-	 font-weight: Bold;
+
+.iconPanelToolbar .sapMTitle {
+    color: #508171;
+    font-weight: Bold;
 }
 
 .VBox {
@@ -558,14 +558,13 @@
     -webkit-align-self: auto;
     align-self: center;
 }
-.formBoxStyle{
-	background: lightgrey;
+
+.formBoxStyle {
+    background: lightgrey;
     margin: 0rem;
     box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 1px 1px rgba(0, 0, 0, .5);
     border-radius: 5px;
 }
-
-
 
 .tableClass .sapMInputBaseInner {
     color: #000000;
@@ -586,11 +585,9 @@
     border-right: 0px !important;
 }
 
-.tableClass
-{
-	padding-bottom:1rem;
+.tableClass {
+    padding-bottom: 1rem;
 }
-
 
 .createNewTaxCode.sapUiSizeCompact.sapMDialog,
 .sapUiSizeCompact .sapMDialog {
@@ -599,18 +596,20 @@
     padding-top: 2.5rem;
     width: 25%;
 }
+
 .createNewTaxCode .sapUiRespGrid.sapUiRespGridVSpace1>div {
     margin-bottom: 0rem !important;
 }
+
 .createTaxCodeTextArea.sapMTextArea .sapMTextAreaInner {
     -webkit-overflow-scrolling: touch;
     line-height: 1.4;
     height: 100%;
     width: 170%;
 }
+
 .createTaxCodeTextArea.sapMInputBaseInner {
     color: #000000;
-   
     background: #ffffff;
     border: 1px solid #bfbfbf;
     -webkit-appearance: none;
@@ -621,32 +620,31 @@
     font-size: 0.875rem;
     font-family: Arial, Helvetica, sans-serif;
     line-height: normal;
-   
     padding: 0 0.7rem;
 }
+
 .createNewTaxCodefragTitle.sapMDialog>header.sapMDialogTitle .sapMTitle {
     color: #508171;
     font-weight: Bold;
 }
+
 .avalaraTaxToolbar.sapMTB {
     height: 3rem;
     background: #ceeaca;
     border: 1px solid #ceeaca;
-   
 }
-.avalaraTaxToolbar .sapMTitle
-{
-	color:#508171;
-	 font-weight: Bold;
+
+.avalaraTaxToolbar .sapMTitle {
+    color: #508171;
+    font-weight: Bold;
 }
+
 html.sap-desktop .sapMSlt:not(.sapMSltExpanded):not(.sapMSltDisabled):not(.sapMSltState):focus {
     outline-offset: -3px;
     outline: 0px none #000000;
 }
-.sapMFocus .sapMInputDivWrapper:not(.sapMInputBaseDisabledInner)::before
-{
+
+.sapMFocus .sapMInputDivWrapper:not(.sapMInputBaseDisabledInner)::before {
     /*outline: 0px none #000000;*/
-	border:none !important; 
+    border: none !important;
 }
-
-

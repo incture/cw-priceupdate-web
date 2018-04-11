@@ -64,6 +64,9 @@ sap.ui.define([
 		onRequestIdPress: function() {
 			this.oRouter.navTo("page3");
 		},
+		onAvalaraPress : function(){
+			this.oRouter.navTo("salesTaxMaintenance");
+		},
 		/*********Clear filter ************/
 		onClearFilter: function() {
 			this.getView().getModel("oDashboardModel").refresh();
@@ -152,11 +155,10 @@ sap.ui.define([
 		onCreatePress: function() {
 			this.loadModel();
 			this.onCreateNewSKU();
-			if(!this.createNewSkudialog)
-			{
-			this.createNewSkudialog = sap.ui.xmlfragment(
-				"freshDirectSKU.SKU.fragment.createNewSKU", this);
-			this.getView().addDependent(this.createNewSkudialog);
+			if (!this.createNewSkudialog) {
+				this.createNewSkudialog = sap.ui.xmlfragment(
+					"freshDirectSKU.SKU.fragment.createNewSKU", this);
+				this.getView().addDependent(this.createNewSkudialog);
 			}
 			this.createNewSkudialog.open();
 

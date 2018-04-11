@@ -38,7 +38,7 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		var that = this;
 		page3Model.attachRequestCompleted(function(oEvent) {
 			that.getView().setModel(page3Model, "page3Model");
-			
+
 		});
 
 	},
@@ -59,9 +59,9 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 	 * This hook is the same one that SAPUI5 controls get after being rendered.
 	 * @memberOf view.page3
 	 */
-		onAfterRendering: function() {
-	this.financeCaseValue();
-		}
+	onAfterRendering: function() {
+		this.financeCaseValue();
+	}
 
 	/**
 	 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.

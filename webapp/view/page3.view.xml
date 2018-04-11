@@ -236,107 +236,84 @@
 							<HBox justifyContent="End">
 								<Button text="{i18n>VIEW_SOURCE}" type="Accept" class="commitBtnClass"></Button>
 							</HBox>
-							<Panel expandable="true" headerText="{i18n>SOURCE_INFO}"
-								class="iconPanelHdng" width="99.4%">
+							<Panel expandable="true" headerText="{i18n>SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
 								<content>
-									<layout:Grid defaultSpan="L3 M6 S12" width="100%"
-										class="IconTabInputClass">
+									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:"
-												design="Bold" />
-											<Switch state="true" customTextOn="Yes" customTextOff="No"
-												class="basicSwitchBtnClass">
-											</Switch>
-											<Label text="{i18n>VENDOR_NAME}:" design="Bold" />
-											<Input />
-											<Label text="Sole Sourced Product:" design="Bold" />
-											<Switch state="true" customTextOn="Yes" customTextOff="No"
-												class="basicSwitchBtnClass">
-											</Switch>
-											<Label text="{i18n>SOURCE_TYPE}:" design="Bold" />
-											<Select selectedKey="{/ProductCollection/0/ProductId}"
-												items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+											<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
+											<Input/>
+											<Label text="Sole Sourced Product:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
+											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}" />
-											</Select> 
-											<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold" />
-											<Switch state="true" customTextOn="Yes" customTextOff="No"
-												class="basicSwitchBtnClass">
-											</Switch>
-											<Label text="{i18n>CONTACT_NAME}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:"
-												design="Bold" />
-											<Switch state="true" customTextOn="Yes" customTextOff="No"
-												class="basicSwitchBtnClass">
-											</Switch>
-											<Label text="{i18n>CONTACT_TITLE}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold" />
-											<Switch state="true" customTextOn="Yes" customTextOff="No"
-												class="basicSwitchBtnClass">
-											</Switch>
-											<Label text="{i18n>EMAIL}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:"
-												design="Bold" />
-											<Switch state="true" customTextOn="Yes" customTextOff="No"
-												class="basicSwitchBtnClass">
-											</Switch>
-											<Label text="{i18n>PHONE_NUMBER}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:"
-												design="Bold" />
-											<Switch state="true" customTextOn="Yes" customTextOff="No"
-												class="basicSwitchBtnClass">
-											</Switch>
-											<Label text="{i18n>PAYMENT_TERMS}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>LEAD_TIME}:" design="Bold" />
-											<Input />
-											<Label text="{i18n>INCOTERMS}:" design="Bold" />
-											<Input />
+												<core:Item key="{ProductId}" text="{Name}"/>
+											</Select>
+											<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>EMAIL}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
+											<Input/>
+											<Label text="{i18n>INCOTERMS}:" design="Bold"/>
+											<Input/>
 										</layout:content>
 									</layout:Grid>
 									<VBox class="sapUiSmallMargin formBoxStyle">
-									<f:SimpleForm 	layout="ResponsiveGridLayout">
-										<Title text="Ship from Location"></Title>
-										<Label text="Location Name"></Label>
-										<Input value="">
-											<layoutData>
-												<layout:GridData span="XL2 L3 M4 S4" />
-											</layoutData>
-										</Input>
-										<Label text="Street Address"></Label>
-										<Input value=""></Input>
-										<Label text="State"></Label>
-										<Select selectedKey="{/ProductCollection/0/ProductId}"
-												items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}" />
+										<f:SimpleForm layout="ResponsiveGridLayout">
+											<Title text="Ship from Location"></Title>
+											<Label text="Location Name"></Label>
+											<Input value="">
 												<layoutData>
-												<layout:GridData span="XL2 L3 M4 S4" />
-											</layoutData>
-										</Select>
-										<Label text="City"></Label>
-										<Select selectedKey="{/ProductCollection/0/ProductId}"
-												items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+													<layout:GridData span="XL2 L3 M4 S4"/>
+												</layoutData>
+											</Input>
+											<Label text="Street Address"></Label>
+											<Input value=""></Input>
+											<Label text="State"></Label>
+											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}" />
+												<core:Item key="{ProductId}" text="{Name}"/>
 												<layoutData>
-												<layout:GridData span="XL2 L3 M4 S4" />
-											</layoutData>
-										</Select>
-										<Label text="ZIP"></Label>
-										<Input>
-											<layoutData>
-												<layout:GridData span="XL2 L3 M4 S4" />
-											</layoutData>
-										</Input>
+													<layout:GridData span="XL2 L3 M4 S4"/>
+												</layoutData>
+											</Select>
+											<Label text="City"></Label>
+											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+												class="IconTabSelectClass">
+												<core:Item key="{ProductId}" text="{Name}"/>
+												<layoutData>
+													<layout:GridData span="XL2 L3 M4 S4"/>
+												</layoutData>
+											</Select>
+											<Label text="ZIP"></Label>
+											<Input>
+												<layoutData>
+													<layout:GridData span="XL2 L3 M4 S4"/>
+												</layoutData>
+											</Input>
 										</f:SimpleForm>
 									</VBox>
 								</content>
@@ -597,7 +574,7 @@
 									<ColumnListItem>
 										<cells>
 											<Label text="{page3Model>h}"/>
-											<Input class="sapUiTinyMarginTop" value="{page3Model>case}"  change="financeCaseValue"/>
+											<Input class="sapUiTinyMarginTop" value="{page3Model>case}" change="financeCaseValue"/>
 											<Text text="{path:'page3Model>case',formatter:'.financeEachValue'}"/>
 										</cells>
 									</ColumnListItem>
@@ -691,7 +668,7 @@
 										</layoutData>
 									</Label>
 									<TextArea>
-											<layoutData>
+										<layoutData>
 											<layout:GridData span="L3 M4 S6"/>
 										</layoutData>
 									</TextArea>

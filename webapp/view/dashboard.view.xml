@@ -32,6 +32,7 @@
 				<Input value="" class="dashboardHdrInputStyle removeInputBorderStyle" placeholder="No. of SKU's"/>
 				<Button text="{i18n>CREATE}" type="Accept" class="dashboardHdrBtnStyle" press="onCreatePress"/>
 				<Button text="{i18n>UPLOAD}" type="Emphasized" class="dashboardHdrBtnStyle"/>
+				<Button text="Avalara" type="Emphasized" press="onAvalaraPress"></Button>
 			</HBox>
 			<VBox class="dshbrdHdrBoxClass">
 				<Toolbar class="dashboardTlToolbarStyle">
