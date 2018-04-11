@@ -4,15 +4,17 @@
 		<pages>
 			<Page showHeader="false" class="sapUiSizeCompact">
 				<content>
-					<Table items="{avalaraTaxModel>/avalaraTax}" class="tableClass" mode="MultiSelect">
+					<Table items="{avalaraTaxModel>/avalaraTax}" class="tableClass" 
+					mode="SingleSelectMaster">
 						<headerToolbar>
 							<Toolbar class="avalaraTaxToolbar">
 								<Title text="{i18n>SALES_TAX_MAINTENANCE}"/>
 								<ToolbarSpacer></ToolbarSpacer>
-								<Button text="Create New SubCategory" press="createNewSubCategory"></Button>
+								<Button text="Create New SubCategory" type="Accept" press="createNewSubCategory"></Button>
 								<Button text="Create" type="Accept" press="createNewTaxCode"></Button>
-								<Button text="Modify" press="modifyTaxCode"></Button>
+								<Button text="Modify" type="Accept" press="modifyTaxCode"></Button>
 								<Button text="Delete" type="Reject" press="deleteTaxCode"></Button>
+								<Button text="Download as Excel" type="Emphasized" press="onDownloadtoExcel"></Button>
 							</Toolbar>
 						</headerToolbar>
 						<columns>
@@ -22,10 +24,10 @@
 							<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
 								<Text text="{i18n>SUB_CATEGORY}"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem" hAlign="Center">
 								<Text text="{i18n>AVALARA_TAX_CODE}"/>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
+							<Column minScreenWidth="Tablet" demandPopin="true" width="6rem" hAlign="Center">
 								<Text text="{i18n>TAXABLE_IN_NY}"/>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true">

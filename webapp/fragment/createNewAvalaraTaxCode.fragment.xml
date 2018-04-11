@@ -1,11 +1,11 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="Create New Code" class="createNewTaxCodefragTitle createNewTaxCode sapUiSizeCompact">
+	<Dialog title="New Avalara Tax Code" class="createNewTaxCodefragTitle createNewTaxCode sapUiSizeCompact">
 		<content>
 			<layout:Grid defaultSpan="L6 M12 S12" class="gridClass">
 				<layout:content>
 					<Label text="{i18n>CATEGORY}" design="Bold" class="sapUiSmallMarginTop"></Label>
 					<Select editable="{createNewTaxCodeModel>/categoryEditable}" forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
-						visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedItemId="{createNewTaxCodeModel>/dropdowncategory}" items="{avalaraTaxModel>/cat}">
+						visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}" items="{avalaraTaxModel>/cat}">
 						<core:Item  key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
 					</Select>
 					<Input class="sapUiTinyMarginTop createTaxCodeInput" editable="{createNewTaxCodeModel>/categoryEditable}"
@@ -18,7 +18,7 @@
 					<Input class="sapUiTinyMarginTop createTaxCodeInput" visible="{createNewTaxCodeModel>/subCategoryInputVisible}"
 					value="{createNewTaxCodeModel>/subCategory}"></Input>
 					<Label text="{i18n>AVALARA_TAX_CODE}" design="Bold" class="sapUiSmallMarginTop"></Label>
-					<Input class="sapUiTinyMarginTop createTaxCodeInput" editable="{createNewTaxCodeModel>/taxCodeEditable}"
+					<Input class="sapUiTinyMarginTop createTaxCodeInput" editable="{createNewTaxCodeModel>/taxCodeEditable}" maxLength="8"
 						value="{createNewTaxCodeModel>/taxCode}"></Input>
 					<Label text="{i18n>TAXABLE_IN_NY}" design="Bold" class="sapUiSmallMarginTop"></Label>
 					<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" editable="{createNewTaxCodeModel>/taxableEditable}" items="{avalaraTaxModel>/taxable}"
@@ -26,7 +26,7 @@
 						<core:Item key="{avalaraTaxModel>t}" text="{avalaraTaxModel>t}"/>
 					</Select>
 					<Label text="{i18n>DESCRIPTION}" design="Bold" class="sapUiSmallMarginTop"></Label>
-					<TextArea class="createTaxCodeTextArea" editable="{createNewTaxCodeModel>/DescriptionEditable}"
+					<TextArea class="createTaxCodeTextArea" editable="{createNewTaxCodeModel>/DescriptionEditable}" placeholder="Enter Description"
 						value="{createNewTaxCodeModel>/Description}">
 						<layoutData>
 							<layout:GridData span="L12 M12 S12" linebreak="true"/>

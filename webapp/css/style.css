@@ -639,4 +639,14 @@
 	color:#508171;
 	 font-weight: Bold;
 }
- 
+html.sap-desktop .sapMSlt:not(.sapMSltExpanded):not(.sapMSltDisabled):not(.sapMSltState):focus {
+    outline-offset: -3px;
+    outline: 0px none #000000;
+}
+.sapMFocus .sapMInputDivWrapper:not(.sapMInputBaseDisabledInner)::before
+{
+    /*outline: 0px none #000000;*/
+	border:none !important; 
+}
+
+
