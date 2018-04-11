@@ -26,7 +26,7 @@ sap.ui.define([
 		onFilterPress: function(oEvent) {
 			this.selectedColumn = oEvent.getSource().getParent().getContent()[1].getText();
 			if (!this.filterInputDialog) {
-				this.filterInputDialog = sap.ui.xmlfragment("sku.fragment.filterInput", this);
+				this.filterInputDialog = sap.ui.xmlfragment("freshDirectSKU.SKU.fragment.filterInput", this);
 				this.getView().addDependent(this.filterInputDialog);
 			}
 			this.filterInputDialog.openBy(oEvent.getSource());
@@ -74,7 +74,7 @@ sap.ui.define([
 			this.selectedColumn = oEvent.getSource().getParent().getContent()[1].getText();
 			var oButton = oEvent.getSource();
 			if (!this._actionSheet) {
-				this._actionSheet = sap.ui.xmlfragment("sku.fragment.sorting", this);
+				this._actionSheet = sap.ui.xmlfragment("freshDirectSKU.SKU.fragment.sorting", this);
 				this.getView().addDependent(this._actionSheet);
 			}
 			this._actionSheet.openBy(oButton);
@@ -101,7 +101,7 @@ sap.ui.define([
 		/*********** notes pressed from table ***********/
 		onNotesPress: function(oEvent) {
 			if (!this._notesDialog) {
-				this._notesDialog = sap.ui.xmlfragment("sku.fragment.notesFragment", this);
+				this._notesDialog = sap.ui.xmlfragment("freshDirectSKU.SKU.fragment.notesFragment", this);
 				this.getView().addDependent(this._notesDialog);
 			}
 			this._notesDialog.open(oEvent.getSource());
