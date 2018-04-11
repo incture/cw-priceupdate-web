@@ -528,18 +528,18 @@
 											<layout:GridData span="L2 M4 S6"></layout:GridData>
 										</layoutData>
 									</Label>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}"
 										class="IconTabSelectClass sapUiTinyMarginTop">
-										<core:Item key="{ProductId}" text="{Name}"/>
+										<core:Item key="{}" text="{page3Model>/category}"/>
 									</Select>
 									<Label text="{i18n>SUB_CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
 										<layoutData>
 											<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
 										</layoutData>
 									</Label>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}"
 										class="IconTabSelectClass sapUiTinyMarginTop">
-										<core:Item key="{ProductId}" text="{Name}"/>
+										<core:Item key="{}" text="{page3Model>/subCategory}"/>
 									</Select>
 									<Label text="{i18n>AVALARA_TAX_CODE}:" design="Bold" class="sapUiSmallMarginTop">
 										<layoutData>

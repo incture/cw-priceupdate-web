@@ -76,19 +76,19 @@
 			},
 			"routes": [{
 				"name": "dashboard",
-				"pattern": "",
+				"pattern": "1",
 				"target": [
 					"dashboard"
 				]
 			}, {
 				"name": "page3",
-				"pattern": "1",
+				"pattern": "2",
 				"target": [
 					"page3"
 				]
 			}, {
 				"name": "salesTaxMaintenance",
-				"pattern": "2",
+				"pattern": "",
 				"target": [
 					"salesTaxMaintenance"
 				]

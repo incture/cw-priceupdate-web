@@ -18,9 +18,21 @@ sap.ui.define([
 			var avalaraTaxModel = new sap.ui.model.json.JSONModel();
 			avalaraTaxModel.loadData("model/avalaraTaxModel.json");
 			this.getView().setModel(avalaraTaxModel, "avalaraTaxModel");
+			this.buttonDisabled();
 
 		},
-		createNewTaxCode: function() {
+		onRowSelection: function() {
+			var createNewTaxCodeModel = this.getView().getModel("createNewTaxCodeModel");
+			createNewTaxCodeModel.setProperty("/modifyEnabled", true);
+			createNewTaxCodeModel.setProperty("/deleteEnabled", true);
+		},
+		buttonDisabled: function() {
+			var createNewTaxCodeModel = this.getView().getModel("createNewTaxCodeModel");
+			createNewTaxCodeModel.setProperty("/modifyEnabled", false);
+			createNewTaxCodeModel.setProperty("/deleteEnabled", false);
+		},
+		createNewTaxCode: function(oEvent) {
+			var table = oEvent.getSource().getParent().getParent();
 			var createNewTaxCodeModel = this.getView().getModel("createNewTaxCodeModel");
 			createNewTaxCodeModel.setProperty("/categoryEditable", true);
 			createNewTaxCodeModel.setProperty("/CategoryInputVisible", false);
@@ -32,8 +44,10 @@ sap.ui.define([
 			createNewTaxCodeModel.setProperty("/taxCodeEditable", true);
 			createNewTaxCodeModel.setProperty("/buttonText", "Create");
 			this.openAvalraTaxDialog();
+			table.removeSelections();
 		},
-		createNewSubCategory: function() {
+		createNewSubCategory: function(oEvent) {
+			var table = oEvent.getSource().getParent().getParent();
 			var createNewTaxCodeModel = this.getView().getModel("createNewTaxCodeModel");
 			createNewTaxCodeModel.setProperty("/categoryEditable", true);
 			createNewTaxCodeModel.setProperty("/CategoryDropdownVisible", true);
@@ -44,6 +58,7 @@ sap.ui.define([
 			createNewTaxCodeModel.setProperty("/taxCodeEditable", true);
 			createNewTaxCodeModel.setProperty("/buttonText", "Create");
 			this.openAvalraTaxDialog();
+			table.removeSelections();
 		},
 		modifyTaxCode: function(oEvent) {
 			var table = oEvent.getSource().getParent().getParent();
@@ -58,9 +73,9 @@ sap.ui.define([
 				var avalaraTaxModelData = avalaraTaxModel.getData();
 				var selected = selectedItems[0].getId().split("-")[2];
 				var selectedItemData = avalaraTaxModelData.avalaraTax[selected];
-			
+
 				createNewTaxCodeModel.setProperty("/", selectedItemData, null, true);
-					createNewTaxCodeModel.setProperty("/selected", selected);
+				createNewTaxCodeModel.setProperty("/selected", selected);
 				createNewTaxCodeModel.setProperty("/categoryEditable", false);
 				createNewTaxCodeModel.setProperty("/CategoryDropdownVisible", false);
 				createNewTaxCodeModel.setProperty("/CategoryInputVisible", true);
@@ -71,6 +86,7 @@ sap.ui.define([
 				createNewTaxCodeModel.setProperty("/buttonText", "Modify");
 				this.openAvalraTaxDialog();
 				table.removeSelections();
+
 			}
 
 		},
@@ -100,44 +116,77 @@ sap.ui.define([
 			}
 			avalaraTaxModel.refresh();
 			table.removeSelections();
+			this.buttonDisabled();
 		},
-		onCreateNewAvalaraTaxode: function() {
+		onCreateNewAvalaraTaxode: function(oEvent) {
 
 			var avalaraTaxModel = this.getView().getModel("avalaraTaxModel");
 			var avalaraTaxModelData = avalaraTaxModel.getData();
 			var createNewTaxCodeModel = this.getView().getModel("createNewTaxCodeModel");
 			var createNewTaxCodeModeldata = createNewTaxCodeModel.getData();
 			var selected = createNewTaxCodeModel.getProperty("/selected");
-				var selectedCategory = createNewTaxCodeModeldata.categorySelectedKey;       
 			if (createNewTaxCodeModeldata.buttonText === "Create") {
-			    
-				var newTax = {
-					"category": selectedCategory,
-					"subCategory": createNewTaxCodeModeldata.subCategory,
-					"taxCode": createNewTaxCodeModeldata.taxCode,
-					"taxable": createNewTaxCodeModeldata.taxable,
-					"Description": createNewTaxCodeModeldata.Description
-				};
-				avalaraTaxModelData.avalaraTax.push(newTax);
+				var selectedCategoryKey = createNewTaxCodeModeldata.categorySelectedKey;
+				for (var i = 0; i < avalaraTaxModelData.cat.length; i++) {
+					if (avalaraTaxModelData.cat[i].key === selectedCategoryKey) {
+
+						var selectedCategory = avalaraTaxModelData.cat[i].c;
+					}
+				}
+				if ((selectedCategory != undefined && selectedCategory != "") &&
+					(createNewTaxCodeModeldata.subCategory != undefined && createNewTaxCodeModeldata.subCategory != "") &&
+					(createNewTaxCodeModeldata.taxCode != undefined && createNewTaxCodeModeldata.taxCode != "") &&
+					(createNewTaxCodeModeldata.Description != undefined && createNewTaxCodeModeldata.Description != "") &&
+					(createNewTaxCodeModeldata.taxable != undefined && createNewTaxCodeModeldata.taxable != "")) {
+
+					var newTax = {
+						"category": selectedCategory,
+						"subCategory": createNewTaxCodeModeldata.subCategory,
+						"taxCode": createNewTaxCodeModeldata.taxCode,
+						"taxable": createNewTaxCodeModeldata.taxable,
+						"Description": createNewTaxCodeModeldata.Description
+					};
+					avalaraTaxModelData.avalaraTax.push(newTax);
+						this.onCancelCreateNewTaxCode();
+				} else {
+					sap.m.MessageToast.show("Please Enter Data in all Fields");
+				}
 			} else {
 
 				var newTax = {
-					"category":createNewTaxCodeModeldata.category,
+					"category": createNewTaxCodeModeldata.category,
 					"subCategory": createNewTaxCodeModeldata.subCategory,
 					"taxCode": createNewTaxCodeModeldata.taxCode,
 					"taxable": createNewTaxCodeModeldata.taxable,
 					"Description": createNewTaxCodeModeldata.Description
 				};
 				avalaraTaxModelData.avalaraTax.splice(selected, 1, newTax);
-
+					this.onCancelCreateNewTaxCode();
 			}
 			avalaraTaxModel.refresh();
-			this.onCancelCreateNewTaxCode();
+		
+
 		},
-		onCancelCreateNewTaxCode: function() {
+		onCancelCreateNewTaxCode: function(oEvent) {
+			var avalaraTaxModel = this.getView().getModel("avalaraTaxModel");
+			var avalaraTaxModelData = avalaraTaxModel.getData();
+			var createNewTaxCodeModel = this.getView().getModel("createNewTaxCodeModel");
+			var createNewTaxCodeModeldata = createNewTaxCodeModel.getData();
+			var selected = createNewTaxCodeModel.getProperty("/selected");
+			if (createNewTaxCodeModeldata.buttonText === "Modify") {
+				var newTax = {
+					"category": createNewTaxCodeModeldata.category,
+					"subCategory": createNewTaxCodeModeldata.subCategory,
+					"taxCode": createNewTaxCodeModeldata.taxCode,
+					"taxable": createNewTaxCodeModeldata.taxable,
+					"Description": createNewTaxCodeModeldata.Description
+				};
+				avalaraTaxModelData.avalaraTax.splice(selected, 1, newTax);
+			}
 
 			this.creteNewTaxCodedialog.close();
 			this.fragmentRefresh();
+			this.buttonDisabled();
 
 		},
 		fragmentRefresh: function() {
@@ -212,7 +261,7 @@ sap.ui.define([
 
 				]
 			});
-			oExport.saveFile("AVALARA_TAX_MAINTANENCE"); // download exported file 
+			oExport.saveFile("AVALARA TAX MAINTANENCE"); // download exported file 
 
 		}
 
