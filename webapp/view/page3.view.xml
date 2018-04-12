@@ -177,7 +177,8 @@
 											<Input/>
 										</layout:content>
 									</layout:Grid>
-									<Table class="VBox">
+									<VBox  class="VBox">
+									<Table>
 										<columns>
 											<Column>
 												<Label text="{i18n>STATE}"/>
@@ -193,10 +194,10 @@
 											</Column>
 											<Column>
 												<Label text="{i18n>AMT_EACH}"/>
-											</Column> 
+											</Column>
 											<Column>
 												<Label text="{i18n>AMT_CASE}"/>
-											</Column> 
+											</Column>
 										</columns>
 										<items>
 											<ColumnListItem>
@@ -209,6 +210,7 @@
 											</ColumnListItem>
 										</items>
 									</Table>
+									</VBox>
 								</content>
 							</Panel>
 							<Panel expandable="true" headerText="{i18n>BRAND_OWNER_DETAILS}" class="iconPanelHdng" width="99.4%">
@@ -460,7 +462,85 @@
 								<Button text="Save" type="Accept" class="commitBtnClass"/>
 							</HBox>
 						</IconTabFilter>
-						<IconTabFilter text="{i18n>STORE_FRONT_ATTRIBUTES}"></IconTabFilter>
+						<IconTabFilter text="{i18n>STORE_FRONT_ATTRIBUTES}">
+							<layout:Grid defaultSpan="L6 M12 S12" class="wordWrapClass IconTabInputClass">
+								<layout:content>
+									<layout:Grid defaultSpan="L6 M6 S6">
+										<layout:content>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PRODUCT_NAME}"/>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}"/>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PRODUCT_CONTENT_COPY}"/>
+											<TextArea class="productContentCopyTextArea" editable="{createNewTaxCodeModel>/DescriptionEditable}" placeholder="Enter Here"
+												value="{createNewTaxCodeModel>/Description}">
+												<layoutData>
+													<layout:GridData span="L12 M12 S12" linebreak="true"/>
+												</layoutData>
+											</TextArea>
+										</layout:content>
+									</layout:Grid>
+									<layout:Grid defaultSpan="L6 M6 S6">
+										<layout:content>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>MERCHANT_SUGGESTED_SEARCH_TERMS}"></Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}"/>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PLACEMENT_ON_STOREFRONT}">
+												<layoutData>
+													<layout:GridData span="L6 M6 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+												items="{avalaraTaxModel>/cat}">
+												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+											</Select>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_A}">
+												<layoutData>
+													<layout:GridData span="L6 M6 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+												items="{avalaraTaxModel>/cat}">
+												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+											</Select>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_B}">
+												<layoutData>
+													<layout:GridData span="L6 M6 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+												items="{avalaraTaxModel>/cat}">
+												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+											</Select>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_C}">
+												<layoutData>
+													<layout:GridData span="L6 M6 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+												items="{avalaraTaxModel>/cat}">
+												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+											</Select>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_D}">
+												<layoutData>
+													<layout:GridData span="L6 M6 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+												items="{avalaraTaxModel>/cat}">
+												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+											</Select>
+										</layout:content>
+									</layout:Grid>
+								</layout:content>
+							</layout:Grid>
+							<HBox justifyContent="End">
+								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+								<Button text="Save" type="Accept" class="commitBtnClass"/>
+							</HBox>
+						</IconTabFilter>
 						<IconTabFilter text="{i18n>PRODUCT_TAGS}">
 							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CERTIFICATION}">
 								<content>
@@ -540,8 +620,7 @@
 											<layout:GridData span="L2 M4 S6"></layout:GridData>
 										</layoutData>
 									</Label>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}"
-										class="IconTabSelectClass sapUiTinyMarginTop">
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}" class="IconTabSelectClass sapUiTinyMarginTop">
 										<core:Item key="{}" text="{page3Model>/category}"/>
 									</Select>
 									<Label text="{i18n>SUB_CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
@@ -549,8 +628,7 @@
 											<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
 										</layoutData>
 									</Label>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}"
-										class="IconTabSelectClass sapUiTinyMarginTop">
+									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}" class="IconTabSelectClass sapUiTinyMarginTop">
 										<core:Item key="{}" text="{page3Model>/subCategory}"/>
 									</Select>
 									<Label text="{i18n>AVALARA_TAX_CODE}:" design="Bold" class="sapUiSmallMarginTop">
@@ -570,31 +648,173 @@
 							</HBox>
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>COMMERCIAL_FINANCE}">
-							<Table items="{page3Model>/commercialFinance}" class="tableClass">
-								<columns>
-									<Column minScreenWidth="Tablet" width="15rem" demandPopin="true">
-										<Text text=""/>
-									</Column>
-									<Column minScreenWidth="Tablet" width="7rem" demandPopin="true">
-										<Text text="{i18n>CASE}"/>
-									</Column>
-									<Column minScreenWidth="Tablet" demandPopin="true">
-										<Text text="{i18n>EACH}"/>
-									</Column>
-								</columns>
-								<items>
-									<ColumnListItem>
-										<cells>
-											<Label text="{page3Model>h}"/>
-											<Input class="sapUiTinyMarginTop" value="{page3Model>case}" change="financeCaseValue"/>
-											<Text text="{path:'page3Model>case',formatter:'.financeEachValue'}"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>
-							<layout:Grid class="gridClass">
+							<layout:Grid class="wordWrapClass IconTabInputClass">
+								<layout:content>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6"/>
+										</layoutData>
+									</Label>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>COST(UOM)}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Label>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>COST(UNIT)}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Label>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>NET_ITEM_COST}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Text text="{}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>NET_HEADER_COST}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Text text="{}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>TRUE_NET_PRODUCT_COST}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Text text="{}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>DEAD_NET_COST}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Text text="{}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>CFM_ADJUSTMENT($)}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Input>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>CFM_ADJUSTMENT(%)}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Input>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>DEAD_NET_COST}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Text text="{}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>PRICE}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Text text="{}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>GROSS_MARGIN}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Text text="{}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+									<Text text="{,formatter='.financePerUnitValue'}">
+										<layoutData>
+											<layout:GridData span="L2 M3 S4"/>
+										</layoutData>
+									</Text>
+								</layout:content>
+							</layout:Grid>
+							<layout:Grid class="wordWrapClass IconTabInputClass">
 								<layout:content>
 									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>MIN_ORDER_QUANTITY}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6" linebreak="true"/>
+										</layoutData>
+									</Label>
+									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+										<layoutData>
+											<layout:GridData span="L3 M4 S6"/>
+										</layoutData>
+									</Input>
+										<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>AVG_WEEKLY_UNIT_OF_DEMAND}">
 										<layoutData>
 											<layout:GridData span="L3 M4 S6" linebreak="true"/>
 										</layoutData>
@@ -624,16 +844,7 @@
 											<layout:GridData span="L3 M4 S6"/>
 										</layoutData>
 									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>AVG_WEEKLY_UNIT_OF_DEMAND}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
+								
 									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>GMROI}">
 										<layoutData>
 											<layout:GridData span="L3 M4 S6" linebreak="true"/>
@@ -686,6 +897,10 @@
 									</TextArea>
 								</layout:content>
 							</layout:Grid>
+							<HBox justifyContent="End">
+								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+								<Button text="Save" type="Accept" class="commitBtnClass"/>
+							</HBox>
 						</IconTabFilter>
 					</items>
 				</IconTabBar>

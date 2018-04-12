@@ -60,7 +60,7 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 	 * @memberOf view.page3
 	 */
 	onAfterRendering: function() {
-		this.financeCaseValue();
+		// this.financeCaseValue();
 	}
 
 	/**
