@@ -6,7 +6,7 @@
 			<HBox class="backBtnHBoxClass">
 				<Button icon="sap-icon://arrow-left" class="backBtnStyle" press="onBackPress"/>
 			</HBox>
-			<HBox justifyContent="Center" class="nav">
+			<!--<HBox justifyContent="Center" class="nav">
 				<VBox>
 					<HBox>
 						<HBox class="lineHBoxStylenew1"></HBox>
@@ -63,7 +63,7 @@
 					</HBox>
 					<Text text="Binning"/>
 				</VBox>
-			</HBox>
+			</HBox>-->
 			<HBox justifyContent="End">
 				<Button text="Commit" type="Accept" class="commitBtnClass"/>
 			</HBox>
@@ -262,131 +262,149 @@
 						<IconTabFilter text="{i18n>PRODUCT_SOURCE}" key="Product Sources">
 							<HBox justifyContent="End">
 								<Button text="{i18n>VIEW_SOURCE}" type="Accept" class="commitBtnClass"></Button>
+								<Button text="{i18n>ADD_SOURCE}" type="Accept" class="commitBtnClass"></Button>
 							</HBox>
-							<Panel expandable="true" headerText="{i18n>SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
-								<content>
-									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-										<layout:content>
-											<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
-											<Input/>
-											<Label text="Sole Sourced Product:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-											</Select>
-											<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>EMAIL}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>INCOTERMS}:" design="Bold"/>
-											<Input/>
-										</layout:content>
-									</layout:Grid>
-									<VBox class="sapUiSmallMargin formBoxStyle">
-										<f:SimpleForm layout="ResponsiveGridLayout">
-											<Title text="Ship from Location"></Title>
-											<Label text="Location Name"></Label>
-											<Input value="">
-												<layoutData>
-													<layout:GridData span="XL2 L3 M4 S4"/>
-												</layoutData>
-											</Input>
-											<Label text="Street Address"></Label>
-											<Input value=""></Input>
-											<Label text="State"></Label>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-												<layoutData>
-													<layout:GridData span="XL2 L3 M4 S4"/>
-												</layoutData>
-											</Select>
-											<Label text="City"></Label>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-												<layoutData>
-													<layout:GridData span="XL2 L3 M4 S4"/>
-												</layoutData>
-											</Select>
-											<Label text="ZIP"></Label>
-											<Input>
-												<layoutData>
-													<layout:GridData span="XL2 L3 M4 S4"/>
-												</layoutData>
-											</Input>
-										</f:SimpleForm>
-									</VBox>
-								</content>
-							</Panel>
-							<Panel expandable="true" headerText="{i18n>COST_SHEET}" class="iconPanelHdng" width="99.4%">
-								<content></content>
-							</Panel>
-							<Panel expandable="true" headerText="{i18n>ORDERING_INFO}" class="iconPanelHdng" width="99.4%">
-								<content>
-									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-										<layout:content>
-											<Label text="{i18n>SOURCE_ITEM_NO}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>SOURCE_PRODUCT_DESC}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>ORDER_UNIT_MEASURE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>ORDER_UNIT_UPC}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>UNIT_PER_CASE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>CASES_PER_LAYER}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>LAYERS_PER_PALLET}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>CASES_PER_PALLET}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>MINIMUM_ITEM_ORDER_QUANTITY}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>ORDER_MULTIPLE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>ORDER_MAXIMUM}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>MIN_ORDER_LEVL_ORDER_QUANTITY}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>MIN_GUARANTED_SHELF_LIFE_DERIVED}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>COUNTRY_OF_ORIGIN}:" design="Bold"/>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-											</Select>
-										</layout:content>
-									</layout:Grid>
-								</content>
-							</Panel>
+							<VBox>
+								<Panel expandable="true" headerText="{i18n>SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
+									<content>
+										<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+											<layout:content>
+												<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
+												<Input/>
+												<Label text="Sole Sourced Product:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
+												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+													class="IconTabSelectClass">
+													<core:Item key="{ProductId}" text="{Name}"/>
+												</Select>
+												<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>EMAIL}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>INCOTERMS}:" design="Bold"/>
+												<Input/>
+											</layout:content>
+										</layout:Grid>
+										<VBox class="sapUiSmallMargin formBoxStyle">
+											<f:SimpleForm layout="ResponsiveGridLayout">
+												<Title text="Ship from Location"></Title>
+												<Label text="Location Name"></Label>
+												<Input value="">
+													<layoutData>
+														<layout:GridData span="XL2 L3 M4 S4"/>
+													</layoutData>
+												</Input>
+												<Label text="Street Address"></Label>
+												<Input value=""></Input>
+												<Label text="State"></Label>
+												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+													class="IconTabSelectClass">
+													<core:Item key="{ProductId}" text="{Name}"/>
+													<layoutData>
+														<layout:GridData span="XL2 L3 M4 S4"/>
+													</layoutData>
+												</Select>
+												<Label text="City"></Label>
+												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+													class="IconTabSelectClass">
+													<core:Item key="{ProductId}" text="{Name}"/>
+													<layoutData>
+														<layout:GridData span="XL2 L3 M4 S4"/>
+													</layoutData>
+												</Select>
+												<Label text="ZIP"></Label>
+												<Input>
+													<layoutData>
+														<layout:GridData span="XL2 L3 M4 S4"/>
+													</layoutData>
+												</Input>
+											</f:SimpleForm>
+										</VBox>
+									</content>
+								</Panel>
+								<Panel expandable="true" headerText="{i18n>COST_SHEET}" class="iconPanelHdng" width="99.4%">
+									<content></content>
+								</Panel>
+								<Panel expandable="true" headerText="{i18n>ORDERING_INFO}" class="iconPanelHdng" width="99.4%">
+									<content>
+										<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+											<layout:content>
+												<Label text="{i18n>SOURCE_ITEM_NO}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>SOURCE_PRODUCT_DESC}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>ORDER_UNIT_MEASURE}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>ORDER_UNIT_UPC}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>UNIT_PER_CASE}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>CASES_PER_LAYER}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>LAYERS_PER_PALLET}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>CASES_PER_PALLET}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>MINIMUM_ITEM_ORDER_QUANTITY}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>ORDER_MULTIPLE}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>ORDER_MAXIMUM}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>MIN_ORDER_LEVL_ORDER_QUANTITY}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>MIN_GUARANTED_SHELF_LIFE_DERIVED}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>COUNTRY_OF_ORIGIN}:" design="Bold"/>
+												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+													class="IconTabSelectClass">
+													<core:Item key="{ProductId}" text="{Name}"/>
+												</Select>
+											</layout:content>
+										</layout:Grid>
+									</content>
+								</Panel>
+							</VBox>
+							<VBox>
+								<Table>
+									<columns>
+										<Column>
+											<Label text="{i18n>VENDOR_NUMBER}" design="Bold"></Label>
+										</Column>
+										<Column>
+											<Label text="{i18n>VENDOR_NAME}" design="Bold"></Label>
+										</Column>
+										<Column>
+											<Label text="{i18n>SOURCE_TYPE}" design="Bold"></Label>
+										</Column>
+									</columns>
+								</Table>
+							</VBox>
 							<HBox justifyContent="End">
 								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
 								<Button text="Save" type="Accept" class="commitBtnClass"/>
@@ -915,46 +933,48 @@
 							</HBox>
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>FILE_UPLOAD}">
-							<HBox>
-								<Label text="File type:" design="Bold"></Label>
+							<HBox justifyContent="End">
+								<Label text="File type:" design="Bold" style="margin-top:15%"></Label>
 								<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 									class="IconTabSelectClass sapUiTinyMarginTop">
 									<core:Item key="{ProductId}" text="{Name}"/>
 								</Select>
-								<Input value=""></Input>
-								<Button text="Browse" type="Accept"></Button>
-								<Button text="Upload" type="Accept"></Button>
+								<Input value="" class="fileUploadInputStyle"></Input>
+								<Button text="Browse" type="Accept" class="commitBtnClass"></Button>
+								<Button text="Upload" type="Accept" class="commitBtnClass"></Button>
 							</HBox>
-							<Table>
-								<columns>
-									<Column>
-										<Label text="File Name" design="Bold"></Label>
-									</Column>
-									<Column>
-										<Label text="File Type" design="Bold"></Label>
-									</Column>
-									<Column>
-										<Label text="Uploaded By" design="Bold"></Label>
-									</Column>
-									<Column>
-										<Label text="Uploaded on" design="Bold"></Label>
-									</Column>
-									<Column>
-										<Label text="Notes" design="Bold"></Label>
-									</Column>
-									<Column></Column>
-								</columns>
-								<items>
-									<ColumnListItem>
-										<Text text="a"></Text>
-										<Text text="a"></Text>
-										<Text text="a"></Text>
-										<Text text="a"></Text>
-										<Text text="a"></Text>
-										<Button icon="sap-icon://delete" type="Reject"></Button>
-									</ColumnListItem>
-								</items>
-							</Table>
+							<VBox class="VBox">
+								<Table>
+									<columns>
+										<Column>
+											<Label text="File Name" design="Bold"></Label>
+										</Column>
+										<Column>
+											<Label text="File Type" design="Bold"></Label>
+										</Column>
+										<Column>
+											<Label text="Uploaded By" design="Bold"></Label>
+										</Column>
+										<Column>
+											<Label text="Uploaded on" design="Bold"></Label>
+										</Column>
+										<Column>
+											<Label text="Notes" design="Bold"></Label>
+										</Column>
+										<Column></Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<Text text="a"></Text>
+											<Text text="a"></Text>
+											<Text text="a"></Text>
+											<Text text="a"></Text>
+											<Text text="a"></Text>
+											<Button icon="sap-icon://delete" type="Reject"></Button>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</VBox>
 						</IconTabFilter>
 					</items>
 				</IconTabBar>
