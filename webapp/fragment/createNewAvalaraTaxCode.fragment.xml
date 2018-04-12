@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="New Avalara Tax Code" class="createNewTaxCodefragTitle createNewTaxCode sapUiSizeCompact">
+	<Dialog title="{createNewTaxCodeModel>/fragmentTitle}" class="createNewTaxCodefragTitle createNewTaxCode sapUiSizeCompact">
 		<content>
 			<layout:Grid defaultSpan="L6 M12 S12" class="gridClass">
 				<layout:content>
@@ -16,7 +16,7 @@
 						<core:Item key="{createNewTaxCodeModel>sc}" text="{createNewTaxCodeModel>sc}"/>
 					</Select>
 					<Input class="sapUiTinyMarginTop createTaxCodeInput" visible="{createNewTaxCodeModel>/subCategoryInputVisible}"
-					value="{createNewTaxCodeModel>/subCategory}"></Input>
+					value="{createNewTaxCodeModel>/subCategory}" editable="{createNewTaxCodeModel>/subCategoryEditable}"></Input>
 					<Label text="{i18n>AVALARA_TAX_CODE}" design="Bold" class="sapUiSmallMarginTop"></Label>
 					<Input class="sapUiTinyMarginTop createTaxCodeInput" editable="{createNewTaxCodeModel>/taxCodeEditable}" maxLength="8"
 						value="{createNewTaxCodeModel>/taxCode}"></Input>

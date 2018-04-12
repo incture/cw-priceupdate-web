@@ -43,6 +43,7 @@ sap.ui.define([
 			createNewTaxCodeModel.setProperty("/subCategoryInputVisible", false);
 			createNewTaxCodeModel.setProperty("/taxCodeEditable", true);
 			createNewTaxCodeModel.setProperty("/buttonText", "Create");
+			createNewTaxCodeModel.setProperty("/fragmentTitle", "New Avalara Tax Code");
 			this.openAvalraTaxDialog();
 			table.removeSelections();
 		},
@@ -57,6 +58,7 @@ sap.ui.define([
 			createNewTaxCodeModel.setProperty("/subCategoryInputVisible", true);
 			createNewTaxCodeModel.setProperty("/taxCodeEditable", true);
 			createNewTaxCodeModel.setProperty("/buttonText", "Create");
+			createNewTaxCodeModel.setProperty("/fragmentTitle", "New Avalara Tax Code");
 			this.openAvalraTaxDialog();
 			table.removeSelections();
 		},
@@ -84,6 +86,7 @@ sap.ui.define([
 				createNewTaxCodeModel.setProperty("/subCategoryInputVisible", true);
 				createNewTaxCodeModel.setProperty("/taxCodeEditable", false);
 				createNewTaxCodeModel.setProperty("/buttonText", "Modify");
+				createNewTaxCodeModel.setProperty("/fragmentTitle", "Modify Avalara Tax Code");
 				this.openAvalraTaxDialog();
 				table.removeSelections();
 
@@ -231,24 +234,22 @@ sap.ui.define([
 					path: "/avalaraTax"
 				},
 				columns: [{
-						name: "category",
+						name: "Category",
 						template: {
 							content: "{category}"
 						}
 					}, {
-						name: "subCategory",
+						name: "Sub Category",
 						template: {
 							content: "{subCategory}"
 						}
-					}
-
-					, {
-						name: "taxCode",
+					}, {
+						name: "Avalara Tax Code",
 						template: {
 							content: "{taxCode}"
 						}
 					}, {
-						name: "taxable",
+						name: "Taxable",
 						template: {
 							content: "{taxable}"
 						}

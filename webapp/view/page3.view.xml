@@ -177,14 +177,26 @@
 											<Input/>
 										</layout:content>
 									</layout:Grid>
-									<Table>
+									<Table class="VBox">
 										<columns>
-											<Column text="{i18n>STATE}"/>
-											<Column text="{i18n>BOTTLE_DEPOSIT}"/>
-											<Column text="{i18n>NO_OF_BOTTLE_EACH}"/>
-											<Column text="{i18n>NO_OF_BOTTLE_CASE}"/>
-											<Column text="{i18n>AMT_EACH}"/>
-											<Column text="{i18n>AMT_CASE}"/>
+											<Column>
+												<Label text="{i18n>STATE}"/>
+											</Column>
+											<Column>
+												<Label text="{i18n>BOTTLE_DEPOSIT}"/>
+											</Column>
+											<Column>
+												<Label text="{i18n>NO_OF_BOTTLE_EACH}"/>
+											</Column>
+											<Column>
+												<Label text="{i18n>NO_OF_BOTTLE_CASE}"/>
+											</Column>
+											<Column>
+												<Label text="{i18n>AMT_EACH}"/>
+											</Column> 
+											<Column>
+												<Label text="{i18n>AMT_CASE}"/>
+											</Column> 
 										</columns>
 										<items>
 											<ColumnListItem>

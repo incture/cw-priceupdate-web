@@ -10,7 +10,7 @@
 							<Toolbar class="avalaraTaxToolbar">
 								<Title text="{i18n>SALES_TAX_MAINTENANCE}"/>
 								<ToolbarSpacer></ToolbarSpacer>
-								<Button text="Create New SubCategory" type="Accept" press="createNewSubCategory"></Button>
+								<Button text="Create With New SubCategory" type="Accept" press="createNewSubCategory"></Button>
 								<Button text="Create" type="Accept" press="createNewTaxCode"></Button>
 								<Button text="Modify" type="Accept" press="modifyTaxCode" enabled="{createNewTaxCodeModel>/modifyEnabled}"></Button>
 								<Button text="Delete" type="Reject" press="deleteTaxCode"  enabled="{createNewTaxCodeModel>/deleteEnabled}"></Button>
