@@ -644,7 +644,6 @@ html.sap-desktop .sapMSlt:not(.sapMSltExpanded):not(.sapMSltDisabled):not(.sapMS
 }
 
 .sapMFocus .sapMInputDivWrapper:not(.sapMInputBaseDisabledInner)::before {
-    /*outline: 0px none #000000;*/
     border: none !important;
 }
 .productContentCopyTextArea.sapMTextArea .sapMTextAreaInner {
@@ -652,4 +651,10 @@ html.sap-desktop .sapMSlt:not(.sapMSltExpanded):not(.sapMSltDisabled):not(.sapMS
     line-height: 1.4;
     height: 15.2rem;
     width: 270%;
+}
+.binningSwitchBtnClass{
+	margin : 0.8rem;
+}
+.binningSwitchBtn2Class{
+	margin : 0.4rem;
 }
