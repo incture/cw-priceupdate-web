@@ -36,7 +36,7 @@
 			</layout:Grid>
 		</content>
 		<buttons>
-			<Button text="Cancel" type="Reject" press="onCancelCreateNewTaxCode"></Button>
+			<Button text="{i18n>CANCEL}" type="Reject" press="onCancelCreateNewTaxCode"></Button>
 			<Button text="{createNewTaxCodeModel>/buttonText}" type="Accept" press="onCreateNewAvalaraTaxode"></Button>
 		</buttons>
 	</Dialog>

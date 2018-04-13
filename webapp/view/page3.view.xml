@@ -417,7 +417,10 @@
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
 											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:"/>
+											<HBox>
 											<Input/>
+												<Image src="images/suggestion_icon.png" width="1rem" tooltip="" class="" visible=""/>
+											</HBox>
 											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:"/>
 											<Input/>
 											<Label text="{i18n>AVRG_WEEKLY_UNIT_VOL}:"/>

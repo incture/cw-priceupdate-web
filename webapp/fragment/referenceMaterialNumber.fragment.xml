@@ -38,6 +38,10 @@
 					</HBox>
 				</layout:content>
 			</layout:Grid>
+				<HBox justifyContent="End">
+								<Button text="{i18n>SEARCH}" type="Reject" class="commitBtnClass"/>
+								<Button text="{i18n>CLEAR}" type="Accept" class="commitBtnClass"/>
+							</HBox>
 			<Table items="{commercialFinanceModel>/commercialFinance}">
 				<columns>
 					<Column minScreenWidth="Tablet" demandPopin="true">

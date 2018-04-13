@@ -10,11 +10,11 @@
 							<Toolbar class="avalaraTaxToolbar">
 								<Title text="{i18n>SALES_TAX_MAINTENANCE}"/>
 								<ToolbarSpacer></ToolbarSpacer>
-								<Button text="Create With New SubCategory" type="Accept" press="createNewSubCategory"></Button>
-								<Button text="Create" type="Accept" press="createNewTaxCode"></Button>
-								<Button text="Modify" type="Accept" press="modifyTaxCode" enabled="{createNewTaxCodeModel>/modifyEnabled}"></Button>
-								<Button text="Delete" type="Reject" press="deleteTaxCode"  enabled="{createNewTaxCodeModel>/deleteEnabled}"></Button>
-								<Button text="Download as Excel" type="Emphasized" press="onDownloadtoExcel"></Button>
+								<Button text="{i18n>CREATE_EITH_NEW_SUBCATEGORY}" type="Accept" press="createNewSubCategory"></Button>
+								<Button text="{i18n>CREATE}" type="Accept" press="createNewTaxCode"></Button>
+								<Button text="{i18n>MODIFY}" type="Accept" press="modifyTaxCode" enabled="{createNewTaxCodeModel>/modifyEnabled}"></Button>
+								<Button text="{i18n>DELETE}" type="Reject" press="deleteTaxCode"  enabled="{createNewTaxCodeModel>/deleteEnabled}"></Button>
+								<Button text="{i18n>DOWNLOAD_AS_EXCEL}" type="Emphasized" press="onDownloadtoExcel"></Button>
 							</Toolbar>
 						</headerToolbar>
 						<columns>
