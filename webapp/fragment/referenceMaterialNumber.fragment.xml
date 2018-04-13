@@ -1,0 +1,77 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{createNewTaxCodeModel>/fragmentTitle}" class="createNewTaxCodefragTitle createNewTaxCode sapUiSizeCompact">
+		<content>
+			<layout:Grid defaultSpan="L2 M2 S2">
+				<layout:content>
+					<Input></Input>
+					<Input></Input>
+				</layout:content>
+			</layout:Grid>
+			<layout:Grid defaultSpan="L3 M3 S3">
+				<layout:content>
+					<HBox>
+						<Label text="{i18n>TIER1}" width="100%" class="labelBold sapUiSmallMarginTop"></Label>
+						<Select forceSelection="false" change="onTier1Selection" width="100%" items="{SKUModel>/tier1}"
+							class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+							<core:Item key="{SKUModel>key}" text="{SKUModel>t1}"/>
+						</Select>
+					</HBox>
+					<HBox>
+						<Label text="{i18n>TIER2}" class="labelBold sapUiSmallMarginTop"></Label>
+						<Select forceSelection="false" change="onTier2Selection" width="100%" items="{SKUModel>/tier2array/0}"
+							class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+							<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
+						</Select>
+					</HBox>
+					<HBox>
+						<Label text="{i18n>TIER3}" class="labelBold sapUiSmallMarginTop"></Label>
+						<Select forceSelection="false" change="onTier3Selection" width="100%" items="{SKUModel>/tier3array/0}"
+							class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+							<core:Item key="{SKUModel>key}" text="{SKUModel>t3}"/>
+						</Select>
+					</HBox>
+					<HBox>
+						<Label text="{i18n>TIER4}" class="labelBold sapUiSmallMarginTop"></Label>
+						<Select forceSelection="false" width="100%" items="{SKUModel>/tier4array/0}" class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+							<core:Item key="{SKUModel>key}" text="{SKUModel>t4}"/>
+						</Select>
+					</HBox>
+				</layout:content>
+			</layout:Grid>
+			<Table items="{commercialFinanceModel>/commercialFinance}">
+				<columns>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>MATERIAL_NUMBER}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>MATERIAL_DESCRIPTION}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>BRAND}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>TIER1}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>TIER2}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>TIER3}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>TIER4}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Label text="{commercialFinanceModel>h}"/>
+							<Input class="sapUiTinyMarginTop" value="{commercialFinanceModel>case}"/>
+							<Text text="{path:'commercialFinanceModel>case',formatter:'.financeEachValue'}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

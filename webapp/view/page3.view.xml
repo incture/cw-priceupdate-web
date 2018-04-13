@@ -2,7 +2,8 @@
 	controllerName="freshDirectSKU.SKU.controller.page3" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:suite="sap.suite.ui.commons"
 	xmlns:f="sap.ui.layout.form">
 	<Page title="Title" class="sapUiSizeCompact">
-		<content>
+		
+			<content>
 			<HBox class="backBtnHBoxClass">
 				<Button icon="sap-icon://arrow-left" class="backBtnStyle" press="onBackPress"/>
 			</HBox>
@@ -177,7 +178,7 @@
 											<Input/>
 										</layout:content>
 									</layout:Grid>
-									<VBox class="VBox">
+									<VBox class="iconTabTableClass">
 										<Table>
 											<columns>
 												<Column>
@@ -427,7 +428,7 @@
 											<Input/>
 										</layout:content>
 									</layout:Grid>
-									<VBox class="merchndsngTableClass">
+									<VBox class="iconTabTableClass">
 										<Toolbar>
 											<content>
 												<Text text="njkjk"/>

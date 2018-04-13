@@ -526,8 +526,6 @@
 
 .VBox {
     background: #fff;
-	margin-left: 5%;
-	margin-right: 5%;
 	margin-top: 1%;
     box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .5);
     border-radius: 5px;
@@ -663,4 +661,21 @@ html.sap-desktop .sapMSlt:not(.sapMSltExpanded):not(.sapMSltDisabled):not(.sapMS
 .fileUploadInputStyle{
 	padding-left : 1rem !important;
 	padding-right : 1rem !important;
+}
+.iconTabTableClass
+{
+	 background: #f8f7f7;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 1%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+}
+.iconTabTableClass .sapMList
+{
+	 background: #f8f7f7;
+}
+.iconTabTableClass .sapMListTblCell
+{
+	 background: #f8f7f7;
 }
