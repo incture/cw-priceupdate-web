@@ -42,6 +42,18 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		});
 
 	},
+	onShowSuggestion:function()
+	{
+		if (!this.referenceMaterialNumberDialog) {
+				this.referenceMaterialNumberDialog = sap.ui.xmlfragment("freshDirectSKU.SKU.fragment.referenceMaterialNumber", this);
+				this.getView().addDependent(this.referenceMaterialNumberDialog);
+			}
+			this.referenceMaterialNumberDialog.open();
+	},
+	onClose:function()
+	{
+		this.referenceMaterialNumberDialog.close();
+	},
 
 	/*	Commercial Finance code ends*/
 

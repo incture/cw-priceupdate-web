@@ -679,3 +679,28 @@ html.sap-desktop .sapMSlt:not(.sapMSltExpanded):not(.sapMSltDisabled):not(.sapMS
 {
 	 background: #f8f7f7;
 }
+.dialogClass .sapMDialog .sapMDialogSection {
+    background: #ffffff;
+}
+.referenceMaterialClass
+{
+	background: #fff;
+	margin: 2%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+   
+}
+.referenceMaterialClass .sapMInputBaseInner {
+    color: #000000;
+    background: #bfbfbf;
+    border: 1px solid #bfbfbf;
+    -webkit-appearance: none;
+    border-radius: 0;
+    vertical-align: top;
+    margin: 0;
+    -moz-appearance: textfield;
+    font-size: 0.875rem;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: normal;
+    padding: 0 0.7rem;
+}

@@ -419,7 +419,7 @@
 											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:"/>
 											<HBox>
 											<Input/>
-												<Image src="images/suggestion_icon.png" width="1rem" tooltip="" class="" visible=""/>
+												<Image src="images/suggestion_icon.png" width="1rem"  press="onShowSuggestion"/>
 											</HBox>
 											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:"/>
 											<Input/>
