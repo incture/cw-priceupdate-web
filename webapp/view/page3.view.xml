@@ -74,7 +74,7 @@
 						<layout:Grid defaultSpan="L3 M6 S12" width="100%">
 							<layout:content>
 								<VBox alignItems="Center">
-									<Label text="{i18n>UPC}" design="Bold"/>
+									<Label text="{i18n>UPC}" design="Bold" />
 									<Text text="0 76808 00022 1"/>
 								</VBox>
 								<VBox alignItems="Center">
@@ -416,18 +416,18 @@
 								<content>
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:"/>
+											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:" design="Bold" />
 											<HBox>
 											<Input/>
 												<Image src="images/suggestion_icon.png" width="1rem"  press="onShowSuggestion"/>
 											</HBox>
-											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:"/>
+											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:" design="Bold" />
 											<Input/>
-											<Label text="{i18n>AVRG_WEEKLY_UNIT_VOL}:"/>
+											<Label text="{i18n>AVRG_WEEKLY_UNIT_VOL}:" design="Bold" />
 											<Input/>
-											<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:"/>
+											<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:" design="Bold" />
 											<Input/>
-											<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:"/>
+											<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:" design="Bold" />
 											<Input/>
 										</layout:content>
 									</layout:Grid>
@@ -474,21 +474,21 @@
 							</Panel>
 							<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 								<layout:content>
-									<Label text="{i18n>MSRP}:"/>
+									<Label text="{i18n>MSRP}:" design="Bold" />
 									<Input/>
-									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_EACH}:"/>
+									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_EACH}:" design="Bold" />
 									<Input/>
-									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_CASE}:"/>
+									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_CASE}:" design="Bold" />
 									<Input/>
-									<Label text="{i18n>MARKET_FINAL_PRICE}:"/>
+									<Label text="{i18n>MARKET_FINAL_PRICE}:" design="Bold" />
 									<Input/>
-									<Label text="{i18n>MARKET_FINAL_PRICE_CASE}:"/>
+									<Label text="{i18n>MARKET_FINAL_PRICE_CASE}:" design="Bold" />
 									<Input/>
-									<Label text="{i18n>FIRST_PO_QUANTITY}:"/>
+									<Label text="{i18n>FIRST_PO_QUANTITY}:" design="Bold" />
 									<Input/>
-									<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:"/>
+									<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:" design="Bold" />
 									<Input/>
-									<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:"/>
+									<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:" design="Bold" />
 									<Input/>
 								</layout:content>
 							</layout:Grid>

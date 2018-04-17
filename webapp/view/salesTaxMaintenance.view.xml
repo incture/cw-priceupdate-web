@@ -4,8 +4,7 @@
 		<pages>
 			<Page showHeader="false" class="sapUiSizeCompact">
 				<content>
-					<Table items="{avalaraTaxModel>/avalaraTax}" class="tableClass"  selectionChange="onRowSelection"
-					mode="SingleSelectMaster">
+					<Table items="{avalaraTaxModel>/avalaraTax}" class="tableClass" selectionChange="onRowSelection" mode="SingleSelectMaster">
 						<headerToolbar>
 							<Toolbar class="avalaraTaxToolbar">
 								<Title text="{i18n>SALES_TAX_MAINTENANCE}"/>
@@ -13,7 +12,7 @@
 								<Button text="{i18n>CREATE_EITH_NEW_SUBCATEGORY}" type="Accept" press="createNewSubCategory"></Button>
 								<Button text="{i18n>CREATE}" type="Accept" press="createNewTaxCode"></Button>
 								<Button text="{i18n>MODIFY}" type="Accept" press="modifyTaxCode" enabled="{createNewTaxCodeModel>/modifyEnabled}"></Button>
-								<Button text="{i18n>DELETE}" type="Reject" press="deleteTaxCode"  enabled="{createNewTaxCodeModel>/deleteEnabled}"></Button>
+								<Button text="{i18n>DELETE}" type="Reject" press="deleteTaxCode" enabled="{createNewTaxCodeModel>/deleteEnabled}"></Button>
 								<Button text="{i18n>DOWNLOAD_AS_EXCEL}" type="Emphasized" press="onDownloadtoExcel"></Button>
 							</Toolbar>
 						</headerToolbar>
@@ -37,7 +36,7 @@
 						<items>
 							<ColumnListItem>
 								<cells>
-								<Text text="{avalaraTaxModel>category}"/>
+									<Text text="{avalaraTaxModel>category}"/>
 									<Text text="{avalaraTaxModel>subCategory}"/>
 									<Text text="{avalaraTaxModel>taxCode}"/>
 									<Text text="{avalaraTaxModel>taxable}"/>
@@ -46,7 +45,25 @@
 							</ColumnListItem>
 						</items>
 					</Table>
+						<HBox justifyContent="Center">
+									<Button icon="sap-icon://close-command-field" enabled="{oPaginationModel>/prevBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
+										press="onScrollLeft" type="Transparent"/>
+									<HBox items="{oPaginationModel>/counters}">
+										<Link text="{oPaginationModel>text}" press="onPageClick" class="paginationNumbers"/>
+									</HBox>
+									<Button icon="sap-icon://open-command-field" enabled="{oPaginationModel>/nextBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
+										press="onScrollRight" type="Transparent"/>
+								</HBox>
 				</content>
+				<!--<footer class="footerClass">-->
+				<!--<Bar>-->
+				<!--<contentMiddle>-->
+				<!--		<core:Icon src="sap-icon://close-command-field" class="createSKUFragEdit" press="sapProdDescEdit"/>-->
+				<!--			<Text text="1" press="onPageClick" class="paginationNumbers"></Text>-->
+				<!--		<core:Icon src="sap-icon://open-command-field" class="createSKUFragEdit" press="sapProdDescEdit"/>-->
+				<!--</contentMiddle>-->
+				<!--</Bar>-->
+				<!--</footer>-->
 			</Page>
 		</pages>
 	</App>

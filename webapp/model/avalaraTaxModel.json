@@ -73,12 +73,17 @@
 		"Description": "Snacks, Health Foods, Sunflower Seeds, cookies, biscuits"
 	}],
 	"cat": [{
-		"c": "Beverage",
-		"key": "01"
-	}, {
-		"c": "Food",
-		"key": "02"
-	}],
+			"c": "Beverage",
+			"key": "01"
+		}, {
+			"c": "Food",
+			"key": "02"
+		},
+		{
+			"c": "Tangible",
+			"key": "03"
+		}
+	],
 	"01": [{
 		"sc": "Juice - Non Carbonated"
 	}, {
@@ -111,10 +116,34 @@
 	}, {
 		"sc": "Snacks"
 	}],
-	"taxable":[{
-		"t":1
-	},
-	{
-		"t":0
-	}]
+	"03": [{
+			"sc": "Flowers"
+		}, {
+			"sc": "Grooming"
+		}, {
+			"sc": "Hygiene (Dental, Shampoo, Lotion, Sunscreen, Femine Care)"
+		}, {
+			"sc": "Cosmetics"
+		}, {
+			"sc": "Medical Supplies (Bandages, Condoms, Pain Reliever, Over-the-Counter)"
+		}, {
+			"sc": "Cleaning"
+		}, {
+			"sc": "Baby"
+		}, {
+			"sc": "Tangible Property (Candles, Paper Products, Glasswear, Heating Fuels, Office Supplies, etc.)"
+		},
+		{
+			"sc": "Pet Supplies"
+		}, {
+			"sc": "Misc. (Gift Cards, Delivery)"
+		}
+	],
+	"taxable": [{
+			"t": 1
+		},
+		{
+			"t": 0
+		}
+	]
 }

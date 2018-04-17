@@ -423,12 +423,12 @@
 }
 
 .basicSwitchBtnClass .sapMSwtOff {
-    background: #346f51;
-    border-color: #346f51;
+        background: #e62f2d;
+    border-color: #d66868;
 }
 
 .basicSwitchBtnClass .sapMSwtHoverable.sapMSwtOn:not(.sapMSwtAcceptReject):hover {
-    background: #346f51 !important;
+    background: #ababab !important;
 }
 
 .basicSwitchBtnClass .sapMSwt.sapMSwtHoverable:hover {

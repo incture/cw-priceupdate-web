@@ -82,13 +82,13 @@
 				]
 			}, {
 				"name": "page3",
-				"pattern": "",
+				"pattern": "2",
 				"target": [
 					"page3"
 				]
 			}, {
 				"name": "salesTaxMaintenance",
-				"pattern": "3",
+				"pattern": "",
 				"target": [
 					"salesTaxMaintenance"
 				]

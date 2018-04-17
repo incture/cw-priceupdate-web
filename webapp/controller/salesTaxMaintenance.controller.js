@@ -264,7 +264,12 @@ sap.ui.define([
 			});
 			oExport.saveFile("AVALARA TAX MAINTANENCE"); // download exported file 
 
+		},
+		generatePagination:function()
+		{
+			
 		}
+		
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
