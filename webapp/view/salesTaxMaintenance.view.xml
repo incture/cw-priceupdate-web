@@ -4,7 +4,8 @@
 		<pages>
 			<Page showHeader="false" class="sapUiSizeCompact">
 				<content>
-					<Table items="{avalaraTaxModel>/avalaraTax}" class="tableClass" selectionChange="onRowSelection" mode="SingleSelectMaster">
+					<Table id="avalaraTaxCodeTable" items="{avalaraTaxModel>/avalaraTax}" class="tableClass" selectionChange="onRowSelection"
+						mode="SingleSelectMaster">
 						<headerToolbar>
 							<Toolbar class="avalaraTaxToolbar">
 								<Title text="{i18n>SALES_TAX_MAINTENANCE}"/>
@@ -17,17 +18,34 @@
 							</Toolbar>
 						</headerToolbar>
 						<columns>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem">
-								<Text text="{i18n>CATEGORY}"/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="6rem">
+								<Toolbar class="sortingStyleClass">
+									<Text text="{i18n>CATEGORY}"/>
+									<Text text="category" visible="false"/>
+									<ToolbarSpacer></ToolbarSpacer>
+									<core:Icon src="sap-icon://filter" press="onFilterPress"/>
+								</Toolbar>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true" width="12rem">
-								<Text text="{i18n>SUB_CATEGORY}"/>
+								<Toolbar class="sortingStyleClass">
+									<Text text="{i18n>SUB_CATEGORY}"/>
+									<Text text="subCategory" visible="false"/>
+									<ToolbarSpacer></ToolbarSpacer>
+									<core:Icon src="sap-icon://filter" press="onFilterPress"/></Toolbar>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="8rem" hAlign="Center">
-								<Text text="{i18n>AVALARA_TAX_CODE}"/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="9rem" hAlign="Center">
+								<Toolbar class="sortingStyleClass">
+									<Text text="{i18n>AVALARA_TAX_CODE}"/>
+									<Text text="taxCode" visible="false"/>
+									<ToolbarSpacer></ToolbarSpacer>
+									<core:Icon src="sap-icon://filter" press="onFilterPress"/></Toolbar>
 							</Column>
-							<Column minScreenWidth="Tablet" demandPopin="true" width="6rem" hAlign="Center">
-								<Text text="{i18n>TAXABLE_IN_NY}"/>
+							<Column minScreenWidth="Tablet" demandPopin="true" width="5rem" hAlign="Center">
+								<Toolbar class="sortingStyleClass">
+									<Text text="{i18n>TAXABLE_IN_NY}"/>
+									<Text text="isTaxable" visible="false"/>
+									<ToolbarSpacer></ToolbarSpacer>
+									<core:Icon src="sap-icon://filter" press="onFilterPress"/></Toolbar>
 							</Column>
 							<Column minScreenWidth="Tablet" demandPopin="true">
 								<Text text="{i18n>DESCRIPTION}"/>
@@ -45,15 +63,15 @@
 							</ColumnListItem>
 						</items>
 					</Table>
-						<HBox justifyContent="Center">
-									<Button icon="sap-icon://close-command-field" enabled="{oPaginationModel>/prevBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
-										press="onScrollLeft" type="Transparent"/>
-									<HBox items="{oPaginationModel>/counters}">
-										<Link text="{oPaginationModel>text}" press="onPageClick" class="paginationNumbers"/>
-									</HBox>
-									<Button icon="sap-icon://open-command-field" enabled="{oPaginationModel>/nextBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
-										press="onScrollRight" type="Transparent"/>
-								</HBox>
+					<HBox justifyContent="Center">
+						<Button icon="sap-icon://close-command-field" enabled="{oPaginationModel>/prevBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
+							press="onScrollLeft" type="Transparent"/>
+						<HBox items="{oPaginationModel>/counters}">
+							<Link text="{oPaginationModel>text}" press="onPageClick" class="paginationNumbers"/>
+						</HBox>
+						<Button icon="sap-icon://open-command-field" enabled="{oPaginationModel>/nextBtnVisible}" class="navigateButtonClass sapUiSizeCompact"
+							press="onScrollRight" type="Transparent"/>
+					</HBox>
 				</content>
 				<!--<footer class="footerClass">-->
 				<!--<Bar>-->

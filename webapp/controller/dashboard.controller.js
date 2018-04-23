@@ -33,7 +33,7 @@ sap.ui.define([
 		},
 
 		/********* Filtering table *********/
-		dashboradTblFilter: function(oEvent) {
+		tableFilter: function(oEvent) {
 			var aFilters = [];
 			var sQuery = "";
 			var dshbrdVisibleModel = this.getView().getModel("dshbrdVisibleModel");

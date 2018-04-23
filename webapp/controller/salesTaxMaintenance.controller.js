@@ -1,8 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	'sap/ui/core/util/Export',
-	'sap/ui/core/util/ExportTypeCSV'
-], function(Controller, Export, ExportTypeCSV) {
+	'sap/ui/core/util/ExportTypeCSV',
+	], function(Controller, Export, ExportTypeCSV) {
 	"use strict";
 
 	return Controller.extend("freshDirectSKU.SKU.controller.salesTaxMaintenance", {
@@ -16,9 +16,19 @@ sap.ui.define([
 			var createNewTaxCodeModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(createNewTaxCodeModel, "createNewTaxCodeModel");
 			var avalaraTaxModel = new sap.ui.model.json.JSONModel();
-			avalaraTaxModel.loadData("model/avalaraTaxModel.json");
+			var that=this;
 			this.getView().setModel(avalaraTaxModel, "avalaraTaxModel");
-			this.buttonDisabled();
+			avalaraTaxModel.attachRequestCompleted(function(oEvent) {
+			var totlaResults=avalaraTaxModel.getData().avalaraTax.length;
+			createNewTaxCodeModel.setProperty("/totlaResults",totlaResults);
+				that.buttonDisabled();
+			that.generatePagination();
+			});
+			avalaraTaxModel.loadData("model/avalaraTaxModel.json");
+		
+		
+			var oPaginationModel=this.getOwnerComponent().getModel("paginationModel");
+			this.getView().setModel(oPaginationModel,"oPaginationModel");
 
 		},
 		onRowSelection: function() {
@@ -265,11 +275,82 @@ sap.ui.define([
 			oExport.saveFile("AVALARA TAX MAINTANENCE"); // download exported file 
 
 		},
-		generatePagination:function()
-		{
-			
+		// generatePagination:function()
+		// {
+		// 	var oPaginationModel=this.oPaginationModel;
+		// 	var createNewTaxCodeModel=this.getView().getModel("createNewTaxCodeModel");
+		// 	var totalResults=createNewTaxCodeModel.getProperty("/totalResults");
+		// 	var countPerPage=20;
+		// 	oPaginationModel.setProperty("/prevBtnVisible",false);
+		// 	oPaginationModel.setProperty("/nextBtnVisible",false);
+		// 	var pageCount=parseInt(totalResults/countPerPage);
+		// 	if(pageCount%countPerPage!==0)
+		// 	{
+		// 		pageCount=pageCount+1;
+		// 	}
+		// 	if(pageCount>3)
+		// 	{
+		// 	oPaginationModel.setProperty("/nextBtnVisible",true);	
+		// 	}
+		// 	var array=[];
+		// 	for(var i=1;i<=pageCount;i++)
+		// 	{
+		// 		var object={
+		// 		text:i
+		// 		};
+		// 		array.push(object);
+		// 	}
+		// 		oPaginationModel.setProperty("/counters",array);
+		// 		oPaginationModel.setproperty("/selectedPage",1);
+		// 		oPaginationModel.refresh();
+		// }
+		// onFilter:function(oEvent)
+		// {
+		// 	var sFilter=oEvent.getSource().getValue();
+		// 	var aFilters;
+		// 	var aFilterContent;
+		// 	var aFilterColumn;
+		// }
+			/******* Opens Filter dialog box *******/
+		onFilterPress: function(oEvent) {
+			//this.getOwnerComponent().byId("idFilterInput").setValue("");
+			this.selectedColumn = oEvent.getSource().getParent().getContent()[1].getText();
+			if (!this.filterInputDialog) {
+				this.filterInputDialog = sap.ui.xmlfragment("freshDirectSKU.SKU.fragment.filterInput", this);
+				this.getView().addDependent(this.filterInputDialog);
+			}
+			this.filterInputDialog.openBy(oEvent.getSource());
+		},
+
+		/********* Filtering table *********/
+		tableFilter: function(oEvent) {
+			var aFilters = [];
+			var sQuery = "";
+			var createNewTaxCodeModel = this.getView().getModel("createNewTaxCodeModel");
+			if (oEvent) {
+				sQuery = oEvent.getSource().getValue();
+			}
+			if (sQuery === "") {
+				createNewTaxCodeModel.setProperty("/clearVisible", false);
+			} else {
+				createNewTaxCodeModel.setProperty("/clearVisible", true);
+			}
+			var filterArry = [];
+			var metaModel = [this.selectedColumn];
+			if (sQuery && sQuery.length > 0) {
+				for (var i = 0; i < metaModel.length; i++) {
+					var bindingName = metaModel[i];
+					filterArry.push(new sap.ui.model.Filter(bindingName, sap.ui.model.FilterOperator.Contains, sQuery));
+				}
+				var filter = new sap.ui.model.Filter(filterArry, false);
+				aFilters.push(filter);
+			}
+			// update list binding
+			var reqList =this.getView().byId("avalaraTaxCodeTable");
+			var binding = reqList.getBinding("items");
+			binding.filter(aFilters, "Application");
+
 		}
-		
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

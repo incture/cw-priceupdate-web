@@ -58,6 +58,10 @@
 					"bundleName": "freshDirectSKU.SKU.i18n.i18n"
 				},
 				"uri": "i18n/messageBundle.properties"
+			},
+			
+			"paginationModel":{
+			"type": "sap.ui.model.json.JSONModel"
 			}
 		},
 		"resources": {

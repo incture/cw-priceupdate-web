@@ -5,7 +5,7 @@
 		showHeader="false" contentWidth="11rem">
 	<VBox id ="comments" class="boxClass">
 		<Input id="idFilterInput" class="removeInputBorderStyle" placeholder="Filter..." 
-		liveChange="dashboradTblFilter"/>	
+		liveChange="tableFilter"/>	
 	</VBox>
 	</Popover> 
 </core:FragmentDefinition>
