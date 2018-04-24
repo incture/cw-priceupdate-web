@@ -2,8 +2,7 @@
 	controllerName="freshDirectSKU.SKU.controller.page3" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:suite="sap.suite.ui.commons"
 	xmlns:f="sap.ui.layout.form">
 	<Page title="Title" class="sapUiSizeCompact">
-		
-			<content>
+		<content>
 			<HBox class="backBtnHBoxClass">
 				<Button icon="sap-icon://arrow-left" class="backBtnStyle" press="onBackPress"/>
 			</HBox>
@@ -74,7 +73,7 @@
 						<layout:Grid defaultSpan="L3 M6 S12" width="100%">
 							<layout:content>
 								<VBox alignItems="Center">
-									<Label text="{i18n>UPC}" design="Bold" />
+									<Label text="{i18n>UPC}" design="Bold"/>
 									<Text text="0 76808 00022 1"/>
 								</VBox>
 								<VBox alignItems="Center">
@@ -113,6 +112,7 @@
 			<VBox class="dashboardHeaderPanelClass">
 				<IconTabBar select="handleIconTabBarSelect" class="iconTabfilter iconTabWidth">
 					<items>
+						<IconTabFilter text="Ideation" key="Ideation"></IconTabFilter>
 						<IconTabFilter text="{i18n>BASIC_PRODUCT_ATTRIBUTE}" key="Basic Product Attributes">
 							<Panel expandable="true" headerText="{i18n>PRODUCT_ATTRIBUTES}" class="iconPanelHdng" width="99.4%">
 								<content>
@@ -247,18 +247,30 @@
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>WEIGHT_DIMS}" key="WeightDims"></IconTabFilter>
 						<IconTabFilter text="{i18n>BINNING}" key="Binning">
+							<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+								<layout:content>
+									<Text text="Average Forecast Weekly Volume: " design="Bold"></Text>
+									<Text text="160"/>
+									<Text text="Minimum Item Order Quantity: " design="Bold"></Text>
+									<Text text="2 pallets"/>
+									<Text text="Unit per Case: " design="Bold"></Text>
+									<Text text="12"/>
+									<Text text="Cases per pallet: " design="Bold"></Text>
+									<Text text="24"/>
+									<Text text="Applicable for Shuttle: " design="Bold"></Text>
+									<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+									<Text text="Reserve Pallet Position Available: " design="Bold"></Text>
+									<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+								</layout:content>
+							</layout:Grid>
 							<VBox>
-								<HBox>
-									<Label text="Pallet Space Available:" design="Bold"></Label>
-									<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass binningSwitchBtnClass"></Switch>
-								</HBox>
-								<HBox>
-									<Label text="Shuttle Space Available:" design="Bold"></Label>
-									<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass binningSwitchBtn2Class"></Switch>
-								</HBox>
 								<Label text="Comment:" design="Bold"></Label>
 								<TextArea cols="50" rows="10" placeholder="Enter Here"></TextArea>
 							</VBox>
+							<HBox justifyContent="End">
+								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+								<Button text="Save" type="Accept" class="commitBtnClass"/>
+							</HBox>
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>PRODUCT_SOURCE}" key="Product Sources">
 							<HBox justifyContent="End">
@@ -266,7 +278,7 @@
 								<Button text="{i18n>ADD_SOURCE}" type="Accept" class="commitBtnClass"></Button>
 							</HBox>
 							<VBox>
-								<Panel expandable="true" headerText="{i18n>SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
+								<Panel expandable="true" headerText="{i18n>PRIMARY_SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
 									<content>
 										<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 											<layout:content>
@@ -276,39 +288,35 @@
 												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
 												<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
 												<Input/>
-												<Label text="Sole Sourced Product:" design="Bold"/>
+												<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
 												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
 												<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
 												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
 													class="IconTabSelectClass">
 													<core:Item key="{ProductId}" text="{Name}"/>
 												</Select>
-												<Label text="{i18n>IS_PRIMARY_SOURCE}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>EMAIL}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
-												<Input/>
 												<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
 												<Input/>
-												<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
+												<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
 												<Input/>
 												<Label text="{i18n>INCOTERMS}:" design="Bold"/>
 												<Input/>
+												<Label text="{i18n>EMAIL}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
+												<Input/>
+												<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
+												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
 											</layout:content>
 										</layout:Grid>
 										<VBox class="sapUiSmallMargin formBoxStyle">
@@ -412,29 +420,37 @@
 							</HBox>
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>MERCHANDISING}" key="Merchandising">
-							<Panel expandable="true" headerText="{i18n>REFERENCE_MATERIALS}" class="iconPanelHdng" width="99.4%">
+							<Panel expandable="true" headerText="Sales Forecast" class="iconPanelHdng" width="99.4%">
 								<content>
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:" design="Bold" />
+											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:" design="Bold"/>
 											<HBox>
-											<Input/>
-												<Image src="images/suggestion_icon.png" width="1rem"  press="onShowSuggestion"/>
+												<Input/>
+												<Image src="images/suggestion_icon.png" width="1rem" press="onShowSuggestion"/>
 											</HBox>
-											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:" design="Bold" />
+											<Label text="Reference Average actual Weekly unit volume:" design="Bold"/>
+											<Input></Input>
+											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:" design="Bold"/>
+											<Input></Input>
+											<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:" design="Bold"/>
+											<Input></Input>
+											<Label text="Replacement SKU" design="Bold"></Label>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:" design="Bold"/>
 											<Input/>
-											<Label text="{i18n>AVRG_WEEKLY_UNIT_VOL}:" design="Bold" />
+											<Label text="{i18n>FIRST_PO_QUANTITY}:" design="Bold"/>
 											<Input/>
-											<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:" design="Bold" />
+											<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:" design="Bold"/>
 											<Input/>
-											<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:" design="Bold" />
+											<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:" design="Bold"/>
 											<Input/>
 										</layout:content>
 									</layout:Grid>
 									<VBox class="iconTabTableClass">
 										<Toolbar>
 											<content>
-												<Text text="njkjk"/>
+												<Text text="Forecast in BUOM"/>
 											</content>
 										</Toolbar>
 										<Table>
@@ -472,26 +488,32 @@
 									</VBox>
 								</content>
 							</Panel>
-							<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-								<layout:content>
-									<Label text="{i18n>MSRP}:" design="Bold" />
-									<Input/>
-									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_EACH}:" design="Bold" />
-									<Input/>
-									<Label text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_CASE}:" design="Bold" />
-									<Input/>
-									<Label text="{i18n>MARKET_FINAL_PRICE}:" design="Bold" />
-									<Input/>
-									<Label text="{i18n>MARKET_FINAL_PRICE_CASE}:" design="Bold" />
-									<Input/>
-									<Label text="{i18n>FIRST_PO_QUANTITY}:" design="Bold" />
-									<Input/>
-									<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:" design="Bold" />
-									<Input/>
-									<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:" design="Bold" />
-									<Input/>
-								</layout:content>
-							</layout:Grid>
+							<Panel expandable="true" headerText="Pricing" class="iconPanelHdng" width="99.4%">
+								<content>
+									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass ">
+										<layout:content>
+											<Text text="{i18n>MSRP}:" class="textBoldClass sapUiSmallMarginEnd "/>
+											<Input/>
+											<Text text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_EACH}:" class="textBoldClass sapUiSmallMarginEnd" design="Bold">
+												<layoutData>
+													<layout:GridData linebreak="true"/>
+												</layoutData>	
+											</Text>
+											<Input/>
+											<Text text="{i18n>MARKET_FINAL_PRICE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd"/>
+											<Input/>
+											<Text text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_CASE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd">
+												<layoutData>
+													<layout:GridData linebreak="true"/>
+												</layoutData>	
+											</Text>
+											<Input/>
+											<Text text="{i18n>MARKET_FINAL_PRICE_CASE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd"/>
+											<Input/>
+										</layout:content>
+									</layout:Grid>
+								</content>
+							</Panel>
 							<HBox justifyContent="End">
 								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
 								<Button text="Save" type="Accept" class="commitBtnClass"/>

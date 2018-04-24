@@ -80,7 +80,7 @@
 			},
 			"routes": [{
 				"name": "dashboard",
-				"pattern": "1",
+				"pattern": "",
 				"target": [
 					"dashboard"
 				]
@@ -92,7 +92,7 @@
 				]
 			}, {
 				"name": "salesTaxMaintenance",
-				"pattern": "",
+				"pattern": "3",
 				"target": [
 					"salesTaxMaintenance"
 				]
