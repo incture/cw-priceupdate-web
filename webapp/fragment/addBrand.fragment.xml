@@ -3,7 +3,7 @@
 
 	<Popover title="New Brand" placement="Top">
 		<content>
-			<Input value="{createSKUModel>/newBrand}">
+			<Input value="{oIdeationModel>/newBrand}">
 			</Input>
 			</content>
 			

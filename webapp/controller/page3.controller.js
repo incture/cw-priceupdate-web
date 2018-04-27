@@ -39,7 +39,6 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		var that = this;
 		page3Model.attachRequestCompleted(function(oEvent) {
 			that.getView().setModel(page3Model, "page3Model");
-
 		});
 
 	},
@@ -56,53 +55,57 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 
 	/*IDEATION CODE STARTS*/
 
-	onAddBrand: function(oEvent) {
-		this.popover = sap.ui.xmlfragment(
-			"freshdirect.SKU.fragment.addBrand", this);
-		this.getView().addDependent(this.popover);
-		this.popover.openBy(oEvent.getSource());
-	},
-	onRejectNewBrand: function() {
-
-		this.popover.destroy();
-
-	},
-	onAddNewBrand: function() {
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
-		var newBrand = oIdeationModel.getProperty("/newBrand",
-			"");
-		oIdeationModel.setProperty("/brand", newBrand);
-
-		this.popover.destroy();
-
-	},
 	loadModel: function() {
 		var oDropdownModel = new sap.ui.model.json.JSONModel();
-		oDropdownModel.loadData("model/oDropdownModel.json");
+		oDropdownModel.loadData("model/SKUModel.json");
 		this.getView().setModel(oDropdownModel, "oDropdownModel");
-			var oIdeationModel = new sap.ui.model.json.JSONModel();
-		this.getView().setModel(oIdeationModel,
-			"oIdeationModel");
-		this.setoIdeationModelProperty();
+		this.oDropdownModel = oDropdownModel;
+		var oIdeationModel = new sap.ui.model.json.JSONModel();
+		this.getView().setModel(oIdeationModel, "oIdeationModel");
+		this.oIdeationModel = oIdeationModel;
+		var oVisiblityModel = new sap.ui.model.json.JSONModel();
+		this.getView().setModel(oVisiblityModel, "oVisiblityModel");
+		this.oVisiblityModel = oVisiblityModel;
+		this.ideationTabRefresh();
 	},
 
-	setoIdeationModelProperty: function() {
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
+	onAddBrand: function(oEvent) {
+		var oIdeationModel = this.oIdeationModel;
+		this.addBrandPopover = sap.ui.xmlfragment(
+			"freshDirectSKU.SKU.fragment.addBrand", this);
+		this.getView().addDependent(this.addBrandPopover);
+		oIdeationModel.setProperty("/newBrand","");
+		this.addBrandPopover.openBy(oEvent.getSource());
+	},
+	
+	onRejectNewBrand: function() {
+		this.addBrandPopover.destroy();
+	},
+	
+	onAddNewBrand: function() {
+		var oIdeationModel = this.oIdeationModel;
+		var oDropdownModel = this.oDropdownModel;
+		var brand=oDropdownModel.getProperty("/brand");
+		var newBrand = oIdeationModel.getProperty("/newBrand");
+		var obj={
+		"b": newBrand,
+		"key": newBrand
+		};
+		brand.unshift(obj);
+		oDropdownModel.setProperty("/brandSelectedKey",newBrand);
+		oDropdownModel.refresh();
+		this.addBrandPopover.destroy();
+	},
+
+	ideationTabRefresh: function() {
+		var oIdeationModel = this.oIdeationModel;
+		var oVisiblityModel = this.oVisiblityModel;
 		oIdeationModel.setProperty("/brand", "");
 		oIdeationModel.setProperty("/prodDesc", "");
 		oIdeationModel.setProperty("/packageSize", "");
-		oIdeationModel.setProperty("/tarActDateenabled", true);
-		oIdeationModel.setProperty("/sapProdDescEditEnabled", false);
 		oIdeationModel.setProperty("/tarActDate", "");
 		oIdeationModel.setProperty("/sapProdDescvalid", "");
-		oIdeationModel.setProperty("/sapProdDescValidVisiblity", false);
-		oIdeationModel.setProperty("/sapProdDescInvalidVisiblity", false);
 		oIdeationModel.setProperty("/upc", "");
-		oIdeationModel.setProperty("/UPCInvalidVisiblity", false);
-		oIdeationModel.setProperty("/UPCValidVisiblity", false);
-		oIdeationModel.setProperty("/UPCCheckboxState", false);
 		oIdeationModel.setProperty("/packageType", "");
 		oIdeationModel.setProperty("/packageCount", "");
 		oIdeationModel.setProperty("/indPackageSize", "");
@@ -122,8 +125,15 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		oIdeationModel.setProperty("/merchantProductFlavour", "");
 		oIdeationModel.setProperty("/PurchasingGroup", "");
 		oIdeationModel.setProperty("/newBrand", "");
-
+		oIdeationModel.setProperty("/tarActDateenabled", true);
+		oVisiblityModel.setProperty("/sapProdDescEditEnabled", false);
+		oVisiblityModel.setProperty("/UPCInvalidVisiblity", false);
+		oVisiblityModel.setProperty("/UPCValidVisiblity", false);
+		oVisiblityModel.setProperty("/UPCCheckboxState", false);
+		oVisiblityModel.setProperty("/sapProdDescValidVisiblity", false);
+		oVisiblityModel.setProperty("/sapProdDescInvalidVisiblity", false);
 	},
+	
 	UPCCheckboxSelected: function(oEvent) {
 		var oIdeationModel = this.getView().getModel(
 			"oIdeationModel");
@@ -131,58 +141,56 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		oIdeationModel.setProperty("/UPCCheckboxState",
 			UPCCheckboxState);
 		this.UPCvalid();
-
 	},
+	
 	UPCvalid: function(upc) {
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
+		var oIdeationModel = this.oIdeationModel;
+		var oVisiblityModel = this.oVisiblityModel;
 		var UPCCheckboxState = oIdeationModel
 			.getProperty("/UPCCheckboxState");
 		var upc = oIdeationModel.getProperty("/upc");
 		if (upc.length === 15 && UPCCheckboxState === true) {
-			oIdeationModel.setProperty("/UPCInvalidVisiblity",
+			oVisiblityModel.setProperty("/UPCInvalidVisiblity",
 				false);
-			oIdeationModel.setProperty("/UPCValidVisiblity",
+			oVisiblityModel.setProperty("/UPCValidVisiblity",
 				true);
 
 		} else if (upc !== "" && UPCCheckboxState === true) {
 
-			oIdeationModel.setProperty("/UPCInvalidVisiblity",
+			oVisiblityModel.setProperty("/UPCInvalidVisiblity",
 				true);
-			oIdeationModel.setProperty("/UPCValidVisiblity",
+			oVisiblityModel.setProperty("/UPCValidVisiblity",
 				false);
 
 		} else {
-			oIdeationModel.setProperty("/UPCInvalidVisiblity",
+			oVisiblityModel.setProperty("/UPCInvalidVisiblity",
 				false);
-			oIdeationModel.setProperty("/UPCValidVisiblity",
+			oVisiblityModel.setProperty("/UPCValidVisiblity",
 				false);
 
 		}
 	},
 
 	onCancel: function(oEvent) {
-		// this.dialog.close();
-		this.setoIdeationModelProperty();
+		this.ideationTabRefresh();
 	},
-	sapProdDescfun: function(packageSize, brand, prodDesc,
-		indPackageSizeUOM, packageCount) {
+	
+	sapProdDescfun: function(packageSize, brand, prodDesc, indPackageSizeUOM, packageCount) {
 
 		if ((packageSize !== "" && packageSize !== undefined) && (brand !== "" && brand !== undefined) && (prodDesc !== "" && prodDesc !==
 				undefined) && (indPackageSizeUOM !== "" && indPackageSizeUOM !== undefined) && (packageCount !== " " && indPackageSizeUOM !==
 				undefined)) {
 			var sapProdDesc = brand + " " + prodDesc + "" + packageCount + " " + packageSize + " " + indPackageSizeUOM;
-			var oIdeationModel = this.getView().getModel(
-				"oIdeationModel");
+			var oVisiblityModel = this.oVisiblityModel;
 			if (sapProdDesc.length > 40) {
-				oIdeationModel.setProperty(
+				oVisiblityModel.setProperty(
 					"/sapProdDescValidVisiblity", false);
-				oIdeationModel.setProperty(
+				oVisiblityModel.setProperty(
 					"/sapProdDescInvalidVisiblity", true);
 			} else {
-				oIdeationModel.setProperty(
+				oVisiblityModel.setProperty(
 					"/sapProdDescValidVisiblity", true);
-				oIdeationModel.setProperty(
+				oVisiblityModel.setProperty(
 					"/sapProdDescInvalidVisiblity", false);
 			}
 			return sapProdDesc;
@@ -190,17 +198,17 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 
 	},
 	targetActitivationDate: function() {
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
+		var oIdeationModel = this.oIdeationModel;
 		var today = new Date();
 		var modDate = today.setDate(today.getDate() + 13);
 		var finaldate = new Date(modDate);
 		oIdeationModel.setProperty("/finalDate", finaldate);
 	},
+	
 	tarActASAPfn: function(oEvent) {
+		var oIdeationModel = this.oIdeationModel;
+		var oVisiblityModel = this.oVisiblityModel;
 		this.targetActitivationDate();
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
 		var checkboxState = oEvent.getParameters().selected;
 		var finalDate = oIdeationModel
 			.getProperty("/finalDate");
@@ -216,15 +224,15 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		} else {
 			oIdeationModel.setProperty("/tarActMinDate", date);
 			oIdeationModel.setProperty("/tarActDate", "");
-			oIdeationModel.setProperty("/tarActDateenabled",
+			oVisiblityModel.setProperty("/tarActDateEnabled",
 				true);
 		}
 	},
+	
 	onTargetActivationDateChange: function(oEvent) {
 		this.targetActitivationDate();
 		var selectedDate = oEvent.getSource().getDateValue();
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
+		var oIdeationModel = this.oIdeationModel;
 		var finalDate = oIdeationModel
 			.getProperty("/finalDate");
 		if (finalDate >= selectedDate) {
@@ -239,26 +247,23 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 		}
 
 	},
+	
 	sapProdDescEdit: function() {
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
-		oIdeationModel.setProperty("/sapProdDescEditEnabled",
+		var oVisiblityModel = this.oVisiblityModel;
+		oVisiblityModel.setProperty("/sapProdDescEditEnabled",
 			true);
 	},
 
 	onTier1Selection: function(oEvent) {
 
-		var temp1 = [];
-		var oDropdownModel = this.getView().getModel("oDropdownModel");
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
-		var oDropdownModelData = oDropdownModel.getData().tier1;
+		var oIdeationModel = this.oIdeationModel;
+		var oDropdownModel = this.oDropdownModel;
 		var selectedkey = oEvent.getSource().getSelectedKey();
-		var tier2Data = oDropdownModel.getData().tier2;
-
-		for (var i = 0; i < oDropdownModelData.length; i++) {
-			if (selectedkey === tier2Data[i].key) {
-				temp1.push(tier2Data[i].value);
+		var tier2 = oDropdownModel.getProperty("/tier2");
+		var temp1 = [];
+		for (var i = 0; i < tier2.length; i++) {
+			if (selectedkey === tier2[i].key) {
+				temp1.push(tier2[i].value);
 			}
 		}
 
@@ -269,53 +274,58 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 	},
 
 	onTier2Selection: function(oEvent) {
-		var oDropdownModel = this.getView().getModel("oDropdownModel");
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
-		var oDropdownModelData = oDropdownModel.getData();
+		var oIdeationModel = this.oIdeationModel;
+		var oDropdownModel = this.oDropdownModel;
 		var selectedkey = oEvent.getSource().getSelectedKey();
+		var tier3 = oDropdownModel.getProperty("/tier3");
 		var temp2 = [];
-		for (var i = 0; i < oDropdownModelData.tier3.length; i++) {
-			if (oDropdownModelData.tier3[i].key === selectedkey) {
-				temp2.push(oDropdownModelData.tier3[i].value);
-				oDropdownModel.setProperty("/tier3array", temp2);
-				console.log(temp2);
-				oIdeationModel.setProperty("/tier3", "");
-				oIdeationModel.setProperty("/tier4", "");
+		for (var i = 0; i < tier3.length; i++) {
+			if (tier3[i].key === selectedkey) {
+				temp2.push(tier3[i].value);
 			}
 		}
+		oDropdownModel.setProperty("/tier3array", temp2);
+		oIdeationModel.setProperty("/tier3", "");
+		oIdeationModel.setProperty("/tier4", "");
 	},
+	
 	onTier3Selection: function(oEvent) {
-		var oDropdownModel = this.getView().getModel("oDropdownModel");
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
-		var oDropdownModelData = oDropdownModel.getData();
+		var oIdeationModel = this.oIdeationModel;
+		var oDropdownModel = this.oDropdownModel;
+		var tier4 = oDropdownModel.getProperty("/tier4");
 		var selectedkey3 = oEvent.getSource().getSelectedKey();
 		var temp3 = [];
-		for (var i = 0; i < oDropdownModelData.tier4.length; i++) {
-			if (oDropdownModelData.tier4[i].key === selectedkey3) {
-				temp3.push(oDropdownModelData.tier4[i].value);
-				console.log(temp3);
-				oDropdownModel.setProperty("/tier4array", temp3);
-				oIdeationModel.setProperty("/tier4", "");
+		for (var i = 0; i < tier4.length; i++) {
+			if (tier4[i].key === selectedkey3) {
+				temp3.push(tier4[i].value);
 			}
 		}
+		oDropdownModel.setProperty("/tier4array", temp3);
+		oIdeationModel.setProperty("/tier4", "");
 	},
+	
 	onSubmit: function() {
 		var that = this;
-		var oIdeationModel = this.getView().getModel(
-			"oIdeationModel");
-		var SKUData = oIdeationModel.getData();
-		if ((SKUData.packageSize != "" && SKUData.packageSize != undefined) && (SKUData.brand != "" && SKUData.brand != undefined) && (
-				SKUData.prodDesc != "" && SKUData.prodDesc != undefined) && (SKUData.indPackageSizeUOM != "" && SKUData.indPackageSizeUOM !=
-				undefined) && (SKUData.packageCount != " " && SKUData.indPackageSizeUOM != undefined) && (SKUData.upc != "" && SKUData.upc !=
-				undefined) && (SKUData.merchantProductName != "" && SKUData.merchantProductName != undefined) && (SKUData.stoarageTempZone != "" &&
-				SKUData.stoarageTempZone != undefined) && (SKUData.tier1 != "" && SKUData.tier1 != undefined) && (SKUData.tier2 != "" && SKUData.tier2 !=
-				undefined) && (SKUData.tier3 != "" && SKUData.tier3 != undefined) && (SKUData.tier4 != "" && SKUData.tier4 != undefined) && (
-				SKUData.categoryAttribute1 != " " && SKUData.categoryAttribute1 != undefined) && (SKUData.categoryAttribute2 != " " && SKUData.categoryAttribute2 !=
-				undefined) && (SKUData.categoryAttribute3 != " " && SKUData.categoryAttribute3 != undefined) && (SKUData.categoryAttribute4 !=
-				" " && SKUData.categoryAttribute4 != undefined) && (SKUData.packageCount != " " && SKUData.packageCount != undefined)) {
-			that.setoIdeationModelProperty();
+		var oIdeationModel = this.oIdeationModel;
+		var SKUData = oIdeationModel.getProperty("/");
+		if ((SKUData.packageSize !== "" && SKUData.packageSize !== undefined) && 
+		(SKUData.brand !== "" && SKUData.brand !== undefined) &&
+		(SKUData.prodDesc !== "" && SKUData.prodDesc !== undefined) && 
+		(SKUData.indPackageSizeUOM !== "" && SKUData.indPackageSizeUOM !==undefined) &&
+		(SKUData.packageCount !== " " && SKUData.indPackageSizeUOM !== undefined) && 
+		(SKUData.upc !== "" && SKUData.upc !== undefined) &&
+		(SKUData.merchantProductName !== "" && SKUData.merchantProductName !== undefined) &&
+		(SKUData.stoarageTempZone !== "" && SKUData.stoarageTempZone !== undefined) && 
+		(SKUData.tier1 !== "" && SKUData.tier1 !== undefined) &&
+		(SKUData.tier2 !== "" && SKUData.tier2 !== undefined) && 
+		(SKUData.tier3 !== "" && SKUData.tier3 !== undefined) &&
+		(SKUData.tier4 !== "" && SKUData.tier4 !== undefined) && 
+		(SKUData.categoryAttribute1 !== " " && SKUData.categoryAttribute1 !==undefined) &&
+		(SKUData.categoryAttribute2 !== " " && SKUData.categoryAttribute2 !== undefined) &&
+		(SKUData.categoryAttribute3 !== " " && SKUData.categoryAttribute3 !== undefined) &&
+		(SKUData.categoryAttribute4 !== " " && SKUData.categoryAttribute4 !== undefined) && 
+		(SKUData.packageCount !== " " && SKUData.packageCount !==undefined)) {
+			that.ideationTabRefresh();
 			sap.m.MessageBox
 				.show(
 					"SKU has been successfully created", {
@@ -349,7 +359,7 @@ sap.ui.controller("freshDirectSKU.SKU.controller.page3", {
 	 * This hook is the same one that SAPUI5 controls get after being rendered.
 	 * @memberOf view.page3
 	 */
-		onAfterRendering: function() {
+	onAfterRendering: function() {
 		// this.financeCaseValue();
 	}
 

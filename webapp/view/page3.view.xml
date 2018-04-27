@@ -113,76 +113,70 @@
 				<IconTabBar select="handleIconTabBarSelect" class="iconTabfilter iconTabWidth">
 					<items>
 						<IconTabFilter text="Ideation" key="Ideation">
-							<layout:Grid defaultSpan="L3 M6 S12" class="gridClass">
-								<layout:content>
+							<l:Grid defaultSpan="L3 M6 S12" class="gridClass">
+								<l:content>
 									<Label design="Bold" text="{i18n>MATERIAL_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="a" class="selectFragClass sapUiTinyMarginTop" items="{SKUModel>/materialType}">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>mT}"/>
+									<Select forceSelection="false" change="a" class="selectFragClass sapUiTinyMarginTop" items="{oDropdownModel>/materialType}">
+										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>mT}"/>
 									</Select>
 									<Label design="Bold" text="{i18n>UPC}" class="labelBold sapUiSmallMarginTop"></Label>
 									<HBox>
 										<CheckBox selected="false" select="UPCCheckboxSelected" class="UPCIcon"></CheckBox>
-										<Input maxLength="20" class="sapUiTinyMarginTop" value="{createSKUModel>/upc}" change="UPCvalid"></Input>
+										<Input maxLength="20" class="sapUiTinyMarginTop" value="{oIdeationModel>/upc}" change="UPCvalid"></Input>
 										<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="UPCValidationIcon"
-											visible="{createSKUModel>/UPCInvalidVisiblity}"/>
-										<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="UPCValidationIcon" visible="{createSKUModel>/UPCValidVisiblity}"/>
+											visible="{oVisiblityModel>/UPCInvalidVisiblity}"/>
+										<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="UPCValidationIcon" visible="{oVisiblityModel>/UPCValidVisiblity}"/>
 									</HBox>
-									<!--<Label design="Bold" text="{i18n>BUOM}" class="labelBold sapUiSmallMarginTop"></Label>-->
-									<!--<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder"></Select>-->
-									<!--<Label design="Bold" text="{i18n>PLU_CODE}" class="labelBold sapUiSmallMarginTop"></Label>-->
-									<!--<Input class="sapUiTinyMarginTop" value="{createSKUModel>/PLUCode}"></Input>-->
 									<Label design="Bold" text="{i18n>BRAND}" class="labelBold sapUiSmallMarginTop"></Label>
 									<HBox>
-										<Select forceSelection="false" change="b" class="selectBrandFragClass sapUiTinyMarginTop" items="{SKUModel>/brand}">
-											<core:Item key="{SKUModel>key}" text="{SKUModel>b}"/>
+										<Select forceSelection="false" change="b" class="selectBrandFragClass sapUiTinyMarginTop" items="{oDropdownModel>/brand}"
+										selectedKey="{oIdeationModel>/brand}">
+											<core:Item key="{oDropdownModel>b}" text="{oDropdownModel>b}"/>
 										</Select>
 										<Image src="images/add_icon.png" width="1rem" tooltip="Add Brand" class="addBrand" press="onAddBrand"/>
 									</HBox>
 									<Label design="Bold" text="{i18n>DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Input class="sapUiTinyMarginTop" value="{createSKUModel>/prodDesc}"></Input>
+									<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/prodDesc}"></Input>
 									<Label design="Bold" text="{i18n>PACKAGE_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" items="{SKUModel>/packageType}">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>pt}"/>
+									<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" items="{oDropdownModel>/packageType}">
+										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>pt}"/>
 									</Select>
 									<Label design="Bold" text="{i18n>PACKAGE_COUNT}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Input class="sapUiTinyMarginTop" value="{createSKUModel>/packageCount}"></Input>
+									<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/packageCount}"></Input>
 									<Label design="Bold" text="{i18n>INDIVIDUAL_PACKAGE_SIZE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Input class="sapUiTinyMarginTop" value="{createSKUModel>/indPackageSize}"></Input>
+									<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/indPackageSize}"></Input>
 									<Label design="Bold" text="{i18n>INDIVIDUAL_PACKAGE_SIZE_UOM}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" items="{SKUModel>/IndPackUOM}">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>ip}"/>
+									<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" items="{oDropdownModel>/IndPackUOM}" 	selectedKey="{oIdeationModel>/indPackageSizeUOM}">
+									<core:Item key="{oDropdownModel>ip}" text="{oDropdownModel>ip}"/>
 									</Select>
 									<VBox>
 										<Label design="Bold" text="{i18n>SAP_PRODUCT_DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
 										<Label design="Bold" text="{i18n>SAP_PRODUCT_DESCRIPTION_TOOLTIP}" class="tooltip"></Label>
 										<layoutData>
-											<layout:GridData linebreak="true"/>
+											<l:GridData linebreak="true"/>
 										</layoutData>
 									</VBox>
 									<HBox>
 										<TextArea class="createSKUtextArea sapUiTinyMarginTop"
-											value="{parts:['createSKUModel>/indPackageSize','createSKUModel>/brand','createSKUModel>/prodDesc','createSKUModel>/indPackageSizeUOM','createSKUModel>/packageCount'],formatter:'.sapProdDescfun'}"
-											enabled="{createSKUModel>/sapProdDescEditEnabled}"></TextArea>
+											value="{parts:['oIdeationModel>/indPackageSize','oIdeationModel>/brand','oIdeationModel>/prodDesc','oIdeationModel>/indPackageSizeUOM','oIdeationModel>/packageCount'],formatter:'.sapProdDescfun'}"
+											enabled="{oVisiblityModel>/sapProdDescEditEnabled}"></TextArea>
 										<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="validationIcon"
-											visible="{createSKUModel>/sapProdDescInvalidVisiblity}"/>
-										<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="validationIcon" visible="{createSKUModel>/sapProdDescValidVisiblity}"/>
+											visible="{oVisiblityModel>/sapProdDescInvalidVisiblity}"/>
+										<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="validationIcon"
+											visible="{oVisiblityModel>/sapProdDescValidVisiblity}"/>
 										<core:Icon src="sap-icon://edit" class="createSKUFragEdit" press="sapProdDescEdit"/>
 									</HBox>
-									<!--<Label design="Bold" text="{i18n>MERCHANT_PRODUCT_NAME}" class="labelBold sapUiSmallMarginTop"></Label>-->
-									<!--<TextArea class="createSKUtextArea sapUiTinyMarginTop" value="{createSKUModel>/merchantProductName}"></TextArea>-->
-									<!--<Label design="Bold" text="{i18n>MERCHANT_PRODUCT_FLAVOUR}" class="labelBold sapUiSmallMarginTop"></Label>-->
-									<!--<Input class="sapUiTinyMarginTop" maxLength="40" value="{createSKUModel>/merchantProductFlavour}"></Input>-->
 									<Label design="Bold" text="{i18n>PURCHASING_GROUP}" class="labelBold sapUiSmallMarginTop">
 										<layoutData>
-											<layout:GridData linebreak="true"/>
+											<l:GridData linebreak="true"/>
 										</layoutData>
 									</Label>
-									<Select forceSelection="false" change="c" class=" selectFragClass sapUiTinyMarginTop" items="{SKUModel>/packageGroup}">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>pg}"/>
+									<Select forceSelection="false" change="c" class=" selectFragClass sapUiTinyMarginTop" items="{oDropdownModel>/packageGroup}">
+										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>pg}"/>
 									</Select>
 									<Label design="Bold" text="{i18n>STORAGE_TEMP_ZONE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="d" class="selectFragClass sapUiTinyMarginTop" items="{SKUModel>/storageTemp}">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>st}"/>
+									<Select forceSelection="false" change="d" class="selectFragClass sapUiTinyMarginTop" items="{oDropdownModel>/storageTemp}">
+										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>st}"/>
 									</Select>
 									<VBox>
 										<Label design="Bold" text="{i18n>TARGET_ACTIVATION}" class="labelBold"></Label>
@@ -190,943 +184,955 @@
 									</VBox>
 									<CheckBox selected="false" select="tarActASAPfn" class="sapUiTinyMarginTop"></CheckBox>
 									<Label design="Bold" text="{i18n>TARGET_ACTIVATION_DATE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<DatePicker enabled="{createSKUModel>/tarActDateenabled}" value="{createSKUModel>/tarActDate}" change="onTargetActivationDateChange"
+									<DatePicker enabled="{oVisiblityModel>/tarActDateEnabled}" value="{oIdeationModel>/tarActDate}" change="onTargetActivationDateChange"
 										displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" class="sapUiTinyMarginTop" placeholder="MM/DD/YYYY"></DatePicker>
-									<Label design="Bold" text="{i18n>TIER1}" width="100%" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="onTier1Selection" width="100%" items="{SKUModel>/tier1}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t1}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>TIER2}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="onTier2Selection" width="100%" items="{SKUModel>/tier2array/0}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>TIER3}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="onTier3Selection" width="100%" items="{SKUModel>/tier3array/0}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t3}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>TIER4}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="e" width="100%" items="{SKUModel>/tier4array/0}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t4}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE1}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="f" width="100%" items="{SKUModel>/tier2array/0}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE2}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="g" width="100%" items="{SKUModel>/tier2array/0}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE3}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="h" width="100%" items="{SKUModel>/tier2array/0}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t3}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE4}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="i" width="100%" items="{SKUModel>/tier2array/0}"
-										class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-										<core:Item key="{SKUModel>key}" text="{SKUModel>t2}"/>
-									</Select>
-								</layout:content>
-							</layout:Grid>
+								</l:content>
+							</l:Grid>
+							<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
+								<l:content>
+									<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
+										<l:content>
+											<Label design="Bold" text="{i18n>TIER1}" width="100%" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="onTier1Selection" width="100%" items="{oDropdownModel>/tier1}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t1}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>TIER2}" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="onTier2Selection" width="100%" items="{oDropdownModel>/tier2array/0}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>TIER3}" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="onTier3Selection" width="100%" items="{oDropdownModel>/tier3array/0}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t3}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>TIER4}" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="e" width="100%" items="{oDropdownModel>/tier4array/0}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t4}"/>
+											</Select>
+										</l:content>
+									</l:Grid>
+									<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
+										<l:content>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE1}" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="f" width="100%" items="{oDropdownModel>/tier2array/0}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE2}" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="g" width="100%" items="{oDropdownModel>/tier2array/0}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE3}" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="h" width="100%" items="{oDropdownModel>/tier2array/0}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t3}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE4}" class="labelBold sapUiSmallMarginTop"></Label>
+											<Select forceSelection="false" change="i" width="100%" items="{oDropdownModel>/tier2array/0}"
+												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
+												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											</Select>
+										</l:content>
+									</l:Grid>
+								</l:content>
+							</l:Grid>
 						</IconTabFilter>
-						<IconTabFilter text="{i18n>BASIC_PRODUCT_ATTRIBUTE}" key="Basic Product Attributes">
-							<Panel expandable="true" headerText="{i18n>PRODUCT_ATTRIBUTES}" class="iconPanelHdng" width="99.4%">
-								<content>
+								<IconTabFilter text="{i18n>BASIC_PRODUCT_ATTRIBUTE}" key="Basic Product Attributes">
+									<Panel expandable="true" headerText="{i18n>PRODUCT_ATTRIBUTES}" class="iconPanelHdng" width="99.4%">
+										<content>
+											<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+												<layout:content>
+													<Label text="{i18n>STORAGE_TEMP_RANGE}:" design="Bold"/>
+													<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+														class="IconTabSelectClass">
+														<core:Item key="{ProductId}" text="{Name}"/>
+													</Select>
+													<Label text="{i18n>STORAGE_TEMO_OTHER_TEXT}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>STORAGE_TEMP_MIN}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>STORAGE_TEMP_MAX}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>STORAGE_CONDITION}:" design="Bold"/>
+													<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+														class="IconTabSelectClass">
+														<core:Item key="{ProductId}" text="{Name}"/>
+													</Select>
+													<Label text="{i18n>STORAGE_CONDITION_TEXT}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>VARIABLE_WEIGHT_PRODUCT}:" design="Bold"/>
+													<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>PRODUCT_DATE_CODED}:" design="Bold"/>
+													<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>VARIABLE_WEIGHT_LABEL_PRODUCT}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>PRODUCT_DATING}:" design="Bold"/>
+													<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+														class="IconTabSelectClass">
+														<core:Item key="{ProductId}" text="{Name}"/>
+													</Select>
+													<Label text="{i18n>VENDOR_ATTRIBUTES_1}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>BATCH_LOT_CODED}:" design="Bold"/>
+													<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>VENDOR_ATTRIBUTES_2}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>NUTRITION_PANEL_REQUIRED}:" design="Bold"/>
+													<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>VENDOR_ATTRIBUTES_3}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>NUTRITION_PANEL}:" design="Bold"/>
+													<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+														class="IconTabSelectClass">
+														<core:Item key="{ProductId}" text="{Name}"/>
+													</Select>
+													<Label text="{i18n>TOTAL_SHELF_LIFE}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>MIN_SHELF_LIFE_REQ}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>GUARANTEED_DAYS_FRESH_TO_CUST}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>DAYS_TO_FRESH}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>BOTTLES_DEPOSIT_REQ}:" design="Bold"/>
+													<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>JUICE_PERCENTAGE}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>ALCOHOL_PERCENTAGE}:" design="Bold"/>
+													<Input/>
+												</layout:content>
+											</layout:Grid>
+											<VBox class="iconTabTableClass">
+												<Table>
+													<columns>
+														<Column>
+															<Label text="{i18n>STATE}"/>
+														</Column>
+														<Column>
+															<Label text="{i18n>BOTTLE_DEPOSIT}"/>
+														</Column>
+														<Column>
+															<Label text="{i18n>NO_OF_BOTTLE_EACH}"/>
+														</Column>
+														<Column>
+															<Label text="{i18n>NO_OF_BOTTLE_CASE}"/>
+														</Column>
+														<Column>
+															<Label text="{i18n>AMT_EACH}"/>
+														</Column>
+														<Column>
+															<Label text="{i18n>AMT_CASE}"/>
+														</Column>
+													</columns>
+													<items>
+														<ColumnListItem>
+															<Text/>
+															<Text/>
+															<Text/>
+															<Text/>
+															<Text/>
+															<Text/>
+														</ColumnListItem>
+													</items>
+												</Table>
+											</VBox>
+										</content>
+									</Panel>
+									<Panel expandable="true" headerText="{i18n>BRAND_OWNER_DETAILS}" class="iconPanelHdng" width="99.4%">
+										<content>
+											<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+												<layout:content>
+													<Label text="{i18n>BRAND_OWNER}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>PRODUCT_WEBSITE_LINK}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>BRAND_OWNER_CONTACT_NO}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>CPI_BRAND}:" design="Bold"/>
+													<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>BRAND_OWNER_CONTACT_EMAIL}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>GDSN_CAPABLE}:" design="Bold"/>
+													<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>BRAND_OWNER_CONTACT_TITLE}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>GDSN_PUBLISHED_TO_FD}:" design="Bold"/>
+													<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>BRAND_OWNER_CONTACT_PHONE}:" design="Bold"/>
+													<Input/>
+												</layout:content>
+											</layout:Grid>
+										</content>
+									</Panel>
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>WEIGHT_DIMS}" key="WeightDims"></IconTabFilter>
+								<IconTabFilter text="{i18n>BINNING}" key="Binning">
 									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
 										<layout:content>
-											<Label text="{i18n>STORAGE_TEMP_RANGE}:" design="Bold"/>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-											</Select>
-											<Label text="{i18n>STORAGE_TEMO_OTHER_TEXT}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>STORAGE_TEMP_MIN}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>STORAGE_TEMP_MAX}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>STORAGE_CONDITION}:" design="Bold"/>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-											</Select>
-											<Label text="{i18n>STORAGE_CONDITION_TEXT}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>VARIABLE_WEIGHT_PRODUCT}:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>PRODUCT_DATE_CODED}:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>VARIABLE_WEIGHT_LABEL_PRODUCT}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>PRODUCT_DATING}:" design="Bold"/>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-											</Select>
-											<Label text="{i18n>VENDOR_ATTRIBUTES_1}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>BATCH_LOT_CODED}:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>VENDOR_ATTRIBUTES_2}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>NUTRITION_PANEL_REQUIRED}:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>VENDOR_ATTRIBUTES_3}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>NUTRITION_PANEL}:" design="Bold"/>
-											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-												class="IconTabSelectClass">
-												<core:Item key="{ProductId}" text="{Name}"/>
-											</Select>
-											<Label text="{i18n>TOTAL_SHELF_LIFE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>MIN_SHELF_LIFE_REQ}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>GUARANTEED_DAYS_FRESH_TO_CUST}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>DAYS_TO_FRESH}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>BOTTLES_DEPOSIT_REQ}:" design="Bold"/>
-											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>JUICE_PERCENTAGE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>ALCOHOL_PERCENTAGE}:" design="Bold"/>
-											<Input/>
+											<Text text="Average Forecast Weekly Volume: " design="Bold"></Text>
+											<Text text="160"/>
+											<Text text="Minimum Item Order Quantity: " design="Bold"></Text>
+											<Text text="2 pallets"/>
+											<Text text="Unit per Case: " design="Bold"></Text>
+											<Text text="12"/>
+											<Text text="Cases per pallet: " design="Bold"></Text>
+											<Text text="24"/>
+											<Text text="Applicable for Shuttle: " design="Bold"></Text>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+											<Text text="Reserve Pallet Position Available: " design="Bold"></Text>
+											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
 										</layout:content>
 									</layout:Grid>
-									<VBox class="iconTabTableClass">
-										<Table>
-											<columns>
-												<Column>
-													<Label text="{i18n>STATE}"/>
-												</Column>
-												<Column>
-													<Label text="{i18n>BOTTLE_DEPOSIT}"/>
-												</Column>
-												<Column>
-													<Label text="{i18n>NO_OF_BOTTLE_EACH}"/>
-												</Column>
-												<Column>
-													<Label text="{i18n>NO_OF_BOTTLE_CASE}"/>
-												</Column>
-												<Column>
-													<Label text="{i18n>AMT_EACH}"/>
-												</Column>
-												<Column>
-													<Label text="{i18n>AMT_CASE}"/>
-												</Column>
-											</columns>
-											<items>
-												<ColumnListItem>
-													<Text/>
-													<Text/>
-													<Text/>
-													<Text/>
-													<Text/>
-													<Text/>
-												</ColumnListItem>
-											</items>
-										</Table>
+									<VBox>
+										<Label text="Comment:" design="Bold"></Label>
+										<TextArea cols="50" rows="10" placeholder="Enter Here"></TextArea>
 									</VBox>
-								</content>
-							</Panel>
-							<Panel expandable="true" headerText="{i18n>BRAND_OWNER_DETAILS}" class="iconPanelHdng" width="99.4%">
-								<content>
-									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-										<layout:content>
-											<Label text="{i18n>BRAND_OWNER}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>PRODUCT_WEBSITE_LINK}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>BRAND_OWNER_CONTACT_NO}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>CPI_BRAND}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>BRAND_OWNER_CONTACT_EMAIL}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>GDSN_CAPABLE}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>BRAND_OWNER_CONTACT_TITLE}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>GDSN_PUBLISHED_TO_FD}:" design="Bold"/>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>BRAND_OWNER_CONTACT_PHONE}:" design="Bold"/>
-											<Input/>
-										</layout:content>
-									</layout:Grid>
-								</content>
-							</Panel>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>WEIGHT_DIMS}" key="WeightDims"></IconTabFilter>
-						<IconTabFilter text="{i18n>BINNING}" key="Binning">
-							<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-								<layout:content>
-									<Text text="Average Forecast Weekly Volume: " design="Bold"></Text>
-									<Text text="160"/>
-									<Text text="Minimum Item Order Quantity: " design="Bold"></Text>
-									<Text text="2 pallets"/>
-									<Text text="Unit per Case: " design="Bold"></Text>
-									<Text text="12"/>
-									<Text text="Cases per pallet: " design="Bold"></Text>
-									<Text text="24"/>
-									<Text text="Applicable for Shuttle: " design="Bold"></Text>
-									<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-									<Text text="Reserve Pallet Position Available: " design="Bold"></Text>
-									<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-								</layout:content>
-							</layout:Grid>
-							<VBox>
-								<Label text="Comment:" design="Bold"></Label>
-								<TextArea cols="50" rows="10" placeholder="Enter Here"></TextArea>
-							</VBox>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>PRODUCT_SOURCE}" key="Product Sources">
-							<HBox justifyContent="End">
-								<Button text="{i18n>VIEW_SOURCE}" type="Accept" class="commitBtnClass"></Button>
-								<Button text="{i18n>ADD_SOURCE}" type="Accept" class="commitBtnClass"></Button>
-							</HBox>
-							<VBox>
-								<Panel expandable="true" headerText="{i18n>PRIMARY_SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
-									<content>
-										<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-											<layout:content>
-												<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
-												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-													class="IconTabSelectClass">
-													<core:Item key="{ProductId}" text="{Name}"/>
-												</Select>
-												<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>INCOTERMS}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>EMAIL}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-												<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											</layout:content>
-										</layout:Grid>
-										<VBox class="sapUiSmallMargin formBoxStyle">
-											<f:SimpleForm layout="ResponsiveGridLayout">
-												<Title text="Ship from Location"></Title>
-												<Label text="Location Name"></Label>
-												<Input value="">
-													<layoutData>
-														<layout:GridData span="XL2 L3 M4 S4"/>
-													</layoutData>
-												</Input>
-												<Label text="Street Address"></Label>
-												<Input value=""></Input>
-												<Label text="State"></Label>
-												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-													class="IconTabSelectClass">
-													<core:Item key="{ProductId}" text="{Name}"/>
-													<layoutData>
-														<layout:GridData span="XL2 L3 M4 S4"/>
-													</layoutData>
-												</Select>
-												<Label text="City"></Label>
-												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-													class="IconTabSelectClass">
-													<core:Item key="{ProductId}" text="{Name}"/>
-													<layoutData>
-														<layout:GridData span="XL2 L3 M4 S4"/>
-													</layoutData>
-												</Select>
-												<Label text="ZIP"></Label>
-												<Input>
-													<layoutData>
-														<layout:GridData span="XL2 L3 M4 S4"/>
-													</layoutData>
-												</Input>
-											</f:SimpleForm>
-										</VBox>
-									</content>
-								</Panel>
-								<Panel expandable="true" headerText="{i18n>COST_SHEET}" class="iconPanelHdng" width="99.4%">
-									<content></content>
-								</Panel>
-								<Panel expandable="true" headerText="{i18n>ORDERING_INFO}" class="iconPanelHdng" width="99.4%">
-									<content>
-										<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-											<layout:content>
-												<Label text="{i18n>SOURCE_ITEM_NO}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>SOURCE_PRODUCT_DESC}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>ORDER_UNIT_MEASURE}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>ORDER_UNIT_UPC}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>UNIT_PER_CASE}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>CASES_PER_LAYER}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>LAYERS_PER_PALLET}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>CASES_PER_PALLET}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>MINIMUM_ITEM_ORDER_QUANTITY}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>ORDER_MULTIPLE}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>ORDER_MAXIMUM}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>MIN_ORDER_LEVL_ORDER_QUANTITY}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>MIN_GUARANTED_SHELF_LIFE_DERIVED}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>COUNTRY_OF_ORIGIN}:" design="Bold"/>
-												<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-													class="IconTabSelectClass">
-													<core:Item key="{ProductId}" text="{Name}"/>
-												</Select>
-											</layout:content>
-										</layout:Grid>
-									</content>
-								</Panel>
-							</VBox>
-							<VBox>
-								<Table>
-									<columns>
-										<Column>
-											<Label text="{i18n>VENDOR_NUMBER}" design="Bold"></Label>
-										</Column>
-										<Column>
-											<Label text="{i18n>VENDOR_NAME}" design="Bold"></Label>
-										</Column>
-										<Column>
-											<Label text="{i18n>SOURCE_TYPE}" design="Bold"></Label>
-										</Column>
-									</columns>
-								</Table>
-							</VBox>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>MERCHANDISING}" key="Merchandising">
-							<Panel expandable="true" headerText="Sales Forecast" class="iconPanelHdng" width="99.4%">
-								<content>
-									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
-										<layout:content>
-											<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:" design="Bold"/>
-											<HBox>
-												<Input/>
-												<Image src="images/suggestion_icon.png" width="1rem" press="onShowSuggestion"/>
-											</HBox>
-											<Label text="Reference Average actual Weekly unit volume:" design="Bold"/>
-											<Input></Input>
-											<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:" design="Bold"/>
-											<Input></Input>
-											<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:" design="Bold"/>
-											<Input></Input>
-											<Label text="Replacement SKU" design="Bold"></Label>
-											<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>FIRST_PO_QUANTITY}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:" design="Bold"/>
-											<Input/>
-											<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:" design="Bold"/>
-											<Input/>
-										</layout:content>
-									</layout:Grid>
-									<VBox class="iconTabTableClass">
-										<Toolbar>
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>PRODUCT_SOURCE}" key="Product Sources">
+									<HBox justifyContent="End">
+										<Button text="{i18n>VIEW_SOURCE}" type="Accept" class="commitBtnClass"></Button>
+										<Button text="{i18n>ADD_SOURCE}" type="Accept" class="commitBtnClass"></Button>
+									</HBox>
+									<VBox>
+										<Panel expandable="true" headerText="{i18n>PRIMARY_SOURCE_INFO}" class="iconPanelHdng" width="99.4%">
 											<content>
-												<Text text="Forecast in BUOM"/>
+												<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+													<layout:content>
+														<Label text="{i18n>SOURCE_VENDOR_NO}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>SOURCE_IS_NEW_SOURCE_FOR_FD}:" design="Bold"/>
+														<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+														<Label text="{i18n>VENDOR_NAME}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>COVERED_UNDER_SOURCE_CONTARCT}:" design="Bold"/>
+														<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+														<Label text="{i18n>SOURCE_TYPE}:" design="Bold"/>
+														<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+															class="IconTabSelectClass">
+															<core:Item key="{ProductId}" text="{Name}"/>
+														</Select>
+														<Label text="{i18n>SOURCE_CONTRACT_ID}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>CONTACT_NAME}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>PAYMENT_TERMS}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>CONTACT_TITLE}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>INCOTERMS}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>EMAIL}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>PHONE_NUMBER}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>SOURCE_WILL_DELIVER}:" design="Bold"/>
+														<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+														<Label text="{i18n>LEAD_TIME}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>SOURCE_ALLOWS_CUST_PICK_UP}:" design="Bold"/>
+														<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+														<Label text="{i18n>FIRST_ORDER_DELIVERY_PICKUP}:" design="Bold"/>
+														<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+													</layout:content>
+												</layout:Grid>
+												<VBox class="sapUiSmallMargin formBoxStyle">
+													<f:SimpleForm layout="ResponsiveGridLayout">
+														<Title text="Ship from Location"></Title>
+														<Label text="Location Name"></Label>
+														<Input value="">
+															<layoutData>
+																<layout:GridData span="XL2 L3 M4 S4"/>
+															</layoutData>
+														</Input>
+														<Label text="Street Address"></Label>
+														<Input value=""></Input>
+														<Label text="State"></Label>
+														<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+															class="IconTabSelectClass">
+															<core:Item key="{ProductId}" text="{Name}"/>
+															<layoutData>
+																<layout:GridData span="XL2 L3 M4 S4"/>
+															</layoutData>
+														</Select>
+														<Label text="City"></Label>
+														<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+															class="IconTabSelectClass">
+															<core:Item key="{ProductId}" text="{Name}"/>
+															<layoutData>
+																<layout:GridData span="XL2 L3 M4 S4"/>
+															</layoutData>
+														</Select>
+														<Label text="ZIP"></Label>
+														<Input>
+															<layoutData>
+																<layout:GridData span="XL2 L3 M4 S4"/>
+															</layoutData>
+														</Input>
+													</f:SimpleForm>
+												</VBox>
 											</content>
-										</Toolbar>
+										</Panel>
+										<Panel expandable="true" headerText="{i18n>COST_SHEET}" class="iconPanelHdng" width="99.4%">
+											<content></content>
+										</Panel>
+										<Panel expandable="true" headerText="{i18n>ORDERING_INFO}" class="iconPanelHdng" width="99.4%">
+											<content>
+												<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+													<layout:content>
+														<Label text="{i18n>SOURCE_ITEM_NO}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>SOURCE_PRODUCT_DESC}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>ORDER_UNIT_MEASURE}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>ORDER_UNIT_UPC}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>UNIT_PER_CASE}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>CASES_PER_LAYER}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>LAYERS_PER_PALLET}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>CASES_PER_PALLET}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>MINIMUM_ITEM_ORDER_QUANTITY}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>ORDER_MULTIPLE}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>ORDER_MAXIMUM}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>MIN_ORDER_LEVL_ORDER_QUANTITY}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>MIN_GUARANTED_SHELF_LIFE_DERIVED}:" design="Bold"/>
+														<Input/>
+														<Label text="{i18n>COUNTRY_OF_ORIGIN}:" design="Bold"/>
+														<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+															class="IconTabSelectClass">
+															<core:Item key="{ProductId}" text="{Name}"/>
+														</Select>
+													</layout:content>
+												</layout:Grid>
+											</content>
+										</Panel>
+									</VBox>
+									<VBox>
 										<Table>
 											<columns>
 												<Column>
-													<Text text="{i18n>WEEK1}"/>
+													<Label text="{i18n>VENDOR_NUMBER}" design="Bold"></Label>
 												</Column>
 												<Column>
-													<Text text="{i18n>WEEK2}"/>
+													<Label text="{i18n>VENDOR_NAME}" design="Bold"></Label>
 												</Column>
 												<Column>
-													<Text text="{i18n>WEEK3}"/>
-												</Column>
-												<Column>
-													<Text text="{i18n>WEEK4}"/>
-												</Column>
-												<Column>
-													<Text text="{i18n>WEEK5}"/>
-												</Column>
-												<Column>
-													<Text text="{i18n>WEEK6}"/>
+													<Label text="{i18n>SOURCE_TYPE}" design="Bold"></Label>
 												</Column>
 											</columns>
-											<items>
-												<ColumnListItem>
-													<Text text="1"/>
-													<Text text="2"/>
-													<Text text="3"/>
-													<Text text="4"/>
-													<Text text="5"/>
-													<Text text="6"/>
-												</ColumnListItem>
-											</items>
 										</Table>
 									</VBox>
-								</content>
-							</Panel>
-							<Panel expandable="true" headerText="Pricing" class="iconPanelHdng" width="99.4%">
-								<content>
-									<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass ">
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>MERCHANDISING}" key="Merchandising">
+									<Panel expandable="true" headerText="Sales Forecast" class="iconPanelHdng" width="99.4%">
+										<content>
+											<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass">
+												<layout:content>
+													<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:" design="Bold"/>
+													<HBox>
+														<Input/>
+														<Image src="images/suggestion_icon.png" width="1rem" press="onShowSuggestion"/>
+													</HBox>
+													<Label text="Reference Average actual Weekly unit volume:" design="Bold"/>
+													<Input></Input>
+													<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:" design="Bold"/>
+													<Input></Input>
+													<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:" design="Bold"/>
+													<Input></Input>
+													<Label text="Replacement SKU" design="Bold"></Label>
+													<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+													<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>FIRST_PO_QUANTITY}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:" design="Bold"/>
+													<Input/>
+												</layout:content>
+											</layout:Grid>
+											<VBox class="iconTabTableClass">
+												<Toolbar>
+													<content>
+														<Text text="Forecast in BUOM"/>
+													</content>
+												</Toolbar>
+												<Table>
+													<columns>
+														<Column>
+															<Text text="{i18n>WEEK1}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK2}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK3}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK4}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK5}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK6}"/>
+														</Column>
+													</columns>
+													<items>
+														<ColumnListItem>
+															<Text text="1"/>
+															<Text text="2"/>
+															<Text text="3"/>
+															<Text text="4"/>
+															<Text text="5"/>
+															<Text text="6"/>
+														</ColumnListItem>
+													</items>
+												</Table>
+											</VBox>
+										</content>
+									</Panel>
+									<Panel expandable="true" headerText="Pricing" class="iconPanelHdng" width="99.4%">
+										<content>
+											<layout:Grid defaultSpan="L3 M6 S12" width="100%" class="IconTabInputClass ">
+												<layout:content>
+													<Text text="{i18n>MSRP}:" class="textBoldClass sapUiSmallMarginEnd "/>
+													<Input/>
+													<Text text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_EACH}:" class="textBoldClass sapUiSmallMarginEnd" design="Bold">
+														<layoutData>
+															<layout:GridData linebreak="true"/>
+														</layoutData>
+													</Text>
+													<Input/>
+													<Text text="{i18n>MARKET_FINAL_PRICE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd"/>
+													<Input/>
+													<Text text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_CASE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd">
+														<layoutData>
+															<layout:GridData linebreak="true"/>
+														</layoutData>
+													</Text>
+													<Input/>
+													<Text text="{i18n>MARKET_FINAL_PRICE_CASE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd"/>
+													<Input/>
+												</layout:content>
+											</layout:Grid>
+										</content>
+									</Panel>
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>STORE_FRONT_ATTRIBUTES}">
+									<layout:Grid defaultSpan="L6 M12 S12" class="wordWrapClass IconTabInputClass">
 										<layout:content>
-											<Text text="{i18n>MSRP}:" class="textBoldClass sapUiSmallMarginEnd "/>
-											<Input/>
-											<Text text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_EACH}:" class="textBoldClass sapUiSmallMarginEnd" design="Bold">
-												<layoutData>
-													<layout:GridData linebreak="true"/>
-												</layoutData>
-											</Text>
-											<Input/>
-											<Text text="{i18n>MARKET_FINAL_PRICE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd"/>
-											<Input/>
-											<Text text="{i18n>MERCHANT_SUGGESTED_PRICE_FOR_CASE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd">
-												<layoutData>
-													<layout:GridData linebreak="true"/>
-												</layoutData>
-											</Text>
-											<Input/>
-											<Text text="{i18n>MARKET_FINAL_PRICE_CASE}:" design="Bold" class="textBoldClass sapUiSmallMarginEnd"/>
-											<Input/>
+											<layout:Grid defaultSpan="L6 M6 S6">
+												<layout:content>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PRODUCT_NAME}"/>
+													<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}"/>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PRODUCT_CONTENT_COPY}"/>
+													<TextArea class="productContentCopyTextArea" editable="{createNewTaxCodeModel>/DescriptionEditable}" placeholder="Enter Here"
+														value="{createNewTaxCodeModel>/Description}">
+														<layoutData>
+															<layout:GridData span="L12 M12 S12" linebreak="true"/>
+														</layoutData>
+													</TextArea>
+												</layout:content>
+											</layout:Grid>
+											<layout:Grid defaultSpan="L6 M6 S6">
+												<layout:content>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>MERCHANT_SUGGESTED_SEARCH_TERMS}"></Label>
+													<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}"/>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PLACEMENT_ON_STOREFRONT}">
+														<layoutData>
+															<layout:GridData span="L6 M6 S6" linebreak="true"/>
+														</layoutData>
+													</Label>
+													<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+														visible="{oVisiblityModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+														items="{avalaraTaxModel>/cat}">
+														<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+													</Select>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_A}">
+														<layoutData>
+															<layout:GridData span="L6 M6 S6" linebreak="true"/>
+														</layoutData>
+													</Label>
+													<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+														visible="{oVisiblityModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+														items="{avalaraTaxModel>/cat}">
+														<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+													</Select>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_B}">
+														<layoutData>
+															<layout:GridData span="L6 M6 S6" linebreak="true"/>
+														</layoutData>
+													</Label>
+													<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+														visible="{oVisiblityModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+														items="{avalaraTaxModel>/cat}">
+														<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+													</Select>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_C}">
+														<layoutData>
+															<layout:GridData span="L6 M6 S6" linebreak="true"/>
+														</layoutData>
+													</Label>
+													<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+														visible="{oVisiblityModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+														items="{avalaraTaxModel>/cat}">
+														<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+													</Select>
+													<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_D}">
+														<layoutData>
+															<layout:GridData span="L6 M6 S6" linebreak="true"/>
+														</layoutData>
+													</Label>
+													<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
+														visible="{oVisiblityModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
+														items="{avalaraTaxModel>/cat}">
+														<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
+													</Select>
+												</layout:content>
+											</layout:Grid>
 										</layout:content>
 									</layout:Grid>
-								</content>
-							</Panel>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>STORE_FRONT_ATTRIBUTES}">
-							<layout:Grid defaultSpan="L6 M12 S12" class="wordWrapClass IconTabInputClass">
-								<layout:content>
-									<layout:Grid defaultSpan="L6 M6 S6">
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>PRODUCT_TAGS}">
+									<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CERTIFICATION}">
+										<content>
+											<layout:Grid defaultSpan="L2 M2 S2" class="">
+												<layout:content>
+													<CheckBox text="{i18n>ORGANIC}" selected=""/>
+													<CheckBox text="{i18n>GLUTEN_FREE}" selected=""/>
+													<CheckBox text="{i18n>KOSHER}" selected=""/>
+												</layout:content>
+											</layout:Grid>
+										</content>
+									</Panel>
+									<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>GLOBAL_TAGS}">
+										<content>
+											<layout:Grid defaultSpan="L2 M2 S2" class="">
+												<layout:content>
+													<CheckBox text="{i18n> GRASS_FED}" selected=""/>
+													<CheckBox text="{i18n>KIDS}" selected=""/>
+													<CheckBox text="{i18n>LOCAL}" selected=""/>
+													<CheckBox text="{i18n>LOCAL-CT}" selected=""/>
+													<CheckBox text="{i18n>LOCAL-NJ}" selected=""/>
+													<CheckBox text="{i18n>LOCAL-NY}" selected=""/>
+													<CheckBox text="{i18n>LOCAL-PA}" selected=""/>
+													<CheckBox text="{i18n>LOCAL-VT}" selected=""/>
+													<CheckBox text="{i18n>MADE_IN_NYC}" selected=""/>
+													<CheckBox text="{i18n>ONLY_HERE}" selected=""/>
+													<CheckBox text="{i18n>PORTIONED}" selected=""/>
+													<CheckBox text="{i18n>SEASONAL}" selected=""/>
+													<CheckBox text="{i18n>STAFF_PICK}" selected=""/>
+													<CheckBox text="{i18n>VARIETY_PICK}" selected=""/>
+												</layout:content>
+											</layout:Grid>
+										</content>
+									</Panel>
+									<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CATEGORY_SPECIFICATION}">
+										<content>
+											<VBox class="VBox">
+												<Toolbar class="iconPanelToolbar VBox">
+													<Title text="{i18n>DAIRY_DEPARTMENT}"/>
+												</Toolbar>
+												<Toolbar>
+													<Title text="{i18n>MILK_TYPE}"/>
+												</Toolbar>
+												<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
+													<layout:content>
+														<CheckBox text="1%" selected=""/>
+														<CheckBox text="2%" selected=""/>
+														<CheckBox text="{i18n>SKIM}" selected=""/>
+														<CheckBox text="{i18n>WHOLE}" selected=""/>
+													</layout:content>
+												</layout:Grid>
+												<Toolbar>
+													<Title text="{i18n>PACK_COUNT}"/>
+												</Toolbar>
+												<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
+													<layout:content>
+														<CheckBox text="1-3 pks" selected=""/>
+														<CheckBox text="15-18 pks" selected=""/>
+														<CheckBox text="20+ pks" selected=""/>
+														<CheckBox text="4-6 pks" selected=""/>
+														<CheckBox text="8-12 pks" selected=""/>
+													</layout:content>
+												</layout:Grid>
+											</VBox>
+										</content>
+									</Panel>
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>SALES_TAX}">
+									<layout:Grid defaultSpan="L3 M3 S6" width="100%">
 										<layout:content>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PRODUCT_NAME}"/>
-											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}"/>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PRODUCT_CONTENT_COPY}"/>
-											<TextArea class="productContentCopyTextArea" editable="{createNewTaxCodeModel>/DescriptionEditable}" placeholder="Enter Here"
-												value="{createNewTaxCodeModel>/Description}">
+											<Label text="{i18n>CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
 												<layoutData>
-													<layout:GridData span="L12 M12 S12" linebreak="true"/>
+													<layout:GridData span="L2 M4 S6"></layout:GridData>
+												</layoutData>
+											</Label>
+											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}" class="IconTabSelectClass sapUiTinyMarginTop">
+												<core:Item key="{}" text="{page3Model>/category}"/>
+											</Select>
+											<Label text="{i18n>SUB_CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
+												<layoutData>
+													<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
+												</layoutData>
+											</Label>
+											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}" class="IconTabSelectClass sapUiTinyMarginTop">
+												<core:Item key="{}" text="{page3Model>/subCategory}"/>
+											</Select>
+											<Label text="{i18n>AVALARA_TAX_CODE}:" design="Bold" class="sapUiSmallMarginTop">
+												<layoutData>
+													<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
+												</layoutData>
+											</Label>
+											<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+												class="IconTabSelectClass sapUiTinyMarginTop">
+												<core:Item key="{ProductId}" text="{Name}"/>
+											</Select>
+										</layout:content>
+									</layout:Grid>
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>COMMERCIAL_FINANCE}">
+									<layout:Grid class="wordWrapClass IconTabInputClass">
+										<layout:content>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Label>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>COST(UOM)}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Label>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>COST(UNIT)}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Label>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>NET_ITEM_COST}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Text text="{}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>NET_HEADER_COST}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Text text="{}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>TRUE_NET_PRODUCT_COST}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Text text="{}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>DEAD_NET_COST}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Text text="{}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>CFM_ADJUSTMENT($)}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Input>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>CFM_ADJUSTMENT(%)}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Input>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>DEAD_NET_COST}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Text text="{}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>PRICE}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Text text="{}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>GROSS_MARGIN}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Text text="{}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+											<Text text="{,formatter='.financePerUnitValue'}">
+												<layoutData>
+													<layout:GridData span="L2 M3 S4"/>
+												</layoutData>
+											</Text>
+										</layout:content>
+									</layout:Grid>
+									<layout:Grid class="wordWrapClass IconTabInputClass">
+										<layout:content>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>MIN_ORDER_QUANTITY}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Input>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>AVG_WEEKLY_UNIT_OF_DEMAND}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Input>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>REFERENCE_MATERIAL}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Input>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>REFERENCE_MATERIAL_DESCRIPTION}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Input>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>GMROI}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Input>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>NPV}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Input>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>IRR}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Input>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>APPROVED}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
+												</layoutData>
+											</Switch>
+											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>COMMENTS}">
+												<layoutData>
+													<layout:GridData span="L3 M4 S6" linebreak="true"/>
+												</layoutData>
+											</Label>
+											<TextArea>
+												<layoutData>
+													<layout:GridData span="L3 M4 S6"/>
 												</layoutData>
 											</TextArea>
 										</layout:content>
 									</layout:Grid>
-									<layout:Grid defaultSpan="L6 M6 S6">
-										<layout:content>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>MERCHANT_SUGGESTED_SEARCH_TERMS}"></Label>
-											<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}"/>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>PLACEMENT_ON_STOREFRONT}">
-												<layoutData>
-													<layout:GridData span="L6 M6 S6" linebreak="true"/>
-												</layoutData>
-											</Label>
-											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
-												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
-												items="{avalaraTaxModel>/cat}">
-												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
-											</Select>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_A}">
-												<layoutData>
-													<layout:GridData span="L6 M6 S6" linebreak="true"/>
-												</layoutData>
-											</Label>
-											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
-												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
-												items="{avalaraTaxModel>/cat}">
-												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
-											</Select>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_B}">
-												<layoutData>
-													<layout:GridData span="L6 M6 S6" linebreak="true"/>
-												</layoutData>
-											</Label>
-											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
-												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
-												items="{avalaraTaxModel>/cat}">
-												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
-											</Select>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_C}">
-												<layoutData>
-													<layout:GridData span="L6 M6 S6" linebreak="true"/>
-												</layoutData>
-											</Label>
-											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
-												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
-												items="{avalaraTaxModel>/cat}">
-												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
-											</Select>
-											<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>ADDITIONAL_PLACEMENT_ON_STOREFRONTFRONT_D}">
-												<layoutData>
-													<layout:GridData span="L6 M6 S6" linebreak="true"/>
-												</layoutData>
-											</Label>
-											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" change="onCategorySelection"
-												visible="{createNewTaxCodeModel>/CategoryDropdownVisible}" selectedKey="{createNewTaxCodeModel>/categorySelectedKey}"
-												items="{avalaraTaxModel>/cat}">
-												<core:Item key="{avalaraTaxModel>key}" text="{avalaraTaxModel>c}"/>
-											</Select>
-										</layout:content>
-									</layout:Grid>
-								</layout:content>
-							</layout:Grid>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>PRODUCT_TAGS}">
-							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CERTIFICATION}">
-								<content>
-									<layout:Grid defaultSpan="L2 M2 S2" class="">
-										<layout:content>
-											<CheckBox text="{i18n>ORGANIC}" selected=""/>
-											<CheckBox text="{i18n>GLUTEN_FREE}" selected=""/>
-											<CheckBox text="{i18n>KOSHER}" selected=""/>
-										</layout:content>
-									</layout:Grid>
-								</content>
-							</Panel>
-							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>GLOBAL_TAGS}">
-								<content>
-									<layout:Grid defaultSpan="L2 M2 S2" class="">
-										<layout:content>
-											<CheckBox text="{i18n> GRASS_FED}" selected=""/>
-											<CheckBox text="{i18n>KIDS}" selected=""/>
-											<CheckBox text="{i18n>LOCAL}" selected=""/>
-											<CheckBox text="{i18n>LOCAL-CT}" selected=""/>
-											<CheckBox text="{i18n>LOCAL-NJ}" selected=""/>
-											<CheckBox text="{i18n>LOCAL-NY}" selected=""/>
-											<CheckBox text="{i18n>LOCAL-PA}" selected=""/>
-											<CheckBox text="{i18n>LOCAL-VT}" selected=""/>
-											<CheckBox text="{i18n>MADE_IN_NYC}" selected=""/>
-											<CheckBox text="{i18n>ONLY_HERE}" selected=""/>
-											<CheckBox text="{i18n>PORTIONED}" selected=""/>
-											<CheckBox text="{i18n>SEASONAL}" selected=""/>
-											<CheckBox text="{i18n>STAFF_PICK}" selected=""/>
-											<CheckBox text="{i18n>VARIETY_PICK}" selected=""/>
-										</layout:content>
-									</layout:Grid>
-								</content>
-							</Panel>
-							<Panel expandable="true" class="iconPanelHdng" headerText="{i18n>CATEGORY_SPECIFICATION}">
-								<content>
+									<HBox justifyContent="End">
+										<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+										<Button text="Save" type="Accept" class="commitBtnClass"/>
+									</HBox>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>FILE_UPLOAD}">
+									<HBox justifyContent="End">
+										<Label text="File type:" design="Bold" style="margin-top:15%"></Label>
+										<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
+											class="IconTabSelectClass sapUiTinyMarginTop">
+											<core:Item key="{ProductId}" text="{Name}"/>
+										</Select>
+										<Input value="" class="fileUploadInputStyle"></Input>
+										<Button text="Browse" type="Accept" class="commitBtnClass"></Button>
+										<Button text="Upload" type="Accept" class="commitBtnClass"></Button>
+									</HBox>
 									<VBox class="VBox">
-										<Toolbar class="iconPanelToolbar VBox">
-											<Title text="{i18n>DAIRY_DEPARTMENT}"/>
-										</Toolbar>
-										<Toolbar>
-											<Title text="{i18n>MILK_TYPE}"/>
-										</Toolbar>
-										<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
-											<layout:content>
-												<CheckBox text="1%" selected=""/>
-												<CheckBox text="2%" selected=""/>
-												<CheckBox text="{i18n>SKIM}" selected=""/>
-												<CheckBox text="{i18n>WHOLE}" selected=""/>
-											</layout:content>
-										</layout:Grid>
-										<Toolbar>
-											<Title text="{i18n>PACK_COUNT}"/>
-										</Toolbar>
-										<layout:Grid defaultSpan="L2 M2 S2" class="iconPanelCheckbox">
-											<layout:content>
-												<CheckBox text="1-3 pks" selected=""/>
-												<CheckBox text="15-18 pks" selected=""/>
-												<CheckBox text="20+ pks" selected=""/>
-												<CheckBox text="4-6 pks" selected=""/>
-												<CheckBox text="8-12 pks" selected=""/>
-											</layout:content>
-										</layout:Grid>
+										<Table>
+											<columns>
+												<Column>
+													<Label text="File Name" design="Bold"></Label>
+												</Column>
+												<Column>
+													<Label text="File Type" design="Bold"></Label>
+												</Column>
+												<Column>
+													<Label text="Uploaded By" design="Bold"></Label>
+												</Column>
+												<Column>
+													<Label text="Uploaded on" design="Bold"></Label>
+												</Column>
+												<Column>
+													<Label text="Notes" design="Bold"></Label>
+												</Column>
+												<Column></Column>
+											</columns>
+											<items>
+												<ColumnListItem>
+													<Text text="a"></Text>
+													<Text text="a"></Text>
+													<Text text="a"></Text>
+													<Text text="a"></Text>
+													<Text text="a"></Text>
+													<Button icon="sap-icon://delete" type="Reject"></Button>
+												</ColumnListItem>
+											</items>
+										</Table>
 									</VBox>
-								</content>
-							</Panel>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>SALES_TAX}">
-							<layout:Grid defaultSpan="L3 M3 S6" width="100%">
-								<layout:content>
-									<Label text="{i18n>CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
-										<layoutData>
-											<layout:GridData span="L2 M4 S6"></layout:GridData>
-										</layoutData>
-									</Label>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}" class="IconTabSelectClass sapUiTinyMarginTop">
-										<core:Item key="{}" text="{page3Model>/category}"/>
-									</Select>
-									<Label text="{i18n>SUB_CATEGORY}:" design="Bold" class="sapUiSmallMarginTop">
-										<layoutData>
-											<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
-										</layoutData>
-									</Label>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{page3Model>/salesTaxCategory}" class="IconTabSelectClass sapUiTinyMarginTop">
-										<core:Item key="{}" text="{page3Model>/subCategory}"/>
-									</Select>
-									<Label text="{i18n>AVALARA_TAX_CODE}:" design="Bold" class="sapUiSmallMarginTop">
-										<layoutData>
-											<layout:GridData span="L2 M4 S6" linebreak="true"></layout:GridData>
-										</layoutData>
-									</Label>
-									<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-										class="IconTabSelectClass sapUiTinyMarginTop">
-										<core:Item key="{ProductId}" text="{Name}"/>
-									</Select>
-								</layout:content>
-							</layout:Grid>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>COMMERCIAL_FINANCE}">
-							<layout:Grid class="wordWrapClass IconTabInputClass">
-								<layout:content>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Label>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>COST(UOM)}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Label>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>COST(UNIT)}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Label>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>NET_ITEM_COST}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Text text="{}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>NET_HEADER_COST}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Text text="{}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>TRUE_NET_PRODUCT_COST}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Text text="{}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>DEAD_NET_COST}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Text text="{}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>CFM_ADJUSTMENT($)}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Input>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>CFM_ADJUSTMENT(%)}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Input>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>DEAD_NET_COST}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Text text="{}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>PRICE}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Text text="{}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Label class="sapUiSmallMarginTop" design="Bold" text="{i18n>GROSS_MARGIN}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Text text="{}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-									<Text text="{,formatter='.financePerUnitValue'}">
-										<layoutData>
-											<layout:GridData span="L2 M3 S4"/>
-										</layoutData>
-									</Text>
-								</layout:content>
-							</layout:Grid>
-							<layout:Grid class="wordWrapClass IconTabInputClass">
-								<layout:content>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>MIN_ORDER_QUANTITY}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>AVG_WEEKLY_UNIT_OF_DEMAND}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>REFERENCE_MATERIAL}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>REFERENCE_MATERIAL_DESCRIPTION}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>GMROI}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>NPV}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>IRR}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Input class="inputFieldBorder sapUiTinyMarginTop" value="{>}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Input>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>APPROVED}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<Switch state="true" customTextOn="On" customTextOff="Off" class="basicSwitchBtnClass">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</Switch>
-									<Label design="Bold" class="sapUiSmallMarginTop" text="{i18n>COMMENTS}">
-										<layoutData>
-											<layout:GridData span="L3 M4 S6" linebreak="true"/>
-										</layoutData>
-									</Label>
-									<TextArea>
-										<layoutData>
-											<layout:GridData span="L3 M4 S6"/>
-										</layoutData>
-									</TextArea>
-								</layout:content>
-							</layout:Grid>
-							<HBox justifyContent="End">
-								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
-								<Button text="Save" type="Accept" class="commitBtnClass"/>
-							</HBox>
-						</IconTabFilter>
-						<IconTabFilter text="{i18n>FILE_UPLOAD}">
-							<HBox justifyContent="End">
-								<Label text="File type:" design="Bold" style="margin-top:15%"></Label>
-								<Select selectedKey="{/ProductCollection/0/ProductId}" items="{path: '/ProductCollection',sorter: { path: 'Name' }}"
-									class="IconTabSelectClass sapUiTinyMarginTop">
-									<core:Item key="{ProductId}" text="{Name}"/>
-								</Select>
-								<Input value="" class="fileUploadInputStyle"></Input>
-								<Button text="Browse" type="Accept" class="commitBtnClass"></Button>
-								<Button text="Upload" type="Accept" class="commitBtnClass"></Button>
-							</HBox>
-							<VBox class="VBox">
-								<Table>
-									<columns>
-										<Column>
-											<Label text="File Name" design="Bold"></Label>
-										</Column>
-										<Column>
-											<Label text="File Type" design="Bold"></Label>
-										</Column>
-										<Column>
-											<Label text="Uploaded By" design="Bold"></Label>
-										</Column>
-										<Column>
-											<Label text="Uploaded on" design="Bold"></Label>
-										</Column>
-										<Column>
-											<Label text="Notes" design="Bold"></Label>
-										</Column>
-										<Column></Column>
-									</columns>
-									<items>
-										<ColumnListItem>
-											<Text text="a"></Text>
-											<Text text="a"></Text>
-											<Text text="a"></Text>
-											<Text text="a"></Text>
-											<Text text="a"></Text>
-											<Button icon="sap-icon://delete" type="Reject"></Button>
-										</ColumnListItem>
-									</items>
-								</Table>
-							</VBox>
-						</IconTabFilter>
-					</items>
-				</IconTabBar>
-			</VBox>
-		</content>
-	</Page>
-</core:View>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+					</VBox>
+				</content>
+			</Page>
+		</core:View>
