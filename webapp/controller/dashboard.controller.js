@@ -82,7 +82,10 @@ sap.ui.define([
 			}
 			this._actionSheet.openBy(oButton);
 		},
-
+		
+		DropdownPAgeClick : function(){
+				this.oRouter.navTo("dropdownView");
+		},
 		/************* Sorting function ***********/
 		onSortActionSelected: function(oEvent) {
 			var oTable = this.getView().byId("idSkuDashboardTable");

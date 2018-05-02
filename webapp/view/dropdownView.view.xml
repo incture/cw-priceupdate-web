@@ -1,0 +1,25 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="freshDirectSKU.SKU.controller.dropdownView"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<content>
+					<Panel>
+						<Bar>
+							<contentLeft>
+								<Button type="Transparent" text="Create" press="onDropdownClick"/>
+								<Button type="Transparent" text="Modify" press="onDropdownClick"/>
+								<Button type="Transparent" text="Promote Phase" press=""/>
+							</contentLeft>
+							<contentRight>
+								<Button type="Transparent" text="Export" press=""/>
+								<Button type="Transparent" text="Templates" press="onDropdownClick"/>
+								<Button type="Transparent" text="Upload" press="onDropdownClick"/>
+							</contentRight>
+						</Bar>
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

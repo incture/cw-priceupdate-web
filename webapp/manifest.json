@@ -96,6 +96,12 @@
 				"target": [
 					"salesTaxMaintenance"
 				]
+			},{
+				"name": "dropdownView",
+				"pattern": "4",
+				"target": [
+					"dropdownView"
+				]
 			}],
 			"targets": {
 				"dashboard": {
@@ -116,6 +122,11 @@
 					"viewType": "XML",
 					"viewName": "salesTaxMaintenance",
 					"viewLevel": 3
+				},
+				"dropdownView" : {
+					"viewType" : "XML",
+					"viewName" : "dropdownView",
+					"viewLevel" : 4
 				}
 			}
 		}

@@ -710,3 +710,19 @@ html.sap-desktop .sapMSlt:not(.sapMSltExpanded):not(.sapMSltDisabled):not(.sapMS
 	font-weight : bold !important;
 	text-align : right !important;
 }
+
+
+/** dropdown page ***/
+.ddBtnStyle .sapMBtnTransparent{
+	color : green !important;
+}
+.ddBtnStyle.sapMBtn{
+	height : 1.5rem !important;
+}
+.ddBtnSyle .sapMBtnInner.sapMBtnText{
+	padding : 0 !important;
+}
+.ddBtnStyle .sapMBtnHoverable{
+	padding : 0 !important;
+}
+/** dropdown page ***/

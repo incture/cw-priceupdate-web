@@ -1,7 +1,7 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	'sap/ui/core/util/Export',
-	'sap/ui/core/util/ExportTypeCSV',
+	'sap/ui/core/util/ExportTypeCSV'
 	], function(Controller, Export, ExportTypeCSV) {
 	"use strict";
 
@@ -18,7 +18,7 @@ sap.ui.define([
 			var avalaraTaxModel = new sap.ui.model.json.JSONModel();
 			var that=this;
 			this.getView().setModel(avalaraTaxModel, "avalaraTaxModel");
-			avalaraTaxModel.attachRequestCompleted(function(oEvent) {
+			avalaraTaxModel.attachRequestCompleted(function(oEvent){
 			var totlaResults=avalaraTaxModel.getData().avalaraTax.length;
 			createNewTaxCodeModel.setProperty("/totlaResults",totlaResults);
 				that.buttonDisabled();

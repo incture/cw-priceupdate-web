@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover class="popOverStyle" placement="Bottom" showHeader="false" contentWidth="11rem">
+		<VBox class="boxClass">
+			<Input class="removeInputBorderStyle" placeholder="No. of SKUs" visible="{oDDVisibleModel>/createVisible}"></Input>
+			<Button text="Create New" visible="{oDDVisibleModel>/createVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Create by Reference" visible="{oDDVisibleModel>/createVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Ideation" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Basic Product Attributes" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Weights Dims" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Store Front Attribute" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Product Tags" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Product Sources" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Merchandising" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Binning" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Commercial Finance" visible="{oDDVisibleModel>/modifyVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="GDSN Data" visible="{oDDVisibleModel>/uploadVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Cost Sheet" visible="{oDDVisibleModel>/uploadVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Ordering Information" visible="{oDDVisibleModel>/uploadVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Product Image" visible="{oDDVisibleModel>/uploadVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Nutrition Image" visible="{oDDVisibleModel>/uploadVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Basic Weights Dims Template" visible="{oDDVisibleModel>/templateVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Cost Sheet Template" visible="{oDDVisibleModel>/templateVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Ordering Data Template" visible="{oDDVisibleModel>/templateVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Erpsy Nutriotion Data" visible="{oDDVisibleModel>/templateVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="CMS Data" visible="{oDDVisibleModel>/templateVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="BOM Data" visible="{oDDVisibleModel>/templateVisible}" type="Transparent" class="ddBtnStyle"></Button>
+			<Button text="Routing Data" visible="{oDDVisibleModel>/templateVisible}" type="Transparent" class="ddBtnStyle"></Button>
+		</VBox>
+	</Popover>
+</core:FragmentDefinition>
