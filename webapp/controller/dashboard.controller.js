@@ -64,7 +64,7 @@ sap.ui.define([
 		onRequestIdPress: function() {
 			this.oRouter.navTo("page3");
 		},
-		onAvalaraPress : function(){
+		onAvalaraPress: function() {
 			this.oRouter.navTo("salesTaxMaintenance");
 		},
 		/*********Clear filter ************/
@@ -82,9 +82,9 @@ sap.ui.define([
 			}
 			this._actionSheet.openBy(oButton);
 		},
-		
-		DropdownPAgeClick : function(){
-				this.oRouter.navTo("dropdownView");
+
+		DropdownPAgeClick: function() {
+			this.oRouter.navTo("dropdownView");
 		},
 		/************* Sorting function ***********/
 		onSortActionSelected: function(oEvent) {
@@ -390,7 +390,7 @@ sap.ui.define([
 				if (SKUModelData.tier3[i].key === selectedkey) {
 					temp2.push(SKUModelData.tier3[i].value);
 					SKUModel.setProperty("/tier3array", temp2);
-					console.log(temp2);
+					//console.log(temp2);
 					createSKUModel.setProperty("/tier3", "");
 					createSKUModel.setProperty("/tier4", "");
 				}
@@ -406,26 +406,42 @@ sap.ui.define([
 			for (var i = 0; i < SKUModelData.tier4.length; i++) {
 				if (SKUModelData.tier4[i].key === selectedkey3) {
 					temp3.push(SKUModelData.tier4[i].value);
-					console.log(temp3);
+					//.log(temp3);
 					SKUModel.setProperty("/tier4array", temp3);
 					createSKUModel.setProperty("/tier4", "");
 				}
 			}
+		},
+		onUploadPress: function(oEvent) {
+			if (!this._uploadDialog) {
+				this._uploadDialog = sap.ui.xmlfragment("freshDirectSKU.SKU.fragment.uploadView", this);
+				this.getView().addDependent(this._uploadDialog);
+			}
+			this._uploadDialog.open(oEvent.getSource());
+		},
+		onUploadCancel: function() {
+			this._uploadDialog.close();
+		},
+		onIdeationPress: function() {
+			this.oRouter.navTo("ideationTable");
 		},
 		onSubmit: function() {
 			var that = this;
 			var createSKUModel = this.getView().getModel(
 				"createSKUModel");
 			var SKUData = createSKUModel.getData();
-			if ((SKUData.packageSize != "" && SKUData.packageSize != undefined) && (SKUData.brand != "" && SKUData.brand != undefined) && (
-					SKUData.prodDesc != "" && SKUData.prodDesc != undefined) && (SKUData.indPackageSizeUOM != "" && SKUData.indPackageSizeUOM !=
-					undefined) && (SKUData.packageCount != " " && SKUData.indPackageSizeUOM != undefined) && (SKUData.upc != "" && SKUData.upc !=
-					undefined) && (SKUData.merchantProductName != "" && SKUData.merchantProductName != undefined) && (SKUData.stoarageTempZone != "" &&
-					SKUData.stoarageTempZone != undefined) && (SKUData.tier1 != "" && SKUData.tier1 != undefined) && (SKUData.tier2 != "" && SKUData.tier2 !=
-					undefined) && (SKUData.tier3 != "" && SKUData.tier3 != undefined) && (SKUData.tier4 != "" && SKUData.tier4 != undefined) && (
-					SKUData.categoryAttribute1 != " " && SKUData.categoryAttribute1 != undefined) && (SKUData.categoryAttribute2 != " " && SKUData.categoryAttribute2 !=
-					undefined) && (SKUData.categoryAttribute3 != " " && SKUData.categoryAttribute3 != undefined) && (SKUData.categoryAttribute4 !=
-					" " && SKUData.categoryAttribute4 != undefined) && (SKUData.packageCount != " " && SKUData.packageCount != undefined)) {
+			if ((SKUData.packageSize !== "" && SKUData.packageSize !== undefined) && (SKUData.brand !== "" && SKUData.brand !== undefined) && (
+					SKUData.prodDesc !== "" && SKUData.prodDesc !== undefined) && (SKUData.indPackageSizeUOM !== "" && SKUData.indPackageSizeUOM !==
+					undefined) && (SKUData.packageCount !== " " && SKUData.indPackageSizeUOM !== undefined) && (SKUData.upc !== "" && SKUData.upc !==
+					undefined) && (SKUData.merchantProductName !== "" && SKUData.merchantProductName !== undefined) && (SKUData.stoarageTempZone !==
+					"" &&
+					SKUData.stoarageTempZone !== undefined) && (SKUData.tier1 !== "" && SKUData.tier1 !== undefined) && (SKUData.tier2 !== "" &&
+					SKUData.tier2 !==
+					undefined) && (SKUData.tier3 !== "" && SKUData.tier3 !== undefined) && (SKUData.tier4 !== "" && SKUData.tier4 !== undefined) && (
+					SKUData.categoryAttribute1 !== " " && SKUData.categoryAttribute1 !== undefined) && (SKUData.categoryAttribute2 !== " " && SKUData
+					.categoryAttribute2 !==
+					undefined) && (SKUData.categoryAttribute3 !== " " && SKUData.categoryAttribute3 !== undefined) && (SKUData.categoryAttribute4 !==
+					" " && SKUData.categoryAttribute4 !== undefined) && (SKUData.packageCount !== " " && SKUData.packageCount !== undefined)) {
 				that.setCreateSKUModelProperty();
 				sap.m.MessageBox
 					.show(

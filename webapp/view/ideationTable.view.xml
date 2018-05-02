@@ -1,0 +1,148 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:Table="sap.ui.table"
+	controllerName="freshDirectSKU.SKU.controller.ideationTable" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<content>
+					<Table:Table class="sapUiSizeCompact" enableColumnReordering="false" visibleRowCount="5" showColumnVisibilityMenu="true"
+						enableSelectAll="false" rows="{oModel>/}" minAutoRowCount="8" selectionMode="MultiToggle" id="Table">
+						<Table:columns>
+							<Table:Column width="6rem" hAlign="Center" filterProperty="name" sortProperty="name">
+								<Label text="Material Type" design="Bold" tooltip="Request ID"/>
+								<Table:template>
+									<Text text="{oModel>materialType}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5.5rem" hAlign="Center">
+								<Label text="UPC" design="Bold" tooltip="UPC"/>
+								<Table:template>
+									<Text text="{oModel>upc}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Brand" design="Bold" tooltip="Brand"/>
+								<Table:template>
+									<Text text="{oModel>brand}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="8rem" hAlign="Center">
+								<Label text="Description" design="Bold" tooltip="Description"/>
+								<Table:template>
+									<Text text="{oModel>desc}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Package Count" design="Bold" tooltip="BUOM"/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Package Type" design="Bold" tooltip="{i18n>}"/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Individual Package Size" design="Bold" tooltip="{i18n>}"/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Individual Package Size UOM" design="Bold" tooltip="{i18n>STORAGE_TEMP_MAX}"/>
+								<Table:template>
+									<Text text="{oModel>basicAttributes/tempMax}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="SAP Product Desc" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Purchasing Group" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Storage Temp Zone" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="{i18n>VENDOR_ATTRIBUTES_1}" design="Bold" tooltip="{i18n>VENDOR_ATTRIBUTES_1}"/>
+								<Table:template>
+									<Text text="{oModel>attribute1}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Target Activation ASAP" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Target Activation Date" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center" visible="false">
+								<Label text="Tier 1" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Tier 2" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Tier 3" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Tier 4" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center" visible="false">
+								<Label text="Attribute 1" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center" visible="false">
+								<Label text="Attribute 2" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Attribute 3" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+							<Table:Column width="5rem" hAlign="Center">
+								<Label text="Attribute 4" design="Bold" tooltip=""/>
+								<Table:template>
+									<Text text="{oModel>}"/>
+								</Table:template>
+							</Table:Column>
+						</Table:columns>
+					</Table:Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -102,6 +102,12 @@
 				"target": [
 					"dropdownView"
 				]
+			},{
+				"name": "ideationTable",
+				"pattern": "5",
+				"target": [
+					"ideationTable"
+				]
 			}],
 			"targets": {
 				"dashboard": {
@@ -127,6 +133,11 @@
 					"viewType" : "XML",
 					"viewName" : "dropdownView",
 					"viewLevel" : 4
+				},
+				"ideationTable" : {
+					"viewType" : "XML",
+					"viewName" : "ideationTable",
+					"viewLevel" : 5
 				}
 			}
 		}

@@ -3,6 +3,8 @@
 	<Page title="SKU" class="sapUiSizeCompact">
 		<content>
 			<Button text= "DropdownPAge" press="DropdownPAgeClick"></Button>
+			<Button text="upload" press="onUploadPress"></Button>
+			<Button text="Ideation" press="onIdeationPress"></Button>
 			<VBox class="dashboardHeaderPanelClass">
 				<Panel expandable="true" headerText="{i18n>MERCHANT_DETAILS}" class="dashboardPanelHdng" width="97.4%">
 					<content>

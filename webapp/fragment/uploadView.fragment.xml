@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Upload" class="sapUiSizeCompact headerStyle">
+		<content>
+			<VBox class="uploadVBoxClass">
+				<HBox>
+					<Label text="File Type:" design="Bold"></Label>
+					<Select forceSelection="false" change="b" class="selectBrandFragClass sapUiTinyMarginTop" items="{}" selectedKey="{}">
+						<core:Item key="{}" text="{}"/>
+					</Select>
+				</HBox>
+				<HBox>
+					<TextArea rows="2" cols="35" class="uploadDialogTextareaStyle"></TextArea>	
+					<Button text="Browse" type="Accept" class="uploadDialogBrowseBtnStyle"></Button>
+				</HBox>
+				<TextArea maxLength="500" rows="3" cols="35" placeholder="Enter note" class="uploadDialogTextareaStyle"></TextArea>
+				<HBox justifyContent="End">
+					<Button text="Cancel" type="Reject" press="onUploadCancel"></Button>
+					<Button text="Upload" type="Accept" class="uploadDialogBtnStyle"></Button>
+				</HBox>
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>
