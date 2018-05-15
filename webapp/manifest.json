@@ -62,6 +62,18 @@
 			
 			"paginationModel":{
 			"type": "sap.ui.model.json.JSONModel"
+			},
+			"oIdeationModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oIdeationDropdownModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oIdeationVisiblityModel": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"oIdeationServiceModel": {
+				"type": "sap.ui.model.json.JSONModel"
 			}
 		},
 		"resources": {

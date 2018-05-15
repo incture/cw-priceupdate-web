@@ -113,134 +113,237 @@
 				<IconTabBar select="handleIconTabBarSelect" class="iconTabfilter iconTabWidth">
 					<items>
 						<IconTabFilter text="Ideation" key="Ideation">
-							<l:Grid defaultSpan="L3 M6 S12" class="gridClass">
+							<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
 								<l:content>
-									<Label design="Bold" text="{i18n>MATERIAL_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="a" class="selectFragClass sapUiTinyMarginTop" items="{oDropdownModel>/materialType}">
-										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>mT}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>UPC}" class="labelBold sapUiSmallMarginTop"></Label>
-									<HBox>
-										<CheckBox selected="false" select="UPCCheckboxSelected" class="UPCIcon"></CheckBox>
-										<Input maxLength="20" class="sapUiTinyMarginTop" value="{oIdeationModel>/upc}" change="UPCvalid"></Input>
-										<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="UPCValidationIcon"
-											visible="{oVisiblityModel>/UPCInvalidVisiblity}"/>
-										<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="UPCValidationIcon" visible="{oVisiblityModel>/UPCValidVisiblity}"/>
-									</HBox>
-									<Label design="Bold" text="{i18n>BRAND}" class="labelBold sapUiSmallMarginTop"></Label>
-									<HBox>
-										<Select forceSelection="false" change="b" class="selectBrandFragClass sapUiTinyMarginTop" items="{oDropdownModel>/brand}"
-											selectedKey="{oIdeationModel>/brand}">
-											<core:Item key="{oDropdownModel>b}" text="{oDropdownModel>b}"/>
-										</Select>
-										<Image src="images/add_icon.png" width="1rem" tooltip="Add Brand" class="addBrand" press="onAddBrand"/>
-									</HBox>
-									<Label design="Bold" text="{i18n>DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/prodDesc}"></Input>
-									<Label design="Bold" text="{i18n>PACKAGE_TYPE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" items="{oDropdownModel>/packageType}">
-										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>pt}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>PACKAGE_COUNT}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/packageCount}"></Input>
-									<Label design="Bold" text="{i18n>INDIVIDUAL_PACKAGE_SIZE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/indPackageSize}"></Input>
-									<Label design="Bold" text="{i18n>INDIVIDUAL_PACKAGE_SIZE_UOM}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop comboBoxBorder" items="{oDropdownModel>/IndPackUOM}"
-										selectedKey="{oIdeationModel>/indPackageSizeUOM}">
-										<core:Item key="{oDropdownModel>ip}" text="{oDropdownModel>ip}"/>
-									</Select>
+									<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
+										<l:content>
+											<Label design="Bold" text="{i18n>MATERIAL_TYPE}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" items="{oIdeationDropdownModel>/materialType}"
+												selectedKey="{oIdeationModel>/materialType}">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>mT}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>BRAND}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<HBox>
+												<Select forceSelection="false" class="selectBrandFragClass sapUiTinyMarginTop" items="{oIdeationDropdownModel>/brand}"
+													selectedKey="{oIdeationModel>/brand}">
+													<core:Item key="{oIdeationDropdownModel>b}" text="{oIdeationDropdownModel>b}"/>
+												</Select>
+												<Image src="images/add_icon.png" width="1rem" tooltip="Add Brand" class="addBrand" press="openAddBrandPopup"/>
+											</HBox>
+											<Label design="Bold" text="{i18n>PACKAGE_TYPE}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" items="{oIdeationDropdownModel>/packageType}"
+												selectedKey="{oIdeationModel>/packageType}">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>pt}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>INDIVIDUAL_PACKAGE_SIZE}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/individualPackageSize}"></Input>
+										</l:content>
+									</l:Grid>
+									<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
+										<l:content>
+											<Label design="Bold" text="{i18n>UPC}" class="sapUiSmallMarginTop ideationLabelClass">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<HBox>
+												<CheckBox selected="false" select="UPCCheckboxSelected" class="UPCIcon"></CheckBox>
+												<Input maxLength="20" class="sapUiTinyMarginTop" width="120%" value="{oIdeationModel>/upc}" change="checkUPCValidity"></Input>
+												<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="UPCValidationIcon"
+													visible="{oIdeationVisiblityModel>/UPCInvalidVisiblity}"/>
+												<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="UPCValidationIcon"
+													visible="{oIdeationVisiblityModel>/UPCValidVisiblity}"/>
+											</HBox>
+											<Label design="Bold" text="{i18n>DESCRIPTION}" class="sapUiSmallMarginTop ideationLabelClass">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/description}"></Input>
+											<Label design="Bold" text="{i18n>PACKAGE_COUNT}" class="sapUiSmallMarginTop ideationLabelClass">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Input class="sapUiTinyMarginTop" value="{oIdeationModel>/packageCount}"></Input>
+											<Label design="Bold" text="{i18n>INDIVIDUAL_PACKAGE_SIZE_UOM}" class="sapUiSmallMarginTop ideationLabelClass">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" items="{oIdeationDropdownModel>/IndPackUOM}"
+												selectedKey="{oIdeationModel>/individualPackageSizeUom}">
+												<core:Item key="{oIdeationDropdownModel>ip}" text="{oIdeationDropdownModel>ip}"/>
+											</Select>
+										</l:content>
+									</l:Grid>
+								</l:content>
+							</l:Grid>
+							<l:Grid class="gridClass ideationGridClass">
+								<l:content>
 									<VBox>
-										<Label design="Bold" text="{i18n>SAP_PRODUCT_DESCRIPTION}" class="labelBold sapUiSmallMarginTop"></Label>
+										<Label design="Bold" text="{i18n>SAP_PRODUCT_DESCRIPTION}" class="sapUiSmallMarginTop"></Label>
 										<Label design="Bold" text="{i18n>SAP_PRODUCT_DESCRIPTION_TOOLTIP}" class="tooltip"></Label>
 										<layoutData>
-											<l:GridData linebreak="true"/>
+											<l:GridData span="XL2 L2 M2 S2"/>
 										</layoutData>
 									</VBox>
 									<HBox>
-										<TextArea class="createSKUtextArea sapUiTinyMarginTop"
-											value="{parts:['oIdeationModel>/indPackageSize','oIdeationModel>/brand','oIdeationModel>/prodDesc','oIdeationModel>/indPackageSizeUOM','oIdeationModel>/packageCount'],formatter:'.sapProdDescfun'}"
-											enabled="{oVisiblityModel>/sapProdDescEditEnabled}"></TextArea>
-										<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="validationIcon"
-											visible="{oVisiblityModel>/sapProdDescInvalidVisiblity}"/>
-										<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="validationIcon"
-											visible="{oVisiblityModel>/sapProdDescValidVisiblity}"/>
-										<core:Icon src="sap-icon://edit" class="createSKUFragEdit" press="sapProdDescEdit"/>
-									</HBox>
-									<Label design="Bold" text="{i18n>PURCHASING_GROUP}" class="labelBold sapUiSmallMarginTop">
+										<TextArea class="createSKUtextArea sapUiTinyMarginTop" maxLength="40"
+											value="{parts:['oIdeationModel>/individualPackageSizeUom','oIdeationModel>/brand','oIdeationModel>/description','oIdeationModel>/individualPackageSize','oIdeationModel>/packageCount'],formatter:'formatter.formatSAPProdDesc'}"
+											enabled="{oIdeationVisiblityModel>/sapProdDescEditEnabled}" liveChange="onSAPProdDescEdit"></TextArea>
 										<layoutData>
-											<l:GridData linebreak="true"/>
+											<l:GridData span="XL6 L6 M6 S6"/>
 										</layoutData>
-									</Label>
-									<Select forceSelection="false" change="c" class=" selectFragClass sapUiTinyMarginTop" items="{oDropdownModel>/packageGroup}">
-										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>pg}"/>
-									</Select>
-									<Label design="Bold" text="{i18n>STORAGE_TEMP_ZONE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<Select forceSelection="false" change="d" class="selectFragClass sapUiTinyMarginTop" items="{oDropdownModel>/storageTemp}">
-										<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>st}"/>
-									</Select>
-									<VBox>
-										<Label design="Bold" text="{i18n>TARGET_ACTIVATION}" class="labelBold"></Label>
-										<Label design="Bold" text="{i18n>TARGET_ACTIVATION_TOOLTIP}" class="tooltip"></Label>
-									</VBox>
-									<CheckBox selected="false" select="tarActASAPfn" class="sapUiTinyMarginTop"></CheckBox>
-									<Label design="Bold" text="{i18n>TARGET_ACTIVATION_DATE}" class="labelBold sapUiSmallMarginTop"></Label>
-									<DatePicker enabled="{oVisiblityModel>/tarActDateEnabled}" value="{oIdeationModel>/tarActDate}" change="onTargetActivationDateChange"
-										displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" class="sapUiTinyMarginTop" placeholder="MM/DD/YYYY"></DatePicker>
+									</HBox>
+									<HBox>
+										<core:Icon src="sap-icon://edit" class="createSKUFragEdit" press="onSAPProdDescEdit"></core:Icon>
+										<!--<Image src="images/invalid_icon.png" width="1rem" tooltip="Invalid" class="validationIcon"
+									visible="{oIdeationVisiblityModel>/sapProdDescInvalidVisiblity}"/>
+								<Image src="images/valid_icon.png" width="1rem" tooltip="valid" class="validationIcon"
+									visible="{oIdeationVisiblityModel>/sapProdDescValidVisiblity}"/>
+									-->
+									</HBox>
 								</l:content>
 							</l:Grid>
 							<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
 								<l:content>
 									<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
 										<l:content>
-											<Label design="Bold" text="{i18n>TIER1}" width="100%" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="onTier1Selection" width="100%" items="{oDropdownModel>/tier1}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t1}"/>
+											<Label design="Bold" text="{i18n>PURCHASING_GROUP}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" items="{oIdeationDropdownModel>/packageGroup}"
+												selectedKey="{oIdeationModel>/purchaseGroup}">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>pg}"/>
 											</Select>
-											<Label design="Bold" text="{i18n>TIER2}" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="onTier2Selection" width="100%" items="{oDropdownModel>/tier2array/0}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											<VBox>
+												<Label design="Bold" text="{i18n>TARGET_ACTIVATION}" class="labelBold"></Label>
+												<Label design="Bold" text="{i18n>TARGET_ACTIVATION_TOOLTIP}" class="tooltip wordWrapClass"></Label>
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</VBox>
+											<CheckBox select="onTarActASAP" class="sapUiTinyMarginTop" selected="{oIdeationModel>/targetActivation}"></CheckBox>
+											<Label design="Bold" text="{i18n>TIER1}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" change="onTier1Selection" items="{oIdeationDropdownModel>/tier1}" selectedKey="{oIdeationModel>/tier1}"
+												class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>t1}"/>
 											</Select>
-											<Label design="Bold" text="{i18n>TIER3}" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="onTier3Selection" width="100%" items="{oDropdownModel>/tier3array/0}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t3}"/>
+											<Label design="Bold" text="{i18n>TIER2}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" change="onTier2Selection" items="{oIdeationDropdownModel>/tier2array/0}"
+												selectedKey="{oIdeationModel>/tier2}" class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>t2}"/>
 											</Select>
-											<Label design="Bold" text="{i18n>TIER4}" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="e" width="100%" items="{oDropdownModel>/tier4array/0}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t4}"/>
+											<Label design="Bold" text="{i18n>TIER3}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" change="onTier3Selection" items="{oIdeationDropdownModel>/tier3array/0}"
+												selectedKey="{oIdeationModel>/tier3}" class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>t3}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>TIER4}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" items="{oIdeationDropdownModel>/tier4array/0}" selectedKey="{oIdeationModel>/tier4}"
+												class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>t4}"/>
 											</Select>
 										</l:content>
 									</l:Grid>
 									<l:Grid defaultSpan="L6 M6 S12" class="gridClass">
 										<l:content>
-											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE1}" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="f" width="100%" items="{oDropdownModel>/tier2array/0}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											<Label design="Bold" text="{i18n>STORAGE_TEMP_ZONE}" class="sapUiSmallMarginTop ideationLabelClass">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" class="selectFragClass sapUiTinyMarginTop" items="{oIdeationDropdownModel>/storageTemp}"
+												selectedKey="{oIdeationModel>/storeTemperatureZone}">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>st}"/>
 											</Select>
-											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE2}" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="g" width="100%" items="{oDropdownModel>/tier2array/0}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											<Label design="Bold" text="{i18n>TARGET_ACTIVATION_DATE}" class="sapUiSmallMarginTop ideationLabelClass">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<DatePicker enabled="{oIdeationVisiblityModel>/tarActDateEnabled}" value="{oIdeationModel>/targetActivationDate}"
+												change="onTargetActivationDateChange" displayFormat="MM/dd/yyyy" valueFormat="MM/dd/yyyy" class="sapUiTinyMarginTop"
+												placeholder="MM/DD/YYYY"></DatePicker>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE1}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" change="onAttribute1Selection" items="{oIdeationDropdownModel>/attribute}"
+												selectedKey="{oIdeationModel>/attribute1}" class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>a}"/>
 											</Select>
-											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE3}" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="h" width="100%" items="{oDropdownModel>/tier2array/0}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t3}"/>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE2}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" change="onAttribute2Selection" items="{oIdeationDropdownModel>/attribute}"
+												selectedKey="{oIdeationModel>/attribute2}" class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>a}"/>
 											</Select>
-											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE4}" class="labelBold sapUiSmallMarginTop"></Label>
-											<Select forceSelection="false" change="i" width="100%" items="{oDropdownModel>/tier2array/0}"
-												class="selectFragClass sapUiTinyMarginTop comboBoxBorder">
-												<core:Item key="{oDropdownModel>key}" text="{oDropdownModel>t2}"/>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE3}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" change="onAttribute3Selection" items="{oIdeationDropdownModel>/attribute}"
+												selectedKey="{oIdeationModel>/attribute3}" class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>a}"/>
+											</Select>
+											<Label design="Bold" text="{i18n>CATEGORY_ATTRIBUTE4}" class="sapUiSmallMarginTop">
+												<layoutData>
+													<l:GridData span="XL4 L4 M6 S6"/>
+												</layoutData>
+											</Label>
+											<Select forceSelection="false" items="{oIdeationDropdownModel>/attribute}" selectedKey="{oIdeationModel>/attribute4}"
+												class="selectFragClass sapUiTinyMarginTop">
+												<core:Item key="{oIdeationDropdownModel>key}" text="{oIdeationDropdownModel>a}"/>
 											</Select>
 										</l:content>
 									</l:Grid>
 								</l:content>
 							</l:Grid>
+							<HBox justifyContent="End">
+								<Button text="Cancel" type="Reject" class="commitBtnClass"/>
+								<Button text="Save" type="Accept" press="onSubmit" class="commitBtnClass"/>
+							</HBox>
 						</IconTabFilter>
 						<IconTabFilter text="{i18n>BASIC_PRODUCT_ATTRIBUTE}" key="Basic Product Attributes">
 							<Panel expandable="true" headerText="{i18n>PRODUCT_ATTRIBUTES}" class="iconPanelHdng" width="99.4%">
@@ -552,78 +655,78 @@
 							<Panel expandable="true" headerText="Sales Forecast" class="iconPanelHdng" width="99.4%">
 								<content>
 									<HBox>
-									<VBox class="saleProductVBoxClass">
-										<layout:Grid defaultSpan="L6 M6 S12" width="100%" class="IconTabInputClass">
-											<layout:content>
-												<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:" design="Bold"/>
-												<HBox>
-													<Input/>
-													<Image src="images/suggestion_icon.png" width="1rem" press="onShowSuggestion"/>
-												</HBox>
-												<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:" design="Bold"/>
-												<Input></Input>
-												<Label text="Replacement SKU" design="Bold"></Label>
-												<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
-											</layout:content>
-										</layout:Grid>
-										<VBox class="iconTabTableClass">
-											<Toolbar>
-												<content>
-													<Text text="Forecast in BUOM"/>
-												</content>
-											</Toolbar>
-											<Table>
-												<columns>
-													<Column>
-														<Text text="{i18n>WEEK1}"/>
-													</Column>
-													<Column>
-														<Text text="{i18n>WEEK2}"/>
-													</Column>
-													<Column>
-														<Text text="{i18n>WEEK3}"/>
-													</Column>
-													<Column>
-														<Text text="{i18n>WEEK4}"/>
-													</Column>
-													<Column>
-														<Text text="{i18n>WEEK5}"/>
-													</Column>
-													<Column>
-														<Text text="{i18n>WEEK6}"/>
-													</Column>
-												</columns>
-												<items>
-													<ColumnListItem>
-														<Text text="1"/>
-														<Text text="2"/>
-														<Text text="3"/>
-														<Text text="4"/>
-														<Text text="5"/>
-														<Text text="6"/>
-													</ColumnListItem>
-												</items>
-											</Table>
+										<VBox class="saleProductVBoxClass">
+											<layout:Grid defaultSpan="L6 M6 S12" width="100%" class="IconTabInputClass">
+												<layout:content>
+													<Label text="{i18n>REFERENCE_MATERIAL_NO_OF_FORECASTING}:" design="Bold"/>
+													<HBox>
+														<Input/>
+														<Image src="images/suggestion_icon.png" width="1rem" press="onShowSuggestion"/>
+													</HBox>
+													<Label text="{i18n>REFERENCE_MATERIAL_NO_DESC_FORECASTING}:" design="Bold"/>
+													<Input></Input>
+													<Label text="Replacement SKU" design="Bold"></Label>
+													<Switch state="true" customTextOn="Yes" customTextOff="No" class="basicSwitchBtnClass"></Switch>
+												</layout:content>
+											</layout:Grid>
+											<VBox class="iconTabTableClass">
+												<Toolbar>
+													<content>
+														<Text text="Forecast in BUOM"/>
+													</content>
+												</Toolbar>
+												<Table>
+													<columns>
+														<Column>
+															<Text text="{i18n>WEEK1}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK2}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK3}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK4}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK5}"/>
+														</Column>
+														<Column>
+															<Text text="{i18n>WEEK6}"/>
+														</Column>
+													</columns>
+													<items>
+														<ColumnListItem>
+															<Text text="1"/>
+															<Text text="2"/>
+															<Text text="3"/>
+															<Text text="4"/>
+															<Text text="5"/>
+															<Text text="6"/>
+														</ColumnListItem>
+													</items>
+												</Table>
+											</VBox>
 										</VBox>
-									</VBox>
-									<VBox class="saleProductVBoxClass">
-										<layout:Grid defaultSpan="L6 M6 S12" width="100%" class="IconTabInputClass">
-											<layout:content>
-												<Label text="Reference Average actual Weekly unit volume:" design="Bold"/>
-												<Input></Input>
-												<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:" design="Bold"/>
-												<Input></Input>
-												<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>FIRST_PO_QUANTITY}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:" design="Bold"/>
-												<Input/>
-												<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:" design="Bold"/>
-												<Input/>
-											</layout:content>
-										</layout:Grid>
-									</VBox>
+										<VBox class="saleProductVBoxClass">
+											<layout:Grid defaultSpan="L6 M6 S12" width="100%" class="IconTabInputClass">
+												<layout:content>
+													<Label text="Reference Average actual Weekly unit volume:" design="Bold"/>
+													<Input></Input>
+													<Label text="{i18n>PERCENATGE_REF_SKU_DEMAND}:" design="Bold"/>
+													<Input></Input>
+													<Label text="{i18n>AVRG_WEEKLY_UNIT_DEMAND}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>FIRST_PO_QUANTITY}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>INCREMENTALITY_CLASSIFICATION}:" design="Bold"/>
+													<Input/>
+													<Label text="{i18n>INCREMENTALITY_PERCENTAGE}:" design="Bold"/>
+													<Input/>
+												</layout:content>
+											</layout:Grid>
+										</VBox>
 									</HBox>
 								</content>
 							</Panel>
